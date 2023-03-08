@@ -1,0 +1,38 @@
+Package: wpgsd
+Title: Weighted Parametric Group Sequential Design
+Version: 0.1.0
+Authors@R: c(
+    person("Keaven", "Anderson", email = "keaven_anderson@merck.com", role = "aut"),
+    person("Zifang", "Guo", email = "zifang.guo@merck.com", role = "aut"),
+    person("Jing", "Zhao", email = "jing_zhaox@merck.com", role = "aut"),
+    person("Linda", "Sun", email = "linda_sun@merck.com", role = "aut"),
+    person("Yi", "Cui", email = "yi.cui@merck.com", role = "aut"),
+    person("Yujie", "Zhao", email = "yujie.zhao@merck.com", role = c("aut", "cre")),
+    person("Larry", "Leon", email = "larry.leon2@merck.com", role = "aut"),
+    person("Merck Sharp & Dohme Corp", role = c("cph"))
+    )
+Description: Adjusted inference for weighted parametric group sequential.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Imports:
+    dplyr,
+    gMCPLite,
+    gsDesign,
+    mvtnorm,
+    stats,
+    tibble
+Suggests: 
+    devtools,
+    haven,
+    kableExtra,
+    knitr,
+    reshape2,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    tidyr
+Depends: 
+    R (>= 3.6)
+Config/testthat/edition: 3
