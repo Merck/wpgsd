@@ -3,3 +3,6 @@
 ^docs$
 ^LICENSE$
 ^LICENSES_THIRD_PARTY$
+^_pkgdown\.yml$
+^pkgdown$
+^\.github$

@@ -36,3 +36,4 @@ Suggests:
 Depends: 
     R (>= 3.6)
 Config/testthat/edition: 3
+URL: https://merck.github.io/wpgsd/
