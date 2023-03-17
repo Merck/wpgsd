@@ -569,9 +569,9 @@ Event
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                        <span class="at">project =</span> <span class="st">"mk3475-tnbc"</span>,</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                        <span class="at">deliverables =</span> <span class="fu">c</span>(<span class="st">"prot355-ia01-eff"</span>, </span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                                         <span class="st">"prot355-ia02-eff"</span>))</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">generate_path</span>(<span class="at">env =</span> <span class="st">"prod"</span>, <span class="at">project =</span> <span class="st">"mk3475-tnbc"</span>, <span class="at">deliverables =</span> <span class="fu">c</span>(<span class="st">"prot355-ia01-eff"</span>, <span class="sc">:</span> could not find <span class="cf">function</span> <span class="st">"generate_path"</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> paths</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">eval</span>(expr, envir, enclos)<span class="sc">:</span> object <span class="st">'paths'</span> not found</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> paths</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"/opt/bardsar/prod/mk3475-tnbc/prot355-ia01-eff/dataanalysis"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>] <span class="st">"/opt/bardsar/prod/mk3475-tnbc/prot355-ia02-eff/dataanalysis"</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># Alternatively one can manually enter paths for analysis datasets, below example uses dummy data assuming currently we are at IA1</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> paths <span class="ot">&lt;-</span> <span class="st">"../inst/extdata"</span></span>
@@ -587,24 +587,230 @@ Event
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> event_cpi <span class="ot">&lt;-</span> <span class="fu">generate_event_table</span>(paths, h_select, </span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                                   <span class="at">adsl_name =</span> <span class="st">"adsl"</span>, <span class="at">adtte_name =</span> <span class="st">"adtte"</span>, </span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                                   <span class="at">key_var =</span> <span class="st">"USUBJID"</span>, <span class="at">cnsr_var =</span> <span class="st">"CNSR"</span>)<span class="sc">$</span>event</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">generate_event_table</span>(paths, h_select, <span class="at">adsl_name =</span> <span class="st">"adsl"</span>, <span class="at">adtte_name =</span> <span class="st">"adtte"</span>, <span class="sc">:</span> could not find <span class="cf">function</span> <span class="st">"generate_event_table"</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> event_cpi <span class="sc">%&gt;%</span> </span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Event Count - Compute from SAS Datasets Example"</span>, <span class="at">align =</span> <span class="st">"l"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) </span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">x =</span> x, <span class="at">format =</span> format, <span class="at">digits =</span> digits, <span class="at">row.names =</span> row.names, <span class="sc">:</span> object <span class="st">'event_cpi'</span> not found</span></code></pre></div>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> event_cpi <span class="sc">%&gt;%</span> </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Event Count - Compute from SAS Datasets Example"</span>, <span class="at">align =</span> <span class="st">"l"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) </span></code></pre></div>
+<table class="table  lightable-classic-2" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<caption>
+Event Count - Compute from SAS Datasets Example
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+H1
+</th>
+<th style="text-align:left;">
+H2
+</th>
+<th style="text-align:left;">
+Analysis
+</th>
+<th style="text-align:left;">
+Event
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+66
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+45
+</td>
+</tr>
+</tbody>
+</table>
 <p>Then we compute correlation matrix using the event count table and
 generate_corr(). We see that the correlations not accounted for by the
 Bonferroni approach are substantial and, thus, might expect a
 non-trivial impact on bounds for hypothesis tests.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## generate correlation from events</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> corr <span class="ot">&lt;-</span> <span class="fu">generate_corr</span>(event)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">generate_corr</span>(event)<span class="sc">:</span> could not find <span class="cf">function</span> <span class="st">"generate_corr"</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> corr <span class="sc">%&gt;%</span> </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption=</span><span class="st">"Correlation Matrix"</span>, <span class="at">align =</span> <span class="st">"l"</span>, <span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) </span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">x =</span> x, <span class="at">format =</span> format, <span class="at">digits =</span> digits, <span class="at">row.names =</span> row.names, <span class="sc">:</span> object <span class="st">'corr'</span> not found</span></code></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> corr <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption=</span><span class="st">"Correlation Matrix"</span>, <span class="at">align =</span> <span class="st">"l"</span>, <span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) </span></code></pre></div>
+<table class="table  lightable-classic-2" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<caption>
+Correlation Matrix
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+H1_A1
+</th>
+<th style="text-align:left;">
+H2_A1
+</th>
+<th style="text-align:left;">
+H3_A1
+</th>
+<th style="text-align:left;">
+H1_A2
+</th>
+<th style="text-align:left;">
+H2_A2
+</th>
+<th style="text-align:left;">
+H3_A2
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+0.76
+</td>
+<td style="text-align:left;">
+0.67
+</td>
+<td style="text-align:left;">
+0.71
+</td>
+<td style="text-align:left;">
+0.54
+</td>
+<td style="text-align:left;">
+0.47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.76
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+0.70
+</td>
+<td style="text-align:left;">
+0.54
+</td>
+<td style="text-align:left;">
+0.71
+</td>
+<td style="text-align:left;">
+0.49
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.67
+</td>
+<td style="text-align:left;">
+0.70
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+0.47
+</td>
+<td style="text-align:left;">
+0.49
+</td>
+<td style="text-align:left;">
+0.71
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.71
+</td>
+<td style="text-align:left;">
+0.54
+</td>
+<td style="text-align:left;">
+0.47
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+0.76
+</td>
+<td style="text-align:left;">
+0.67
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.54
+</td>
+<td style="text-align:left;">
+0.71
+</td>
+<td style="text-align:left;">
+0.49
+</td>
+<td style="text-align:left;">
+0.76
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+0.70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.47
+</td>
+<td style="text-align:left;">
+0.49
+</td>
+<td style="text-align:left;">
+0.71
+</td>
+<td style="text-align:left;">
+0.67
+</td>
+<td style="text-align:left;">
+0.70
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+</tr>
+</tbody>
+</table>
 <p>Bonferroni and WPGSD bounds can then be computed via
 generate_bounds(). In this example, we useHSD(-4) as <span class="math inline">\(\alpha\)</span>-spending for all hypotheses. Of
 note, generate_bounds() input type specifies boundary type.</p>
@@ -624,12 +830,272 @@ manuscript.</li>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                               <span class="at">sf =</span> <span class="fu">list</span>(sfHSD, sfHSD, sfHSD), </span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                               <span class="at">sfparm =</span> <span class="fu">list</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="dv">4</span>), </span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                               <span class="at">t =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>)))</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">generate_bounds</span>(<span class="at">type =</span> <span class="dv">0</span>, <span class="at">k =</span> <span class="dv">2</span>, <span class="at">w =</span> w, <span class="at">m =</span> m, <span class="at">corr =</span> corr, <span class="at">alpha =</span> <span class="fl">0.025</span>, <span class="sc">:</span> could not find <span class="cf">function</span> <span class="st">"generate_bounds"</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> bound_Bonf <span class="sc">%&gt;%</span> </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Bonferroni bounds"</span>, <span class="at">align =</span> <span class="st">"l"</span>, <span class="at">digits =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) </span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">x =</span> x, <span class="at">format =</span> format, <span class="at">digits =</span> digits, <span class="at">row.names =</span> row.names, <span class="sc">:</span> object <span class="st">'bound_Bonf'</span> not found</span></code></pre></div>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> bound_Bonf <span class="sc">%&gt;%</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Bonferroni bounds"</span>, <span class="at">align =</span> <span class="st">"l"</span>, <span class="at">digits =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) </span></code></pre></div>
+<table class="table  lightable-classic-2" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<caption>
+Bonferroni bounds
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+Analysis
+</th>
+<th style="text-align:left;">
+Hypotheses
+</th>
+<th style="text-align:left;">
+H1
+</th>
+<th style="text-align:left;">
+H2
+</th>
+<th style="text-align:left;">
+H3
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1
+</td>
+<td style="text-align:left;">
+0.0030
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1, H2
+</td>
+<td style="text-align:left;">
+0.0015
+</td>
+<td style="text-align:left;">
+0.0015
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1, H2, H3
+</td>
+<td style="text-align:left;">
+0.0009
+</td>
+<td style="text-align:left;">
+0.0009
+</td>
+<td style="text-align:left;">
+0.0012
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1, H3
+</td>
+<td style="text-align:left;">
+0.0013
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0016
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0030
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2, H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0013
+</td>
+<td style="text-align:left;">
+0.0016
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0030
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1
+</td>
+<td style="text-align:left;">
+0.0238
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1, H2
+</td>
+<td style="text-align:left;">
+0.0118
+</td>
+<td style="text-align:left;">
+0.0118
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1, H2, H3
+</td>
+<td style="text-align:left;">
+0.0070
+</td>
+<td style="text-align:left;">
+0.0070
+</td>
+<td style="text-align:left;">
+0.0094
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1, H3
+</td>
+<td style="text-align:left;">
+0.0106
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0130
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H2
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0238
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H2, H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0106
+</td>
+<td style="text-align:left;">
+0.0130
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0238
+</td>
+</tr>
+</tbody>
+</table>
 <p>Compute WPGSD Bounds using <span class="math inline">\(\alpha\)</span>-spending approach 1 with HSD(-4)
 spending. Here spending time was defined as minimum of the 3 observed
 information fractions.</p>
@@ -640,36 +1106,732 @@ information fractions.</p>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                                <span class="at">sf =</span> sfHSD, </span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                                <span class="at">sfparm =</span> <span class="sc">-</span><span class="dv">4</span>, </span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                                <span class="at">t =</span> <span class="fu">c</span>(<span class="fu">min</span>(<span class="dv">100</span><span class="sc">/</span><span class="dv">200</span>, <span class="dv">110</span><span class="sc">/</span><span class="dv">220</span>, <span class="dv">225</span><span class="sc">/</span><span class="dv">450</span>), <span class="dv">1</span>))</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">generate_bounds</span>(<span class="at">type =</span> <span class="dv">2</span>, <span class="at">k =</span> <span class="dv">2</span>, <span class="at">w =</span> w, <span class="at">m =</span> m, <span class="at">corr =</span> corr, <span class="at">alpha =</span> <span class="fl">0.025</span>, <span class="sc">:</span> could not find <span class="cf">function</span> <span class="st">"generate_bounds"</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> bound_WPGSD <span class="sc">%&gt;%</span> </span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"WPGSD  bounds"</span>, <span class="at">align =</span> <span class="st">"l"</span>, <span class="at">digits =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F)  </span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">x =</span> x, <span class="at">format =</span> format, <span class="at">digits =</span> digits, <span class="at">row.names =</span> row.names, <span class="sc">:</span> object <span class="st">'bound_WPGSD'</span> not found</span></code></pre></div>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> bound_WPGSD <span class="sc">%&gt;%</span> </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"WPGSD  bounds"</span>, <span class="at">align =</span> <span class="st">"l"</span>, <span class="at">digits =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F)  </span></code></pre></div>
+<table class="table  lightable-classic-2" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<caption>
+WPGSD bounds
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+Analysis
+</th>
+<th style="text-align:left;">
+Hypotheses
+</th>
+<th style="text-align:left;">
+H1
+</th>
+<th style="text-align:left;">
+H2
+</th>
+<th style="text-align:left;">
+H3
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1
+</td>
+<td style="text-align:left;">
+0.0030
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1, H2
+</td>
+<td style="text-align:left;">
+0.0017
+</td>
+<td style="text-align:left;">
+0.0017
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1, H2, H3
+</td>
+<td style="text-align:left;">
+0.0011
+</td>
+<td style="text-align:left;">
+0.0011
+</td>
+<td style="text-align:left;">
+0.0014
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1, H3
+</td>
+<td style="text-align:left;">
+0.0014
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0030
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2, H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0015
+</td>
+<td style="text-align:left;">
+0.0018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0030
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1
+</td>
+<td style="text-align:left;">
+0.0238
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1, H2
+</td>
+<td style="text-align:left;">
+0.0144
+</td>
+<td style="text-align:left;">
+0.0144
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1, H2, H3
+</td>
+<td style="text-align:left;">
+0.0092
+</td>
+<td style="text-align:left;">
+0.0092
+</td>
+<td style="text-align:left;">
+0.0123
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1, H3
+</td>
+<td style="text-align:left;">
+0.0122
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0149
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H2
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0238
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H2, H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0124
+</td>
+<td style="text-align:left;">
+0.0152
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0238
+</td>
+</tr>
+</tbody>
+</table>
 <p>Below shows the comparison between the Bonferroni and WPGSD bounds.
 Nominal level at final analysis by using the WPGSD method increased by
 up to 1.3× over those obtained via the Bonferroni approach.</p>
-<pre><code>Error in left_join(bound_Bonf, bound_WPGSD, by = c("Hypotheses", "Analysis"), : object 'bound_Bonf' not found
-Error in rowwise(.): object 'bounds' not found
-Error in bounds$order &lt;- rep(c(5, 2, 1, 3, 6, 4, 7), 2): object 'bounds' not found
-Error in arrange(., Analysis, order): object 'bounds' not found
-Error in knitr::kable(x = x, format = format, digits = digits, row.names = row.names, : object 'bounds' not found</code></pre>
+<table class="table  lightable-classic-2" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<caption>
+Bonferroni and WPGSD Bounds
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+Analysis
+</th>
+<th style="text-align:left;">
+Hypotheses
+</th>
+<th style="text-align:left;">
+H1.B
+</th>
+<th style="text-align:left;">
+H2.B
+</th>
+<th style="text-align:left;">
+H3.B
+</th>
+<th style="text-align:left;">
+H1.W
+</th>
+<th style="text-align:left;">
+H2.W
+</th>
+<th style="text-align:left;">
+H3.W
+</th>
+<th style="text-align:left;">
+xi
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1, H2, H3
+</td>
+<td style="text-align:left;">
+0.0009
+</td>
+<td style="text-align:left;">
+0.0009
+</td>
+<td style="text-align:left;">
+0.0012
+</td>
+<td style="text-align:left;">
+0.0011
+</td>
+<td style="text-align:left;">
+0.0011
+</td>
+<td style="text-align:left;">
+0.0014
+</td>
+<td style="text-align:left;">
+1.1770
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1, H2
+</td>
+<td style="text-align:left;">
+0.0015
+</td>
+<td style="text-align:left;">
+0.0015
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0017
+</td>
+<td style="text-align:left;">
+0.0017
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.1363
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1, H3
+</td>
+<td style="text-align:left;">
+0.0013
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0016
+</td>
+<td style="text-align:left;">
+0.0014
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0018
+</td>
+<td style="text-align:left;">
+1.0810
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2, H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0013
+</td>
+<td style="text-align:left;">
+0.0016
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0015
+</td>
+<td style="text-align:left;">
+0.0018
+</td>
+<td style="text-align:left;">
+1.0962
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1
+</td>
+<td style="text-align:left;">
+0.0030
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0030
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0030
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0030
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0030
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0030
+</td>
+<td style="text-align:left;">
+1.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1, H2, H3
+</td>
+<td style="text-align:left;">
+0.0070
+</td>
+<td style="text-align:left;">
+0.0070
+</td>
+<td style="text-align:left;">
+0.0094
+</td>
+<td style="text-align:left;">
+0.0092
+</td>
+<td style="text-align:left;">
+0.0092
+</td>
+<td style="text-align:left;">
+0.0123
+</td>
+<td style="text-align:left;">
+1.3092
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1, H2
+</td>
+<td style="text-align:left;">
+0.0118
+</td>
+<td style="text-align:left;">
+0.0118
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0144
+</td>
+<td style="text-align:left;">
+0.0144
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.2250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1, H3
+</td>
+<td style="text-align:left;">
+0.0106
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0130
+</td>
+<td style="text-align:left;">
+0.0122
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0149
+</td>
+<td style="text-align:left;">
+1.1532
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H2, H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0106
+</td>
+<td style="text-align:left;">
+0.0130
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0124
+</td>
+<td style="text-align:left;">
+0.0152
+</td>
+<td style="text-align:left;">
+1.1735
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1
+</td>
+<td style="text-align:left;">
+0.0238
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0238
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H2
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0238
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0238
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0238
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0238
+</td>
+<td style="text-align:left;">
+1.0000
+</td>
+</tr>
+</tbody>
+</table>
 <p>Closed testing procedure can then be performed using
 closed_test().</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Observed p-values. </span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## The tibble must contain columns Analysis, H1, H2 etc for all hypotheses</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> p_obs <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="er">~</span>Analysis, <span class="sc">~</span> H1, <span class="sc">~</span>H2, <span class="sc">~</span>H3,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="dv">1</span>, <span class="fl">0.01</span>, <span class="fl">0.0004</span>, <span class="fl">0.03</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="dv">2</span>, <span class="fl">0.05</span>, <span class="fl">0.002</span>,  <span class="fl">0.015</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## Closed testing ##</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> test_result <span class="ot">&lt;-</span> <span class="fu">closed_test</span>(bound_WPGSD, p_obs)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">closed_test</span>(bound_WPGSD, p_obs)<span class="sc">:</span> could not find <span class="cf">function</span> <span class="st">"closed_test"</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> p_obs <span class="sc">%&gt;%</span> </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Observed Nominal p-Values"</span>, <span class="at">align =</span> <span class="st">"l"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) </span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Observed p-values. </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## The tibble must contain columns Analysis, H1, H2 etc for all hypotheses</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> p_obs <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="er">~</span>Analysis, <span class="sc">~</span> H1, <span class="sc">~</span>H2, <span class="sc">~</span>H3,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="dv">1</span>, <span class="fl">0.01</span>, <span class="fl">0.0004</span>, <span class="fl">0.03</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="dv">2</span>, <span class="fl">0.05</span>, <span class="fl">0.002</span>,  <span class="fl">0.015</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## Closed testing ##</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> test_result <span class="ot">&lt;-</span> <span class="fu">closed_test</span>(bound_WPGSD, p_obs)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> p_obs <span class="sc">%&gt;%</span> </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Observed Nominal p-Values"</span>, <span class="at">align =</span> <span class="st">"l"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) </span></code></pre></div>
 <table class="table  lightable-classic-2" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
 <caption>
 Observed Nominal p-Values
@@ -719,48 +1881,96 @@ H3
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> test_result <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Closed Testing Results"</span>, <span class="at">align =</span> <span class="st">"l"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">x =</span> x, <span class="at">format =</span> format, <span class="at">digits =</span> digits, <span class="at">row.names =</span> row.names, <span class="sc">:</span> object <span class="st">'test_result'</span> not found</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> test_result <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Closed Testing Results"</span>, <span class="at">align =</span> <span class="st">"l"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) </span></code></pre></div>
+<table class="table  lightable-classic-2" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<caption>
+Closed Testing Results
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+H1
+</th>
+<th style="text-align:left;">
+H2
+</th>
+<th style="text-align:left;">
+H3
+</th>
+<th style="text-align:left;">
+Analysis
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+Success
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+Analysis 1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+Success
+</td>
+<td style="text-align:left;">
+Fail
+</td>
+<td style="text-align:left;">
+Analysis 2
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level3">
 <h3 id="implementation-of-example-2-with-common-control">Implementation of Example 2 with Common Control<a class="anchor" aria-label="anchor" href="#implementation-of-example-2-with-common-control"></a>
 </h3>
 <p>Similarly, codes below reproduce the result of Example 2 of <span class="citation">Anderson et al. (2022)</span>, which uses spending
 method 3c specified in the paper.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Ex2 BH ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># Transition matrix in Figure A2</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>,   <span class="fl">0.5</span>, <span class="fl">0.5</span>,</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               <span class="fl">0.5</span>, <span class="dv">0</span>,   <span class="fl">0.5</span>,</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">3</span>,<span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># Initial weights</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># Event count of intersection of paired hypotheses - Table 2</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> event <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="er">~</span>H1, <span class="sc">~</span> H2, <span class="sc">~</span>Analysis, <span class="sc">~</span>Event,</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">155</span>,</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">160</span>,</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">165</span>,</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">85</span>,</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">85</span>,</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">85</span>,</span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">305</span>,</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">320</span>,</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">335</span>,</span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">170</span>,</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">170</span>,</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">170</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> ) </span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> event <span class="sc">%&gt;%</span> </span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Event Count"</span>, <span class="at">align =</span> <span class="st">"l"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F)  </span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Ex2 BH ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># Transition matrix in Figure A2</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>,   <span class="fl">0.5</span>, <span class="fl">0.5</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               <span class="fl">0.5</span>, <span class="dv">0</span>,   <span class="fl">0.5</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>               <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">3</span>,<span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># Initial weights</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># Event count of intersection of paired hypotheses - Table 2</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> event <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="er">~</span>H1, <span class="sc">~</span> H2, <span class="sc">~</span>Analysis, <span class="sc">~</span>Event,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">155</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">160</span>,</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">165</span>,</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">85</span>,</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">85</span>,</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">85</span>,</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">305</span>,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">320</span>,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">335</span>,</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">170</span>,</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">170</span>,</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">170</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> ) </span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> event <span class="sc">%&gt;%</span> </span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Event Count"</span>, <span class="at">align =</span> <span class="st">"l"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F)  </span></code></pre></div>
 <table class="table  lightable-classic-2" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
 <caption>
 Event Count
@@ -950,47 +2160,628 @@ Event
 </tr>
 </tbody>
 </table>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># Generate correlation from events</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> corr <span class="ot">&lt;-</span> <span class="fu">generate_corr</span>(event)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># correlation matrix in Table 4</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> corr <span class="sc">%&gt;%</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Correlation Matrix"</span>, <span class="at">align =</span> <span class="st">"l"</span>, <span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) </span></code></pre></div>
+<table class="table  lightable-classic-2" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<caption>
+Correlation Matrix
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+H1_A1
+</th>
+<th style="text-align:left;">
+H2_A1
+</th>
+<th style="text-align:left;">
+H3_A1
+</th>
+<th style="text-align:left;">
+H1_A2
+</th>
+<th style="text-align:left;">
+H2_A2
+</th>
+<th style="text-align:left;">
+H3_A2
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+0.54
+</td>
+<td style="text-align:left;">
+0.53
+</td>
+<td style="text-align:left;">
+0.71
+</td>
+<td style="text-align:left;">
+0.38
+</td>
+<td style="text-align:left;">
+0.37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.54
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+0.52
+</td>
+<td style="text-align:left;">
+0.38
+</td>
+<td style="text-align:left;">
+0.71
+</td>
+<td style="text-align:left;">
+0.37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.53
+</td>
+<td style="text-align:left;">
+0.52
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+0.38
+</td>
+<td style="text-align:left;">
+0.37
+</td>
+<td style="text-align:left;">
+0.70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.71
+</td>
+<td style="text-align:left;">
+0.38
+</td>
+<td style="text-align:left;">
+0.38
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+0.54
+</td>
+<td style="text-align:left;">
+0.53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.38
+</td>
+<td style="text-align:left;">
+0.71
+</td>
+<td style="text-align:left;">
+0.37
+</td>
+<td style="text-align:left;">
+0.54
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+<td style="text-align:left;">
+0.52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.37
+</td>
+<td style="text-align:left;">
+0.37
+</td>
+<td style="text-align:left;">
+0.70
+</td>
+<td style="text-align:left;">
+0.53
+</td>
+<td style="text-align:left;">
+0.52
+</td>
+<td style="text-align:left;">
+1.00
+</td>
+</tr>
+</tbody>
+</table>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># Generate correlation from events</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> corr <span class="ot">&lt;-</span> <span class="fu">generate_corr</span>(event)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">generate_corr</span>(event)<span class="sc">:</span> could not find <span class="cf">function</span> <span class="st">"generate_corr"</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># correlation matrix in Table 4</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> corr <span class="sc">%&gt;%</span> </span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Correlation Matrix"</span>, <span class="at">align =</span> <span class="st">"l"</span>, <span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) </span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">x =</span> x, <span class="at">format =</span> format, <span class="at">digits =</span> digits, <span class="at">row.names =</span> row.names, <span class="sc">:</span> object <span class="st">'corr'</span> not found</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># WPGSD bounds, spending method 3c</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> bound_WPGSD <span class="ot">&lt;-</span> <span class="fu">generate_bounds</span>(<span class="at">type =</span> <span class="dv">3</span>, <span class="at">k =</span> <span class="dv">2</span>, <span class="at">w =</span> w, <span class="at">m =</span> m, <span class="at">corr =</span> corr, <span class="at">alpha =</span> <span class="fl">0.025</span>, </span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                                <span class="at">sf =</span> <span class="fu">list</span>(sfLDOF, sfLDOF, sfLDOF), </span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                                <span class="at">sfparm =</span> <span class="fu">list</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), </span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                                <span class="at">t =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">155</span><span class="sc">/</span><span class="dv">305</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">160</span><span class="sc">/</span><span class="dv">320</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">165</span><span class="sc">/</span><span class="dv">335</span>, <span class="dv">1</span>)))</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">generate_bounds</span>(<span class="at">type =</span> <span class="dv">3</span>, <span class="at">k =</span> <span class="dv">2</span>, <span class="at">w =</span> w, <span class="at">m =</span> m, <span class="at">corr =</span> corr, <span class="at">alpha =</span> <span class="fl">0.025</span>, <span class="sc">:</span> could not find <span class="cf">function</span> <span class="st">"generate_bounds"</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># Bonferroni bounds</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> bound_Bonf <span class="ot">&lt;-</span> <span class="fu">generate_bounds</span>(<span class="at">type =</span> <span class="dv">0</span>, <span class="at">k =</span> <span class="dv">2</span>, <span class="at">w =</span> w, <span class="at">m =</span> m, <span class="at">corr =</span> corr, <span class="at">alpha =</span> <span class="fl">0.025</span>, </span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                               <span class="at">sf =</span> <span class="fu">list</span>(sfLDOF, sfLDOF, sfLDOF), </span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                               <span class="at">sfparm =</span> <span class="fu">list</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), </span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                               <span class="at">t =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">155</span><span class="sc">/</span><span class="dv">305</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">160</span><span class="sc">/</span><span class="dv">320</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">165</span><span class="sc">/</span><span class="dv">335</span>, <span class="dv">1</span>)))</span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">generate_bounds</span>(<span class="at">type =</span> <span class="dv">0</span>, <span class="at">k =</span> <span class="dv">2</span>, <span class="at">w =</span> w, <span class="at">m =</span> m, <span class="at">corr =</span> corr, <span class="at">alpha =</span> <span class="fl">0.025</span>, <span class="sc">:</span> could not find <span class="cf">function</span> <span class="st">"generate_bounds"</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> bounds <span class="ot">&lt;-</span> <span class="fu">left_join</span>(bound_Bonf, bound_WPGSD, </span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                     <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Hypotheses"</span>, <span class="st">"Analysis"</span>), </span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                     <span class="at">suffix=</span><span class="fu">c</span>(<span class="st">".B"</span>, <span class="st">".W"</span>)) </span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">left_join</span>(bound_Bonf, bound_WPGSD, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Hypotheses"</span>, <span class="st">"Analysis"</span>), <span class="sc">:</span> object <span class="st">'bound_Bonf'</span> not found</span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># Reorder for output</span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> bounds<span class="sc">$</span>order <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">7</span>), <span class="dv">2</span>)</span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> bounds<span class="sc">$</span>order <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">7</span>), <span class="dv">2</span>)<span class="sc">:</span> object <span class="st">'bounds'</span> not found</span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> bounds <span class="ot">&lt;-</span> bounds <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(Analysis,order) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>order) </span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">arrange</span>(., Analysis, order)<span class="sc">:</span> object <span class="st">'bounds'</span> not found</span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># Table A6</span></span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> bounds <span class="sc">%&gt;%</span> </span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Bonferroni and WPGSD Bounds"</span>, <span class="at">align =</span> <span class="st">"l"</span>, <span class="at">digits =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F)  </span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">x =</span> x, <span class="at">format =</span> format, <span class="at">digits =</span> digits, <span class="at">row.names =</span> row.names, <span class="sc">:</span> object <span class="st">'bounds'</span> not found</span></code></pre></div>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># WPGSD bounds, spending method 3c</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> bound_WPGSD <span class="ot">&lt;-</span> <span class="fu">generate_bounds</span>(<span class="at">type =</span> <span class="dv">3</span>, <span class="at">k =</span> <span class="dv">2</span>, <span class="at">w =</span> w, <span class="at">m =</span> m, <span class="at">corr =</span> corr, <span class="at">alpha =</span> <span class="fl">0.025</span>, </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                                <span class="at">sf =</span> <span class="fu">list</span>(sfLDOF, sfLDOF, sfLDOF), </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                                <span class="at">sfparm =</span> <span class="fu">list</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                                <span class="at">t =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">155</span><span class="sc">/</span><span class="dv">305</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">160</span><span class="sc">/</span><span class="dv">320</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">165</span><span class="sc">/</span><span class="dv">335</span>, <span class="dv">1</span>)))</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># Bonferroni bounds</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> bound_Bonf <span class="ot">&lt;-</span> <span class="fu">generate_bounds</span>(<span class="at">type =</span> <span class="dv">0</span>, <span class="at">k =</span> <span class="dv">2</span>, <span class="at">w =</span> w, <span class="at">m =</span> m, <span class="at">corr =</span> corr, <span class="at">alpha =</span> <span class="fl">0.025</span>, </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                               <span class="at">sf =</span> <span class="fu">list</span>(sfLDOF, sfLDOF, sfLDOF), </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                               <span class="at">sfparm =</span> <span class="fu">list</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                               <span class="at">t =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">155</span><span class="sc">/</span><span class="dv">305</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">160</span><span class="sc">/</span><span class="dv">320</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">165</span><span class="sc">/</span><span class="dv">335</span>, <span class="dv">1</span>)))</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> bounds <span class="ot">&lt;-</span> <span class="fu">left_join</span>(bound_Bonf, bound_WPGSD, </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                     <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Hypotheses"</span>, <span class="st">"Analysis"</span>), </span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                     <span class="at">suffix=</span><span class="fu">c</span>(<span class="st">".B"</span>, <span class="st">".W"</span>)) </span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># Reorder for output</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> bounds<span class="sc">$</span>order <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">7</span>), <span class="dv">2</span>)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> bounds <span class="ot">&lt;-</span> bounds <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(Analysis,order) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>order) </span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="co"># Table A6</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> bounds <span class="sc">%&gt;%</span> </span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Bonferroni and WPGSD Bounds"</span>, <span class="at">align =</span> <span class="st">"l"</span>, <span class="at">digits =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F)  </span></code></pre></div>
+<table class="table  lightable-classic-2" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<caption>
+Bonferroni and WPGSD Bounds
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+Analysis
+</th>
+<th style="text-align:left;">
+Hypotheses
+</th>
+<th style="text-align:left;">
+H1.B
+</th>
+<th style="text-align:left;">
+H2.B
+</th>
+<th style="text-align:left;">
+H3.B
+</th>
+<th style="text-align:left;">
+H1.W
+</th>
+<th style="text-align:left;">
+H2.W
+</th>
+<th style="text-align:left;">
+H3.W
+</th>
+<th style="text-align:left;">
+xi
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1, H2, H3
+</td>
+<td style="text-align:left;">
+0.0002
+</td>
+<td style="text-align:left;">
+0.0002
+</td>
+<td style="text-align:left;">
+0.0002
+</td>
+<td style="text-align:left;">
+0.0002
+</td>
+<td style="text-align:left;">
+0.0002
+</td>
+<td style="text-align:left;">
+0.0002
+</td>
+<td style="text-align:left;">
+1.0457
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1, H2
+</td>
+<td style="text-align:left;">
+0.0005
+</td>
+<td style="text-align:left;">
+0.0004
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0005
+</td>
+<td style="text-align:left;">
+0.0004
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.0266
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1, H3
+</td>
+<td style="text-align:left;">
+0.0005
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0004
+</td>
+<td style="text-align:left;">
+0.0005
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0004
+</td>
+<td style="text-align:left;">
+1.0247
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2, H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0004
+</td>
+<td style="text-align:left;">
+0.0004
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0004
+</td>
+<td style="text-align:left;">
+0.0004
+</td>
+<td style="text-align:left;">
+1.0230
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H1
+</td>
+<td style="text-align:left;">
+0.0017
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0017
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0015
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0015
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0014
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0014
+</td>
+<td style="text-align:left;">
+1.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1, H2, H3
+</td>
+<td style="text-align:left;">
+0.0083
+</td>
+<td style="text-align:left;">
+0.0083
+</td>
+<td style="text-align:left;">
+0.0083
+</td>
+<td style="text-align:left;">
+0.0095
+</td>
+<td style="text-align:left;">
+0.0095
+</td>
+<td style="text-align:left;">
+0.0095
+</td>
+<td style="text-align:left;">
+1.1492
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1, H2
+</td>
+<td style="text-align:left;">
+0.0123
+</td>
+<td style="text-align:left;">
+0.0124
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0135
+</td>
+<td style="text-align:left;">
+0.0135
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.0943
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1, H3
+</td>
+<td style="text-align:left;">
+0.0123
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0124
+</td>
+<td style="text-align:left;">
+0.0135
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0135
+</td>
+<td style="text-align:left;">
+1.0898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H2, H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0124
+</td>
+<td style="text-align:left;">
+0.0124
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0134
+</td>
+<td style="text-align:left;">
+0.0134
+</td>
+<td style="text-align:left;">
+1.0856
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H1
+</td>
+<td style="text-align:left;">
+0.0245
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0245
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H2
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0245
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0245
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+H3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0245
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.0245
+</td>
+<td style="text-align:left;">
+1.0000
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level3">
 <h3 id="power-considerations">Power Considerations<a class="anchor" aria-label="anchor" href="#power-considerations"></a>
