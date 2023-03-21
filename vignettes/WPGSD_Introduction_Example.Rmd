@@ -1,5 +1,5 @@
 ---
-title: "A unified framework for weighted parametric group sequential design (WPGSD) Introduction and Example"
+title: "Quick Start"
 output:
   rmarkdown::html_document:
     code_folding: hide
@@ -240,13 +240,6 @@ event %>%
  
 
 ```{r}
-### Example code to generate path for Merck studies on CPI drive, below example assumes current analysis is IA2
-paths <- generate_path(env = "prod",
-                       project = "mk3475-tnbc",
-                       deliverables = c("prot355-ia01-eff", 
-                                        "prot355-ia02-eff"))
-paths
-
 # Alternatively one can manually enter paths for analysis datasets, below example uses dummy data assuming currently we are at IA1
 paths <- "../inst/extdata"
 
@@ -258,11 +251,11 @@ h_select <- tribble(
   2, "PARAMCD=='OS' & TRT01P %in% c('Xanomeline Low Dose', 'Placebo')"
 ) 
 
-event_cpi <- generate_event_table(paths, h_select, 
+event2 <- generate_event_table(paths, h_select, 
                                   adsl_name = "adsl", adtte_name = "adtte", 
                                   key_var = "USUBJID", cnsr_var = "CNSR")$event
 
-event_cpi %>% 
+event2 %>% 
   kbl(caption = "Event Count - Compute from SAS Datasets Example", align = "l") %>%
   kable_classic_2(full_width = F) 
 ```
