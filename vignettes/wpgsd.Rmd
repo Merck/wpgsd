@@ -1,18 +1,17 @@
 ---
-title: "Quick Start"
+title: "Quickstart guide"
 output:
   rmarkdown::html_document:
     toc: true
     toc_depth: 3
     toc_float: true
-    theme: flatly
     code_folding: hide
     number_sections: true
     highlight: "textmate"
     css: "custom.css"
 bibliography: wpgsd.bib
 vignette: |
-  %\VignetteIndexEntry{WPGSD Introduction and Example}
+  %\VignetteIndexEntry{Quickstart guide}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options:
@@ -20,10 +19,17 @@ editor_options:
     wrap: 72
 ---
 
-```{r setup, include = FALSE,message=FALSE,warning=FALSE}
-knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, comment=NA,  prompt = TRUE, error = TRUE, fig.align = "center")
- 
-library(gsDesign) 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  error = TRUE,
+  fig.align = "center"
+)
+```
+
+```{r, message=FALSE, warning=FALSE}
+library(gsDesign)
 library(dplyr)
 library(tidyr)
 library(knitr)
@@ -36,7 +42,7 @@ library(wpgsd)
 
 # Background
 
-The  weighted parametric group sequential design (WPGSD) (@anderson2022unified) approach allows one to take advantage of the known correlation structure in constructing efficacy bounds to control family-wise error rate (FWER) for a group sequential design. Here correlation may be due to common observations in nested populations, due to common observations in overlapping populations, or due to common observations in the control arm. This document illustrates the use of the WPGSD R pacakge to implement this approach.
+The  weighted parametric group sequential design (WPGSD) (@anderson2022unified) approach allows one to take advantage of the known correlation structure in constructing efficacy bounds to control family-wise error rate (FWER) for a group sequential design. Here correlation may be due to common observations in nested populations, due to common observations in overlapping populations, or due to common observations in the control arm. This document illustrates the use of the WPGSD R package to implement this approach.
 
 # Methods and Examples
   
@@ -77,29 +83,34 @@ The multiplicity strategy is defined as follows.
 
 ```{r, out.width="80%"}
 # transition matrix
-m <- matrix(c(0, 0, 1,
-              0, 0, 1,
-              0.5, 0.5, 0), nrow = 3, byrow = TRUE)
+m <- matrix(c(
+  0, 0, 1,
+  0, 0, 1,
+  0.5, 0.5, 0
+), nrow = 3, byrow = TRUE)
 # weight matrix
 w <- c(0.3, 0.3, 0.4)
 
 # multiplicity graph
 cbPalette <- c("#999999", "#E69F00", "#56B4E9")
 
-nameHypotheses <- c("H1: Population 1",
-                    "H2: Population 2", 
-                    "H3: Overall Population")
+nameHypotheses <- c(
+  "H1: Population 1",
+  "H2: Population 2",
+  "H3: Overall Population"
+)
 
 hplot <- hGraph(3,
-                alphaHypotheses = w,
-                m = m,
-                nameHypotheses = nameHypotheses, 
-                trhw = .2, trhh = .1, 
-                digits = 5, trdigits = 3, size = 5, halfWid = 1, 
-                halfHgt = 0.5, offset = 0.2 , trprop = 0.4,  
-                fill = as.factor(c(2, 3, 1)),
-                palette = cbPalette,
-                wchar = "w") 
+  alphaHypotheses = w,
+  m = m,
+  nameHypotheses = nameHypotheses,
+  trhw = .2, trhh = .1,
+  digits = 5, trdigits = 3, size = 5, halfWid = 1,
+  halfHgt = 0.5, offset = 0.2, trprop = 0.4,
+  fill = as.factor(c(2, 3, 1)),
+  palette = cbPalette,
+  wchar = "w"
+)
 hplot
 ```
 
@@ -118,24 +129,31 @@ The correlation matrix among test statistics is as follows.
 Following illustrates the second example in which correlation comes from common control arm. This is also example 2 in @anderson2022unified.
 
 ```{r, out.width="80%", echo = FALSE}
-cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", 
-               "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-nameHypotheses <- c("H1: Experimental 1 vs Control",
-                    "H2: Experimental 2 vs Control",
-                    "H3: Experimental 3 vs Control")
-m <- matrix(c(0, 0.5, 0.5,
-              0.5, 0, 0.5,
-              0.5, 0.5, 0), nrow = 3,byrow = TRUE)
-alphaHypotheses <- c(1/3, 1/3, 1/3)
+cbPalette <- c(
+  "#999999", "#E69F00", "#56B4E9", "#009E73",
+  "#F0E442", "#0072B2", "#D55E00", "#CC79A7"
+)
+nameHypotheses <- c(
+  "H1: Experimental 1 vs Control",
+  "H2: Experimental 2 vs Control",
+  "H3: Experimental 3 vs Control"
+)
+m <- matrix(c(
+  0, 0.5, 0.5,
+  0.5, 0, 0.5,
+  0.5, 0.5, 0
+), nrow = 3, byrow = TRUE)
+alphaHypotheses <- c(1 / 3, 1 / 3, 1 / 3)
 
 hplot <- hGraph(3,
-                alphaHypotheses = alphaHypotheses,m = m,
-                nameHypotheses = nameHypotheses, trhw = .2, trhh = .1,
-                digits = 3, trdigits = 4, size = 5, halfWid = 1.2, halfHgt = 0.5,
-                offset = 0.2 , trprop = 0.35,
-                fill = as.factor(c(2, 3, 1)),
-                palette = cbPalette[1:3],
-                wchar = "w")
+  alphaHypotheses = alphaHypotheses, m = m,
+  nameHypotheses = nameHypotheses, trhw = .2, trhh = .1,
+  digits = 3, trdigits = 4, size = 5, halfWid = 1.2, halfHgt = 0.5,
+  offset = 0.2, trprop = 0.35,
+  fill = as.factor(c(2, 3, 1)),
+  palette = cbPalette[1:3],
+  wchar = "w"
+)
 hplot
 ```
 
@@ -223,7 +241,7 @@ We first define the transition matrix and weights as shown above in Section 2.5.
 
 ```{r}
 event <- tribble(
-  ~H1, ~ H2, ~Analysis, ~Event,
+  ~H1, ~H2, ~Analysis, ~Event,
   1, 1, 1, 100,
   2, 2, 1, 110,
   3, 3, 1, 225,
@@ -236,10 +254,10 @@ event <- tribble(
   1, 2, 2, 160,
   1, 3, 2, 200,
   2, 3, 2, 220
-) 
-event %>% 
+)
+event %>%
   kbl(caption = "Event Count", align = "l") %>%
-  kable_classic_2(full_width = F) 
+  kable_classic_2(full_width = F)
 ```
  
 
@@ -247,21 +265,22 @@ event %>%
 # Alternatively one can manually enter paths for analysis datasets, below example uses dummy data assuming currently we are at IA1
 paths <- "../inst/extdata"
 
-### Generate event count table from ADSL and ADTTE datasets 
+### Generate event count table from ADSL and ADTTE datasets
 # Selection criteria for each hypothesis
 h_select <- tribble(
   ~Hypothesis, ~Crit,
   1, "PARAMCD=='OS' & TRT01P %in% c('Xanomeline High Dose', 'Placebo')",
   2, "PARAMCD=='OS' & TRT01P %in% c('Xanomeline Low Dose', 'Placebo')"
-) 
+)
 
-event2 <- generate_event_table(paths, h_select, 
-                                  adsl_name = "adsl", adtte_name = "adtte", 
-                                  key_var = "USUBJID", cnsr_var = "CNSR")$event
+event2 <- generate_event_table(paths, h_select,
+  adsl_name = "adsl", adtte_name = "adtte",
+  key_var = "USUBJID", cnsr_var = "CNSR"
+)$event
 
-event2 %>% 
+event2 %>%
   kbl(caption = "Event Count - Compute from SAS Datasets Example", align = "l") %>%
-  kable_classic_2(full_width = F) 
+  kable_classic_2(full_width = F)
 ```
 
 
@@ -271,9 +290,9 @@ Then we compute correlation matrix using the event count table and generate_corr
 ## generate correlation from events
 corr <- generate_corr(event)
 
-corr %>% 
-  kbl(caption="Correlation Matrix", align = "l", digits = 2) %>% 
-  kable_classic_2(full_width = F) 
+corr %>%
+  kbl(caption = "Correlation Matrix", align = "l", digits = 2) %>%
+  kable_classic_2(full_width = F)
 ```
 
 
@@ -287,15 +306,17 @@ Bonferroni and WPGSD bounds can then be computed via generate_bounds(). In this 
 Compute Bonferroni bounds.
 ```{r}
 # Bonferroni bounds
-bound_Bonf <- generate_bounds(type = 0, k = 2, w = w, m = m, 
-                              corr = corr, alpha = 0.025, 
-                              sf = list(sfHSD, sfHSD, sfHSD), 
-                              sfparm = list(-4, -4, -4), 
-                              t = list(c(0.5, 1), c(0.5, 1), c(0.5, 1)))
+bound_Bonf <- generate_bounds(
+  type = 0, k = 2, w = w, m = m,
+  corr = corr, alpha = 0.025,
+  sf = list(sfHSD, sfHSD, sfHSD),
+  sfparm = list(-4, -4, -4),
+  t = list(c(0.5, 1), c(0.5, 1), c(0.5, 1))
+)
 
-bound_Bonf %>% 
+bound_Bonf %>%
   kbl(caption = "Bonferroni bounds", align = "l", digits = 4) %>%
-  kable_classic_2(full_width = F) 
+  kable_classic_2(full_width = F)
 ```
 
 
@@ -304,60 +325,66 @@ Compute WPGSD Bounds using $\alpha$-spending approach 1 with HSD(-4) spending. H
 ```{r}
 set.seed(1234)
 # WPGSD bounds, spending approach 1
-bound_WPGSD <- generate_bounds(type = 2, k = 2, w = w, m = m, 
-                               corr = corr, alpha = 0.025, 
-                               sf = sfHSD, 
-                               sfparm = -4, 
-                               t = c(min(100/200, 110/220, 225/450), 1))
+bound_WPGSD <- generate_bounds(
+  type = 2, k = 2, w = w, m = m,
+  corr = corr, alpha = 0.025,
+  sf = sfHSD,
+  sfparm = -4,
+  t = c(min(100 / 200, 110 / 220, 225 / 450), 1)
+)
 
-bound_WPGSD %>% 
+bound_WPGSD %>%
   kbl(caption = "WPGSD  bounds", align = "l", digits = 4) %>%
-  kable_classic_2(full_width = F)  
+  kable_classic_2(full_width = F)
 ```
 
 Below shows the comparison between the Bonferroni and WPGSD bounds. Nominal level at final analysis by using the WPGSD method increased by up to 1.3× over those obtained via the Bonferroni approach. 
  
 ```{r, echo=FALSE}
 # Combine and back-calculate xi
-bounds <- left_join(bound_Bonf, bound_WPGSD, 
-                    by = c("Hypotheses","Analysis"), 
-                    suffix = c(".B", ".W"))
+bounds <- left_join(bound_Bonf, bound_WPGSD,
+  by = c("Hypotheses", "Analysis"),
+  suffix = c(".B", ".W")
+)
 
-bounds <- bounds %>% 
-  rowwise() %>% 
+bounds <- bounds %>%
+  rowwise() %>%
   mutate(xi = sum(H1.W, H2.W, H3.W, na.rm = TRUE) /
-           sum(H1.B, H2.B, H3.B, na.rm = TRUE))
+    sum(H1.B, H2.B, H3.B, na.rm = TRUE))
 
 # Reorder for output
 bounds$order <- rep(c(5, 2, 1, 3, 6, 4, 7), 2)
-bounds <- bounds %>% arrange(Analysis, order) %>% select(-order)
+bounds <- bounds %>%
+  arrange(Analysis, order) %>%
+  select(-order)
 
 # Bonferroni and WPGSD Bounds (Table 6 in the manuscript)
-bounds %>% 
+bounds %>%
   kbl(caption = "Bonferroni and WPGSD Bounds", align = "l", digits = 4) %>%
-  kable_classic_2(full_width = F)  
+  kable_classic_2(full_width = F)
 ```
  
 Closed testing procedure can then be performed using closed_test().
 
 ```{r}
-## Observed p-values. 
+## Observed p-values.
 ## The tibble must contain columns Analysis, H1, H2 etc for all hypotheses
 p_obs <- tribble(
-                ~Analysis, ~ H1, ~H2, ~H3,
-                1, 0.01, 0.0004, 0.03,
-                2, 0.05, 0.002,  0.015)
+  ~Analysis, ~H1, ~H2, ~H3,
+  1, 0.01, 0.0004, 0.03,
+  2, 0.05, 0.002, 0.015
+)
 
 ## Closed testing ##
 test_result <- closed_test(bound_WPGSD, p_obs)
 
-p_obs %>% 
+p_obs %>%
   kbl(caption = "Observed Nominal p-Values", align = "l") %>%
-  kable_classic_2(full_width = F) 
+  kable_classic_2(full_width = F)
 
-test_result %>% 
+test_result %>%
   kbl(caption = "Closed Testing Results", align = "l") %>%
-  kable_classic_2(full_width = F) 
+  kable_classic_2(full_width = F)
 ```
 
 ## Implementation of Example 2 with Common Control 
@@ -365,20 +392,21 @@ test_result %>%
 Similarly, codes below reproduce the result of Example 2 of @anderson2022unified, which uses spending method 3c specified in the paper.
 
 ```{r}
-
 set.seed(1234)
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Ex2 BH ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Ex2 BH ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Transition matrix in Figure A2
-m <- matrix(c(0,   0.5, 0.5,
-              0.5, 0,   0.5,
-              0.5, 0.5, 0), nrow = 3,byrow = TRUE)
+m <- matrix(c(
+  0, 0.5, 0.5,
+  0.5, 0, 0.5,
+  0.5, 0.5, 0
+), nrow = 3, byrow = TRUE)
 # Initial weights
-w <- c(1/3, 1/3, 1/3)
+w <- c(1 / 3, 1 / 3, 1 / 3)
 
 # Event count of intersection of paired hypotheses - Table 2
 event <- tribble(
-  ~H1, ~ H2, ~Analysis, ~Event,
+  ~H1, ~H2, ~Analysis, ~Event,
   1, 1, 1, 155,
   2, 2, 1, 160,
   3, 3, 1, 165,
@@ -391,44 +419,51 @@ event <- tribble(
   1, 2, 2, 170,
   1, 3, 2, 170,
   2, 3, 2, 170
-) 
+)
 
-event %>% 
+event %>%
   kbl(caption = "Event Count", align = "l") %>%
-  kable_classic_2(full_width = F)  
+  kable_classic_2(full_width = F)
 
 # Generate correlation from events
 corr <- generate_corr(event)
 
 # correlation matrix in Table 4
-corr %>% 
-  kbl(caption = "Correlation Matrix", align = "l", digits = 2) %>% 
-  kable_classic_2(full_width = F) 
+corr %>%
+  kbl(caption = "Correlation Matrix", align = "l", digits = 2) %>%
+  kable_classic_2(full_width = F)
 
 # WPGSD bounds, spending method 3c
-bound_WPGSD <- generate_bounds(type = 3, k = 2, w = w, m = m, corr = corr, alpha = 0.025, 
-                               sf = list(sfLDOF, sfLDOF, sfLDOF), 
-                               sfparm = list(0, 0, 0), 
-                               t = list(c(155/305, 1), c(160/320, 1), c(165/335, 1)))
+bound_WPGSD <- generate_bounds(
+  type = 3, k = 2, w = w, m = m, corr = corr, alpha = 0.025,
+  sf = list(sfLDOF, sfLDOF, sfLDOF),
+  sfparm = list(0, 0, 0),
+  t = list(c(155 / 305, 1), c(160 / 320, 1), c(165 / 335, 1))
+)
 
 # Bonferroni bounds
-bound_Bonf <- generate_bounds(type = 0, k = 2, w = w, m = m, corr = corr, alpha = 0.025, 
-                              sf = list(sfLDOF, sfLDOF, sfLDOF), 
-                              sfparm = list(0, 0, 0), 
-                              t = list(c(155/305, 1), c(160/320, 1), c(165/335, 1)))
+bound_Bonf <- generate_bounds(
+  type = 0, k = 2, w = w, m = m, corr = corr, alpha = 0.025,
+  sf = list(sfLDOF, sfLDOF, sfLDOF),
+  sfparm = list(0, 0, 0),
+  t = list(c(155 / 305, 1), c(160 / 320, 1), c(165 / 335, 1))
+)
 
-bounds <- left_join(bound_Bonf, bound_WPGSD, 
-                    by = c("Hypotheses", "Analysis"), 
-                    suffix=c(".B", ".W")) 
+bounds <- left_join(bound_Bonf, bound_WPGSD,
+  by = c("Hypotheses", "Analysis"),
+  suffix = c(".B", ".W")
+)
 
 # Reorder for output
 bounds$order <- rep(c(5, 2, 1, 3, 6, 4, 7), 2)
-bounds <- bounds %>% arrange(Analysis,order) %>% select(-order) 
+bounds <- bounds %>%
+  arrange(Analysis, order) %>%
+  select(-order)
 
 # Table A6
-bounds %>% 
+bounds %>%
   kbl(caption = "Bonferroni and WPGSD Bounds", align = "l", digits = 4) %>%
-  kable_classic_2(full_width = F)  
+  kable_classic_2(full_width = F)
 ```
 
 
