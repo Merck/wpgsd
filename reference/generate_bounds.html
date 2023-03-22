@@ -18,14 +18,11 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/wpgsd.html">Get started</a>
 </li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/WPGSD_Introduction_Example.html">Quick Start</a>
-  </div>
+<li class="active nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
@@ -33,7 +30,13 @@
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/Merck/wpgsd/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -41,7 +44,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Compute p value boundaries of the parametric MTP method with overall alpha spending for all hypotheses</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/Merck/wpgsd/blob/HEAD/R/generate_bounds.R" class="external-link"><code>R/generate_bounds.R</code></a></small>
       <div class="d-none name"><code>generate_bounds.Rd</code></div>
     </div>
 
@@ -197,7 +200,7 @@ Inflation factor is also provided if type=3.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>        1 H1          0.001<span style="text-decoration: underline;">67</span>  <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>         1   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>        1 H1, H2      0.000<span style="text-decoration: underline;">471</span>  0.000<span style="text-decoration: underline;">423</span> <span style="color: #BB0000;">NA</span>         1.03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>        1 H1, H2, H3  0.000<span style="text-decoration: underline;">223</span>  0.000<span style="text-decoration: underline;">198</span>  0.000<span style="text-decoration: underline;">177</span>  1.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>        1 H1, H2, H3  0.000<span style="text-decoration: underline;">224</span>  0.000<span style="text-decoration: underline;">198</span>  0.000<span style="text-decoration: underline;">177</span>  1.04</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>        1 H1, H3      0.000<span style="text-decoration: underline;">470</span> <span style="color: #BB0000;">NA</span>         0.000<span style="text-decoration: underline;">382</span>  1.02</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>        1 H2         <span style="color: #BB0000;">NA</span>         0.001<span style="text-decoration: underline;">53</span>  <span style="color: #BB0000;">NA</span>         1   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>        1 H2, H3     <span style="color: #BB0000;">NA</span>         0.000<span style="text-decoration: underline;">421</span>  0.000<span style="text-decoration: underline;">381</span>  1.02</span>
