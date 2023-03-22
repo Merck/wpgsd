@@ -29,6 +29,8 @@
 #' 
 #' @return Difference. Should be 0 with xi identified.
 #' 
+#' @importFrom stats qnorm
+#'
 #' @export
 #'
 #' @examples 
@@ -72,12 +74,12 @@ find_xi <- function(a, alpha_prev = NULL, aprime, xi, sig, maxpts = 50000, absep
   
   if (is.null(alpha_prev)) {
     res <- 1 - a - mvtnorm::pmvnorm(lower = -Inf, 
-                                    upper = stats::qnorm(1 - xi * aprime),
+                                    upper = qnorm(1 - xi * aprime),
                                     sigma = sig,
                                     algorithm = mvtnorm::GenzBretz(maxpts = maxpts,abseps = abseps))
   } else {
     res <-  1 - a - mvtnorm::pmvnorm(lower = -Inf, 
-                                     upper = c(stats::qnorm(1 - alpha_prev), stats::qnorm(1 - xi * aprime)),
+                                     upper = c(qnorm(1 - alpha_prev), qnorm(1 - xi * aprime)),
                                      sigma = sig,
                                      algorithm = mvtnorm::GenzBretz(maxpts = maxpts,abseps = abseps))
   }

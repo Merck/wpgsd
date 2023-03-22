@@ -58,6 +58,8 @@
 #' @return A \code{tibble} with \code{k*(2^(n_hypotheses-1))} rows of p-value boundaries. 
 #'         Inflation factor is also provided if type=3.
 #' 
+#' @importFrom stats pnorm uniroot
+#'
 #' @export
 #' 
 #' @examples
@@ -175,7 +177,7 @@ generate_bounds <- function(type = 1, k = 2, w = w, m = m,
           indx <- indx[ , 1] + (indx[ , 2] - 1) * n_hypotheses
           corr_tmp <- corr[indx, indx]
           # Boundary for a single hypothesis across k for the intersection hypothesis
-          p_tmp <- 1 - stats::pnorm(gsDesign::gsDesign(k = k, 
+          p_tmp <- 1 - pnorm(gsDesign::gsDesign(k = k, 
                                                        test.type = 1, 
                                                        usTime = t[[h]], 
                                                        n.I = corr_tmp[, ncol(corr_tmp)]^2,
@@ -206,7 +208,7 @@ generate_bounds <- function(type = 1, k = 2, w = w, m = m,
           indx <- indx[ , 1] + (indx[ , 2] - 1) * n_hypotheses
           corr_tmp <- corr[indx, indx]
           
-          p_tmp <-  w_tmp * stats::uniroot(find_astar, 
+          p_tmp <-  w_tmp * uniroot(find_astar, 
                                            a = alpha_tmp,
                                            alpha_prev = alpha_prev,
                                            w = w_tmp, 
