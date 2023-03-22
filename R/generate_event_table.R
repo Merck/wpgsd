@@ -17,10 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #'  Generate table of event counts from ADSL and ADTTE SAS datasets
-#' 
-#' @importFrom  tibble tibble
-#' @importFrom dplyr %>% filter select
-#' 
+#'
 #' @param paths A vector of paths for analysis datasets. Length should be equal to the number of analyses completed
 #' @param h_select Selection criterion for each hypothesis. Should be a tibble containing 2 columns of Hypothesis and Crit
 #' @param adsl_name SAS dataset name for subject-level analysis data. Usually it is "adsl".
@@ -28,14 +25,17 @@
 #' @param key_var Key variable to join the adsl and adtte datasets. e.g. "USUBJID" or "SUBJID"
 #' @param cnsr_var Variable to indicate censoring (1 = censor; 0 = event). e.g. "CNSR".
 #'
-#' @return event a event count table as input for generate_bounds
-#'         dsets analysis datasets of each hypothesis
+#' @return A list with two components:
+#'   - `event`: an event count table as input for [generate_bounds()].
+#'   - `dsets`: analysis datasets of each hypothesis.
 #'
+#' @importFrom tibble tibble
+#' @importFrom dplyr %>% filter select
 #' @importFrom tidyselect all_of
 #'
 #' @export
 #'
-#' @examples 
+#' @examples
 #' library(dplyr)
 #'
 #' paths <- system.file("extdata/", package = "wpgsd")
@@ -55,50 +55,52 @@
 #' event %>%
 #'   kableExtra::kbl(caption = "Event Count - Compute from SAS Datasets Example", align = "l") %>%
 #'   kableExtra::kable_classic_2(full_width = FALSE)
-generate_event_table <- function(paths, h_select, 
-                                 adsl_name, adtte_name, 
-                                 key_var, cnsr_var){
-  
+generate_event_table <- function(paths, h_select,
+                                 adsl_name, adtte_name,
+                                 key_var, cnsr_var) {
   event <- NULL
   dsets <- list()
-  for (i in 1:length(paths)) { #number of path is number of analysis
+  for (i in seq_along(paths)) { # number of path is number of analysis
     path <- paths[i]
-    adsl <-  haven::read_sas(paste(path, "/", adsl_name, ".sas7bdat", sep = ""))
+    adsl <- haven::read_sas(paste(path, "/", adsl_name, ".sas7bdat", sep = ""))
     adtte <- haven::read_sas(paste(path, "/", adtte_name, ".sas7bdat", sep = ""))
     dset <- dplyr::left_join(adtte, adsl, by = key_var, suffix = c("", ".y"))
-    
-    for (j in 1:nrow(h_select)) { #number of time-to-event hypotheses
+
+    for (j in seq_len(nrow(h_select))) { # number of time-to-event hypotheses
       h_var <- paste("H", j, sep = "")
       crit <- h_select[j, 2]
-      dset <- dset %>% dplyr::mutate(!!h_var := ifelse(eval(str2expression(as.character(crit))), 
-                                                1, 0))
-      event_tmp <- tibble(H1 = paste(j), 
-                          H2 = paste(j),
-                          Analysis = i, 
-                          Event = sum(dset %>% 
-                                           filter(eval(str2expression(as.character(cnsr_var))) == 0) %>%
-                                           select(all_of(h_var)), na.rm = TRUE)
+      dset <- dset %>% dplyr::mutate(!!h_var := ifelse(eval(str2expression(as.character(crit))),
+        1, 0
+      ))
+      event_tmp <- tibble(
+        H1 = paste(j),
+        H2 = paste(j),
+        Analysis = i,
+        Event = sum(dset %>%
+          filter(eval(str2expression(as.character(cnsr_var))) == 0) %>%
+          select(all_of(h_var)), na.rm = TRUE)
       )
       event <- rbind(event, event_tmp)
-      
-      if (j>1) {
-        for (k in 1:(j-1)) {
+
+      if (j > 1) {
+        for (k in 1:(j - 1)) {
           h_var_k <- paste("H", k, sep = "")
-          
-          event_tmp <- tibble(H1 = paste(k),
-                              H2 = paste(j), 
-                              Analysis = i, 
-                              Event = sum(dset %>% 
-                                            filter(eval(str2expression(as.character(cnsr_var))) == 0 & eval(str2expression(as.character(h_var_k)))==1) %>%
-                                            select(all_of(h_var)), na.rm = TRUE)
+
+          event_tmp <- tibble(
+            H1 = paste(k),
+            H2 = paste(j),
+            Analysis = i,
+            Event = sum(dset %>%
+              filter(eval(str2expression(as.character(cnsr_var))) == 0 & eval(str2expression(as.character(h_var_k))) == 1) %>%
+              select(all_of(h_var)), na.rm = TRUE)
           )
           event <- rbind(event, event_tmp)
         }
       }
     }
-    
+
     dsets[[i]] <- dset
   }
- 
+
   return(list(event = event, dsets = dsets))
 }

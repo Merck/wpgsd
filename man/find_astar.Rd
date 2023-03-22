@@ -2,7 +2,8 @@
 % Please edit documentation in R/find_astar.R
 \name{find_astar}
 \alias{find_astar}
-\title{Utility function for root-finding to compute crossing probabilities with the overall alpha spending approach}
+\title{Utility function for root-finding to compute crossing probabilities
+with the overall alpha spending approach}
 \usage{
 find_astar(
   a,
@@ -16,27 +17,30 @@ find_astar(
 )
 }
 \arguments{
-\item{a}{cumulative overall alpha spending up to current analysis}
+\item{a}{Cumulative overall alpha spending up to current analysis.}
 
-\item{alpha_prev}{alpha boundary at previous interim analyses using the WPGSD approach}
+\item{alpha_prev}{alpha boundary at previous interim analyses using
+the WPGSD approach.}
 
-\item{astar}{total nominal alpha level at current analysis from the WPGSD approach}
+\item{astar}{Total nominal alpha level at current analysis from
+the WPGSD approach.}
 
-\item{w}{vector of alpha weights at current analysis}
+\item{w}{Vector of alpha weights at current analysis.}
 
-\item{sig}{correlation matrix of previous and current analyses test statistics}
+\item{sig}{Correlation matrix of previous and current analyses test statistics.}
 
-\item{maxpts}{GenzBretz function maximum number of function values as integer}
+\item{maxpts}{GenzBretz function maximum number of function values as integer.}
 
-\item{abseps}{GenzBretz function absolute error tolerance}
+\item{abseps}{GenzBretz function absolute error tolerance.}
 
-\item{...}{additional arguments}
+\item{...}{Additional arguments.}
 }
 \value{
 Difference. Should be 0 with a and astar identified.
 }
 \description{
-Utility function for root-finding to compute crossing probabilities with the overall alpha spending approach
+Utility function for root-finding to compute crossing probabilities
+with the overall alpha spending approach
 }
 \examples{
 library(tibble)

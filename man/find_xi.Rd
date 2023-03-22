@@ -2,7 +2,8 @@
 % Please edit documentation in R/find_xi.R
 \name{find_xi}
 \alias{find_xi}
-\title{Utility function for root-finding to compute inflation factor xi with the separate alpha spending approach}
+\title{Utility function for root-finding to compute inflation factor xi
+with the separate alpha spending approach}
 \usage{
 find_xi(
   a,
@@ -16,27 +17,28 @@ find_xi(
 )
 }
 \arguments{
-\item{a}{sum of cumulative alpha spending from the Bonferroni approach}
+\item{a}{Sum of cumulative alpha spending from the Bonferroni approach.}
 
-\item{alpha_prev}{alpha boundary at previous interim analyses using the MTP approach}
+\item{alpha_prev}{alpha boundary at previous interim analyses using the MTP approach.}
 
-\item{aprime}{nominal alpha boundary from the Bonferroni approach}
+\item{aprime}{Nominal alpha boundary from the Bonferroni approach.}
 
-\item{xi}{inflation factor}
+\item{xi}{Inflation factor.}
 
-\item{sig}{correlation matrix of previous and current analyses test statistics}
+\item{sig}{Correlation matrix of previous and current analyses test statistics.}
 
-\item{maxpts}{GenzBretz function maximum number of function values as integer}
+\item{maxpts}{GenzBretz function maximum number of function values as integer.}
 
-\item{abseps}{GenzBretz function absolute error tolerance}
+\item{abseps}{GenzBretz function absolute error tolerance.}
 
-\item{...}{additional arguments}
+\item{...}{Additional arguments.}
 }
 \value{
-Difference. Should be 0 with xi identified.
+Difference. Should be 0 with \code{xi} identified.
 }
 \description{
-Utility function for root-finding to compute inflation factor xi with the separate alpha spending approach
+Utility function for root-finding to compute inflation factor xi
+with the separate alpha spending approach
 }
 \examples{
 library(tibble)

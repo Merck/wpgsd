@@ -257,7 +257,7 @@ event <- tribble(
 )
 event %>%
   kbl(caption = "Event Count", align = "l") %>%
-  kable_classic_2(full_width = F)
+  kable_classic_2(full_width = FALSE)
 ```
  
 
@@ -280,7 +280,7 @@ event2 <- generate_event_table(paths, h_select,
 
 event2 %>%
   kbl(caption = "Event Count - Compute from SAS Datasets Example", align = "l") %>%
-  kable_classic_2(full_width = F)
+  kable_classic_2(full_width = FALSE)
 ```
 
 
@@ -292,7 +292,7 @@ corr <- generate_corr(event)
 
 corr %>%
   kbl(caption = "Correlation Matrix", align = "l", digits = 2) %>%
-  kable_classic_2(full_width = F)
+  kable_classic_2(full_width = FALSE)
 ```
 
 
@@ -316,7 +316,7 @@ bound_Bonf <- generate_bounds(
 
 bound_Bonf %>%
   kbl(caption = "Bonferroni bounds", align = "l", digits = 4) %>%
-  kable_classic_2(full_width = F)
+  kable_classic_2(full_width = FALSE)
 ```
 
 
@@ -335,7 +335,7 @@ bound_WPGSD <- generate_bounds(
 
 bound_WPGSD %>%
   kbl(caption = "WPGSD  bounds", align = "l", digits = 4) %>%
-  kable_classic_2(full_width = F)
+  kable_classic_2(full_width = FALSE)
 ```
 
 Below shows the comparison between the Bonferroni and WPGSD bounds. Nominal level at final analysis by using the WPGSD method increased by up to 1.3× over those obtained via the Bonferroni approach. 
@@ -361,7 +361,7 @@ bounds <- bounds %>%
 # Bonferroni and WPGSD Bounds (Table 6 in the manuscript)
 bounds %>%
   kbl(caption = "Bonferroni and WPGSD Bounds", align = "l", digits = 4) %>%
-  kable_classic_2(full_width = F)
+  kable_classic_2(full_width = FALSE)
 ```
  
 Closed testing procedure can then be performed using closed_test().
@@ -380,11 +380,11 @@ test_result <- closed_test(bound_WPGSD, p_obs)
 
 p_obs %>%
   kbl(caption = "Observed Nominal p-Values", align = "l") %>%
-  kable_classic_2(full_width = F)
+  kable_classic_2(full_width = FALSE)
 
 test_result %>%
   kbl(caption = "Closed Testing Results", align = "l") %>%
-  kable_classic_2(full_width = F)
+  kable_classic_2(full_width = FALSE)
 ```
 
 ## Implementation of Example 2 with Common Control 
@@ -423,7 +423,7 @@ event <- tribble(
 
 event %>%
   kbl(caption = "Event Count", align = "l") %>%
-  kable_classic_2(full_width = F)
+  kable_classic_2(full_width = FALSE)
 
 # Generate correlation from events
 corr <- generate_corr(event)
@@ -431,7 +431,7 @@ corr <- generate_corr(event)
 # correlation matrix in Table 4
 corr %>%
   kbl(caption = "Correlation Matrix", align = "l", digits = 2) %>%
-  kable_classic_2(full_width = F)
+  kable_classic_2(full_width = FALSE)
 
 # WPGSD bounds, spending method 3c
 bound_WPGSD <- generate_bounds(
@@ -463,7 +463,7 @@ bounds <- bounds %>%
 # Table A6
 bounds %>%
   kbl(caption = "Bonferroni and WPGSD Bounds", align = "l", digits = 4) %>%
-  kable_classic_2(full_width = F)
+  kable_classic_2(full_width = FALSE)
 ```
 
 

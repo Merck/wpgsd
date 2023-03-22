@@ -16,24 +16,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#' Utility function for root-finding to compute crossing probabilities with the overall alpha spending approach
-#' 
-#' @param a cumulative overall alpha spending up to current analysis
-#' @param alpha_prev alpha boundary at previous interim analyses using the WPGSD approach
-#' @param astar total nominal alpha level at current analysis from the WPGSD approach 
-#' @param w vector of alpha weights at current analysis
-#' @param sig correlation matrix of previous and current analyses test statistics
-#' @param maxpts GenzBretz function maximum number of function values as integer
-#' @param abseps GenzBretz function absolute error tolerance
-#' @param ... additional arguments
-#' 
+#' Utility function for root-finding to compute crossing probabilities
+#' with the overall alpha spending approach
+#'
+#' @param a Cumulative overall alpha spending up to current analysis.
+#' @param alpha_prev alpha boundary at previous interim analyses using
+#'   the WPGSD approach.
+#' @param astar Total nominal alpha level at current analysis from
+#'   the WPGSD approach.
+#' @param w Vector of alpha weights at current analysis.
+#' @param sig Correlation matrix of previous and current analyses test statistics.
+#' @param maxpts GenzBretz function maximum number of function values as integer.
+#' @param abseps GenzBretz function absolute error tolerance.
+#' @param ... Additional arguments.
+#'
 #' @return Difference. Should be 0 with a and astar identified.
+#'
 #' @export
-#' 
+#'
 #' @examples
 #' library(tibble)
 #' library(mvtnorm)
-#' 
+#'
 #' # Input event count of intersection of paired hypotheses - Table 2
 #' my_event <- tribble(
 #'   ~H1, ~H2, ~Analysis, ~Event,
@@ -50,10 +54,10 @@
 #'   1, 3, 2, 170,
 #'   2, 3, 2, 170
 #' )
-#' 
+#'
 #' # Generate correlation from events
 #' my_corr <- generate_corr(my_event)
-#' 
+#'
 #' # Find the inflation factor for H1, H2 at analysis 1
 #' find_astar(
 #'   a = 0.0008708433,
@@ -66,20 +70,24 @@
 #'     colnames(my_corr) %in% c("H1_A1", "H2_A1")
 #'   ]
 #' )
-find_astar <- function(a, alpha_prev = NULL, astar, w, sig, maxpts = 50000, abseps = 0.00001, ...){
+find_astar <- function(a, alpha_prev = NULL, astar, w, sig, maxpts = 50000, abseps = 0.00001, ...) {
   # Remove column name for proper pmvnorm run
   colnames(sig) <- NULL
-  
+
   if (is.null(alpha_prev)) {
-    res <- 1 - a - mvtnorm::pmvnorm(lower = -Inf, 
-                                    upper = qnorm(1 - w * astar), 
-                                    sigma = sig,
-                                    algorithm = mvtnorm::GenzBretz(maxpts = maxpts, abseps = abseps))
+    res <- 1 - a - mvtnorm::pmvnorm(
+      lower = -Inf,
+      upper = qnorm(1 - w * astar),
+      sigma = sig,
+      algorithm = mvtnorm::GenzBretz(maxpts = maxpts, abseps = abseps)
+    )
   } else {
-    res <-  1 - a - mvtnorm::pmvnorm(lower = -Inf, 
-                                     upper = c(qnorm(1 - alpha_prev), qnorm(1 - w * astar)), 
-                                     sigma = sig,
-                                     algorithm = mvtnorm::GenzBretz(maxpts = maxpts, abseps = abseps))
+    res <- 1 - a - mvtnorm::pmvnorm(
+      lower = -Inf,
+      upper = c(qnorm(1 - alpha_prev), qnorm(1 - w * astar)),
+      sigma = sig,
+      algorithm = mvtnorm::GenzBretz(maxpts = maxpts, abseps = abseps)
+    )
   }
   return(res)
 }

@@ -19,10 +19,14 @@
 #' Convert event matrix to correlation matrix
 #'
 #' @param D Event matrix.
+#'
 #' @return Correlation matrix.
+#'
+#' @noRd
+#'
 #' @examples
-#' wpgsd:::d_corr(D = matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9), nrow = 3))
-d_corr <- function(D){
+#' d_corr(D = matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9), nrow = 3))
+d_corr <- function(D) {
   B <- matrix(0, nrow = nrow(D), ncol = nrow(D))
   diag(B) <- 1 / sqrt(diag(D))
   return(B %*% D %*% B)

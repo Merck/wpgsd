@@ -20,8 +20,11 @@ generate_event_table(paths, h_select, adsl_name, adtte_name, key_var, cnsr_var)
 \item{cnsr_var}{Variable to indicate censoring (1 = censor; 0 = event). e.g. "CNSR".}
 }
 \value{
-event a event count table as input for generate_bounds
-dsets analysis datasets of each hypothesis
+A list with two components:
+\itemize{
+\item \code{event}: an event count table as input for \code{\link[=generate_bounds]{generate_bounds()}}.
+\item \code{dsets}: analysis datasets of each hypothesis.
+}
 }
 \description{
 Generate table of event counts from ADSL and ADTTE SAS datasets
