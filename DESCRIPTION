@@ -25,6 +25,7 @@ Imports:
     stats,
     tibble
 Suggests: 
+    covr,
     devtools,
     haven,
     kableExtra,

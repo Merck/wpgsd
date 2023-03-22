@@ -2,18 +2,22 @@
 title: "Quick Start"
 output:
   rmarkdown::html_document:
-    code_folding: hide
     toc: true
+    toc_depth: 3
     toc_float: true
-    toc_depth: 2
+    theme: flatly
+    code_folding: hide
     number_sections: true
     highlight: "textmate"
     css: "custom.css"
-    keep_tex: yes
-bibliography: "wpgsd.bib"
-vignette: >
-  %\VignetteEngine{knitr::knitr}
+bibliography: wpgsd.bib
+vignette: |
   %\VignetteIndexEntry{WPGSD Introduction and Example}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options:
+  markdown:
+    wrap: 72
 ---
 
 ```{r setup, include = FALSE,message=FALSE,warning=FALSE}
