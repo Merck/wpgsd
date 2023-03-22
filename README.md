@@ -5,7 +5,15 @@
 [![Codecov test coverage](https://codecov.io/gh/Merck/wpgsd/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Merck/wpgsd?branch=main)
 <!-- badges: end -->
 
-# Objective
+## Installation
+
+Install the development version of wpgsd from GitHub:
+
+```r
+remotes::install_github("Merck/wpgsd")
+```
+
+## Objective
 
 Weighted parametric group sequential design (WPGSD) allows one to take advantage
 of the known correlation structure in constructing efficacy bounds to control
@@ -14,7 +22,7 @@ may be due to common observations in nested populations, due to common
 observations in overlapping populations, or due to common observations
 in the control arm.
 
-# References
+## References
 
 Anderson, K. M., Guo, Z., Zhao, J., & Sun, L. Z. (2022).
 A unified framework for weighted parametric group sequential design.
