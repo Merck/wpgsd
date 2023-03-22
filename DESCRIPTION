@@ -23,6 +23,7 @@ Imports:
     gMCPLite,
     gsDesign,
     mvtnorm,
+    rlang (>= 0.4.11),
     stats,
     tibble
 Suggests:
@@ -32,6 +33,7 @@ Suggests:
     knitr,
     reshape2,
     rmarkdown,
+    roxygen2,
     testthat (>= 3.0.0),
     tidyr
 VignetteBuilder:
