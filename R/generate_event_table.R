@@ -30,6 +30,9 @@
 #'
 #' @return event a event count table as input for generate_bounds
 #'         dsets analysis datasets of each hypothesis
+#'
+#' @importFrom tidyselect all_of
+#'
 #' @export
 #'
 #' @examples 
