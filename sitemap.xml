@@ -25,9 +25,6 @@
     <loc>https://merck.github.io/wpgsd/reference/closed_test.html</loc>
   </url>
   <url>
-    <loc>https://merck.github.io/wpgsd/reference/d_corr.html</loc>
-  </url>
-  <url>
     <loc>https://merck.github.io/wpgsd/reference/find_astar.html</loc>
   </url>
   <url>
@@ -44,5 +41,8 @@
   </url>
   <url>
     <loc>https://merck.github.io/wpgsd/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://merck.github.io/wpgsd/reference/tidyeval.html</loc>
   </url>
 </urlset>

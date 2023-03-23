@@ -60,7 +60,7 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>paths</dt>
-<dd><p>a vector of paths for analysis datasets. Length should be equal to the number of analyses completed</p></dd>
+<dd><p>A vector of paths for analysis datasets. Length should be equal to the number of analyses completed</p></dd>
 
 
 <dt>h_select</dt>
@@ -87,30 +87,70 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>event a event count table as input for generate_bounds
-dsets analysis datasets of each hypothesis</p>
-    </div>
+<p>A list with two components:</p><ul><li><p><code>event</code>: an event count table as input for <code><a href="generate_bounds.html">generate_bounds()</a></code>.</p></li>
+<li><p><code>dsets</code>: analysis datasets of each hypothesis.</p></li>
+</ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘dplyr’</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:stats’:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     filter, lag</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     intersect, setdiff, setequal, union</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="st">"./inst/extdata"</span></span></span>
+<span class="r-in"><span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/"</span>, package <span class="op">=</span> <span class="st">"wpgsd"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Selection criteria for each hypothesis</span></span></span>
-<span class="r-in"><span><span class="va">h_select</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span><span class="op">~</span><span class="va">Hypothesis</span>, <span class="op">~</span><span class="va">Crit</span>,</span></span>
-<span class="r-in"><span>                            <span class="fl">1</span>, <span class="st">"PARAMCD == 'OS' &amp; TRT01P %in% c('Xanomeline High Dose', 'Placebo')"</span>,</span></span>
-<span class="r-in"><span>                            <span class="fl">2</span>, <span class="st">"PARAMCD == 'OS' &amp; TRT01P %in% c('Xanomeline Low Dose', 'Placebo')"</span><span class="op">)</span> </span></span>
-<span class="r-in"><span>                            </span></span>
-<span class="r-in"><span><span class="va">event</span> <span class="op">&lt;-</span> <span class="fu">generate_event_table</span><span class="op">(</span><span class="va">paths</span>, <span class="va">h_select</span>, </span></span>
-<span class="r-in"><span>                              adsl_name <span class="op">=</span> <span class="st">"adsl"</span>, adtte_name <span class="op">=</span> <span class="st">"adtte"</span>, </span></span>
-<span class="r-in"><span>                              key_var <span class="op">=</span> <span class="st">"USUBJID"</span>, cnsr_var <span class="op">=</span> <span class="st">"CNSR"</span><span class="op">)</span><span class="op">$</span><span class="va">event</span></span></span>
+<span class="r-in"><span><span class="va">h_select</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="op">~</span><span class="va">Hypothesis</span>, <span class="op">~</span><span class="va">Crit</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="st">"PARAMCD == 'OS' &amp; TRT01P %in% c('Xanomeline High Dose', 'Placebo')"</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">2</span>, <span class="st">"PARAMCD == 'OS' &amp; TRT01P %in% c('Xanomeline Low Dose', 'Placebo')"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">event</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
+<span class="r-in"><span><span class="va">event</span> <span class="op">&lt;-</span> <span class="fu">generate_event_table</span><span class="op">(</span><span class="va">paths</span>, <span class="va">h_select</span>,</span></span>
+<span class="r-in"><span>  adsl_name <span class="op">=</span> <span class="st">"adsl"</span>, adtte_name <span class="op">=</span> <span class="st">"adtte"</span>,</span></span>
+<span class="r-in"><span>  key_var <span class="op">=</span> <span class="st">"USUBJID"</span>, cnsr_var <span class="op">=</span> <span class="st">"CNSR"</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">$</span><span class="va">event</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">event</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html" class="external-link">kbl</a></span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"Event Count - Compute from SAS Datasets Example"</span>, align <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_classic.html" class="external-link">kable_classic_2</a></span><span class="op">(</span>full_width <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> </span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_classic.html" class="external-link">kable_classic_2</a></span><span class="op">(</span>full_width <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;table class=" lightable-classic-2" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;caption&gt;Event Count - Compute from SAS Datasets Example&lt;/caption&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  &lt;thead&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;tr&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;th style="text-align:left;"&gt; H1 &lt;/th&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;th style="text-align:left;"&gt; H2 &lt;/th&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;th style="text-align:left;"&gt; Analysis &lt;/th&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;th style="text-align:left;"&gt; Event &lt;/th&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/tr&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  &lt;/thead&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;tbody&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;tr&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;td style="text-align:left;"&gt; 66 &lt;/td&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/tr&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;tr&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;td style="text-align:left;"&gt; 59 &lt;/td&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/tr&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;tr&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;td style="text-align:left;"&gt; 45 &lt;/td&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/tr&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/tbody&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/table&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
