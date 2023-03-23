@@ -7,7 +7,7 @@
 generate_event_table(paths, h_select, adsl_name, adtte_name, key_var, cnsr_var)
 }
 \arguments{
-\item{paths}{a vector of paths for analysis datasets. Length should be equal to the number of analyses completed}
+\item{paths}{A vector of paths for analysis datasets. Length should be equal to the number of analyses completed}
 
 \item{h_select}{Selection criterion for each hypothesis. Should be a tibble containing 2 columns of Hypothesis and Crit}
 
@@ -20,29 +20,33 @@ generate_event_table(paths, h_select, adsl_name, adtte_name, key_var, cnsr_var)
 \item{cnsr_var}{Variable to indicate censoring (1 = censor; 0 = event). e.g. "CNSR".}
 }
 \value{
-event a event count table as input for generate_bounds
-dsets analysis datasets of each hypothesis
+A list with two components:
+\itemize{
+\item \code{event}: an event count table as input for \code{\link[=generate_bounds]{generate_bounds()}}.
+\item \code{dsets}: analysis datasets of each hypothesis.
+}
 }
 \description{
 Generate table of event counts from ADSL and ADTTE SAS datasets
 }
 \examples{
-\dontrun{
 library(dplyr)
 
-paths <- "./inst/extdata"
+paths <- system.file("extdata/", package = "wpgsd")
 
 # Selection criteria for each hypothesis
-h_select <- tibble::tribble(~Hypothesis, ~Crit,
-                            1, "PARAMCD == 'OS' & TRT01P \%in\% c('Xanomeline High Dose', 'Placebo')",
-                            2, "PARAMCD == 'OS' & TRT01P \%in\% c('Xanomeline Low Dose', 'Placebo')") 
-                            
-event <- generate_event_table(paths, h_select, 
-                              adsl_name = "adsl", adtte_name = "adtte", 
-                              key_var = "USUBJID", cnsr_var = "CNSR")$event
+h_select <- tibble::tribble(
+  ~Hypothesis, ~Crit,
+  1, "PARAMCD == 'OS' & TRT01P \%in\% c('Xanomeline High Dose', 'Placebo')",
+  2, "PARAMCD == 'OS' & TRT01P \%in\% c('Xanomeline Low Dose', 'Placebo')"
+)
 
-event \%>\% 
+event <- generate_event_table(paths, h_select,
+  adsl_name = "adsl", adtte_name = "adtte",
+  key_var = "USUBJID", cnsr_var = "CNSR"
+)$event
+
+event \%>\%
   kableExtra::kbl(caption = "Event Count - Compute from SAS Datasets Example", align = "l") \%>\%
-  kableExtra::kable_classic_2(full_width = F) 
-}
+  kableExtra::kable_classic_2(full_width = FALSE)
 }

@@ -7,9 +7,11 @@
 closed_test(bounds, p_obs)
 }
 \arguments{
-\item{bounds}{a tibble object of nominal p-value boundaries from generate_bounds() containing columns Analysis, Hypotheses, H1, H2 etc.}
+\item{bounds}{A tibble of nominal p-value boundaries from \code{\link[=generate_bounds]{generate_bounds()}}
+containing columns \code{Analysis}, \code{Hypotheses}, \code{H1}, \code{H2}, etc.}
 
-\item{p_obs}{a tibble object of observed p-values containing columns Analysis, H1, H2 etc.}
+\item{p_obs}{A tibble of observed p-values containing columns
+\code{Analysis}, \code{H1}, \code{H2}, etc.}
 }
 \value{
 An outcome matrix summarizing the testing results.
@@ -18,15 +20,19 @@ An outcome matrix summarizing the testing results.
 Perform closed testing procedure
 }
 \examples{
-p_obs <- dplyr::bind_rows(tibble::tibble(Analysis = 1, H1 = 0.001, H2 = 0.001),
-                          tibble::tibble(Analysis = 2, H1 = 0.001, H2 = 0.001))
-bound <- tibble::tribble(~Analysis, ~ Hypotheses, ~H1, ~H2,
-                          1, 'H1', 0.02, NA,
-                          1, 'H1, H2', 0.0001, 0.00001,
-                          1, 'H2', NA, 0.003,
-                          2, 'H1', 0.02, NA,
-                          2, 'H1, H2', 0.02, 0.00001,
-                          2, 'H2', NA, 0.003) 
-                 
-closed_test <- closed_test (bound, p_obs)
+p_obs <- dplyr::bind_rows(
+  tibble::tibble(Analysis = 1, H1 = 0.001, H2 = 0.001),
+  tibble::tibble(Analysis = 2, H1 = 0.001, H2 = 0.001)
+)
+bound <- tibble::tribble(
+  ~Analysis, ~Hypotheses, ~H1, ~H2,
+  1, "H1", 0.02, NA,
+  1, "H1, H2", 0.0001, 0.00001,
+  1, "H2", NA, 0.003,
+  2, "H1", 0.02, NA,
+  2, "H1, H2", 0.02, 0.00001,
+  2, "H2", NA, 0.003
+)
+
+closed_test <- closed_test(bound, p_obs)
 }

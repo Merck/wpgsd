@@ -2,7 +2,8 @@
 % Please edit documentation in R/generate_bounds.R
 \name{generate_bounds}
 \alias{generate_bounds}
-\title{Compute p value boundaries of the parametric MTP method with overall alpha spending for all hypotheses}
+\title{Compute p-value boundaries of the parametric MTP method with overall
+alpha spending for all hypotheses}
 \usage{
 generate_bounds(
   type = 1,
@@ -23,95 +24,114 @@ generate_bounds(
 }
 \arguments{
 \item{type}{Boundary type.
-0 = Bonferroni. Separate alpha spending for each hypotheses.
-1 = Fixed alpha spending for all hypotheses. Method 3a in the manuscript.
-2 = Overall alpha spending for all hypotheses. Method 3b in the manuscript.
-3 = Separate alpha spending for each hypotheses. Method 3c in the manuscript.}
+\itemize{
+\item \code{0} = Bonferroni. Separate alpha spending for each hypotheses.
+\item \code{1} = Fixed alpha spending for all hypotheses. Method 3a in the manuscript.
+\item \code{2} = Overall alpha spending for all hypotheses. Method 3b in the manuscript.
+\item \code{3} = Separate alpha spending for each hypotheses. Method 3c in the manuscript.
+}}
 
 \item{k}{Number of analyses up to the current analysis.}
 
-\item{w}{Initial weights}
+\item{w}{Initial weights.}
 
-\item{m}{Transition matrix}
+\item{m}{Transition matrix.}
 
-\item{corr}{Correlation matrix of all test statistics up to the current analysis. dim = k*length(w)}
+\item{corr}{Correlation matrix of all test statistics up to the
+current analysis. dim = k * length(w).}
 
-\item{alpha}{Overall alpha}
+\item{alpha}{Overall alpha.}
 
-\item{cum_alpha}{Cumulative alpha spent at each analysis. Only required for type=1.}
+\item{cum_alpha}{Cumulative alpha spent at each analysis.
+Only required for \code{type = 1}.}
 
-\item{maxpts}{GenzBretz function maximum number of function values as integer}
+\item{maxpts}{GenzBretz function maximum number of function values
+as integer.}
 
-\item{abseps}{GenzBretz function absolute error tolerance}
+\item{abseps}{GenzBretz function absolute error tolerance.}
 
-\item{tol}{find root tolerance}
+\item{tol}{Find root tolerance.}
 
-\item{sf}{A list of alpha spending functions to spend alpha for each hypotheses.
-If type = 0 or 3 then length equals to number of hypotheses.
-If type = 1 then sf is not needed.
-If type = 2 then only the first component is used.}
+\item{sf}{A list of alpha spending functions to spend alpha for
+each hypotheses.
+\itemize{
+\item If \code{type = 0} or \code{3} then length equals to number of hypotheses.
+\item If \code{type = 1} then \code{sf} is not needed.
+\item If \code{type = 2} then only the first component is used.
+}}
 
 \item{sfparm}{A list of parameters to be supplied to sfs.
-If type = 0 or 3 then length equals to number of hypotheses.
-If type = 1 then sfparm is not needed.
-If type = 2 then only the first component is used.}
+\itemize{
+\item If \code{type = 0} or \code{3} then length equals to number of hypotheses.
+\item If \code{type = 1} then \code{sfparm} is not needed.
+\item If \code{type = 2} then only the first component is used.
+}}
 
 \item{t}{A list of information fraction used for alpha spending,
 may be different from the actual information fraction.
 Each component corresponds to a hypothesis.
-If type = 0 or 3 then length equals to number of hypotheses.
-If type = 1 then t is not needed.
-If type = 2 then only the first component is used.}
+\itemize{
+\item If \code{type = 0} or \code{3} then length equals to number of hypotheses.
+\item If \code{type = 1} then \code{t} is not needed.
+\item If \code{type = 2} then only the first component is used.
+}}
 
-\item{...}{additional arguments}
+\item{...}{Additional arguments.}
 }
 \value{
-A \code{tibble} with \code{k*(2^(n_hypotheses-1))} rows of p-value boundaries.
-Inflation factor is also provided if type=3.
+A tibble with \code{k * (2^(n_hypotheses - 1))} rows of
+p-value boundaries. Inflation factor is also provided if \code{type = 3}.
 }
 \description{
-Compute p value boundaries of the parametric MTP method with overall alpha spending for all hypotheses
+Compute p-value boundaries of the parametric MTP method with overall
+alpha spending for all hypotheses
 }
 \examples{
 library(tibble)
 
-# build the transition matrix
-m <- matrix(c(0, 0.5, 0.5, 
-              0.5, 0, 0.5,
-              0.5,0.5,0), nrow = 3, byrow = TRUE)
-# initialize weights
-w <- c(1/3, 1/3, 1/3)
+# Build the transition matrix
+m <- matrix(c(
+  0, 0.5, 0.5,
+  0.5, 0, 0.5,
+  0.5, 0.5, 0
+), nrow = 3, byrow = TRUE)
 
-# input information fraction
-IF_IA <- c(155/305, 160/320, 165/335) 
+# Initialize weights
+w <- c(1 / 3, 1 / 3, 1 / 3)
 
-# input event count of intersection of paired hypotheses - Table 2
-event <- tribble(~H1, ~H2, ~Analysis, ~Event,
-                 1, 1, 1, 155,
-                 2, 2, 1, 160,
-                 3, 3, 1, 165,
-                 1, 2, 1, 85,
-                 1, 3, 1, 85,
-                 2, 3, 1, 85,
-                 1, 1, 2, 305,
-                 2, 2, 2, 320,
-                 3, 3, 2, 335,
-                 1, 2, 2, 170,
-                 1, 3, 2, 170,
-                 2, 3, 2, 170) 
+# Input information fraction
+IF_IA <- c(155 / 305, 160 / 320, 165 / 335)
 
-# generate correlation from events
+# Input event count of intersection of paired hypotheses - Table 2
+event <- tribble(
+  ~H1, ~H2, ~Analysis, ~Event,
+  1, 1, 1, 155,
+  2, 2, 1, 160,
+  3, 3, 1, 165,
+  1, 2, 1, 85,
+  1, 3, 1, 85,
+  2, 3, 1, 85,
+  1, 1, 2, 305,
+  2, 2, 2, 320,
+  3, 3, 2, 335,
+  1, 2, 2, 170,
+  1, 3, 2, 170,
+  2, 3, 2, 170
+)
+
+# Generate correlation from events
 gs_corr <- generate_corr(event)
 
-# generate bounds
-generate_bounds(type = 3,
-                k = 2, 
-                w = w, 
-                m = m, 
-                corr = gs_corr, 
-                alpha = 0.025, 
-                sf = list(gsDesign::sfLDOF, gsDesign::sfLDOF, gsDesign::sfLDOF), 
-                sfparm = list(0, 0, 0), 
-                t = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[3], 1))) 
-                
+# Generate bounds
+generate_bounds(
+  type = 3,
+  k = 2,
+  w = w,
+  m = m,
+  corr = gs_corr,
+  alpha = 0.025,
+  sf = list(gsDesign::sfLDOF, gsDesign::sfLDOF, gsDesign::sfLDOF),
+  sfparm = list(0, 0, 0),
+  t = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[3], 1))
+)
 }
