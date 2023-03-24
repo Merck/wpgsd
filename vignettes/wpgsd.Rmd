@@ -36,7 +36,7 @@ library(haven)
 library(dplyr)
 library(tidyr)
 library(reshape2)
-library(kableExtra)
+library(gt)
 ```
 
 # Background
@@ -355,8 +355,8 @@ event <- tribble(
   2, 3, 2, 220
 )
 event %>%
-  kbl(caption = "Event Count", align = "l") %>%
-  kable_classic_2(full_width = FALSE)
+  gt() %>%
+  tab_header(title = "Event Count")
 ```
 
 ```{r}
@@ -378,8 +378,8 @@ event2 <- generate_event_table(paths, h_select,
 )$event
 
 event2 %>%
-  kbl(caption = "Event Count - Compute from SAS Datasets Example", align = "l") %>%
-  kable_classic_2(full_width = FALSE)
+  gt() %>%
+  tab_header(title = "Event Count - Computed from SAS Datasets Example")
 ```
 
 Then we compute correlation matrix using the event count table and `generate_corr()`. We see that the correlations not accounted for by the Bonferroni approach are substantial and, thus, might expect a non-trivial impact on bounds for hypothesis tests.
@@ -389,8 +389,10 @@ Then we compute correlation matrix using the event count table and `generate_cor
 corr <- generate_corr(event)
 
 corr %>%
-  kbl(caption = "Correlation Matrix", align = "l", digits = 2) %>%
-  kable_classic_2(full_width = FALSE)
+  as_tibble() %>%
+  gt() %>%
+  fmt_number(columns = everything(), decimals = 2) %>%
+  tab_header(title = "Correlation Matrix")
 ```
 
 Bonferroni and WPGSD bounds can then be computed via `generate_bounds()`. In this example, we useHSD(-4) as $\alpha$-spending for all hypotheses. Of note, `generate_bounds()` input type specifies boundary type.
@@ -401,6 +403,7 @@ Bonferroni and WPGSD bounds can then be computed via `generate_bounds()`. In thi
 - 3 = Separate alpha spending for each hypotheses. Method 3c in the manuscript.
 
 Compute Bonferroni bounds.
+
 ```{r}
 # Bonferroni bounds
 bound_Bonf <- generate_bounds(
@@ -412,8 +415,9 @@ bound_Bonf <- generate_bounds(
 )
 
 bound_Bonf %>%
-  kbl(caption = "Bonferroni bounds", align = "l", digits = 4) %>%
-  kable_classic_2(full_width = FALSE)
+  gt() %>%
+  fmt_number(columns = 3:5, decimals = 4) %>%
+  tab_header(title = "Bonferroni bounds")
 ```
 
 Compute WPGSD Bounds using $\alpha$-spending approach 1 with HSD(-4) spending. Here spending time was defined as minimum of the 3 observed information fractions.
@@ -430,8 +434,9 @@ bound_WPGSD <- generate_bounds(
 )
 
 bound_WPGSD %>%
-  kbl(caption = "WPGSD  bounds", align = "l", digits = 4) %>%
-  kable_classic_2(full_width = FALSE)
+  gt() %>%
+  fmt_number(columns = 3:5, decimals = 4) %>%
+  tab_header(title = "WPGSD bounds")
 ```
 
 Below shows the comparison between the Bonferroni and WPGSD bounds. Nominal level at final analysis by using the WPGSD method increased by up to 1.3× over those obtained via the Bonferroni approach.
@@ -456,8 +461,9 @@ bounds <- bounds %>%
 
 # Bonferroni and WPGSD Bounds (Table 6 in the manuscript)
 bounds %>%
-  kbl(caption = "Bonferroni and WPGSD Bounds", align = "l", digits = 4) %>%
-  kable_classic_2(full_width = FALSE)
+  gt() %>%
+  fmt_number(columns = 3:9, decimals = 4) %>%
+  tab_header(title = "Bonferroni and WPGSD Bounds")
 ```
 
 Closed testing procedure can then be performed using `closed_test()`.
@@ -475,12 +481,15 @@ p_obs <- tribble(
 test_result <- closed_test(bound_WPGSD, p_obs)
 
 p_obs %>%
-  kbl(caption = "Observed Nominal p-Values", align = "l") %>%
-  kable_classic_2(full_width = FALSE)
+  gt() %>%
+  fmt_number(columns = 2:4, decimals = 8, drop_trailing_zeros = TRUE) %>%
+  tab_header("Observed Nominal p-Values")
+```
 
+```{r}
 test_result %>%
-  kbl(caption = "Closed Testing Results", align = "l") %>%
-  kable_classic_2(full_width = FALSE)
+  gt() %>%
+  tab_header(title = "Closed Testing Results")
 ```
 
 ## Implementation of Example 2 with Common Control
@@ -518,17 +527,23 @@ event <- tribble(
 )
 
 event %>%
-  kbl(caption = "Event Count", align = "l") %>%
-  kable_classic_2(full_width = FALSE)
+  gt() %>%
+  tab_header(title = "Event Count")
+```
 
+```{r}
 # Generate correlation from events
 corr <- generate_corr(event)
 
 # Correlation matrix in Table 4
 corr %>%
-  kbl(caption = "Correlation Matrix", align = "l", digits = 2) %>%
-  kable_classic_2(full_width = FALSE)
+  as_tibble() %>%
+  gt() %>%
+  fmt_number(columns = everything(), decimals = 2) %>%
+  tab_header(title = "Correlation Matrix")
+```
 
+```{r}
 # WPGSD bounds, spending method 3c
 bound_WPGSD <- generate_bounds(
   type = 3, k = 2, w = w, m = m, corr = corr, alpha = 0.025,
@@ -558,8 +573,9 @@ bounds <- bounds %>%
 
 # Table A6
 bounds %>%
-  kbl(caption = "Bonferroni and WPGSD Bounds", align = "l", digits = 4) %>%
-  kable_classic_2(full_width = FALSE)
+  gt() %>%
+  fmt_number(columns = 3:9, decimals = 4) %>%
+  tab_header(title = "Bonferroni and WPGSD Bounds")
 ```
 
 ## Power Considerations

@@ -36,8 +36,8 @@ Imports:
     tidyselect
 Suggests:
     covr,
+    gt,
     haven,
-    kableExtra,
     knitr,
     reshape2,
     rmarkdown,
