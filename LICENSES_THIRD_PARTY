@@ -12,5 +12,10 @@ Third party R packages listed by License type
 --------------------------------------------------
 
 MIT / X11 License (or adaptations) (https://www.opensource.org/licenses/MIT)
-  * tibble - https://tibble.tidyverse.org/LICENSE.html
   * dplyr - https://dplyr.tidyverse.org/LICENSE.html
+  * rlang - https://rlang.r-lib.org/LICENSE.html
+  * tibble - https://tibble.tidyverse.org/LICENSE.html
+  * tidyselect - https://tidyselect.r-lib.org/LICENSE-text.html
+
+GPL-2
+  * mvtnorm - https://cran.r-project.org/package=mvtnorm

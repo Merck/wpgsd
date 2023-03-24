@@ -16,14 +16,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#'  Generate table of event counts from ADSL and ADTTE SAS datasets
+#' Generate table of event counts from ADSL and ADTTE datasets
 #'
-#' @param paths A vector of paths for analysis datasets. Length should be equal to the number of analyses completed
-#' @param h_select Selection criterion for each hypothesis. Should be a tibble containing 2 columns of Hypothesis and Crit
-#' @param adsl_name SAS dataset name for subject-level analysis data. Usually it is "adsl".
-#' @param adtte_name SAS dataset name for time-to-event analysis data. Usually it is "adtte".
-#' @param key_var Key variable to join the adsl and adtte datasets. e.g. "USUBJID" or "SUBJID"
-#' @param cnsr_var Variable to indicate censoring (1 = censor; 0 = event). e.g. "CNSR".
+#' @param paths A vector of paths for analysis datasets.
+#'   Length should be equal to the number of analyses completed.
+#' @param h_select Selection criterion for each hypothesis.
+#'   Should be a tibble containing 2 columns: `Hypothesis` and `Crit`.
+#' @param adsl_name SAS dataset name for subject-level analysis data.
+#'   Usually it is `"adsl"`.
+#' @param adtte_name SAS dataset name for time-to-event analysis data.
+#'   Usually it is `"adtte"`.
+#' @param key_var Key variable to join the `adsl` and `adtte` datasets.
+#'   For example, `"USUBJID"` or `"SUBJID"`.
+#' @param cnsr_var Variable to indicate censoring (`1` = censor; `0` = event).
+#'   For example, `"CNSR"`.
 #'
 #' @return A list with two components:
 #'   - `event`: an event count table as input for [generate_bounds()].
@@ -60,7 +66,7 @@ generate_event_table <- function(paths, h_select,
                                  key_var, cnsr_var) {
   event <- NULL
   dsets <- list()
-  for (i in seq_along(paths)) { # number of path is number of analysis
+  for (i in seq_along(paths)) { # Number of path is number of analysis
     path <- paths[i]
     adsl <- haven::read_sas(paste(path, "/", adsl_name, ".sas7bdat", sep = ""))
     adtte <- haven::read_sas(paste(path, "/", adtte_name, ".sas7bdat", sep = ""))

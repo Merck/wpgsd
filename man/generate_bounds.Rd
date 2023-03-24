@@ -87,8 +87,6 @@ Compute p-value boundaries of the parametric MTP method with overall
 alpha spending for all hypotheses
 }
 \examples{
-library(tibble)
-
 # Build the transition matrix
 m <- matrix(c(
   0, 0.5, 0.5,
@@ -103,7 +101,7 @@ w <- c(1 / 3, 1 / 3, 1 / 3)
 IF_IA <- c(155 / 305, 160 / 320, 165 / 335)
 
 # Input event count of intersection of paired hypotheses - Table 2
-event <- tribble(
+event <- tibble::tribble(
   ~H1, ~H2, ~Analysis, ~Event,
   1, 1, 1, 155,
   2, 2, 1, 160,

@@ -19,9 +19,7 @@ A correlation matrix.
 Generate correlation matrix based on event counts
 }
 \examples{
-library(tibble)
-
-# build the transition matrix
+# Build the transition matrix
 m <- matrix(c(
   0, 0.5, 0.5,
   0.5, 0, 0.5,
@@ -30,8 +28,8 @@ m <- matrix(c(
 # initialize weights
 w <- c(1 / 3, 1 / 3, 1 / 3)
 
-# input event count of intersection of paired hypotheses - Table 2
-event <- tribble(
+# Input event count of intersection of paired hypotheses - Table 2
+event <- tibble::tribble(
   ~H1, ~H2, ~Analysis, ~Event,
   1, 1, 1, 155,
   2, 2, 1, 160,
@@ -47,6 +45,6 @@ event <- tribble(
   2, 3, 2, 170
 )
 
-# generate correlation from events
+# Generate correlation from events
 gs_corr <- generate_corr(event)
 }

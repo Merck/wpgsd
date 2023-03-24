@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Adjusted inference for weighted parametric group sequential design.
+Adjusted inference for weighted parametric group sequential design. Weighted parametric group sequential design (WPGSD) by Anderson et al. (2022) \doi{10.1002/bimj.202100085} allows one to take advantage of the known correlation structure in constructing efficacy bounds to control family-wise error rate (FWER) for a group sequential design. Here, correlation may be due to common observations in nested populations, due to common observations in overlapping populations, or due to common observations in the control arm.
 }
 \seealso{
 Useful links:

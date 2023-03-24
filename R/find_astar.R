@@ -30,16 +30,13 @@
 #' @param abseps GenzBretz function absolute error tolerance.
 #' @param ... Additional arguments.
 #'
-#' @return Difference. Should be 0 with a and astar identified.
+#' @return Difference. Should be 0 with `a` and `astar` identified.
 #'
 #' @export
 #'
 #' @examples
-#' library(tibble)
-#' library(mvtnorm)
-#'
 #' # Input event count of intersection of paired hypotheses - Table 2
-#' my_event <- tribble(
+#' my_event <- tibble::tribble(
 #'   ~H1, ~H2, ~Analysis, ~Event,
 #'   1, 1, 1, 155,
 #'   2, 2, 1, 160,

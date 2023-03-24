@@ -12,6 +12,13 @@ Authors@R: c(
     person("Merck Sharp & Dohme Corp", role = c("cph"))
     )
 Description: Adjusted inference for weighted parametric group sequential design.
+  Weighted parametric group sequential design (WPGSD) by Anderson et al. (2022)
+  <doi:10.1002/bimj.202100085> allows one to take advantage of the known
+  correlation structure in constructing efficacy bounds to control
+  family-wise error rate (FWER) for a group sequential design.
+  Here, correlation may be due to common observations in nested populations,
+  due to common observations in overlapping populations, or due to common
+  observations in the control arm.
 License: GPL (>= 3)
 URL: https://merck.github.io/wpgsd/, https://github.com/Merck/wpgsd
 BugReports: https://github.com/Merck/wpgsd/issues
