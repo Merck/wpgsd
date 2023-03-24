@@ -79,15 +79,14 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://keaven.github.io/gsDesign/" class="external-link">gsDesign</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/" class="external-link">kableExtra</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://merck.github.io/wpgsd/">wpgsd</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://keaven.github.io/gsDesign/" class="external-link">gsDesign</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://merck.github.io/gMCPLite/" class="external-link">gMCPLite</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://haven.tidyverse.org" class="external-link">haven</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/reshape" class="external-link">reshape2</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://merck.github.io/wpgsd/">wpgsd</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/" class="external-link">kableExtra</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
 </h2>
@@ -97,7 +96,7 @@ efficacy bounds to control family-wise error rate (FWER) for a group
 sequential design. Here correlation may be due to common observations in
 nested populations, due to common observations in overlapping
 populations, or due to common observations in the control arm. This
-document illustrates the use of the WPGSD R package to implement this
+document illustrates the use of the R package wpgsd to implement this
 approach.</p>
 </div>
 <div class="section level2">
@@ -135,7 +134,7 @@ always hold and in general the closed-testing procedure is required.</p>
 <li>A set <span class="math inline">\(I\)</span> of hypotheses for <span class="math inline">\(i \in I\)</span>.</li>
 <li>
 <span class="math inline">\(K\)</span> group sequential analyses,
-<span class="math inline">\(k=1,⋯,K\)</span>
+<span class="math inline">\(k = 1, \ldots, K\)</span>
 </li>
 <li>Single endpoint
 <ul>
@@ -179,21 +178,23 @@ Z_{i^\prime k^\prime }) =  \frac{n_{i\wedge i^\prime ,k\wedge k^\prime
 </h3>
 <p>Following illustrates the first example, which has overlapping
 populations (e.g. due to biomarker) and is also example 1 in <span class="citation">Anderson et al. (2022)</span>.</p>
-<div class="figure">
-<img src="figures/ex1_pop.JPG" style="width:60.0%" alt=""><p class="caption">Ex1: Populations</p>
+<div class="figure" style="text-align: center">
+<img src="figures/ex1-pop.png" alt="Ex1: Populations" width="90%"><p class="caption">
+Ex1: Populations
+</p>
 </div>
 <p>The multiplicity strategy is defined as follows.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># transition matrix</span></span>
+<code class="sourceCode R"><span><span class="co"># Transition matrix</span></span>
 <span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>,</span>
 <span>  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>,</span>
 <span>  <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0</span></span>
 <span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">3</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co"># weight matrix</span></span>
+<span><span class="co"># Weight matrix</span></span>
 <span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># multiplicity graph</span></span>
+<span><span class="co"># Multiplicity graph</span></span>
 <span><span class="va">cbPalette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#999999"</span>, <span class="st">"#E69F00"</span>, <span class="st">"#56B4E9"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">nameHypotheses</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -214,41 +215,391 @@ populations (e.g. due to biomarker) and is also example 1 in <span class="citat
 <span>  wchar <span class="op">=</span> <span class="st">"w"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">hplot</span></span></code></pre></div>
-<p><img src="wpgsd_files/figure-html/unnamed-chunk-3-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="wpgsd_files/figure-html/unnamed-chunk-5-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>The event count of each hypothesis at each analysis is shown
 below.</p>
-<div class="figure">
-<img src="figures/ex1_count.JPG" style="width:60.0%" alt=""><p class="caption">Ex1: Event count</p>
-</div>
+<table class="table">
+<caption>Number of events at each analysis for each population in
+Example 1. IA: interim analysis. FA: final analysis.</caption>
+<colgroup>
+<col width="32%">
+<col width="33%">
+<col width="33%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Population</th>
+<th align="center">Number of Events at IA</th>
+<th align="center">Number of Events at FA</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">Population 1</td>
+<td align="center">100</td>
+<td align="center">200</td>
+</tr>
+<tr class="even">
+<td align="center">Population 2</td>
+<td align="center">110</td>
+<td align="center">220</td>
+</tr>
+<tr class="odd">
+<td align="center">Population 1 <span class="math inline">\(\cap\)</span> 2</td>
+<td align="center">80</td>
+<td align="center">160</td>
+</tr>
+<tr class="even">
+<td align="center">Overall Population</td>
+<td align="center">225</td>
+<td align="center">450</td>
+</tr>
+</tbody>
+</table>
 <p>The correlation matrix among test statistics is as follows.</p>
-<div class="figure">
-<img src="figures/ex1_corr.JPG" style="width:60.0%" alt=""><p class="caption">Ex1: Correlation</p>
-</div>
+<table style="width:100%;" class="table">
+<caption>Correlation Matrix of Test Statistics for Example 1. Identical
+numeric values (lower triangular) and formulas (upper triangular)
+shown.</caption>
+<colgroup>
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+</colgroup>
+<thead><tr class="header">
+<th align="center"><span class="math inline">\(i,k\)</span></th>
+<th align="center">1,1</th>
+<th align="center">2,1</th>
+<th align="center">3,1</th>
+<th align="center">1,2</th>
+<th align="center">2,2</th>
+<th align="center">3,2</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">1,1</td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(\frac{80}{\sqrt{100\cdot
+110}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{100}{\sqrt{100
+\cdot 225}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{100}{\sqrt{100\cdot
+200}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{80}{\sqrt{100\cdot
+220}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{100}{\sqrt{100
+\cdot 450}}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">2,1</td>
+<td align="center">0.76</td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(\frac{110}{\sqrt{110
+\cdot 225}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{80}{\sqrt{110\cdot
+200}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{110}{\sqrt{110\cdot
+220}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{110}{\sqrt{110
+\cdot 450}}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">3,1</td>
+<td align="center">0.67</td>
+<td align="center">0.70</td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(\frac{100}{\sqrt{225
+\cdot 200}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{110}{\sqrt{225
+\cdot 220}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{225}{\sqrt{225
+\cdot 450}}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">1,2</td>
+<td align="center">0.71</td>
+<td align="center">0.54</td>
+<td align="center">0.47</td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(\frac{160}{\sqrt{200
+\cdot 220}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{200}{\sqrt{200
+\cdot 450}}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2,2</td>
+<td align="center">0.54</td>
+<td align="center">0.71</td>
+<td align="center">0.49</td>
+<td align="center">0.76</td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(\frac{220}{\sqrt{220
+\cdot 450}}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">3,2</td>
+<td align="center">0.47</td>
+<td align="center">0.49</td>
+<td align="center">0.71</td>
+<td align="center">0.67</td>
+<td align="center">0.70</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level3">
 <h3 id="example-2-common-control-two-analyses">Example 2: Common Control, Two Analyses<a class="anchor" aria-label="anchor" href="#example-2-common-control-two-analyses"></a>
 </h3>
 <p>Following illustrates the second example in which correlation comes
 from common control arm. This is also example 2 in <span class="citation">Anderson et al. (2022)</span>.</p>
-<p><img src="wpgsd_files/figure-html/unnamed-chunk-4-1.png" width="80%" style="display: block; margin: auto;"></p>
-<div class="figure">
-<img src="figures/ex2_count.JPG" style="width:60.0%" alt=""><p class="caption">Ex2: Event count</p>
-</div>
-<div class="figure">
-<img src="figures/ex2_corr.JPG" style="width:60.0%" alt=""><p class="caption">Ex2: Correlation</p>
-</div>
+<p><img src="wpgsd_files/figure-html/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;"></p>
+<table class="table">
+<caption>Number of events at each analysis for each treatment arm in
+Example 2. IA: interim analysis. FA: final analysis.</caption>
+<thead><tr class="header">
+<th align="center">Treatment Arm</th>
+<th align="center">Number of Events at IA</th>
+<th align="center">Number of Events at FA</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">Experimental 1</td>
+<td align="center">70</td>
+<td align="center">135</td>
+</tr>
+<tr class="even">
+<td align="center">Experimental 2</td>
+<td align="center">75</td>
+<td align="center">150</td>
+</tr>
+<tr class="odd">
+<td align="center">Experimental 3</td>
+<td align="center">80</td>
+<td align="center">165</td>
+</tr>
+<tr class="even">
+<td align="center">Control</td>
+<td align="center">85</td>
+<td align="center">170</td>
+</tr>
+</tbody>
+</table>
+<table style="width:100%;" class="table">
+<caption>Correlation Matrix for Example 2. Identical numeric values
+(lower triangular) and formulas (upper triangular) shown.</caption>
+<colgroup>
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+</colgroup>
+<thead><tr class="header">
+<th align="center"><span class="math inline">\(i,k\)</span></th>
+<th align="center">1,1</th>
+<th align="center">2,1</th>
+<th align="center">3,1</th>
+<th align="center">1,2</th>
+<th align="center">2,2</th>
+<th align="center">3,2</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">1,1</td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(\frac{85}{\sqrt{155\cdot
+160}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{85}{\sqrt{155 \cdot
+165}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{155}{\sqrt{155\cdot
+305}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{85}{\sqrt{155\cdot
+320}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{85}{\sqrt{155 \cdot
+335}}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">2,1</td>
+<td align="center">0.54</td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(\frac{85}{\sqrt{160 \cdot
+165}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{85}{\sqrt{160 \cdot
+305}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{160}{\sqrt{160\cdot
+320}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{85}{\sqrt{160 \cdot
+335}}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">3,1</td>
+<td align="center">0.53</td>
+<td align="center">0.52</td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(\frac{85}{\sqrt{165 \cdot
+305}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{85}{\sqrt{165\cdot
+320}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{165}{\sqrt{165
+\cdot 335}}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">1,2</td>
+<td align="center">0.71</td>
+<td align="center">0.38</td>
+<td align="center">0.38</td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(\frac{170}{\sqrt{305\cdot
+320}}\)</span></td>
+<td align="center"><span class="math inline">\(\frac{170}{\sqrt{305
+\cdot 335}}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2,2</td>
+<td align="center">0.38</td>
+<td align="center">0.71</td>
+<td align="center">0.37</td>
+<td align="center">0.54</td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(\frac{170}{\sqrt{320
+\cdot 335}}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">3,2</td>
+<td align="center">0.37</td>
+<td align="center">0.37</td>
+<td align="center">0.70</td>
+<td align="center">0.53</td>
+<td align="center">0.52</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level3">
 <h3 id="hypotheses-set">Hypotheses Set<a class="anchor" aria-label="anchor" href="#hypotheses-set"></a>
 </h3>
 <p>These 2 examples each has 7 intersection hypotheses and the
 corresponding weighting strategies are illustrated below.</p>
-<div class="figure">
-<img src="figures/ex1_weight.JPG" style="width:40.0%" alt=""><p class="caption">Ex1: Weighting Strategy</p>
-</div>
-<div class="figure">
-<img src="figures/ex2_weight.JPG" style="width:40.0%" alt=""><p class="caption">Ex2: Weighting Strategy</p>
-</div>
+<table class="table">
+<caption>Weighting strategy of Example 1.</caption>
+<thead><tr class="header">
+<th align="center"><span class="math inline">\(H_J\)</span></th>
+<th align="center"><span class="math inline">\(w_1(J)\)</span></th>
+<th align="center"><span class="math inline">\(w_2(J)\)</span></th>
+<th align="center"><span class="math inline">\(w_3(J)\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(H_1 \cap H_2 \cap
+H_3\)</span></td>
+<td align="center">0.3</td>
+<td align="center">0.3</td>
+<td align="center">0.4</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(H_1 \cap
+H_2\)</span></td>
+<td align="center">0.5</td>
+<td align="center">0.5</td>
+<td align="center">-</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(H_1 \cap
+H_3\)</span></td>
+<td align="center">0.3</td>
+<td align="center">-</td>
+<td align="center">0.7</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(H_2 \cap
+H_3\)</span></td>
+<td align="center">-</td>
+<td align="center">0.3</td>
+<td align="center">0.7</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(H_1\)</span></td>
+<td align="center">1</td>
+<td align="center">-</td>
+<td align="center">-</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(H_2\)</span></td>
+<td align="center">-</td>
+<td align="center">1</td>
+<td align="center">-</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(H_3\)</span></td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<caption>Weighting strategy of Example 2.</caption>
+<thead><tr class="header">
+<th align="center"><span class="math inline">\(H_J\)</span></th>
+<th align="center"><span class="math inline">\(w_1(J)\)</span></th>
+<th align="center"><span class="math inline">\(w_2(J)\)</span></th>
+<th align="center"><span class="math inline">\(w_3(J)\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(H_1 \cap H_2 \cap
+H_3\)</span></td>
+<td align="center">1/3</td>
+<td align="center">1/3</td>
+<td align="center">1/3</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(H_1 \cap
+H_2\)</span></td>
+<td align="center">1/2</td>
+<td align="center">1/2</td>
+<td align="center">-</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(H_1 \cap
+H_3\)</span></td>
+<td align="center">1/2</td>
+<td align="center">-</td>
+<td align="center">1/2</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(H_2 \cap
+H_3\)</span></td>
+<td align="center">-</td>
+<td align="center">1/2</td>
+<td align="center">1/2</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(H_1\)</span></td>
+<td align="center">1</td>
+<td align="center">-</td>
+<td align="center">-</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(H_2\)</span></td>
+<td align="center">-</td>
+<td align="center">1</td>
+<td align="center">-</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(H_3\)</span></td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level3">
 <h3 id="alpha-spending-3-approaches">
@@ -287,7 +638,7 @@ normal with known correlation</p></li>
 <li><p>Find <span class="math inline">\(\alpha\)</span>-inflation factor
 <span class="math inline">\(c_J\)</span> such that <span class="math display">\[ \alpha = P[\cup_{i \in J} \{p_i \leq
 c_Jw_{J,i}\alpha \}] = P[\cup_{i \in J} \{Z_i \geq
-\Phi^{-1}(1−c_Jw_{J,i}\alpha \}]\]</span></p></li>
+\Phi^{-1}(1-c_Jw_{J,i}\alpha \}]\]</span></p></li>
 <li><p>Basic algorithm code in <span class="citation">Bretz et al.
 (2011)</span></p></li>
 </ul>
@@ -321,8 +672,8 @@ the previous step. The corresponding nominal <span class="math inline">\(p\)</sp
 w_i(J)\alpha_k^*(J)\)</span>.</p>
 </li>
 <li><p>Note: interim bound does not depend on future analyses. Solution
-only requires root finding for a single <span class="math inline">\(\alpha_{k}^{*}(J)\)</span> at a time, <span class="math inline">\(k=1,…,K\)</span>. Requires multivariate normal
-computation from mvtnorm R package Genz et al. (2020).</p></li>
+only requires root finding for a single <span class="math inline">\(\alpha_{k}^{*}(J)\)</span> at a time, <span class="math inline">\(k = 1, \ldots, K\)</span>. Requires multivariate
+normal computation from mvtnorm R package Genz et al. (2020).</p></li>
 </ul>
 </div>
 <div class="section level4">
@@ -357,8 +708,8 @@ ii, we set <span class="math inline">\(c_{ik}(J) =
 b_{ik}\)</span>.</p>
 </li>
 <li><p>Note: interim bound does not depend on future analyses. Solution
-only requires root finding for a single <span class="math inline">\(\xi_k(J)\)</span> at a time, k=1,…,K. Requires
-multivariate normal computation from mvtnorm R package Genz et
+only requires root finding for a single <span class="math inline">\(\xi_k(J)\)</span> at a time, <span class="math inline">\(k = 1, \ldots, K\)</span>. Requires multivariate
+normal computation from the mvtnorm R package Genz et
 al. (2020).</p></li>
 </ul>
 </div>
@@ -587,8 +938,9 @@ Event
 </tbody>
 </table>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Alternatively one can manually enter paths for analysis datasets, below example uses dummy data assuming currently we are at IA1</span></span>
-<span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="st">"../inst/extdata"</span></span>
+<code class="sourceCode R"><span><span class="co"># Alternatively, one can manually enter paths for analysis datasets,</span></span>
+<span><span class="co"># example below uses an example dataset assuming currently we are at IA1.</span></span>
+<span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/"</span>, package <span class="op">=</span> <span class="st">"wpgsd"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">### Generate event count table from ADSL and ADTTE datasets</span></span>
 <span><span class="co"># Selection criteria for each hypothesis</span></span>
@@ -670,11 +1022,11 @@ Event
 </tbody>
 </table>
 <p>Then we compute correlation matrix using the event count table and
-generate_corr(). We see that the correlations not accounted for by the
-Bonferroni approach are substantial and, thus, might expect a
+<code><a href="../reference/generate_corr.html">generate_corr()</a></code>. We see that the correlations not accounted
+for by the Bonferroni approach are substantial and, thus, might expect a
 non-trivial impact on bounds for hypothesis tests.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## generate correlation from events</span></span>
+<code class="sourceCode R"><span><span class="co">## Generate correlation from events</span></span>
 <span><span class="va">corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_corr.html">generate_corr</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">corr</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -828,8 +1180,9 @@ H3_A2
 </tbody>
 </table>
 <p>Bonferroni and WPGSD bounds can then be computed via
-generate_bounds(). In this example, we useHSD(-4) as <span class="math inline">\(\alpha\)</span>-spending for all hypotheses. Of
-note, generate_bounds() input type specifies boundary type.</p>
+<code><a href="../reference/generate_bounds.html">generate_bounds()</a></code>. In this example, we useHSD(-4) as <span class="math inline">\(\alpha\)</span>-spending for all hypotheses. Of
+note, <code><a href="../reference/generate_bounds.html">generate_bounds()</a></code> input type specifies boundary
+type.</p>
 <ul>
 <li>0 = Bonferroni. Separate alpha spending for each hypotheses.</li>
 <li>1 = Fixed alpha spending for all hypotheses. Method 3a in the
@@ -1840,7 +2193,7 @@ NA
 </tbody>
 </table>
 <p>Closed testing procedure can then be performed using
-closed_test().</p>
+<code><a href="../reference/closed_test.html">closed_test()</a></code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Observed p-values.</span></span>
 <span><span class="co">## The tibble must contain columns Analysis, H1, H2 etc for all hypotheses</span></span>
@@ -2192,7 +2545,7 @@ Event
 <span><span class="co"># Generate correlation from events</span></span>
 <span><span class="va">corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_corr.html">generate_corr</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># correlation matrix in Table 4</span></span>
+<span><span class="co"># Correlation matrix in Table 4</span></span>
 <span><span class="va">corr</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html" class="external-link">kbl</a></span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"Correlation Matrix"</span>, align <span class="op">=</span> <span class="st">"l"</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_classic.html" class="external-link">kable_classic_2</a></span><span class="op">(</span>full_width <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
