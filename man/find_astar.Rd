@@ -36,18 +36,15 @@ the WPGSD approach.}
 \item{...}{Additional arguments.}
 }
 \value{
-Difference. Should be 0 with a and astar identified.
+Difference. Should be 0 with \code{a} and \code{astar} identified.
 }
 \description{
 Utility function for root-finding to compute crossing probabilities
 with the overall alpha spending approach
 }
 \examples{
-library(tibble)
-library(mvtnorm)
-
 # Input event count of intersection of paired hypotheses - Table 2
-my_event <- tribble(
+my_event <- tibble::tribble(
   ~H1, ~H2, ~Analysis, ~Event,
   1, 1, 1, 155,
   2, 2, 1, 160,

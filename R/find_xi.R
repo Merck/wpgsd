@@ -30,16 +30,14 @@
 #'
 #' @return Difference. Should be 0 with `xi` identified.
 #'
-#' @import mvtnorm
+#' @importFrom mvtnorm pmvnorm GenzBretz
 #' @importFrom stats qnorm
 #'
 #' @export
 #'
 #' @examples
-#' library(tibble)
-#'
 #' # Input event count of intersection of paired hypotheses - Table 2
-#' my_event <- tribble(
+#' my_event <- tibble::tribble(
 #'   ~H1, ~H2, ~Analysis, ~Event,
 #'   1, 1, 1, 155,
 #'   2, 2, 1, 160,
@@ -74,18 +72,18 @@ find_xi <- function(a, alpha_prev = NULL, aprime, xi, sig, maxpts = 50000, absep
   colnames(sig) <- NULL
 
   if (is.null(alpha_prev)) {
-    res <- 1 - a - mvtnorm::pmvnorm(
+    res <- 1 - a - pmvnorm(
       lower = -Inf,
       upper = qnorm(1 - xi * aprime),
       sigma = sig,
-      algorithm = mvtnorm::GenzBretz(maxpts = maxpts, abseps = abseps)
+      algorithm = GenzBretz(maxpts = maxpts, abseps = abseps)
     )
   } else {
-    res <- 1 - a - mvtnorm::pmvnorm(
+    res <- 1 - a - pmvnorm(
       lower = -Inf,
       upper = c(qnorm(1 - alpha_prev), qnorm(1 - xi * aprime)),
       sigma = sig,
-      algorithm = mvtnorm::GenzBretz(maxpts = maxpts, abseps = abseps)
+      algorithm = GenzBretz(maxpts = maxpts, abseps = abseps)
     )
   }
   return(res)

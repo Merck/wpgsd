@@ -59,14 +59,11 @@
 #' @importFrom dplyr %>% bind_rows arrange mutate
 #' @importFrom gMCPLite gMCP getWeights
 #' @importFrom tibble tibble
-#' @import gsDesign
 #' @importFrom stats pnorm uniroot
 #'
 #' @export
 #'
 #' @examples
-#' library(tibble)
-#'
 #' # Build the transition matrix
 #' m <- matrix(c(
 #'   0, 0.5, 0.5,
@@ -81,7 +78,7 @@
 #' IF_IA <- c(155 / 305, 160 / 320, 165 / 335)
 #'
 #' # Input event count of intersection of paired hypotheses - Table 2
-#' event <- tribble(
+#' event <- tibble::tribble(
 #'   ~H1, ~H2, ~Analysis, ~Event,
 #'   1, 1, 1, 155,
 #'   2, 2, 1, 160,
@@ -178,7 +175,7 @@ generate_bounds <- function(type = 1, k = 2, w = w, m = m,
 
     if (type == 0) { # Bonferroni
 
-      bounds_tmp <- tibble::tibble(
+      bounds_tmp <- tibble(
         Analysis = 1:k,
         Hypotheses = paste("H", hypotheses, sep = "", collapse = ", ")
       )

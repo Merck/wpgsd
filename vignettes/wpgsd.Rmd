@@ -282,7 +282,7 @@ The WPGSD approach uses all known correlations between tests in the study. This 
 
 - $\alpha$-spending approach 2. For each elementary hypothesis $i$ ($i$ = 1, 2, \ldots, $m$), specify the $\alpha$-spending function family $f_i(t,\gamma)$ where $\gamma$ is the $\alpha$ level for the hypothesis and $f_i(t_{ik},\gamma)$ determines how much $\alpha$ to spend up to analysis $k$ for hypothesis $i$ when level $\gamma$ is allocated to the hypothesis. Then $\alpha_k(J) = \sum_{i \in J} f_i(t_{ik}, w_i(J)\alpha)$.
 
-## Bounds Computation: Parametric Test, Fixed Design (eg. Two Populations, One Analysis)
+## Bounds Computation: Parametric Test, Fixed Design (For Example, Two Populations, One Analysis)
 
 - Assume ($Z_1,Z_2$) bivariate normal with known correlation
 

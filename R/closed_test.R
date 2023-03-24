@@ -23,7 +23,7 @@
 #' @param p_obs A tibble of observed p-values containing columns
 #'   `Analysis`, `H1`, `H2`, etc.
 #'
-#' @return  An outcome matrix summarizing the testing results.
+#' @return An outcome matrix summarizing the testing results.
 #'
 #' @importFrom dplyr %>% filter num_range select
 #'

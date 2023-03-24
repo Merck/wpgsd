@@ -2,22 +2,28 @@
 % Please edit documentation in R/generate_event_table.R
 \name{generate_event_table}
 \alias{generate_event_table}
-\title{Generate table of event counts from ADSL and ADTTE SAS datasets}
+\title{Generate table of event counts from ADSL and ADTTE datasets}
 \usage{
 generate_event_table(paths, h_select, adsl_name, adtte_name, key_var, cnsr_var)
 }
 \arguments{
-\item{paths}{A vector of paths for analysis datasets. Length should be equal to the number of analyses completed}
+\item{paths}{A vector of paths for analysis datasets.
+Length should be equal to the number of analyses completed.}
 
-\item{h_select}{Selection criterion for each hypothesis. Should be a tibble containing 2 columns of Hypothesis and Crit}
+\item{h_select}{Selection criterion for each hypothesis.
+Should be a tibble containing 2 columns: \code{Hypothesis} and \code{Crit}.}
 
-\item{adsl_name}{SAS dataset name for subject-level analysis data. Usually it is "adsl".}
+\item{adsl_name}{SAS dataset name for subject-level analysis data.
+Usually it is \code{"adsl"}.}
 
-\item{adtte_name}{SAS dataset name for time-to-event analysis data. Usually it is "adtte".}
+\item{adtte_name}{SAS dataset name for time-to-event analysis data.
+Usually it is \code{"adtte"}.}
 
-\item{key_var}{Key variable to join the adsl and adtte datasets. e.g. "USUBJID" or "SUBJID"}
+\item{key_var}{Key variable to join the \code{adsl} and \code{adtte} datasets.
+For example, \code{"USUBJID"} or \code{"SUBJID"}.}
 
-\item{cnsr_var}{Variable to indicate censoring (1 = censor; 0 = event). e.g. "CNSR".}
+\item{cnsr_var}{Variable to indicate censoring (\code{1} = censor; \code{0} = event).
+For example, \code{"CNSR"}.}
 }
 \value{
 A list with two components:
@@ -27,7 +33,7 @@ A list with two components:
 }
 }
 \description{
-Generate table of event counts from ADSL and ADTTE SAS datasets
+Generate table of event counts from ADSL and ADTTE datasets
 }
 \examples{
 library(dplyr)
