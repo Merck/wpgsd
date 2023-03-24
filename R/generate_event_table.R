@@ -59,8 +59,8 @@
 #' )$event
 #'
 #' event %>%
-#'   kableExtra::kbl(caption = "Event Count - Compute from SAS Datasets Example", align = "l") %>%
-#'   kableExtra::kable_classic_2(full_width = FALSE)
+#'   gt::gt() %>%
+#'   gt::tab_header(title = "Event Count - Computed from SAS Datasets Example")
 generate_event_table <- function(paths, h_select,
                                  adsl_name, adtte_name,
                                  key_var, cnsr_var) {
