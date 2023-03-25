@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   wpgsd: wpgsd.html
-last_built: 2023-03-24T18:11Z
+last_built: 2023-03-25T00:29Z
 urls:
   reference: https://merck.github.io/wpgsd/reference
   article: https://merck.github.io/wpgsd/articles
