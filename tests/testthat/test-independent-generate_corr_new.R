@@ -63,31 +63,31 @@ generate_corr_new <- function(event) {
   inter <- event %>% subset(H1 != H2)
   n_hypotheses <- max(as.numeric(elem$H1))
   n_analyses <- max(elem$Analysis)
-  
+
   # Diagonal
   D <- diag(elem$Event)
-  
+
   # Within hypothesis across analyses
-  if (n_analyses > 1){
+  if (n_analyses > 1) {
     for (i in 1:n_hypotheses) {
       for (j in 1:(n_analyses - 1)) {
         count <- D[(j - 1) * n_hypotheses + i, (j - 1) * n_hypotheses + i]
-        for (k in (j + 1):n_analyses){
+        for (k in (j + 1):n_analyses) {
           D[(j - 1) * n_hypotheses + i, (k - 1) * n_hypotheses + i] <- count
           D[(k - 1) * n_hypotheses + i, (j - 1) * n_hypotheses + i] <- count
         }
       }
     }
   }
-  
+
   # Between hypotheses and analyses
   for (i in 1:(n_hypotheses - 1)) {
-    for (j in c((i+1):n_hypotheses)) {
+    for (j in c((i + 1):n_hypotheses)) {
       for (k in 1:n_analyses) {
         count1 <- as.numeric(event %>%
-                               subset(((H1 == i & H2 == j) | (H1 == j & H2 == i)) & Analysis == k) %>%
-                               select(Event))[1]
-        for(l in (k:n_analyses)){
+          subset(((H1 == i & H2 == j) | (H1 == j & H2 == i)) & Analysis == k) %>%
+          select(Event))[1]
+        for (l in (k:n_analyses)) {
           D[n_hypotheses * (l - 1) + i, n_hypotheses * (k - 1) + j] <- count1
           D[n_hypotheses * (l - 1) + j, n_hypotheses * (k - 1) + i] <- count1
           D[n_hypotheses * (k - 1) + j, n_hypotheses * (l - 1) + i] <- count1
@@ -96,9 +96,9 @@ generate_corr_new <- function(event) {
       }
     }
   }
-  
+
   corr_mat <- d_corr(D)
-  
+
   col_names <- NULL
   for (k in 1:n_analyses) {
     for (i in 1:n_hypotheses) {
@@ -106,9 +106,9 @@ generate_corr_new <- function(event) {
       col_names <- c(col_names, name_tmp)
     }
   }
-  
+
   colnames(corr_mat) <- col_names
-  
+
   return(corr_mat)
 }
 
@@ -140,7 +140,7 @@ test_that("2 endpoints 2 analysis correlation as expected", {
     ),
     nrow = 4, byrow = TRUE
   )
-  
+
   expect_equal(matrix(corr %>% as.numeric(), nrow = 4, byrow = TRUE), corr_test)
 })
 
@@ -149,26 +149,26 @@ test_that("2 endpoints 2 analysis correlation as expected", {
 test_that("2 hypotheses 3 analysis correlation as expected", {
   event <- tibble::tribble(
     ~Analysis, ~H1, ~H2, ~Event,
-    1,	        1,	 1,	  147,	
-    1,	        2,	 2,	  167,	
-    1,	        1,	 2,	   88,
-    2,	        1,	 1,	  278,	
-    2,	        2,	 2,	  289,	
-    2,	        1,	 2,	  158,	
-    3,	        1,	 1,	  342,	
-    3,	        2,	 2,	  350,	
-    3,	        1,	 2,	  192
+    1, 1, 1, 147,
+    1, 2, 2, 167,
+    1, 1, 2, 88,
+    2, 1, 1, 278,
+    2, 2, 2, 289,
+    2, 1, 2, 158,
+    3, 1, 1, 342,
+    3, 2, 2, 350,
+    3, 1, 2, 192
   )
   corr <- generate_corr_new(event)
   n_hypotheses <- 2
   n_analyses <- 3
-  corr_test <- diag(1,n_hypotheses * n_analyses)
-  for(k in 1:n_analyses){
-    for(l in k:n_analyses){
-      for(i in 1:(n_hypotheses)){
-        countkii <-   as.numeric((event %>% filter(H1 == i & H2 == i & Analysis == k))$Event) 
-        for(j in i:n_hypotheses){
-          countkjj <-   as.numeric((event %>% filter(H1 == j & H2 == j & Analysis == k))$Event) 
+  corr_test <- diag(1, n_hypotheses * n_analyses)
+  for (k in 1:n_analyses) {
+    for (l in k:n_analyses) {
+      for (i in 1:(n_hypotheses)) {
+        countkii <- as.numeric((event %>% filter(H1 == i & H2 == i & Analysis == k))$Event)
+        for (j in i:n_hypotheses) {
+          countkjj <- as.numeric((event %>% filter(H1 == j & H2 == j & Analysis == k))$Event)
           countljj <- as.numeric((event %>% filter(H1 == j & H2 == j & Analysis == l))$Event)
           countlii <- as.numeric((event %>% filter(H1 == i & H2 == i & Analysis == l))$Event)
           countkij <- as.numeric((event %>% filter(H1 == i & H2 == j & Analysis == k))$Event)
@@ -180,7 +180,6 @@ test_that("2 hypotheses 3 analysis correlation as expected", {
       }
     }
   }
-  
+
   expect_equal(matrix(corr %>% as.numeric(), nrow = 6, byrow = TRUE), corr_test)
 })
-
