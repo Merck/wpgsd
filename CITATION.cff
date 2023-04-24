@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Anderson"
+  given-names: "Keaven"
+- family-names: "Guo"
+  given-names: "Zifang"
+- family-names: "Zhao"
+  given-names: "Jing"
+- family-names: "Sun"
+  given-names: "Linda"
+- family-names: "Cui"
+  given-names: "Yi"
+- family-names: "Zhao"
+  given-names: "Yujie"
+  orcid: "https://orcid.org/0000-0003-2896-4955"
+- family-names: "Leon"
+  given-names: "Larry"
+title: "wpgsd: Weighted Parametric Group Sequential Design"
+version: 0.1.0
+date-released: 2023-03-08
+url: "https://github.com/Merck/wpgsd"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Anderson"
+    given-names: "Keaven"
+  - family-names: "Guo"
+    given-names: "Zifang"
+  - family-names: "Zhao"
+    given-names: "Jing"
+  - family-names: "Sun"
+    given-names: "Linda"
+  title: "A unified framework for weighted parametric group sequential design"
+  journal: "Biometrical Journal"
+  year: 2022
+  volume: 64
+  issue: 7
+  start: 1219
+  end: 1239
+  doi: "10.1002/bimj.202100085"
