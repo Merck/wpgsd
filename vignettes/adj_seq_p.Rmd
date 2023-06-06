@@ -111,13 +111,6 @@ hplot <- gMCPLite::hGraph(
   palette = c("#BDBDBD", "#E0E0E0", "#EEEEEE"),
   wchar = "w") 
 hplot
-
-setEPS()                                             # Set postscript arguments
-postscript("~/Rtemp/test_temp/wpgsd2/vignettes/images/ex1_multi_strategy.eps", width = 8,height = 5)
-hplot
-dev.off() 
-
-hplot
 ```
 
 The correlation of the 6 statistisc (2 analysis $\times$ 3 hypothesis) are
