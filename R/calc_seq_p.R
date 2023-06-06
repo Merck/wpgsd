@@ -20,25 +20,27 @@
 #'
 #' @param test_analysis The index of the analysis to be tested, such as 1, 2, ...
 #' @param test_hypothesis A character of the tested interaction/elementary hypothesis,
-#' such as `"H1, H2, H3"`, `H1, H2`, `"H1"`.
-#' @param p_obs Observed p-values
-#' @param n_analysis Total number of analysis
+#'   such as `"H1, H2, H3"`, `H1, H2`, `"H1"`.
+#' @param p_obs Observed p-values.
+#' @param n_analysis Total number of analysis.
 #' @param alpha_spending_type Type Boundary type.
-#'   - `0` = Bonferroni. Separate alpha spending for each hypotheses.
-#'   - `1` = Fixed alpha spending for all hypotheses. Method 3a in the manuscript.
-#'   - `2` = Overall alpha spending for all hypotheses. Method 3b in the manuscript.
-#'   - `3` = Separate alpha spending for each hypotheses. Method 3c in the manuscript.
-#' @param initial_weight Initial weight assigned to the elementary hypothesis
-#' @param transition_mat Transition matrix
-#' @param z_corr Correlation matrix of the Z statistics
-#' @param spending_fun Spending function
-#' @param spending_fun_par Parameter of the spending function
-#' @param info_frac Information fractions
-#' @param interval Interval to search the uniroot
-#' @return The sequential p-values of the `test_hypothesis` at the `test_analysis`
+#'   - `0` - Bonferroni. Separate alpha spending for each hypotheses.
+#'   - `1` - Fixed alpha spending for all hypotheses. Method 3a in the manuscript.
+#'   - `2` - Overall alpha spending for all hypotheses. Method 3b in the manuscript.
+#'   - `3` - Separate alpha spending for each hypotheses. Method 3c in the manuscript.
+#' @param initial_weight Initial weight assigned to the elementary hypothesis.
+#' @param transition_mat Transition matrix.
+#' @param z_corr Correlation matrix of the Z statistics.
+#' @param spending_fun Spending function.
+#' @param spending_fun_par Parameter of the spending function.
+#' @param info_frac Information fractions.
+#' @param interval Interval to search the uniroot.
+#'
+#' @return The sequential p-values of the `test_hypothesis` at the `test_analysis`.
 #'
 #' @importFrom dplyr %>% filter num_range select
 #' @importFrom stats uniroot
+#'
 #' @export
 #'
 #' @examples
@@ -57,19 +59,20 @@
 #' )
 #'
 #' closed_test <- closed_test(bound, p_obs)
-calc_seq_p <- function(test_analysis = 1, # stage of interest
-                       test_hypothesis = "H1, H2, H3",
-                       p_obs, # observed p-value
-                       alpha_spending_type = 3,
-                       n_analysis = 2,
-                       initial_weight,
-                       transition_mat,
-                       z_corr,
-                       spending_fun,
-                       spending_fun_par,
-                       info_frac,
-                       interval = c(1e-4, 0.2) # interval for uniroot
-) {
+calc_seq_p <- function(
+    test_analysis = 1, # Stage of interest
+    test_hypothesis = "H1, H2, H3",
+    p_obs, # Observed p-value
+    alpha_spending_type = 3,
+    n_analysis = 2,
+    initial_weight,
+    transition_mat,
+    z_corr,
+    spending_fun,
+    spending_fun_par,
+    info_frac,
+    interval = c(1e-4, 0.2) # Interval for uniroot
+    ) {
   foo <- function(x) {
     all_hypothesis <- strsplit(test_hypothesis, split = ", ") %>% unlist()
     all_hypothesis_idx <- as.numeric(gsub(".*?([0-9]+).*", "\\1", all_hypothesis))

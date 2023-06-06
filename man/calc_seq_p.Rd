@@ -25,34 +25,34 @@ calc_seq_p(
 \item{test_hypothesis}{A character of the tested interaction/elementary hypothesis,
 such as \code{"H1, H2, H3"}, \verb{H1, H2}, \code{"H1"}.}
 
-\item{p_obs}{Observed p-values}
+\item{p_obs}{Observed p-values.}
 
 \item{alpha_spending_type}{Type Boundary type.
 \itemize{
-\item \code{0} = Bonferroni. Separate alpha spending for each hypotheses.
-\item \code{1} = Fixed alpha spending for all hypotheses. Method 3a in the manuscript.
-\item \code{2} = Overall alpha spending for all hypotheses. Method 3b in the manuscript.
-\item \code{3} = Separate alpha spending for each hypotheses. Method 3c in the manuscript.
+\item \code{0} - Bonferroni. Separate alpha spending for each hypotheses.
+\item \code{1} - Fixed alpha spending for all hypotheses. Method 3a in the manuscript.
+\item \code{2} - Overall alpha spending for all hypotheses. Method 3b in the manuscript.
+\item \code{3} - Separate alpha spending for each hypotheses. Method 3c in the manuscript.
 }}
 
-\item{n_analysis}{Total number of analysis}
+\item{n_analysis}{Total number of analysis.}
 
-\item{initial_weight}{Initial weight assigned to the elementary hypothesis}
+\item{initial_weight}{Initial weight assigned to the elementary hypothesis.}
 
-\item{transition_mat}{Transition matrix}
+\item{transition_mat}{Transition matrix.}
 
-\item{z_corr}{Correlation matrix of the Z statistics}
+\item{z_corr}{Correlation matrix of the Z statistics.}
 
-\item{spending_fun}{Spending function}
+\item{spending_fun}{Spending function.}
 
-\item{spending_fun_par}{Parameter of the spending function}
+\item{spending_fun_par}{Parameter of the spending function.}
 
-\item{info_frac}{Information fractions}
+\item{info_frac}{Information fractions.}
 
-\item{interval}{Interval to search the uniroot}
+\item{interval}{Interval to search the uniroot.}
 }
 \value{
-The sequential p-values of the \code{test_hypothesis} at the \code{test_analysis}
+The sequential p-values of the \code{test_hypothesis} at the \code{test_analysis}.
 }
 \description{
 Calculate sequential p-values for interaction/elementary hypothesis
