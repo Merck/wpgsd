@@ -27,23 +27,24 @@ library(wpgsd)
 
 # Example overview
 
-In a 2-arm controlled clinical trial example with one primary endpoint, there are 3 patient populations defined by the status of two biomarkers A and B: 
+In a 2-arm controlled clinical trial example with one primary endpoint, there are 3 patient populations defined by the status of two biomarkers A and B:
 
-- biomarker A positive, 
-- biomarker B positive, 
-- overall population. 
+- biomarker A positive,
+- biomarker B positive,
+- overall population.
 
-The 3 primary elementary hypotheses are: 
+The 3 primary elementary hypotheses are:
 
 - $H_1$: the experimental treatment is superior to the control in the biomarker A positive population;
 - \item $H_2$: the experimental treatment is superior to the control in the biomarker B positive population;
 - \item $H_3$: the experimental treatment is superior to the control in the overall population.
 
 Assume an interim analysis and a final analysis are planned for the study and the number of events are listed as
+
 ```{r}
 event_tbl <- tribble(
-  ~population, ~analysis, ~event, 
-  "A positive",     1,       80, 
+  ~population, ~analysis, ~event,
+  "A positive",     1,       80,
   "B positive",     1,       88,
   "AB positive",    1,       64,
   "overall",        1,       180,
@@ -55,6 +56,7 @@ event_tbl <- tribble(
 ```
 
 The observed p-values are
+
 ```{r}
 obs_tbl <- tribble(
   ~hypothesis, ~analysis, ~obs_p,
@@ -63,19 +65,19 @@ obs_tbl <- tribble(
     "H3",          1,       0.006,
     "H1",          2,       0.015,
     "H2",          2,       0.012,
-    "H3",          2,       0.004) %>% 
+    "H3",          2,       0.004) %>%
   mutate(obs_Z = -qnorm(obs_p))
 
-obs_tbl %>% 
-  gt() %>% 
+obs_tbl %>%
+  gt() %>%
   tab_header(title = "Nominal p-values")
 
-p_obs_IA <- (obs_tbl %>% filter(analysis == 1))$obs_p 
-p_obs_FA <- (obs_tbl %>% filter(analysis == 2))$obs_p 
+p_obs_IA <- (obs_tbl %>% filter(analysis == 1))$obs_p
+p_obs_FA <- (obs_tbl %>% filter(analysis == 2))$obs_p
 ```
 
-
 The information fraction of $H_1, H_2, H_3$ at IA is
+
 ```{r}
 IF_IA <- c(
   ((event_tbl %>% filter(analysis == 1, population == "A positive"))$event + (event_tbl %>% filter(analysis == 1, population == "overall"))$event)/
@@ -89,12 +91,15 @@ IF_IA <- c(
 IF_IA
 ```
 
-we assign the initial weights of $H_1, H_2, H_3$ as$\left(w_1(I), w_2(I), w_3(I) \right) = (0.3, 0.3, 0.4).$ And its multiplicity strategy is visualized in below. If $H_1$ is rejected, then $3/7$ local significance level $\alpha_1$ will be propagated to $H_2$, and $4/7$ will go to $H_3$. If $H_3$ is rejected, then half of $\alpha_3$ goes to $H_1$, and half goes to $H_2$. 
+We assign the initial weights of $H_1, H_2, H_3$ as$\left(w_1(I), w_2(I), w_3(I) \right) = (0.3, 0.3, 0.4).$ And its multiplicity strategy is visualized in below. If $H_1$ is rejected, then $3/7$ local significance level $\alpha_1$ will be propagated to $H_2$, and $4/7$ will go to $H_3$. If $H_3$ is rejected, then half of $\alpha_3$ goes to $H_1$, and half goes to $H_2$.
+
 ```{r}
 # Transition matrix in Figure A1
-m <- matrix(c(0,   3/7, 4/7,
-              3/7, 0,   4/7,
-              1/2, 1/2, 0),nrow = 3, byrow = TRUE)
+m <- matrix(c(
+    0, 3/7, 4/7,
+  3/7,   0, 4/7,
+  1/2, 1/2,   0
+), nrow = 3, byrow = TRUE)
 # Initial weights
 w <- c(0.3, 0.3, 0.4)
 ```
@@ -104,16 +109,17 @@ name_hypotheses <- c("H1: Biomarker A positive", "H2: Biomarker B positive",  "H
 
 hplot <- gMCPLite::hGraph(
   3,alphaHypotheses=w,m=m,
-  nameHypotheses=name_hypotheses, trhw=.2, trhh=.1, 
-  digits=5, trdigits=3, size=5, halfWid=1, halfHgt=0.5,      
-  offset=0.2 , trprop= 0.4,  
+  nameHypotheses=name_hypotheses, trhw=.2, trhh=.1,
+  digits=5, trdigits=3, size=5, halfWid=1, halfHgt=0.5,
+  offset=0.2 , trprop= 0.4,
   fill=as.factor(c(2,3,1)),
   palette = c("#BDBDBD", "#E0E0E0", "#EEEEEE"),
-  wchar = "w") 
+  wchar = "w")
 hplot
 ```
 
 The correlation of the 6 statistisc (2 analysis $\times$ 3 hypothesis) are
+
 ```{r}
 # Event count of intersection of paired hypotheses - Table 2
 # H1, H2: Hypotheses intersected.
@@ -132,8 +138,8 @@ event <- tribble(
   3,    3,      2,     event_tbl %>% filter(analysis == 2, population == "overall") %>% select(event) %>% as.numeric(),
   1,    2,      2,     event_tbl %>% filter(analysis == 2, population == "AB positive") %>% select(event) %>% as.numeric(),
   1,    3,      2,     event_tbl %>% filter(analysis == 2, population == "A positive") %>% select(event) %>% as.numeric(),
-  2,    3,      2,     event_tbl %>% filter(analysis == 2, population == "B positive") %>% select(event) %>% as.numeric()) 
-event  
+  2,    3,      2,     event_tbl %>% filter(analysis == 2, population == "B positive") %>% select(event) %>% as.numeric())
+event
 
 # Generate correlation from events
 gs_corr <- wpgsd::generate_corr(event)
@@ -574,7 +580,6 @@ seq_p_FA_H3_B <- calc_seq_p(
   )
 ```
 
-
 # Adjusted-Sequential p-value
 
 ## IA
@@ -595,8 +600,7 @@ adj_seq_IA_H3_B <- max(seq_p_IA_H123_B, seq_p_IA_H13_B, seq_p_IA_H23_B, seq_p_IA
 cat("The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni is", adj_seq_IA_H1_B, adj_seq_IA_H2_B, adj_seq_IA_H3_B, "\n")
 ```
 
-
-## FA 
+## FA
 
 ### WPGSD
 ```{r, wpgsdAdjSeqFA}
@@ -619,33 +623,31 @@ cat("The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni
 
 ```{r}
 ans <- tribble(
-  ~Analysis, ~Hypothesis, ~`Sequantial p-values of WPGSD`,  ~`Sequantial p-values of Weighted Bonferroni`, ~`Adjusted-sequantial p-values of WPGSD`, ~`Adjusted-sequantial p-values of Weighted Bonferroni`, 
-  "IA",       "H123",       seq_p_IA_H123,      seq_p_IA_H123_B,    NA,                    NA,                                
-  "IA",       "H12",        seq_p_IA_H12,       seq_p_IA_H12_B,     NA,                    NA,                                     
-  "IA",       "H13",        seq_p_IA_H13,       seq_p_IA_H13_B,     NA,                    NA,                                  
-  "IA",       "H23",        seq_p_IA_H23,       seq_p_IA_H23_B,     NA,                    NA,                                       
-  "IA",       "H1",         seq_p_IA_H1,        seq_p_IA_H1_B,      adj_seq_IA_H1,         adj_seq_IA_H1_B,                     
-  "IA",       "H2",         seq_p_IA_H2,        seq_p_IA_H2_B,      adj_seq_IA_H2,         adj_seq_IA_H2_B,                     
-  "IA",       "H3",         seq_p_IA_H3,        seq_p_IA_H3_B,      adj_seq_IA_H3,         adj_seq_IA_H3_B,                     
-  "FA",       "H123",       seq_p_FA_H123,      seq_p_FA_H123_B,    NA,                    NA,                                  
-  "FA",       "H12",        seq_p_FA_H12,       seq_p_FA_H12_B,     NA,                    NA,                                  
-  "FA",       "H13",        seq_p_FA_H13,       seq_p_FA_H13_B,     NA,                    NA,                                  
-  "FA",       "H23",        seq_p_FA_H23,       seq_p_FA_H23_B,     NA,                    NA,                                  
-  "FA",       "H1",         seq_p_FA_H1,        seq_p_FA_H1_B,      adj_seq_FA_H1,         adj_seq_FA_H1_B,                     
-  "FA",       "H2",         seq_p_FA_H2,        seq_p_FA_H2_B,      adj_seq_FA_H2,         adj_seq_FA_H2_B,                     
+  ~Analysis, ~Hypothesis, ~`Sequantial p-values of WPGSD`,  ~`Sequantial p-values of Weighted Bonferroni`, ~`Adjusted-sequantial p-values of WPGSD`, ~`Adjusted-sequantial p-values of Weighted Bonferroni`,
+  "IA",       "H123",       seq_p_IA_H123,      seq_p_IA_H123_B,    NA,                    NA,
+  "IA",       "H12",        seq_p_IA_H12,       seq_p_IA_H12_B,     NA,                    NA,
+  "IA",       "H13",        seq_p_IA_H13,       seq_p_IA_H13_B,     NA,                    NA,
+  "IA",       "H23",        seq_p_IA_H23,       seq_p_IA_H23_B,     NA,                    NA,
+  "IA",       "H1",         seq_p_IA_H1,        seq_p_IA_H1_B,      adj_seq_IA_H1,         adj_seq_IA_H1_B,
+  "IA",       "H2",         seq_p_IA_H2,        seq_p_IA_H2_B,      adj_seq_IA_H2,         adj_seq_IA_H2_B,
+  "IA",       "H3",         seq_p_IA_H3,        seq_p_IA_H3_B,      adj_seq_IA_H3,         adj_seq_IA_H3_B,
+  "FA",       "H123",       seq_p_FA_H123,      seq_p_FA_H123_B,    NA,                    NA,
+  "FA",       "H12",        seq_p_FA_H12,       seq_p_FA_H12_B,     NA,                    NA,
+  "FA",       "H13",        seq_p_FA_H13,       seq_p_FA_H13_B,     NA,                    NA,
+  "FA",       "H23",        seq_p_FA_H23,       seq_p_FA_H23_B,     NA,                    NA,
+  "FA",       "H1",         seq_p_FA_H1,        seq_p_FA_H1_B,      adj_seq_FA_H1,         adj_seq_FA_H1_B,
+  "FA",       "H2",         seq_p_FA_H2,        seq_p_FA_H2_B,      adj_seq_FA_H2,         adj_seq_FA_H2_B,
   "FA",       "H3",         seq_p_FA_H3,        seq_p_FA_H3_B,      adj_seq_FA_H3,         adj_seq_FA_H3_B
-  ) 
+  )
 
-ans %>% 
-  gt::gt() %>% 
+ans %>%
+  gt::gt() %>%
   gt::tab_style_body(
     columns = where(is.numeric),
     style = cell_fill(color = "pink"),
     fn = function(x) x <= 0.025
-  ) %>% 
-  gt::fmt_number(columns = 3:6, decimals = 4) %>% 
+  ) %>%
+  gt::fmt_number(columns = 3:6, decimals = 4) %>%
   gt::tab_header(title = "(Adjusted-) sequantial p-values",
                  subtitle = "Multiple experiment arm vs. common control") # %>% gt::as_latex()
 ```
-
-
