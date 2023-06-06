@@ -29,6 +29,7 @@
 #'   - `2` = Overall alpha spending for all hypotheses. Method 3b in the manuscript.
 #'   - `3` = Separate alpha spending for each hypotheses. Method 3c in the manuscript.
 #' @param initial_weight Initial weight assigned to the elementary hypothesis
+#' @param transition_mat Transition matrix
 #' @param z_corr Correlation matrix of the Z statistics
 #' @param spending_fun Spending function
 #' @param spending_fun_par Parameter of the spending function

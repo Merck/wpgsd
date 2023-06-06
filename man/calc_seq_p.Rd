@@ -39,6 +39,8 @@ such as \code{"H1, H2, H3"}, \verb{H1, H2}, \code{"H1"}.}
 
 \item{initial_weight}{Initial weight assigned to the elementary hypothesis}
 
+\item{transition_mat}{Transition matrix}
+
 \item{z_corr}{Correlation matrix of the Z statistics}
 
 \item{spending_fun}{Spending function}
