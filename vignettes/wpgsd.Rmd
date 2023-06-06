@@ -1,5 +1,6 @@
 ---
 title: "Quickstart guide"
+author: "Zifang Guo, Keaven Anderson, Jing Zhao, Linda Z. Sun"
 output:
   rmarkdown::html_document:
     toc: true
