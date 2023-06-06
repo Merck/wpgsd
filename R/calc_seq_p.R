@@ -19,7 +19,7 @@
 #' Calculate sequential p-values for interaction/elementary hypothesis
 #'
 #' @param test_analysis The index of the analysis to be tested, such as 1, 2, ...
-#' @param test_hypothesis A character of the tested interaction/elementary hypothesis, 
+#' @param test_hypothesis A character of the tested interaction/elementary hypothesis,
 #' such as `"H1, H2, H3"`, `H1, H2`, `"H1"`.
 #' @param p_obs Observed p-values
 #' @param n_analysis Total number of analysis
@@ -59,7 +59,7 @@
 #' closed_test <- closed_test(bound, p_obs)
 calc_seq_p <- function(test_analysis = 1, # stage of interest
                        test_hypothesis = "H1, H2, H3",
-                       p_obs,             # observed p-value
+                       p_obs, # observed p-value
                        alpha_spending_type = 3,
                        n_analysis = 2,
                        initial_weight,
@@ -69,34 +69,34 @@ calc_seq_p <- function(test_analysis = 1, # stage of interest
                        spending_fun_par,
                        info_frac,
                        interval = c(1e-4, 0.2) # interval for uniroot
-){
-  foo <- function(x){
+) {
+  foo <- function(x) {
     all_hypothesis <- stringr::str_split(test_hypothesis, pattern = ", ") %>% unlist()
-    all_hypothesis_idx <- as.numeric(gsub(".*?([0-9]+).*", "\\1", all_hypothesis))   
-    
+    all_hypothesis_idx <- as.numeric(gsub(".*?([0-9]+).*", "\\1", all_hypothesis))
+
     ans <- generate_bounds(
-      type = alpha_spending_type,  
-      k = n_analysis, 
-      w = initial_weight, 
-      m = transition_mat, 
-      corr = z_corr, 
-      alpha = x, 
+      type = alpha_spending_type,
+      k = n_analysis,
+      w = initial_weight,
+      m = transition_mat,
+      corr = z_corr,
+      alpha = x,
       sf = spending_fun,
-      sfparm = spending_fun_par, 
+      sfparm = spending_fun_par,
       t = info_frac
-    ) %>% 
-      arrange(Analysis) %>% 
+    ) %>%
+      arrange(Analysis) %>%
       filter(Analysis == test_analysis, Hypotheses == test_hypothesis)
-    
+
     p_bound <- NULL
     for (hhh in all_hypothesis) {
       p_bound <- c(p_bound, ans[[hhh]])
     }
-    
+
     return(min(p_obs[all_hypothesis_idx] - p_bound))
   }
-  
+
   seq_p <- uniroot(foo, lower = interval[1], upper = interval[2])$root
-  
+
   return(seq_p)
 }
