@@ -39,7 +39,6 @@
 #'
 #' @importFrom dplyr %>% filter num_range select
 #' @importFrom stats uniroot
-#' @importFrom stringr str_split
 #' @export
 #'
 #' @examples
@@ -72,7 +71,7 @@ calc_seq_p <- function(test_analysis = 1, # stage of interest
                        interval = c(1e-4, 0.2) # interval for uniroot
 ) {
   foo <- function(x) {
-    all_hypothesis <- stringr::str_split(test_hypothesis, pattern = ", ") %>% unlist()
+    all_hypothesis <- strsplit(test_hypothesis, split = ", ") %>% unlist()
     all_hypothesis_idx <- as.numeric(gsub(".*?([0-9]+).*", "\\1", all_hypothesis))
 
     ans <- generate_bounds(
