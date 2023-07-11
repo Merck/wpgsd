@@ -62,9 +62,9 @@ obs_tbl <- tribble(
   ~hypothesis, ~analysis, ~obs_p,
     "H1",          1,       0.02,
     "H2",          1,       0.01,
-    "H3",          1,       0.006,
-    "H1",          2,       0.015,
-    "H2",          2,       0.012,
+    "H3",          1,       0.0096,
+    "H1",          2,       0.0015,
+    "H2",          2,       0.01,
     "H3",          2,       0.004) %>%
   mutate(obs_Z = -qnorm(obs_p))
 
@@ -98,10 +98,10 @@ We assign the initial weights of $H_1, H_2, H_3$ as$\left(w_1(I), w_2(I), w_3(I)
 m <- matrix(c(
     0, 3/7, 4/7,
   3/7,   0, 4/7,
-  1/2, 1/2,   0
+  0.5, 0.5,   0
 ), nrow = 3, byrow = TRUE)
 # Initial weights
-w <- c(0.3, 0.3, 0.4)
+w <- c(0.3, 0.3, 0.4) 
 ```
 
 ```{r}
@@ -163,7 +163,7 @@ seq_p_IA_H123 <- calc_seq_p(
   spending_fun = gsDesign::sfHSD,
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
-  interval = c(1e-4, 0.15)
+  interval = c(1e-4, 0.2)
   )
 
 seq_p_IA_H12 <- calc_seq_p(
@@ -178,7 +178,7 @@ seq_p_IA_H12 <- calc_seq_p(
   spending_fun = gsDesign::sfHSD,
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
-  interval = c(1e-4, 0.15)
+  interval = c(1e-4, 0.2)
   )
 
 seq_p_IA_H13 <- calc_seq_p(
@@ -193,7 +193,7 @@ seq_p_IA_H13 <- calc_seq_p(
   spending_fun = gsDesign::sfHSD,
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
-  interval = c(1e-4, 0.15)
+  interval = c(1e-4, 0.2)
   )
 
 seq_p_IA_H23 <- calc_seq_p(
@@ -208,7 +208,7 @@ seq_p_IA_H23 <- calc_seq_p(
   spending_fun = gsDesign::sfHSD,
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
-  interval = c(1e-4, 0.15)
+  interval = c(1e-4, 0.2)
   )
 
 seq_p_IA_H1 <- calc_seq_p(
@@ -270,7 +270,7 @@ seq_p_IA_H123_B <- calc_seq_p(
   spending_fun = list(gsDesign::sfHSD, gsDesign::sfHSD, gsDesign::sfHSD),
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
-  interval = c(1e-4, 0.2)
+  interval = c(1e-4, 0.3)
   )
 
 seq_p_IA_H12_B <- calc_seq_p(
@@ -300,7 +300,7 @@ seq_p_IA_H13_B <- calc_seq_p(
   spending_fun = list(gsDesign::sfHSD, gsDesign::sfHSD, gsDesign::sfHSD),
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
-  interval = c(1e-4, 0.2)
+  interval = c(1e-4, 0.3)
   )
 
 seq_p_IA_H23_B <- calc_seq_p(
@@ -315,7 +315,7 @@ seq_p_IA_H23_B <- calc_seq_p(
   spending_fun = list(gsDesign::sfHSD, gsDesign::sfHSD, gsDesign::sfHSD),
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
-  interval = c(1e-4, 0.2)
+  interval = c(1e-4, 0.3)
   )
 
 seq_p_IA_H1_B <- calc_seq_p(
@@ -330,7 +330,7 @@ seq_p_IA_H1_B <- calc_seq_p(
   spending_fun = list(gsDesign::sfHSD, gsDesign::sfHSD, gsDesign::sfHSD),
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
-  interval = c(1e-4, 0.2)
+  interval = c(1e-4, 0.3)
   )
 
 seq_p_IA_H2_B <- calc_seq_p(
@@ -345,7 +345,7 @@ seq_p_IA_H2_B <- calc_seq_p(
   spending_fun = list(gsDesign::sfHSD, gsDesign::sfHSD, gsDesign::sfHSD),
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
-  interval = c(1e-4, 0.2)
+  interval = c(1e-4, 0.3)
   )
 
 seq_p_IA_H3_B <- calc_seq_p(
@@ -360,7 +360,7 @@ seq_p_IA_H3_B <- calc_seq_p(
   spending_fun = list(gsDesign::sfHSD, gsDesign::sfHSD, gsDesign::sfHSD),
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
-  interval = c(1e-4, 0.2)
+  interval = c(1e-4, 0.3)
   )
 ```
 
@@ -641,7 +641,20 @@ ans <- tribble(
   )
 
 ans %>%
+  select(Analysis, Hypothesis, 
+         `Sequantial p-values of Weighted Bonferroni`, `Adjusted-sequantial p-values of Weighted Bonferroni`,
+         `Sequantial p-values of WPGSD`, `Adjusted-sequantial p-values of WPGSD`
+         ) %>% 
+
   gt::gt() %>%
+  gt::tab_spanner(
+    label = "Weighted Bonferroni",
+    columns = c(`Sequantial p-values of Weighted Bonferroni`, `Adjusted-sequantial p-values of Weighted Bonferroni`)
+  ) %>% 
+  gt::tab_spanner(
+    label = "WPGSD",
+    columns = c(`Sequantial p-values of WPGSD`, `Adjusted-sequantial p-values of WPGSD`)
+  ) %>% 
   gt::tab_style_body(
     columns = where(is.numeric),
     style = cell_fill(color = "pink"),
@@ -649,5 +662,5 @@ ans %>%
   ) %>%
   gt::fmt_number(columns = 3:6, decimals = 4) %>%
   gt::tab_header(title = "(Adjusted-) sequantial p-values",
-                 subtitle = "Multiple experiment arm vs. common control") # %>% gt::as_latex()
+                 subtitle = "Multiple populations") # %>% gt::as_latex()
 ```
