@@ -44,14 +44,14 @@ Assume an interim analysis and a final analysis are planned for the study and th
 ```{r}
 event_tbl <- tribble(
   ~population, ~analysis, ~event,
-  "A positive",     1,       80,
-  "B positive",     1,       88,
-  "AB positive",    1,       64,
-  "overall",        1,       180,
-  "A positive",     2,       160,
-  "B positive",     2,       176,
-  "AB positive",    2,       128,
-  "overall",        2,       360,
+  "A positive", 1, 80,
+  "B positive", 1, 88,
+  "AB positive", 1, 64,
+  "overall", 1, 180,
+  "A positive", 2, 160,
+  "B positive", 2, 176,
+  "AB positive", 2, 128,
+  "overall", 2, 360,
 )
 ```
 
@@ -60,12 +60,13 @@ The observed p-values are
 ```{r}
 obs_tbl <- tribble(
   ~hypothesis, ~analysis, ~obs_p,
-    "H1",          1,       0.02,
-    "H2",          1,       0.01,
-    "H3",          1,       0.0096,
-    "H1",          2,       0.0015,
-    "H2",          2,       0.01,
-    "H3",          2,       0.004) %>%
+  "H1", 1, 0.02,
+  "H2", 1, 0.01,
+  "H3", 1, 0.0096,
+  "H1", 2, 0.0015,
+  "H2", 2, 0.01,
+  "H3", 2, 0.004
+) %>%
   mutate(obs_Z = -qnorm(obs_p))
 
 obs_tbl %>%
@@ -80,11 +81,11 @@ The information fraction of $H_1, H_2, H_3$ at IA is
 
 ```{r}
 IF_IA <- c(
-  ((event_tbl %>% filter(analysis == 1, population == "A positive"))$event + (event_tbl %>% filter(analysis == 1, population == "overall"))$event)/
+  ((event_tbl %>% filter(analysis == 1, population == "A positive"))$event + (event_tbl %>% filter(analysis == 1, population == "overall"))$event) /
     ((event_tbl %>% filter(analysis == 2, population == "A positive"))$event + (event_tbl %>% filter(analysis == 2, population == "overall"))$event),
-  ((event_tbl %>% filter(analysis == 1, population == "B positive"))$event + (event_tbl %>% filter(analysis == 1, population == "overall"))$event)/
+  ((event_tbl %>% filter(analysis == 1, population == "B positive"))$event + (event_tbl %>% filter(analysis == 1, population == "overall"))$event) /
     ((event_tbl %>% filter(analysis == 2, population == "B positive"))$event + (event_tbl %>% filter(analysis == 2, population == "overall"))$event),
-  ((event_tbl %>% filter(analysis == 1, population == "AB positive"))$event + (event_tbl %>% filter(analysis == 1, population == "overall"))$event)/
+  ((event_tbl %>% filter(analysis == 1, population == "AB positive"))$event + (event_tbl %>% filter(analysis == 1, population == "overall"))$event) /
     ((event_tbl %>% filter(analysis == 2, population == "AB positive"))$event + (event_tbl %>% filter(analysis == 2, population == "overall"))$event)
 )
 
@@ -96,25 +97,27 @@ We assign the initial weights of $H_1, H_2, H_3$ as$\left(w_1(I), w_2(I), w_3(I)
 ```{r}
 # Transition matrix in Figure A1
 m <- matrix(c(
-    0, 3/7, 4/7,
-  3/7,   0, 4/7,
-  0.5, 0.5,   0
+  0, 3 / 7, 4 / 7,
+  3 / 7, 0, 4 / 7,
+  0.5, 0.5, 0
 ), nrow = 3, byrow = TRUE)
 # Initial weights
-w <- c(0.3, 0.3, 0.4) 
+w <- c(0.3, 0.3, 0.4)
 ```
 
 ```{r}
-name_hypotheses <- c("H1: Biomarker A positive", "H2: Biomarker B positive",  "H3: Overall Population")
+name_hypotheses <- c("H1: Biomarker A positive", "H2: Biomarker B positive", "H3: Overall Population")
 
 hplot <- gMCPLite::hGraph(
-  3,alphaHypotheses=w,m=m,
-  nameHypotheses=name_hypotheses, trhw=.2, trhh=.1,
-  digits=5, trdigits=3, size=5, halfWid=1, halfHgt=0.5,
-  offset=0.2 , trprop= 0.4,
-  fill=as.factor(c(2,3,1)),
+  3,
+  alphaHypotheses = w, m = m,
+  nameHypotheses = name_hypotheses, trhw = .2, trhh = .1,
+  digits = 5, trdigits = 3, size = 5, halfWid = 1, halfHgt = 0.5,
+  offset = 0.2, trprop = 0.4,
+  fill = as.factor(c(2, 3, 1)),
   palette = c("#BDBDBD", "#E0E0E0", "#EEEEEE"),
-  wchar = "w")
+  wchar = "w"
+)
 hplot
 ```
 
@@ -127,18 +130,19 @@ The correlation of the 6 statistisc (2 analysis $\times$ 3 hypothesis) are
 # (1, 2) for counts for the intersection of hypotheses 1 and 2
 event <- tribble(
   ~H1, ~H2, ~Analysis, ~Event,
-  1,    1,      1,     event_tbl %>% filter(analysis == 1, population == "A positive") %>% select(event) %>% as.numeric(),
-  2,    2,      1,     event_tbl %>% filter(analysis == 1, population == "B positive") %>% select(event) %>% as.numeric(),
-  3,    3,      1,     event_tbl %>% filter(analysis == 1, population == "overall") %>% select(event) %>% as.numeric(),
-  1,    2,      1,     event_tbl %>% filter(analysis == 1, population == "AB positive") %>% select(event) %>% as.numeric(),
-  1,    3,      1,     event_tbl %>% filter(analysis == 1, population == "A positive") %>% select(event) %>% as.numeric(),
-  2,    3,      1,     event_tbl %>% filter(analysis == 1, population == "B positive") %>% select(event) %>% as.numeric(),
-  1,    1,      2,     event_tbl %>% filter(analysis == 2, population == "A positive") %>% select(event) %>% as.numeric(),
-  2,    2,      2,     event_tbl %>% filter(analysis == 2, population == "B positive") %>% select(event) %>% as.numeric(),
-  3,    3,      2,     event_tbl %>% filter(analysis == 2, population == "overall") %>% select(event) %>% as.numeric(),
-  1,    2,      2,     event_tbl %>% filter(analysis == 2, population == "AB positive") %>% select(event) %>% as.numeric(),
-  1,    3,      2,     event_tbl %>% filter(analysis == 2, population == "A positive") %>% select(event) %>% as.numeric(),
-  2,    3,      2,     event_tbl %>% filter(analysis == 2, population == "B positive") %>% select(event) %>% as.numeric())
+  1, 1, 1, event_tbl %>% filter(analysis == 1, population == "A positive") %>% select(event) %>% as.numeric(),
+  2, 2, 1, event_tbl %>% filter(analysis == 1, population == "B positive") %>% select(event) %>% as.numeric(),
+  3, 3, 1, event_tbl %>% filter(analysis == 1, population == "overall") %>% select(event) %>% as.numeric(),
+  1, 2, 1, event_tbl %>% filter(analysis == 1, population == "AB positive") %>% select(event) %>% as.numeric(),
+  1, 3, 1, event_tbl %>% filter(analysis == 1, population == "A positive") %>% select(event) %>% as.numeric(),
+  2, 3, 1, event_tbl %>% filter(analysis == 1, population == "B positive") %>% select(event) %>% as.numeric(),
+  1, 1, 2, event_tbl %>% filter(analysis == 2, population == "A positive") %>% select(event) %>% as.numeric(),
+  2, 2, 2, event_tbl %>% filter(analysis == 2, population == "B positive") %>% select(event) %>% as.numeric(),
+  3, 3, 2, event_tbl %>% filter(analysis == 2, population == "overall") %>% select(event) %>% as.numeric(),
+  1, 2, 2, event_tbl %>% filter(analysis == 2, population == "AB positive") %>% select(event) %>% as.numeric(),
+  1, 3, 2, event_tbl %>% filter(analysis == 2, population == "A positive") %>% select(event) %>% as.numeric(),
+  2, 3, 2, event_tbl %>% filter(analysis == 2, population == "B positive") %>% select(event) %>% as.numeric()
+)
 event
 
 # Generate correlation from events
@@ -152,9 +156,9 @@ gs_corr %>% round(2)
 
 ```{r, wpgsdSeqIA, message=FALSE}
 seq_p_IA_H123 <- calc_seq_p(
-  test_analysis = 1,            # stage of interest
+  test_analysis = 1, # stage of interest
   test_hypothesis = "H1, H2, H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -164,12 +168,12 @@ seq_p_IA_H123 <- calc_seq_p(
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
   interval = c(1e-4, 0.2)
-  )
+)
 
 seq_p_IA_H12 <- calc_seq_p(
-  test_analysis = 1,            # stage of interest
+  test_analysis = 1, # stage of interest
   test_hypothesis = "H1, H2",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -179,12 +183,12 @@ seq_p_IA_H12 <- calc_seq_p(
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
   interval = c(1e-4, 0.2)
-  )
+)
 
 seq_p_IA_H13 <- calc_seq_p(
-  test_analysis = 1,            # stage of interest
+  test_analysis = 1, # stage of interest
   test_hypothesis = "H1, H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -194,12 +198,12 @@ seq_p_IA_H13 <- calc_seq_p(
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
   interval = c(1e-4, 0.2)
-  )
+)
 
 seq_p_IA_H23 <- calc_seq_p(
-  test_analysis = 1,            # stage of interest
+  test_analysis = 1, # stage of interest
   test_hypothesis = "H2, H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -209,12 +213,12 @@ seq_p_IA_H23 <- calc_seq_p(
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
   interval = c(1e-4, 0.2)
-  )
+)
 
 seq_p_IA_H1 <- calc_seq_p(
-  test_analysis = 1,            # stage of interest
+  test_analysis = 1, # stage of interest
   test_hypothesis = "H1",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -224,12 +228,12 @@ seq_p_IA_H1 <- calc_seq_p(
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
   interval = c(1e-4, 0.2)
-  )
+)
 
 seq_p_IA_H2 <- calc_seq_p(
-  test_analysis = 1,            # stage of interest
+  test_analysis = 1, # stage of interest
   test_hypothesis = "H2",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -239,12 +243,12 @@ seq_p_IA_H2 <- calc_seq_p(
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
   interval = c(1e-4, 0.2)
-  )
+)
 
 seq_p_IA_H3 <- calc_seq_p(
-  test_analysis = 1,            # stage of interest
+  test_analysis = 1, # stage of interest
   test_hypothesis = "H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -254,14 +258,14 @@ seq_p_IA_H3 <- calc_seq_p(
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
   interval = c(1e-4, 0.2)
-  )
+)
 ```
 
 ```{r, weightedBonferroniSeqIA, message=FALSE}
 seq_p_IA_H123_B <- calc_seq_p(
-  test_analysis = 1,            # stage of interest
+  test_analysis = 1, # stage of interest
   test_hypothesis = "H1, H2, H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -271,12 +275,12 @@ seq_p_IA_H123_B <- calc_seq_p(
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
   interval = c(1e-4, 0.3)
-  )
+)
 
 seq_p_IA_H12_B <- calc_seq_p(
-  test_analysis = 1,            # stage of interest
+  test_analysis = 1, # stage of interest
   test_hypothesis = "H1, H2",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -286,12 +290,12 @@ seq_p_IA_H12_B <- calc_seq_p(
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
   interval = c(1e-4, 0.2)
-  )
+)
 
 seq_p_IA_H13_B <- calc_seq_p(
-  test_analysis = 1,            # stage of interest
+  test_analysis = 1, # stage of interest
   test_hypothesis = "H1, H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -301,12 +305,12 @@ seq_p_IA_H13_B <- calc_seq_p(
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
   interval = c(1e-4, 0.3)
-  )
+)
 
 seq_p_IA_H23_B <- calc_seq_p(
-  test_analysis = 1,            # stage of interest
+  test_analysis = 1, # stage of interest
   test_hypothesis = "H2, H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -316,12 +320,12 @@ seq_p_IA_H23_B <- calc_seq_p(
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
   interval = c(1e-4, 0.3)
-  )
+)
 
 seq_p_IA_H1_B <- calc_seq_p(
-  test_analysis = 1,            # stage of interest
+  test_analysis = 1, # stage of interest
   test_hypothesis = "H1",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -331,12 +335,12 @@ seq_p_IA_H1_B <- calc_seq_p(
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
   interval = c(1e-4, 0.3)
-  )
+)
 
 seq_p_IA_H2_B <- calc_seq_p(
-  test_analysis = 1,            # stage of interest
+  test_analysis = 1, # stage of interest
   test_hypothesis = "H2",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -346,12 +350,12 @@ seq_p_IA_H2_B <- calc_seq_p(
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
   interval = c(1e-4, 0.3)
-  )
+)
 
 seq_p_IA_H3_B <- calc_seq_p(
-  test_analysis = 1,            # stage of interest
+  test_analysis = 1, # stage of interest
   test_hypothesis = "H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -361,16 +365,16 @@ seq_p_IA_H3_B <- calc_seq_p(
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
   interval = c(1e-4, 0.3)
-  )
+)
 ```
 
 ## FA
 
 ```{r, wpgsdSeqFA, message=FALSE}
 seq_p_FA_H123 <- calc_seq_p(
-  test_analysis = 2,            # stage of interest
+  test_analysis = 2, # stage of interest
   test_hypothesis = "H1, H2, H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -380,12 +384,12 @@ seq_p_FA_H123 <- calc_seq_p(
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
   interval = c(1e-4, 0.15)
-  )
+)
 
 seq_p_FA_H12 <- calc_seq_p(
-  test_analysis = 2,            # stage of interest
+  test_analysis = 2, # stage of interest
   test_hypothesis = "H1, H2",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -395,12 +399,12 @@ seq_p_FA_H12 <- calc_seq_p(
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
   interval = c(1e-4, 0.15)
-  )
+)
 
 seq_p_FA_H13 <- calc_seq_p(
-  test_analysis = 2,            # stage of interest
+  test_analysis = 2, # stage of interest
   test_hypothesis = "H1, H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -410,12 +414,12 @@ seq_p_FA_H13 <- calc_seq_p(
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
   interval = c(1e-4, 0.15)
-  )
+)
 
 seq_p_FA_H23 <- calc_seq_p(
-  test_analysis = 2,            # stage of interest
+  test_analysis = 2, # stage of interest
   test_hypothesis = "H2, H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -425,12 +429,12 @@ seq_p_FA_H23 <- calc_seq_p(
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
   interval = c(1e-4, 0.15)
-  )
+)
 
 seq_p_FA_H1 <- calc_seq_p(
-  test_analysis = 2,            # stage of interest
+  test_analysis = 2, # stage of interest
   test_hypothesis = "H1",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -440,12 +444,12 @@ seq_p_FA_H1 <- calc_seq_p(
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
   interval = c(1e-4, 0.2)
-  )
+)
 
 seq_p_FA_H2 <- calc_seq_p(
-  test_analysis = 2,            # stage of interest
+  test_analysis = 2, # stage of interest
   test_hypothesis = "H2",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -455,12 +459,12 @@ seq_p_FA_H2 <- calc_seq_p(
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
   interval = c(1e-4, 0.2)
-  )
+)
 
 seq_p_FA_H3 <- calc_seq_p(
-  test_analysis = 2,            # stage of interest
+  test_analysis = 2, # stage of interest
   test_hypothesis = "H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -470,14 +474,14 @@ seq_p_FA_H3 <- calc_seq_p(
   spending_fun_par = -4,
   info_frac = c(min(IF_IA), 1),
   interval = c(1e-4, 0.2)
-  )
+)
 ```
 
 ```{r, weightedBonferroniSeqFA, message=FALSE}
 seq_p_FA_H123_B <- calc_seq_p(
-  test_analysis = 2,            # stage of interest
+  test_analysis = 2, # stage of interest
   test_hypothesis = "H1, H2, H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -487,12 +491,12 @@ seq_p_FA_H123_B <- calc_seq_p(
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
   interval = c(1e-4, 0.2)
-  )
+)
 
 seq_p_FA_H12_B <- calc_seq_p(
-  test_analysis = 2,            # stage of interest
+  test_analysis = 2, # stage of interest
   test_hypothesis = "H1, H2",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -502,12 +506,12 @@ seq_p_FA_H12_B <- calc_seq_p(
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
   interval = c(1e-4, 0.2)
-  )
+)
 
 seq_p_FA_H13_B <- calc_seq_p(
-  test_analysis = 2,            # stage of interest
+  test_analysis = 2, # stage of interest
   test_hypothesis = "H1, H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -517,12 +521,12 @@ seq_p_FA_H13_B <- calc_seq_p(
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
   interval = c(1e-4, 0.2)
-  )
+)
 
 seq_p_FA_H23_B <- calc_seq_p(
-  test_analysis = 2,            # stage of interest
+  test_analysis = 2, # stage of interest
   test_hypothesis = "H2, H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -532,12 +536,12 @@ seq_p_FA_H23_B <- calc_seq_p(
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
   interval = c(1e-4, 0.2)
-  )
+)
 
 seq_p_FA_H1_B <- calc_seq_p(
-  test_analysis = 2,            # stage of interest
+  test_analysis = 2, # stage of interest
   test_hypothesis = "H1",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -547,12 +551,12 @@ seq_p_FA_H1_B <- calc_seq_p(
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
   interval = c(1e-4, 0.2)
-  )
+)
 
 seq_p_FA_H2_B <- calc_seq_p(
-  test_analysis = 2,            # stage of interest
+  test_analysis = 2, # stage of interest
   test_hypothesis = "H2",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -562,12 +566,12 @@ seq_p_FA_H2_B <- calc_seq_p(
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
   interval = c(1e-4, 0.2)
-  )
+)
 
 seq_p_FA_H3_B <- calc_seq_p(
-  test_analysis = 2,            # stage of interest
+  test_analysis = 2, # stage of interest
   test_hypothesis = "H3",
-  p_obs = p_obs_IA,             # observed p-value
+  p_obs = p_obs_IA, # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -577,7 +581,7 @@ seq_p_FA_H3_B <- calc_seq_p(
   spending_fun_par = list(-4, -4, -4),
   info_frac = list(c(IF_IA[1], 1), c(IF_IA[2], 1), c(IF_IA[2], 1)),
   interval = c(1e-4, 0.2)
-  )
+)
 ```
 
 # Adjusted-Sequential p-value
@@ -623,44 +627,46 @@ cat("The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni
 
 ```{r}
 ans <- tribble(
-  ~Analysis, ~Hypothesis, ~`Sequantial p-values of WPGSD`,  ~`Sequantial p-values of Weighted Bonferroni`, ~`Adjusted-sequantial p-values of WPGSD`, ~`Adjusted-sequantial p-values of Weighted Bonferroni`,
-  "IA",       "H123",       seq_p_IA_H123,      seq_p_IA_H123_B,    NA,                    NA,
-  "IA",       "H12",        seq_p_IA_H12,       seq_p_IA_H12_B,     NA,                    NA,
-  "IA",       "H13",        seq_p_IA_H13,       seq_p_IA_H13_B,     NA,                    NA,
-  "IA",       "H23",        seq_p_IA_H23,       seq_p_IA_H23_B,     NA,                    NA,
-  "IA",       "H1",         seq_p_IA_H1,        seq_p_IA_H1_B,      adj_seq_IA_H1,         adj_seq_IA_H1_B,
-  "IA",       "H2",         seq_p_IA_H2,        seq_p_IA_H2_B,      adj_seq_IA_H2,         adj_seq_IA_H2_B,
-  "IA",       "H3",         seq_p_IA_H3,        seq_p_IA_H3_B,      adj_seq_IA_H3,         adj_seq_IA_H3_B,
-  "FA",       "H123",       seq_p_FA_H123,      seq_p_FA_H123_B,    NA,                    NA,
-  "FA",       "H12",        seq_p_FA_H12,       seq_p_FA_H12_B,     NA,                    NA,
-  "FA",       "H13",        seq_p_FA_H13,       seq_p_FA_H13_B,     NA,                    NA,
-  "FA",       "H23",        seq_p_FA_H23,       seq_p_FA_H23_B,     NA,                    NA,
-  "FA",       "H1",         seq_p_FA_H1,        seq_p_FA_H1_B,      adj_seq_FA_H1,         adj_seq_FA_H1_B,
-  "FA",       "H2",         seq_p_FA_H2,        seq_p_FA_H2_B,      adj_seq_FA_H2,         adj_seq_FA_H2_B,
-  "FA",       "H3",         seq_p_FA_H3,        seq_p_FA_H3_B,      adj_seq_FA_H3,         adj_seq_FA_H3_B
-  )
+  ~Analysis, ~Hypothesis, ~`Sequantial p-values of WPGSD`, ~`Sequantial p-values of Weighted Bonferroni`, ~`Adjusted-sequantial p-values of WPGSD`, ~`Adjusted-sequantial p-values of Weighted Bonferroni`,
+  "IA", "H123", seq_p_IA_H123, seq_p_IA_H123_B, NA, NA,
+  "IA", "H12", seq_p_IA_H12, seq_p_IA_H12_B, NA, NA,
+  "IA", "H13", seq_p_IA_H13, seq_p_IA_H13_B, NA, NA,
+  "IA", "H23", seq_p_IA_H23, seq_p_IA_H23_B, NA, NA,
+  "IA", "H1", seq_p_IA_H1, seq_p_IA_H1_B, adj_seq_IA_H1, adj_seq_IA_H1_B,
+  "IA", "H2", seq_p_IA_H2, seq_p_IA_H2_B, adj_seq_IA_H2, adj_seq_IA_H2_B,
+  "IA", "H3", seq_p_IA_H3, seq_p_IA_H3_B, adj_seq_IA_H3, adj_seq_IA_H3_B,
+  "FA", "H123", seq_p_FA_H123, seq_p_FA_H123_B, NA, NA,
+  "FA", "H12", seq_p_FA_H12, seq_p_FA_H12_B, NA, NA,
+  "FA", "H13", seq_p_FA_H13, seq_p_FA_H13_B, NA, NA,
+  "FA", "H23", seq_p_FA_H23, seq_p_FA_H23_B, NA, NA,
+  "FA", "H1", seq_p_FA_H1, seq_p_FA_H1_B, adj_seq_FA_H1, adj_seq_FA_H1_B,
+  "FA", "H2", seq_p_FA_H2, seq_p_FA_H2_B, adj_seq_FA_H2, adj_seq_FA_H2_B,
+  "FA", "H3", seq_p_FA_H3, seq_p_FA_H3_B, adj_seq_FA_H3, adj_seq_FA_H3_B
+)
 
 ans %>%
-  select(Analysis, Hypothesis, 
-         `Sequantial p-values of Weighted Bonferroni`, `Adjusted-sequantial p-values of Weighted Bonferroni`,
-         `Sequantial p-values of WPGSD`, `Adjusted-sequantial p-values of WPGSD`
-         ) %>% 
-
+  select(
+    Analysis, Hypothesis,
+    `Sequantial p-values of Weighted Bonferroni`, `Adjusted-sequantial p-values of Weighted Bonferroni`,
+    `Sequantial p-values of WPGSD`, `Adjusted-sequantial p-values of WPGSD`
+  ) %>%
   gt::gt() %>%
   gt::tab_spanner(
     label = "Weighted Bonferroni",
     columns = c(`Sequantial p-values of Weighted Bonferroni`, `Adjusted-sequantial p-values of Weighted Bonferroni`)
-  ) %>% 
+  ) %>%
   gt::tab_spanner(
     label = "WPGSD",
     columns = c(`Sequantial p-values of WPGSD`, `Adjusted-sequantial p-values of WPGSD`)
-  ) %>% 
+  ) %>%
   gt::tab_style_body(
     columns = where(is.numeric),
     style = cell_fill(color = "pink"),
     fn = function(x) x <= 0.025
   ) %>%
   gt::fmt_number(columns = 3:6, decimals = 4) %>%
-  gt::tab_header(title = "(Adjusted-) sequantial p-values",
-                 subtitle = "Multiple populations") # %>% gt::as_latex()
+  gt::tab_header(
+    title = "(Adjusted-) sequantial p-values",
+    subtitle = "Multiple populations"
+  ) # %>% gt::as_latex()
 ```
