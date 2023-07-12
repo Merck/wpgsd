@@ -53,6 +53,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/adj-seq-p.html">Adjusted sequential p-values</a>
+    <a class="dropdown-item" href="../articles/tech-detail-wb.html">Procedure to compute p-value boundaries by weighted Bonferroni</a>
   </div>
 </li>
 <li class="nav-item">
@@ -763,23 +764,23 @@ Section 2.5. Next we set up the event count table as follows:</p>
 <span><span class="va">event</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Event Count"</span><span class="op">)</span></span></code></pre></div>
-<div id="iielgxgwar" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#iielgxgwar table {
+<div id="tnunnfabry" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tnunnfabry table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#iielgxgwar thead, #iielgxgwar tbody, #iielgxgwar tfoot, #iielgxgwar tr, #iielgxgwar td, #iielgxgwar th {
+#tnunnfabry thead, #tnunnfabry tbody, #tnunnfabry tfoot, #tnunnfabry tr, #tnunnfabry td, #tnunnfabry th {
   border-style: none;
 }
 
-#iielgxgwar p {
+#tnunnfabry p {
   margin: 0;
   padding: 0;
 }
 
-#iielgxgwar .gt_table {
+#tnunnfabry .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -805,12 +806,12 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-left-color: #D3D3D3;
 }
 
-#iielgxgwar .gt_caption {
+#tnunnfabry .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#iielgxgwar .gt_title {
+#tnunnfabry .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -822,7 +823,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-bottom-width: 0;
 }
 
-#iielgxgwar .gt_subtitle {
+#tnunnfabry .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -834,7 +835,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-top-width: 0;
 }
 
-#iielgxgwar .gt_heading {
+#tnunnfabry .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -846,13 +847,13 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-right-color: #D3D3D3;
 }
 
-#iielgxgwar .gt_bottom_border {
+#tnunnfabry .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#iielgxgwar .gt_col_headings {
+#tnunnfabry .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -867,7 +868,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-right-color: #D3D3D3;
 }
 
-#iielgxgwar .gt_col_heading {
+#tnunnfabry .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -887,7 +888,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   overflow-x: hidden;
 }
 
-#iielgxgwar .gt_column_spanner_outer {
+#tnunnfabry .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -899,15 +900,15 @@ Section 2.5. Next we set up the event count table as follows:</p>
   padding-right: 4px;
 }
 
-#iielgxgwar .gt_column_spanner_outer:first-child {
+#tnunnfabry .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#iielgxgwar .gt_column_spanner_outer:last-child {
+#tnunnfabry .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#iielgxgwar .gt_column_spanner {
+#tnunnfabry .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -919,11 +920,11 @@ Section 2.5. Next we set up the event count table as follows:</p>
   width: 100%;
 }
 
-#iielgxgwar .gt_spanner_row {
+#tnunnfabry .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#iielgxgwar .gt_group_heading {
+#tnunnfabry .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -949,7 +950,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   text-align: left;
 }
 
-#iielgxgwar .gt_empty_group_heading {
+#tnunnfabry .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -964,15 +965,15 @@ Section 2.5. Next we set up the event count table as follows:</p>
   vertical-align: middle;
 }
 
-#iielgxgwar .gt_from_md > :first-child {
+#tnunnfabry .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#iielgxgwar .gt_from_md > :last-child {
+#tnunnfabry .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#iielgxgwar .gt_row {
+#tnunnfabry .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -991,7 +992,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   overflow-x: hidden;
 }
 
-#iielgxgwar .gt_stub {
+#tnunnfabry .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1004,7 +1005,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   padding-right: 5px;
 }
 
-#iielgxgwar .gt_stub_row_group {
+#tnunnfabry .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1018,15 +1019,15 @@ Section 2.5. Next we set up the event count table as follows:</p>
   vertical-align: top;
 }
 
-#iielgxgwar .gt_row_group_first td {
+#tnunnfabry .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#iielgxgwar .gt_row_group_first th {
+#tnunnfabry .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#iielgxgwar .gt_summary_row {
+#tnunnfabry .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1036,16 +1037,16 @@ Section 2.5. Next we set up the event count table as follows:</p>
   padding-right: 5px;
 }
 
-#iielgxgwar .gt_first_summary_row {
+#tnunnfabry .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#iielgxgwar .gt_first_summary_row.thick {
+#tnunnfabry .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#iielgxgwar .gt_last_summary_row {
+#tnunnfabry .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1055,7 +1056,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-bottom-color: #D3D3D3;
 }
 
-#iielgxgwar .gt_grand_summary_row {
+#tnunnfabry .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1065,7 +1066,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   padding-right: 5px;
 }
 
-#iielgxgwar .gt_first_grand_summary_row {
+#tnunnfabry .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1075,7 +1076,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-top-color: #D3D3D3;
 }
 
-#iielgxgwar .gt_last_grand_summary_row_top {
+#tnunnfabry .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1085,11 +1086,11 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-bottom-color: #D3D3D3;
 }
 
-#iielgxgwar .gt_striped {
+#tnunnfabry .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#iielgxgwar .gt_table_body {
+#tnunnfabry .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1098,7 +1099,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-bottom-color: #D3D3D3;
 }
 
-#iielgxgwar .gt_footnotes {
+#tnunnfabry .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1112,7 +1113,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-right-color: #D3D3D3;
 }
 
-#iielgxgwar .gt_footnote {
+#tnunnfabry .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1121,7 +1122,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   padding-right: 5px;
 }
 
-#iielgxgwar .gt_sourcenotes {
+#tnunnfabry .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1135,7 +1136,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-right-color: #D3D3D3;
 }
 
-#iielgxgwar .gt_sourcenote {
+#tnunnfabry .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1143,63 +1144,63 @@ Section 2.5. Next we set up the event count table as follows:</p>
   padding-right: 5px;
 }
 
-#iielgxgwar .gt_left {
+#tnunnfabry .gt_left {
   text-align: left;
 }
 
-#iielgxgwar .gt_center {
+#tnunnfabry .gt_center {
   text-align: center;
 }
 
-#iielgxgwar .gt_right {
+#tnunnfabry .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#iielgxgwar .gt_font_normal {
+#tnunnfabry .gt_font_normal {
   font-weight: normal;
 }
 
-#iielgxgwar .gt_font_bold {
+#tnunnfabry .gt_font_bold {
   font-weight: bold;
 }
 
-#iielgxgwar .gt_font_italic {
+#tnunnfabry .gt_font_italic {
   font-style: italic;
 }
 
-#iielgxgwar .gt_super {
+#tnunnfabry .gt_super {
   font-size: 65%;
 }
 
-#iielgxgwar .gt_footnote_marks {
+#tnunnfabry .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#iielgxgwar .gt_asterisk {
+#tnunnfabry .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#iielgxgwar .gt_indent_1 {
+#tnunnfabry .gt_indent_1 {
   text-indent: 5px;
 }
 
-#iielgxgwar .gt_indent_2 {
+#tnunnfabry .gt_indent_2 {
   text-indent: 10px;
 }
 
-#iielgxgwar .gt_indent_3 {
+#tnunnfabry .gt_indent_3 {
   text-indent: 15px;
 }
 
-#iielgxgwar .gt_indent_4 {
+#tnunnfabry .gt_indent_4 {
   text-indent: 20px;
 }
 
-#iielgxgwar .gt_indent_5 {
+#tnunnfabry .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1312,23 +1313,23 @@ Section 2.5. Next we set up the event count table as follows:</p>
 <span><span class="va">event2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Event Count - Computed from SAS Datasets Example"</span><span class="op">)</span></span></code></pre></div>
-<div id="zxtyzgcpec" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zxtyzgcpec table {
+<div id="pmacaragif" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pmacaragif table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zxtyzgcpec thead, #zxtyzgcpec tbody, #zxtyzgcpec tfoot, #zxtyzgcpec tr, #zxtyzgcpec td, #zxtyzgcpec th {
+#pmacaragif thead, #pmacaragif tbody, #pmacaragif tfoot, #pmacaragif tr, #pmacaragif td, #pmacaragif th {
   border-style: none;
 }
 
-#zxtyzgcpec p {
+#pmacaragif p {
   margin: 0;
   padding: 0;
 }
 
-#zxtyzgcpec .gt_table {
+#pmacaragif .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1354,12 +1355,12 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-left-color: #D3D3D3;
 }
 
-#zxtyzgcpec .gt_caption {
+#pmacaragif .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zxtyzgcpec .gt_title {
+#pmacaragif .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1371,7 +1372,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-bottom-width: 0;
 }
 
-#zxtyzgcpec .gt_subtitle {
+#pmacaragif .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1383,7 +1384,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-top-width: 0;
 }
 
-#zxtyzgcpec .gt_heading {
+#pmacaragif .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1395,13 +1396,13 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-right-color: #D3D3D3;
 }
 
-#zxtyzgcpec .gt_bottom_border {
+#pmacaragif .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zxtyzgcpec .gt_col_headings {
+#pmacaragif .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1416,7 +1417,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-right-color: #D3D3D3;
 }
 
-#zxtyzgcpec .gt_col_heading {
+#pmacaragif .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1436,7 +1437,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   overflow-x: hidden;
 }
 
-#zxtyzgcpec .gt_column_spanner_outer {
+#pmacaragif .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1448,15 +1449,15 @@ Section 2.5. Next we set up the event count table as follows:</p>
   padding-right: 4px;
 }
 
-#zxtyzgcpec .gt_column_spanner_outer:first-child {
+#pmacaragif .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zxtyzgcpec .gt_column_spanner_outer:last-child {
+#pmacaragif .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zxtyzgcpec .gt_column_spanner {
+#pmacaragif .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1468,11 +1469,11 @@ Section 2.5. Next we set up the event count table as follows:</p>
   width: 100%;
 }
 
-#zxtyzgcpec .gt_spanner_row {
+#pmacaragif .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zxtyzgcpec .gt_group_heading {
+#pmacaragif .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1498,7 +1499,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   text-align: left;
 }
 
-#zxtyzgcpec .gt_empty_group_heading {
+#pmacaragif .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1513,15 +1514,15 @@ Section 2.5. Next we set up the event count table as follows:</p>
   vertical-align: middle;
 }
 
-#zxtyzgcpec .gt_from_md > :first-child {
+#pmacaragif .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zxtyzgcpec .gt_from_md > :last-child {
+#pmacaragif .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zxtyzgcpec .gt_row {
+#pmacaragif .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1540,7 +1541,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   overflow-x: hidden;
 }
 
-#zxtyzgcpec .gt_stub {
+#pmacaragif .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1553,7 +1554,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   padding-right: 5px;
 }
 
-#zxtyzgcpec .gt_stub_row_group {
+#pmacaragif .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1567,15 +1568,15 @@ Section 2.5. Next we set up the event count table as follows:</p>
   vertical-align: top;
 }
 
-#zxtyzgcpec .gt_row_group_first td {
+#pmacaragif .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zxtyzgcpec .gt_row_group_first th {
+#pmacaragif .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zxtyzgcpec .gt_summary_row {
+#pmacaragif .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1585,16 +1586,16 @@ Section 2.5. Next we set up the event count table as follows:</p>
   padding-right: 5px;
 }
 
-#zxtyzgcpec .gt_first_summary_row {
+#pmacaragif .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zxtyzgcpec .gt_first_summary_row.thick {
+#pmacaragif .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zxtyzgcpec .gt_last_summary_row {
+#pmacaragif .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1604,7 +1605,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-bottom-color: #D3D3D3;
 }
 
-#zxtyzgcpec .gt_grand_summary_row {
+#pmacaragif .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1614,7 +1615,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   padding-right: 5px;
 }
 
-#zxtyzgcpec .gt_first_grand_summary_row {
+#pmacaragif .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1624,7 +1625,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-top-color: #D3D3D3;
 }
 
-#zxtyzgcpec .gt_last_grand_summary_row_top {
+#pmacaragif .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1634,11 +1635,11 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-bottom-color: #D3D3D3;
 }
 
-#zxtyzgcpec .gt_striped {
+#pmacaragif .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zxtyzgcpec .gt_table_body {
+#pmacaragif .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1647,7 +1648,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-bottom-color: #D3D3D3;
 }
 
-#zxtyzgcpec .gt_footnotes {
+#pmacaragif .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1661,7 +1662,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-right-color: #D3D3D3;
 }
 
-#zxtyzgcpec .gt_footnote {
+#pmacaragif .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1670,7 +1671,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   padding-right: 5px;
 }
 
-#zxtyzgcpec .gt_sourcenotes {
+#pmacaragif .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1684,7 +1685,7 @@ Section 2.5. Next we set up the event count table as follows:</p>
   border-right-color: #D3D3D3;
 }
 
-#zxtyzgcpec .gt_sourcenote {
+#pmacaragif .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1692,63 +1693,63 @@ Section 2.5. Next we set up the event count table as follows:</p>
   padding-right: 5px;
 }
 
-#zxtyzgcpec .gt_left {
+#pmacaragif .gt_left {
   text-align: left;
 }
 
-#zxtyzgcpec .gt_center {
+#pmacaragif .gt_center {
   text-align: center;
 }
 
-#zxtyzgcpec .gt_right {
+#pmacaragif .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zxtyzgcpec .gt_font_normal {
+#pmacaragif .gt_font_normal {
   font-weight: normal;
 }
 
-#zxtyzgcpec .gt_font_bold {
+#pmacaragif .gt_font_bold {
   font-weight: bold;
 }
 
-#zxtyzgcpec .gt_font_italic {
+#pmacaragif .gt_font_italic {
   font-style: italic;
 }
 
-#zxtyzgcpec .gt_super {
+#pmacaragif .gt_super {
   font-size: 65%;
 }
 
-#zxtyzgcpec .gt_footnote_marks {
+#pmacaragif .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zxtyzgcpec .gt_asterisk {
+#pmacaragif .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zxtyzgcpec .gt_indent_1 {
+#pmacaragif .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zxtyzgcpec .gt_indent_2 {
+#pmacaragif .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zxtyzgcpec .gt_indent_3 {
+#pmacaragif .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zxtyzgcpec .gt_indent_4 {
+#pmacaragif .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zxtyzgcpec .gt_indent_5 {
+#pmacaragif .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1799,23 +1800,23 @@ non-trivial impact on bounds for hypothesis tests.</p>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Correlation Matrix"</span><span class="op">)</span></span></code></pre></div>
-<div id="lqqmoncokb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lqqmoncokb table {
+<div id="moxbfokmse" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#moxbfokmse table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lqqmoncokb thead, #lqqmoncokb tbody, #lqqmoncokb tfoot, #lqqmoncokb tr, #lqqmoncokb td, #lqqmoncokb th {
+#moxbfokmse thead, #moxbfokmse tbody, #moxbfokmse tfoot, #moxbfokmse tr, #moxbfokmse td, #moxbfokmse th {
   border-style: none;
 }
 
-#lqqmoncokb p {
+#moxbfokmse p {
   margin: 0;
   padding: 0;
 }
 
-#lqqmoncokb .gt_table {
+#moxbfokmse .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1841,12 +1842,12 @@ non-trivial impact on bounds for hypothesis tests.</p>
   border-left-color: #D3D3D3;
 }
 
-#lqqmoncokb .gt_caption {
+#moxbfokmse .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lqqmoncokb .gt_title {
+#moxbfokmse .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1858,7 +1859,7 @@ non-trivial impact on bounds for hypothesis tests.</p>
   border-bottom-width: 0;
 }
 
-#lqqmoncokb .gt_subtitle {
+#moxbfokmse .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1870,7 +1871,7 @@ non-trivial impact on bounds for hypothesis tests.</p>
   border-top-width: 0;
 }
 
-#lqqmoncokb .gt_heading {
+#moxbfokmse .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1882,13 +1883,13 @@ non-trivial impact on bounds for hypothesis tests.</p>
   border-right-color: #D3D3D3;
 }
 
-#lqqmoncokb .gt_bottom_border {
+#moxbfokmse .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lqqmoncokb .gt_col_headings {
+#moxbfokmse .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1903,7 +1904,7 @@ non-trivial impact on bounds for hypothesis tests.</p>
   border-right-color: #D3D3D3;
 }
 
-#lqqmoncokb .gt_col_heading {
+#moxbfokmse .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1923,7 +1924,7 @@ non-trivial impact on bounds for hypothesis tests.</p>
   overflow-x: hidden;
 }
 
-#lqqmoncokb .gt_column_spanner_outer {
+#moxbfokmse .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1935,15 +1936,15 @@ non-trivial impact on bounds for hypothesis tests.</p>
   padding-right: 4px;
 }
 
-#lqqmoncokb .gt_column_spanner_outer:first-child {
+#moxbfokmse .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lqqmoncokb .gt_column_spanner_outer:last-child {
+#moxbfokmse .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lqqmoncokb .gt_column_spanner {
+#moxbfokmse .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1955,11 +1956,11 @@ non-trivial impact on bounds for hypothesis tests.</p>
   width: 100%;
 }
 
-#lqqmoncokb .gt_spanner_row {
+#moxbfokmse .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lqqmoncokb .gt_group_heading {
+#moxbfokmse .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1985,7 +1986,7 @@ non-trivial impact on bounds for hypothesis tests.</p>
   text-align: left;
 }
 
-#lqqmoncokb .gt_empty_group_heading {
+#moxbfokmse .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2000,15 +2001,15 @@ non-trivial impact on bounds for hypothesis tests.</p>
   vertical-align: middle;
 }
 
-#lqqmoncokb .gt_from_md > :first-child {
+#moxbfokmse .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lqqmoncokb .gt_from_md > :last-child {
+#moxbfokmse .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lqqmoncokb .gt_row {
+#moxbfokmse .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2027,7 +2028,7 @@ non-trivial impact on bounds for hypothesis tests.</p>
   overflow-x: hidden;
 }
 
-#lqqmoncokb .gt_stub {
+#moxbfokmse .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2040,7 +2041,7 @@ non-trivial impact on bounds for hypothesis tests.</p>
   padding-right: 5px;
 }
 
-#lqqmoncokb .gt_stub_row_group {
+#moxbfokmse .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2054,15 +2055,15 @@ non-trivial impact on bounds for hypothesis tests.</p>
   vertical-align: top;
 }
 
-#lqqmoncokb .gt_row_group_first td {
+#moxbfokmse .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lqqmoncokb .gt_row_group_first th {
+#moxbfokmse .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lqqmoncokb .gt_summary_row {
+#moxbfokmse .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2072,16 +2073,16 @@ non-trivial impact on bounds for hypothesis tests.</p>
   padding-right: 5px;
 }
 
-#lqqmoncokb .gt_first_summary_row {
+#moxbfokmse .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lqqmoncokb .gt_first_summary_row.thick {
+#moxbfokmse .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lqqmoncokb .gt_last_summary_row {
+#moxbfokmse .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2091,7 +2092,7 @@ non-trivial impact on bounds for hypothesis tests.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#lqqmoncokb .gt_grand_summary_row {
+#moxbfokmse .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2101,7 +2102,7 @@ non-trivial impact on bounds for hypothesis tests.</p>
   padding-right: 5px;
 }
 
-#lqqmoncokb .gt_first_grand_summary_row {
+#moxbfokmse .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2111,7 +2112,7 @@ non-trivial impact on bounds for hypothesis tests.</p>
   border-top-color: #D3D3D3;
 }
 
-#lqqmoncokb .gt_last_grand_summary_row_top {
+#moxbfokmse .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2121,11 +2122,11 @@ non-trivial impact on bounds for hypothesis tests.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#lqqmoncokb .gt_striped {
+#moxbfokmse .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lqqmoncokb .gt_table_body {
+#moxbfokmse .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2134,7 +2135,7 @@ non-trivial impact on bounds for hypothesis tests.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#lqqmoncokb .gt_footnotes {
+#moxbfokmse .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2148,7 +2149,7 @@ non-trivial impact on bounds for hypothesis tests.</p>
   border-right-color: #D3D3D3;
 }
 
-#lqqmoncokb .gt_footnote {
+#moxbfokmse .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2157,7 +2158,7 @@ non-trivial impact on bounds for hypothesis tests.</p>
   padding-right: 5px;
 }
 
-#lqqmoncokb .gt_sourcenotes {
+#moxbfokmse .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2171,7 +2172,7 @@ non-trivial impact on bounds for hypothesis tests.</p>
   border-right-color: #D3D3D3;
 }
 
-#lqqmoncokb .gt_sourcenote {
+#moxbfokmse .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2179,63 +2180,63 @@ non-trivial impact on bounds for hypothesis tests.</p>
   padding-right: 5px;
 }
 
-#lqqmoncokb .gt_left {
+#moxbfokmse .gt_left {
   text-align: left;
 }
 
-#lqqmoncokb .gt_center {
+#moxbfokmse .gt_center {
   text-align: center;
 }
 
-#lqqmoncokb .gt_right {
+#moxbfokmse .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lqqmoncokb .gt_font_normal {
+#moxbfokmse .gt_font_normal {
   font-weight: normal;
 }
 
-#lqqmoncokb .gt_font_bold {
+#moxbfokmse .gt_font_bold {
   font-weight: bold;
 }
 
-#lqqmoncokb .gt_font_italic {
+#moxbfokmse .gt_font_italic {
   font-style: italic;
 }
 
-#lqqmoncokb .gt_super {
+#moxbfokmse .gt_super {
   font-size: 65%;
 }
 
-#lqqmoncokb .gt_footnote_marks {
+#moxbfokmse .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lqqmoncokb .gt_asterisk {
+#moxbfokmse .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lqqmoncokb .gt_indent_1 {
+#moxbfokmse .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lqqmoncokb .gt_indent_2 {
+#moxbfokmse .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lqqmoncokb .gt_indent_3 {
+#moxbfokmse .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lqqmoncokb .gt_indent_4 {
+#moxbfokmse .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lqqmoncokb .gt_indent_5 {
+#moxbfokmse .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2333,23 +2334,23 @@ manuscript.</li>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fl">5</span>, decimals <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Bonferroni bounds"</span><span class="op">)</span></span></code></pre></div>
-<div id="zyqumevhyd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zyqumevhyd table {
+<div id="yhbjwynmix" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yhbjwynmix table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zyqumevhyd thead, #zyqumevhyd tbody, #zyqumevhyd tfoot, #zyqumevhyd tr, #zyqumevhyd td, #zyqumevhyd th {
+#yhbjwynmix thead, #yhbjwynmix tbody, #yhbjwynmix tfoot, #yhbjwynmix tr, #yhbjwynmix td, #yhbjwynmix th {
   border-style: none;
 }
 
-#zyqumevhyd p {
+#yhbjwynmix p {
   margin: 0;
   padding: 0;
 }
 
-#zyqumevhyd .gt_table {
+#yhbjwynmix .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2375,12 +2376,12 @@ manuscript.</li>
   border-left-color: #D3D3D3;
 }
 
-#zyqumevhyd .gt_caption {
+#yhbjwynmix .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zyqumevhyd .gt_title {
+#yhbjwynmix .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2392,7 +2393,7 @@ manuscript.</li>
   border-bottom-width: 0;
 }
 
-#zyqumevhyd .gt_subtitle {
+#yhbjwynmix .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2404,7 +2405,7 @@ manuscript.</li>
   border-top-width: 0;
 }
 
-#zyqumevhyd .gt_heading {
+#yhbjwynmix .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2416,13 +2417,13 @@ manuscript.</li>
   border-right-color: #D3D3D3;
 }
 
-#zyqumevhyd .gt_bottom_border {
+#yhbjwynmix .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zyqumevhyd .gt_col_headings {
+#yhbjwynmix .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2437,7 +2438,7 @@ manuscript.</li>
   border-right-color: #D3D3D3;
 }
 
-#zyqumevhyd .gt_col_heading {
+#yhbjwynmix .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2457,7 +2458,7 @@ manuscript.</li>
   overflow-x: hidden;
 }
 
-#zyqumevhyd .gt_column_spanner_outer {
+#yhbjwynmix .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2469,15 +2470,15 @@ manuscript.</li>
   padding-right: 4px;
 }
 
-#zyqumevhyd .gt_column_spanner_outer:first-child {
+#yhbjwynmix .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zyqumevhyd .gt_column_spanner_outer:last-child {
+#yhbjwynmix .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zyqumevhyd .gt_column_spanner {
+#yhbjwynmix .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2489,11 +2490,11 @@ manuscript.</li>
   width: 100%;
 }
 
-#zyqumevhyd .gt_spanner_row {
+#yhbjwynmix .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zyqumevhyd .gt_group_heading {
+#yhbjwynmix .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2519,7 +2520,7 @@ manuscript.</li>
   text-align: left;
 }
 
-#zyqumevhyd .gt_empty_group_heading {
+#yhbjwynmix .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2534,15 +2535,15 @@ manuscript.</li>
   vertical-align: middle;
 }
 
-#zyqumevhyd .gt_from_md > :first-child {
+#yhbjwynmix .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zyqumevhyd .gt_from_md > :last-child {
+#yhbjwynmix .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zyqumevhyd .gt_row {
+#yhbjwynmix .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2561,7 +2562,7 @@ manuscript.</li>
   overflow-x: hidden;
 }
 
-#zyqumevhyd .gt_stub {
+#yhbjwynmix .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2574,7 +2575,7 @@ manuscript.</li>
   padding-right: 5px;
 }
 
-#zyqumevhyd .gt_stub_row_group {
+#yhbjwynmix .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2588,15 +2589,15 @@ manuscript.</li>
   vertical-align: top;
 }
 
-#zyqumevhyd .gt_row_group_first td {
+#yhbjwynmix .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zyqumevhyd .gt_row_group_first th {
+#yhbjwynmix .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zyqumevhyd .gt_summary_row {
+#yhbjwynmix .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2606,16 +2607,16 @@ manuscript.</li>
   padding-right: 5px;
 }
 
-#zyqumevhyd .gt_first_summary_row {
+#yhbjwynmix .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zyqumevhyd .gt_first_summary_row.thick {
+#yhbjwynmix .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zyqumevhyd .gt_last_summary_row {
+#yhbjwynmix .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2625,7 +2626,7 @@ manuscript.</li>
   border-bottom-color: #D3D3D3;
 }
 
-#zyqumevhyd .gt_grand_summary_row {
+#yhbjwynmix .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2635,7 +2636,7 @@ manuscript.</li>
   padding-right: 5px;
 }
 
-#zyqumevhyd .gt_first_grand_summary_row {
+#yhbjwynmix .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2645,7 +2646,7 @@ manuscript.</li>
   border-top-color: #D3D3D3;
 }
 
-#zyqumevhyd .gt_last_grand_summary_row_top {
+#yhbjwynmix .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2655,11 +2656,11 @@ manuscript.</li>
   border-bottom-color: #D3D3D3;
 }
 
-#zyqumevhyd .gt_striped {
+#yhbjwynmix .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zyqumevhyd .gt_table_body {
+#yhbjwynmix .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2668,7 +2669,7 @@ manuscript.</li>
   border-bottom-color: #D3D3D3;
 }
 
-#zyqumevhyd .gt_footnotes {
+#yhbjwynmix .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2682,7 +2683,7 @@ manuscript.</li>
   border-right-color: #D3D3D3;
 }
 
-#zyqumevhyd .gt_footnote {
+#yhbjwynmix .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2691,7 +2692,7 @@ manuscript.</li>
   padding-right: 5px;
 }
 
-#zyqumevhyd .gt_sourcenotes {
+#yhbjwynmix .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2705,7 +2706,7 @@ manuscript.</li>
   border-right-color: #D3D3D3;
 }
 
-#zyqumevhyd .gt_sourcenote {
+#yhbjwynmix .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2713,63 +2714,63 @@ manuscript.</li>
   padding-right: 5px;
 }
 
-#zyqumevhyd .gt_left {
+#yhbjwynmix .gt_left {
   text-align: left;
 }
 
-#zyqumevhyd .gt_center {
+#yhbjwynmix .gt_center {
   text-align: center;
 }
 
-#zyqumevhyd .gt_right {
+#yhbjwynmix .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zyqumevhyd .gt_font_normal {
+#yhbjwynmix .gt_font_normal {
   font-weight: normal;
 }
 
-#zyqumevhyd .gt_font_bold {
+#yhbjwynmix .gt_font_bold {
   font-weight: bold;
 }
 
-#zyqumevhyd .gt_font_italic {
+#yhbjwynmix .gt_font_italic {
   font-style: italic;
 }
 
-#zyqumevhyd .gt_super {
+#yhbjwynmix .gt_super {
   font-size: 65%;
 }
 
-#zyqumevhyd .gt_footnote_marks {
+#yhbjwynmix .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zyqumevhyd .gt_asterisk {
+#yhbjwynmix .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zyqumevhyd .gt_indent_1 {
+#yhbjwynmix .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zyqumevhyd .gt_indent_2 {
+#yhbjwynmix .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zyqumevhyd .gt_indent_3 {
+#yhbjwynmix .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zyqumevhyd .gt_indent_4 {
+#yhbjwynmix .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zyqumevhyd .gt_indent_5 {
+#yhbjwynmix .gt_indent_5 {
   text-indent: 25px;
 }
 </style>

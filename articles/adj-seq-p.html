@@ -53,6 +53,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/adj-seq-p.html">Adjusted sequential p-values</a>
+    <a class="dropdown-item" href="../articles/tech-detail-wb.html">Procedure to compute p-value boundaries by weighted Bonferroni</a>
   </div>
 </li>
 <li class="nav-item">
@@ -153,23 +154,23 @@ study and the number of events are listed as</p>
 <span><span class="va">obs_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Nominal p-values"</span><span class="op">)</span></span></code></pre></div>
-<div id="osgbmdrqmi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#osgbmdrqmi table {
+<div id="ntikehjvae" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ntikehjvae table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#osgbmdrqmi thead, #osgbmdrqmi tbody, #osgbmdrqmi tfoot, #osgbmdrqmi tr, #osgbmdrqmi td, #osgbmdrqmi th {
+#ntikehjvae thead, #ntikehjvae tbody, #ntikehjvae tfoot, #ntikehjvae tr, #ntikehjvae td, #ntikehjvae th {
   border-style: none;
 }
 
-#osgbmdrqmi p {
+#ntikehjvae p {
   margin: 0;
   padding: 0;
 }
 
-#osgbmdrqmi .gt_table {
+#ntikehjvae .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -195,12 +196,12 @@ study and the number of events are listed as</p>
   border-left-color: #D3D3D3;
 }
 
-#osgbmdrqmi .gt_caption {
+#ntikehjvae .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#osgbmdrqmi .gt_title {
+#ntikehjvae .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -212,7 +213,7 @@ study and the number of events are listed as</p>
   border-bottom-width: 0;
 }
 
-#osgbmdrqmi .gt_subtitle {
+#ntikehjvae .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -224,7 +225,7 @@ study and the number of events are listed as</p>
   border-top-width: 0;
 }
 
-#osgbmdrqmi .gt_heading {
+#ntikehjvae .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -236,13 +237,13 @@ study and the number of events are listed as</p>
   border-right-color: #D3D3D3;
 }
 
-#osgbmdrqmi .gt_bottom_border {
+#ntikehjvae .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#osgbmdrqmi .gt_col_headings {
+#ntikehjvae .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -257,7 +258,7 @@ study and the number of events are listed as</p>
   border-right-color: #D3D3D3;
 }
 
-#osgbmdrqmi .gt_col_heading {
+#ntikehjvae .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -277,7 +278,7 @@ study and the number of events are listed as</p>
   overflow-x: hidden;
 }
 
-#osgbmdrqmi .gt_column_spanner_outer {
+#ntikehjvae .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -289,15 +290,15 @@ study and the number of events are listed as</p>
   padding-right: 4px;
 }
 
-#osgbmdrqmi .gt_column_spanner_outer:first-child {
+#ntikehjvae .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#osgbmdrqmi .gt_column_spanner_outer:last-child {
+#ntikehjvae .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#osgbmdrqmi .gt_column_spanner {
+#ntikehjvae .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -309,11 +310,11 @@ study and the number of events are listed as</p>
   width: 100%;
 }
 
-#osgbmdrqmi .gt_spanner_row {
+#ntikehjvae .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#osgbmdrqmi .gt_group_heading {
+#ntikehjvae .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -339,7 +340,7 @@ study and the number of events are listed as</p>
   text-align: left;
 }
 
-#osgbmdrqmi .gt_empty_group_heading {
+#ntikehjvae .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -354,15 +355,15 @@ study and the number of events are listed as</p>
   vertical-align: middle;
 }
 
-#osgbmdrqmi .gt_from_md > :first-child {
+#ntikehjvae .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#osgbmdrqmi .gt_from_md > :last-child {
+#ntikehjvae .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#osgbmdrqmi .gt_row {
+#ntikehjvae .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -381,7 +382,7 @@ study and the number of events are listed as</p>
   overflow-x: hidden;
 }
 
-#osgbmdrqmi .gt_stub {
+#ntikehjvae .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -394,7 +395,7 @@ study and the number of events are listed as</p>
   padding-right: 5px;
 }
 
-#osgbmdrqmi .gt_stub_row_group {
+#ntikehjvae .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -408,15 +409,15 @@ study and the number of events are listed as</p>
   vertical-align: top;
 }
 
-#osgbmdrqmi .gt_row_group_first td {
+#ntikehjvae .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#osgbmdrqmi .gt_row_group_first th {
+#ntikehjvae .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#osgbmdrqmi .gt_summary_row {
+#ntikehjvae .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -426,16 +427,16 @@ study and the number of events are listed as</p>
   padding-right: 5px;
 }
 
-#osgbmdrqmi .gt_first_summary_row {
+#ntikehjvae .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#osgbmdrqmi .gt_first_summary_row.thick {
+#ntikehjvae .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#osgbmdrqmi .gt_last_summary_row {
+#ntikehjvae .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -445,7 +446,7 @@ study and the number of events are listed as</p>
   border-bottom-color: #D3D3D3;
 }
 
-#osgbmdrqmi .gt_grand_summary_row {
+#ntikehjvae .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -455,7 +456,7 @@ study and the number of events are listed as</p>
   padding-right: 5px;
 }
 
-#osgbmdrqmi .gt_first_grand_summary_row {
+#ntikehjvae .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -465,7 +466,7 @@ study and the number of events are listed as</p>
   border-top-color: #D3D3D3;
 }
 
-#osgbmdrqmi .gt_last_grand_summary_row_top {
+#ntikehjvae .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -475,11 +476,11 @@ study and the number of events are listed as</p>
   border-bottom-color: #D3D3D3;
 }
 
-#osgbmdrqmi .gt_striped {
+#ntikehjvae .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#osgbmdrqmi .gt_table_body {
+#ntikehjvae .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -488,7 +489,7 @@ study and the number of events are listed as</p>
   border-bottom-color: #D3D3D3;
 }
 
-#osgbmdrqmi .gt_footnotes {
+#ntikehjvae .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -502,7 +503,7 @@ study and the number of events are listed as</p>
   border-right-color: #D3D3D3;
 }
 
-#osgbmdrqmi .gt_footnote {
+#ntikehjvae .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -511,7 +512,7 @@ study and the number of events are listed as</p>
   padding-right: 5px;
 }
 
-#osgbmdrqmi .gt_sourcenotes {
+#ntikehjvae .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -525,7 +526,7 @@ study and the number of events are listed as</p>
   border-right-color: #D3D3D3;
 }
 
-#osgbmdrqmi .gt_sourcenote {
+#ntikehjvae .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -533,63 +534,63 @@ study and the number of events are listed as</p>
   padding-right: 5px;
 }
 
-#osgbmdrqmi .gt_left {
+#ntikehjvae .gt_left {
   text-align: left;
 }
 
-#osgbmdrqmi .gt_center {
+#ntikehjvae .gt_center {
   text-align: center;
 }
 
-#osgbmdrqmi .gt_right {
+#ntikehjvae .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#osgbmdrqmi .gt_font_normal {
+#ntikehjvae .gt_font_normal {
   font-weight: normal;
 }
 
-#osgbmdrqmi .gt_font_bold {
+#ntikehjvae .gt_font_bold {
   font-weight: bold;
 }
 
-#osgbmdrqmi .gt_font_italic {
+#ntikehjvae .gt_font_italic {
   font-style: italic;
 }
 
-#osgbmdrqmi .gt_super {
+#ntikehjvae .gt_super {
   font-size: 65%;
 }
 
-#osgbmdrqmi .gt_footnote_marks {
+#ntikehjvae .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#osgbmdrqmi .gt_asterisk {
+#ntikehjvae .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#osgbmdrqmi .gt_indent_1 {
+#ntikehjvae .gt_indent_1 {
   text-indent: 5px;
 }
 
-#osgbmdrqmi .gt_indent_2 {
+#ntikehjvae .gt_indent_2 {
   text-indent: 10px;
 }
 
-#osgbmdrqmi .gt_indent_3 {
+#ntikehjvae .gt_indent_3 {
   text-indent: 15px;
 }
 
-#osgbmdrqmi .gt_indent_4 {
+#ntikehjvae .gt_indent_4 {
   text-indent: 20px;
 }
 
-#osgbmdrqmi .gt_indent_5 {
+#ntikehjvae .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1183,7 +1184,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">adj_seq_IA_H3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_IA_H123</span>, <span class="va">seq_p_IA_H13</span>, <span class="va">seq_p_IA_H23</span>, <span class="va">seq_p_IA_H3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"The adjusted-sequential p-value of H1, H2, H3 in IA via WPGSD is"</span>, <span class="va">adj_seq_IA_H1</span>, <span class="va">adj_seq_IA_H2</span>, <span class="va">adj_seq_IA_H3</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in IA via WPGSD is 0.1677811 0.1399851 0.100847</span></span></code></pre>
+<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in IA via WPGSD is 0.1677811 0.1399851 0.1007932</span></span></code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adj_seq_IA_H1_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_IA_H123_B</span>, <span class="va">seq_p_IA_H12_B</span>, <span class="va">seq_p_IA_H13_B</span>, <span class="va">seq_p_IA_H1_B</span><span class="op">)</span></span>
 <span><span class="va">adj_seq_IA_H2_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_IA_H123_B</span>, <span class="va">seq_p_IA_H12_B</span>, <span class="va">seq_p_IA_H23_B</span>, <span class="va">seq_p_IA_H2_B</span><span class="op">)</span></span>
@@ -1204,7 +1205,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">adj_seq_FA_H3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_FA_H123</span>, <span class="va">seq_p_FA_H13</span>, <span class="va">seq_p_FA_H23</span>, <span class="va">seq_p_FA_H3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"The adjusted-sequential p-value of H1, H2, H3 in FA via WPGSD is"</span>, <span class="va">adj_seq_FA_H1</span>, <span class="va">adj_seq_FA_H2</span>, <span class="va">adj_seq_FA_H3</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in FA via WPGSD is 0.02107688 0.01766355 0.01278169</span></span></code></pre>
+<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in FA via WPGSD is 0.02107688 0.01765111 0.01278816</span></span></code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adj_seq_FA_H1_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_FA_H123_B</span>, <span class="va">seq_p_FA_H12_B</span>, <span class="va">seq_p_FA_H13_B</span>, <span class="va">seq_p_FA_H1_B</span><span class="op">)</span></span>
 <span><span class="va">adj_seq_FA_H2_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_FA_H123_B</span>, <span class="va">seq_p_FA_H12_B</span>, <span class="va">seq_p_FA_H23_B</span>, <span class="va">seq_p_FA_H2_B</span><span class="op">)</span></span>
@@ -1247,23 +1248,23 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fl">6</span>, decimals <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"(Adjusted-) sequantial p-values"</span>,</span>
 <span>                 subtitle <span class="op">=</span> <span class="st">"Multiple experiment arm vs. common control"</span><span class="op">)</span> <span class="co"># %&gt;% gt::as_latex()</span></span></code></pre></div>
-<div id="alcksrtigk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#alcksrtigk table {
+<div id="clcbojuaxl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#clcbojuaxl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#alcksrtigk thead, #alcksrtigk tbody, #alcksrtigk tfoot, #alcksrtigk tr, #alcksrtigk td, #alcksrtigk th {
+#clcbojuaxl thead, #clcbojuaxl tbody, #clcbojuaxl tfoot, #clcbojuaxl tr, #clcbojuaxl td, #clcbojuaxl th {
   border-style: none;
 }
 
-#alcksrtigk p {
+#clcbojuaxl p {
   margin: 0;
   padding: 0;
 }
 
-#alcksrtigk .gt_table {
+#clcbojuaxl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1289,12 +1290,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-left-color: #D3D3D3;
 }
 
-#alcksrtigk .gt_caption {
+#clcbojuaxl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#alcksrtigk .gt_title {
+#clcbojuaxl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1306,7 +1307,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-bottom-width: 0;
 }
 
-#alcksrtigk .gt_subtitle {
+#clcbojuaxl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1318,7 +1319,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-top-width: 0;
 }
 
-#alcksrtigk .gt_heading {
+#clcbojuaxl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1330,13 +1331,13 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-right-color: #D3D3D3;
 }
 
-#alcksrtigk .gt_bottom_border {
+#clcbojuaxl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#alcksrtigk .gt_col_headings {
+#clcbojuaxl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1351,7 +1352,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-right-color: #D3D3D3;
 }
 
-#alcksrtigk .gt_col_heading {
+#clcbojuaxl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1371,7 +1372,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   overflow-x: hidden;
 }
 
-#alcksrtigk .gt_column_spanner_outer {
+#clcbojuaxl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1383,15 +1384,15 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 4px;
 }
 
-#alcksrtigk .gt_column_spanner_outer:first-child {
+#clcbojuaxl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#alcksrtigk .gt_column_spanner_outer:last-child {
+#clcbojuaxl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#alcksrtigk .gt_column_spanner {
+#clcbojuaxl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1403,11 +1404,11 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   width: 100%;
 }
 
-#alcksrtigk .gt_spanner_row {
+#clcbojuaxl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#alcksrtigk .gt_group_heading {
+#clcbojuaxl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1433,7 +1434,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   text-align: left;
 }
 
-#alcksrtigk .gt_empty_group_heading {
+#clcbojuaxl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1448,15 +1449,15 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   vertical-align: middle;
 }
 
-#alcksrtigk .gt_from_md > :first-child {
+#clcbojuaxl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#alcksrtigk .gt_from_md > :last-child {
+#clcbojuaxl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#alcksrtigk .gt_row {
+#clcbojuaxl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1475,7 +1476,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   overflow-x: hidden;
 }
 
-#alcksrtigk .gt_stub {
+#clcbojuaxl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1488,7 +1489,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 5px;
 }
 
-#alcksrtigk .gt_stub_row_group {
+#clcbojuaxl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1502,15 +1503,15 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   vertical-align: top;
 }
 
-#alcksrtigk .gt_row_group_first td {
+#clcbojuaxl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#alcksrtigk .gt_row_group_first th {
+#clcbojuaxl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#alcksrtigk .gt_summary_row {
+#clcbojuaxl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1520,16 +1521,16 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 5px;
 }
 
-#alcksrtigk .gt_first_summary_row {
+#clcbojuaxl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#alcksrtigk .gt_first_summary_row.thick {
+#clcbojuaxl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#alcksrtigk .gt_last_summary_row {
+#clcbojuaxl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1539,7 +1540,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-bottom-color: #D3D3D3;
 }
 
-#alcksrtigk .gt_grand_summary_row {
+#clcbojuaxl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1549,7 +1550,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 5px;
 }
 
-#alcksrtigk .gt_first_grand_summary_row {
+#clcbojuaxl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1559,7 +1560,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-top-color: #D3D3D3;
 }
 
-#alcksrtigk .gt_last_grand_summary_row_top {
+#clcbojuaxl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1569,11 +1570,11 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-bottom-color: #D3D3D3;
 }
 
-#alcksrtigk .gt_striped {
+#clcbojuaxl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#alcksrtigk .gt_table_body {
+#clcbojuaxl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1582,7 +1583,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-bottom-color: #D3D3D3;
 }
 
-#alcksrtigk .gt_footnotes {
+#clcbojuaxl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1596,7 +1597,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-right-color: #D3D3D3;
 }
 
-#alcksrtigk .gt_footnote {
+#clcbojuaxl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1605,7 +1606,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 5px;
 }
 
-#alcksrtigk .gt_sourcenotes {
+#clcbojuaxl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1619,7 +1620,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-right-color: #D3D3D3;
 }
 
-#alcksrtigk .gt_sourcenote {
+#clcbojuaxl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1627,63 +1628,63 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 5px;
 }
 
-#alcksrtigk .gt_left {
+#clcbojuaxl .gt_left {
   text-align: left;
 }
 
-#alcksrtigk .gt_center {
+#clcbojuaxl .gt_center {
   text-align: center;
 }
 
-#alcksrtigk .gt_right {
+#clcbojuaxl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#alcksrtigk .gt_font_normal {
+#clcbojuaxl .gt_font_normal {
   font-weight: normal;
 }
 
-#alcksrtigk .gt_font_bold {
+#clcbojuaxl .gt_font_bold {
   font-weight: bold;
 }
 
-#alcksrtigk .gt_font_italic {
+#clcbojuaxl .gt_font_italic {
   font-style: italic;
 }
 
-#alcksrtigk .gt_super {
+#clcbojuaxl .gt_super {
   font-size: 65%;
 }
 
-#alcksrtigk .gt_footnote_marks {
+#clcbojuaxl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#alcksrtigk .gt_asterisk {
+#clcbojuaxl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#alcksrtigk .gt_indent_1 {
+#clcbojuaxl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#alcksrtigk .gt_indent_2 {
+#clcbojuaxl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#alcksrtigk .gt_indent_3 {
+#clcbojuaxl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#alcksrtigk .gt_indent_4 {
+#clcbojuaxl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#alcksrtigk .gt_indent_5 {
+#clcbojuaxl .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
