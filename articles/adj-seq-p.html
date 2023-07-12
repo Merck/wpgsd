@@ -130,47 +130,48 @@ study and the number of events are listed as</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">event_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">population</span>, <span class="op">~</span><span class="va">analysis</span>, <span class="op">~</span><span class="va">event</span>,</span>
-<span>  <span class="st">"A positive"</span>,     <span class="fl">1</span>,       <span class="fl">80</span>,</span>
-<span>  <span class="st">"B positive"</span>,     <span class="fl">1</span>,       <span class="fl">88</span>,</span>
-<span>  <span class="st">"AB positive"</span>,    <span class="fl">1</span>,       <span class="fl">64</span>,</span>
-<span>  <span class="st">"overall"</span>,        <span class="fl">1</span>,       <span class="fl">180</span>,</span>
-<span>  <span class="st">"A positive"</span>,     <span class="fl">2</span>,       <span class="fl">160</span>,</span>
-<span>  <span class="st">"B positive"</span>,     <span class="fl">2</span>,       <span class="fl">176</span>,</span>
-<span>  <span class="st">"AB positive"</span>,    <span class="fl">2</span>,       <span class="fl">128</span>,</span>
-<span>  <span class="st">"overall"</span>,        <span class="fl">2</span>,       <span class="fl">360</span>,</span>
+<span>  <span class="st">"A positive"</span>, <span class="fl">1</span>, <span class="fl">80</span>,</span>
+<span>  <span class="st">"B positive"</span>, <span class="fl">1</span>, <span class="fl">88</span>,</span>
+<span>  <span class="st">"AB positive"</span>, <span class="fl">1</span>, <span class="fl">64</span>,</span>
+<span>  <span class="st">"overall"</span>, <span class="fl">1</span>, <span class="fl">180</span>,</span>
+<span>  <span class="st">"A positive"</span>, <span class="fl">2</span>, <span class="fl">160</span>,</span>
+<span>  <span class="st">"B positive"</span>, <span class="fl">2</span>, <span class="fl">176</span>,</span>
+<span>  <span class="st">"AB positive"</span>, <span class="fl">2</span>, <span class="fl">128</span>,</span>
+<span>  <span class="st">"overall"</span>, <span class="fl">2</span>, <span class="fl">360</span>,</span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The observed p-values are</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">obs_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">hypothesis</span>, <span class="op">~</span><span class="va">analysis</span>, <span class="op">~</span><span class="va">obs_p</span>,</span>
-<span>    <span class="st">"H1"</span>,          <span class="fl">1</span>,       <span class="fl">0.02</span>,</span>
-<span>    <span class="st">"H2"</span>,          <span class="fl">1</span>,       <span class="fl">0.01</span>,</span>
-<span>    <span class="st">"H3"</span>,          <span class="fl">1</span>,       <span class="fl">0.006</span>,</span>
-<span>    <span class="st">"H1"</span>,          <span class="fl">2</span>,       <span class="fl">0.015</span>,</span>
-<span>    <span class="st">"H2"</span>,          <span class="fl">2</span>,       <span class="fl">0.012</span>,</span>
-<span>    <span class="st">"H3"</span>,          <span class="fl">2</span>,       <span class="fl">0.004</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="st">"H1"</span>, <span class="fl">1</span>, <span class="fl">0.02</span>,</span>
+<span>  <span class="st">"H2"</span>, <span class="fl">1</span>, <span class="fl">0.01</span>,</span>
+<span>  <span class="st">"H3"</span>, <span class="fl">1</span>, <span class="fl">0.0096</span>,</span>
+<span>  <span class="st">"H1"</span>, <span class="fl">2</span>, <span class="fl">0.0015</span>,</span>
+<span>  <span class="st">"H2"</span>, <span class="fl">2</span>, <span class="fl">0.01</span>,</span>
+<span>  <span class="st">"H3"</span>, <span class="fl">2</span>, <span class="fl">0.004</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>obs_Z <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">qnorm</a></span><span class="op">(</span><span class="va">obs_p</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">obs_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Nominal p-values"</span><span class="op">)</span></span></code></pre></div>
-<div id="ntikehjvae" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ntikehjvae table {
+<div id="pyvdzjpylx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pyvdzjpylx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ntikehjvae thead, #ntikehjvae tbody, #ntikehjvae tfoot, #ntikehjvae tr, #ntikehjvae td, #ntikehjvae th {
+#pyvdzjpylx thead, #pyvdzjpylx tbody, #pyvdzjpylx tfoot, #pyvdzjpylx tr, #pyvdzjpylx td, #pyvdzjpylx th {
   border-style: none;
 }
 
-#ntikehjvae p {
+#pyvdzjpylx p {
   margin: 0;
   padding: 0;
 }
 
-#ntikehjvae .gt_table {
+#pyvdzjpylx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -196,12 +197,12 @@ study and the number of events are listed as</p>
   border-left-color: #D3D3D3;
 }
 
-#ntikehjvae .gt_caption {
+#pyvdzjpylx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ntikehjvae .gt_title {
+#pyvdzjpylx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -213,7 +214,7 @@ study and the number of events are listed as</p>
   border-bottom-width: 0;
 }
 
-#ntikehjvae .gt_subtitle {
+#pyvdzjpylx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -225,7 +226,7 @@ study and the number of events are listed as</p>
   border-top-width: 0;
 }
 
-#ntikehjvae .gt_heading {
+#pyvdzjpylx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -237,13 +238,13 @@ study and the number of events are listed as</p>
   border-right-color: #D3D3D3;
 }
 
-#ntikehjvae .gt_bottom_border {
+#pyvdzjpylx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ntikehjvae .gt_col_headings {
+#pyvdzjpylx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -258,7 +259,7 @@ study and the number of events are listed as</p>
   border-right-color: #D3D3D3;
 }
 
-#ntikehjvae .gt_col_heading {
+#pyvdzjpylx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -278,7 +279,7 @@ study and the number of events are listed as</p>
   overflow-x: hidden;
 }
 
-#ntikehjvae .gt_column_spanner_outer {
+#pyvdzjpylx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -290,15 +291,15 @@ study and the number of events are listed as</p>
   padding-right: 4px;
 }
 
-#ntikehjvae .gt_column_spanner_outer:first-child {
+#pyvdzjpylx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ntikehjvae .gt_column_spanner_outer:last-child {
+#pyvdzjpylx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ntikehjvae .gt_column_spanner {
+#pyvdzjpylx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -310,11 +311,11 @@ study and the number of events are listed as</p>
   width: 100%;
 }
 
-#ntikehjvae .gt_spanner_row {
+#pyvdzjpylx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ntikehjvae .gt_group_heading {
+#pyvdzjpylx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -340,7 +341,7 @@ study and the number of events are listed as</p>
   text-align: left;
 }
 
-#ntikehjvae .gt_empty_group_heading {
+#pyvdzjpylx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -355,15 +356,15 @@ study and the number of events are listed as</p>
   vertical-align: middle;
 }
 
-#ntikehjvae .gt_from_md > :first-child {
+#pyvdzjpylx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ntikehjvae .gt_from_md > :last-child {
+#pyvdzjpylx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ntikehjvae .gt_row {
+#pyvdzjpylx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -382,7 +383,7 @@ study and the number of events are listed as</p>
   overflow-x: hidden;
 }
 
-#ntikehjvae .gt_stub {
+#pyvdzjpylx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -395,7 +396,7 @@ study and the number of events are listed as</p>
   padding-right: 5px;
 }
 
-#ntikehjvae .gt_stub_row_group {
+#pyvdzjpylx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -409,15 +410,15 @@ study and the number of events are listed as</p>
   vertical-align: top;
 }
 
-#ntikehjvae .gt_row_group_first td {
+#pyvdzjpylx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ntikehjvae .gt_row_group_first th {
+#pyvdzjpylx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ntikehjvae .gt_summary_row {
+#pyvdzjpylx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -427,16 +428,16 @@ study and the number of events are listed as</p>
   padding-right: 5px;
 }
 
-#ntikehjvae .gt_first_summary_row {
+#pyvdzjpylx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ntikehjvae .gt_first_summary_row.thick {
+#pyvdzjpylx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ntikehjvae .gt_last_summary_row {
+#pyvdzjpylx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -446,7 +447,7 @@ study and the number of events are listed as</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ntikehjvae .gt_grand_summary_row {
+#pyvdzjpylx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -456,7 +457,7 @@ study and the number of events are listed as</p>
   padding-right: 5px;
 }
 
-#ntikehjvae .gt_first_grand_summary_row {
+#pyvdzjpylx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -466,7 +467,7 @@ study and the number of events are listed as</p>
   border-top-color: #D3D3D3;
 }
 
-#ntikehjvae .gt_last_grand_summary_row_top {
+#pyvdzjpylx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -476,11 +477,11 @@ study and the number of events are listed as</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ntikehjvae .gt_striped {
+#pyvdzjpylx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ntikehjvae .gt_table_body {
+#pyvdzjpylx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -489,7 +490,7 @@ study and the number of events are listed as</p>
   border-bottom-color: #D3D3D3;
 }
 
-#ntikehjvae .gt_footnotes {
+#pyvdzjpylx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -503,7 +504,7 @@ study and the number of events are listed as</p>
   border-right-color: #D3D3D3;
 }
 
-#ntikehjvae .gt_footnote {
+#pyvdzjpylx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -512,7 +513,7 @@ study and the number of events are listed as</p>
   padding-right: 5px;
 }
 
-#ntikehjvae .gt_sourcenotes {
+#pyvdzjpylx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -526,7 +527,7 @@ study and the number of events are listed as</p>
   border-right-color: #D3D3D3;
 }
 
-#ntikehjvae .gt_sourcenote {
+#pyvdzjpylx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -534,63 +535,63 @@ study and the number of events are listed as</p>
   padding-right: 5px;
 }
 
-#ntikehjvae .gt_left {
+#pyvdzjpylx .gt_left {
   text-align: left;
 }
 
-#ntikehjvae .gt_center {
+#pyvdzjpylx .gt_center {
   text-align: center;
 }
 
-#ntikehjvae .gt_right {
+#pyvdzjpylx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ntikehjvae .gt_font_normal {
+#pyvdzjpylx .gt_font_normal {
   font-weight: normal;
 }
 
-#ntikehjvae .gt_font_bold {
+#pyvdzjpylx .gt_font_bold {
   font-weight: bold;
 }
 
-#ntikehjvae .gt_font_italic {
+#pyvdzjpylx .gt_font_italic {
   font-style: italic;
 }
 
-#ntikehjvae .gt_super {
+#pyvdzjpylx .gt_super {
   font-size: 65%;
 }
 
-#ntikehjvae .gt_footnote_marks {
+#pyvdzjpylx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ntikehjvae .gt_asterisk {
+#pyvdzjpylx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ntikehjvae .gt_indent_1 {
+#pyvdzjpylx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ntikehjvae .gt_indent_2 {
+#pyvdzjpylx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ntikehjvae .gt_indent_3 {
+#pyvdzjpylx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ntikehjvae .gt_indent_4 {
+#pyvdzjpylx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ntikehjvae .gt_indent_5 {
+#pyvdzjpylx .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -610,37 +611,37 @@ study and the number of events are listed as</p>
 <tr>
 <td headers="hypothesis" class="gt_row gt_left">H1</td>
 <td headers="analysis" class="gt_row gt_right">1</td>
-<td headers="obs_p" class="gt_row gt_right">0.020</td>
+<td headers="obs_p" class="gt_row gt_right">0.0200</td>
 <td headers="obs_Z" class="gt_row gt_right">2.053749</td>
 </tr>
 <tr>
 <td headers="hypothesis" class="gt_row gt_left">H2</td>
 <td headers="analysis" class="gt_row gt_right">1</td>
-<td headers="obs_p" class="gt_row gt_right">0.010</td>
+<td headers="obs_p" class="gt_row gt_right">0.0100</td>
 <td headers="obs_Z" class="gt_row gt_right">2.326348</td>
 </tr>
 <tr>
 <td headers="hypothesis" class="gt_row gt_left">H3</td>
 <td headers="analysis" class="gt_row gt_right">1</td>
-<td headers="obs_p" class="gt_row gt_right">0.006</td>
-<td headers="obs_Z" class="gt_row gt_right">2.512144</td>
+<td headers="obs_p" class="gt_row gt_right">0.0096</td>
+<td headers="obs_Z" class="gt_row gt_right">2.341625</td>
 </tr>
 <tr>
 <td headers="hypothesis" class="gt_row gt_left">H1</td>
 <td headers="analysis" class="gt_row gt_right">2</td>
-<td headers="obs_p" class="gt_row gt_right">0.015</td>
-<td headers="obs_Z" class="gt_row gt_right">2.170090</td>
+<td headers="obs_p" class="gt_row gt_right">0.0015</td>
+<td headers="obs_Z" class="gt_row gt_right">2.967738</td>
 </tr>
 <tr>
 <td headers="hypothesis" class="gt_row gt_left">H2</td>
 <td headers="analysis" class="gt_row gt_right">2</td>
-<td headers="obs_p" class="gt_row gt_right">0.012</td>
-<td headers="obs_Z" class="gt_row gt_right">2.257129</td>
+<td headers="obs_p" class="gt_row gt_right">0.0100</td>
+<td headers="obs_Z" class="gt_row gt_right">2.326348</td>
 </tr>
 <tr>
 <td headers="hypothesis" class="gt_row gt_left">H3</td>
 <td headers="analysis" class="gt_row gt_right">2</td>
-<td headers="obs_p" class="gt_row gt_right">0.004</td>
+<td headers="obs_p" class="gt_row gt_right">0.0040</td>
 <td headers="obs_Z" class="gt_row gt_right">2.652070</td>
 </tr>
 </tbody>
@@ -653,11 +654,11 @@ study and the number of events are listed as</p>
 H_3\)</span> at IA is</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">IF_IA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  <span class="op">(</span><span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"A positive"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span> <span class="op">+</span> <span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"overall"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span><span class="op">)</span><span class="op">/</span></span>
+<span>  <span class="op">(</span><span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"A positive"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span> <span class="op">+</span> <span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"overall"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span><span class="op">)</span> <span class="op">/</span></span>
 <span>    <span class="op">(</span><span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"A positive"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span> <span class="op">+</span> <span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"overall"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span><span class="op">)</span>,</span>
-<span>  <span class="op">(</span><span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"B positive"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span> <span class="op">+</span> <span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"overall"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span><span class="op">)</span><span class="op">/</span></span>
+<span>  <span class="op">(</span><span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"B positive"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span> <span class="op">+</span> <span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"overall"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span><span class="op">)</span> <span class="op">/</span></span>
 <span>    <span class="op">(</span><span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"B positive"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span> <span class="op">+</span> <span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"overall"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span><span class="op">)</span>,</span>
-<span>  <span class="op">(</span><span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"AB positive"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span> <span class="op">+</span> <span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"overall"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span><span class="op">)</span><span class="op">/</span></span>
+<span>  <span class="op">(</span><span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"AB positive"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span> <span class="op">+</span> <span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"overall"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span><span class="op">)</span> <span class="op">/</span></span>
 <span>    <span class="op">(</span><span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"AB positive"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span> <span class="op">+</span> <span class="op">(</span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"overall"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">event</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -673,23 +674,25 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Transition matrix in Figure A1</span></span>
 <span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="fl">0</span>, <span class="fl">3</span><span class="op">/</span><span class="fl">7</span>, <span class="fl">4</span><span class="op">/</span><span class="fl">7</span>,</span>
-<span>  <span class="fl">3</span><span class="op">/</span><span class="fl">7</span>,   <span class="fl">0</span>, <span class="fl">4</span><span class="op">/</span><span class="fl">7</span>,</span>
-<span>  <span class="fl">1</span><span class="op">/</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">2</span>,   <span class="fl">0</span></span>
+<span>  <span class="fl">0</span>, <span class="fl">3</span> <span class="op">/</span> <span class="fl">7</span>, <span class="fl">4</span> <span class="op">/</span> <span class="fl">7</span>,</span>
+<span>  <span class="fl">3</span> <span class="op">/</span> <span class="fl">7</span>, <span class="fl">0</span>, <span class="fl">4</span> <span class="op">/</span> <span class="fl">7</span>,</span>
+<span>  <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0</span></span>
 <span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">3</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co"># Initial weights</span></span>
 <span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">name_hypotheses</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"H1: Biomarker A positive"</span>, <span class="st">"H2: Biomarker B positive"</span>,  <span class="st">"H3: Overall Population"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">name_hypotheses</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"H1: Biomarker A positive"</span>, <span class="st">"H2: Biomarker B positive"</span>, <span class="st">"H3: Overall Population"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">hplot</span> <span class="op">&lt;-</span> <span class="fu">gMCPLite</span><span class="fu">::</span><span class="fu"><a href="https://merck.github.io/gMCPLite/reference/hGraph.html" class="external-link">hGraph</a></span><span class="op">(</span></span>
-<span>  <span class="fl">3</span>,alphaHypotheses<span class="op">=</span><span class="va">w</span>,m<span class="op">=</span><span class="va">m</span>,</span>
-<span>  nameHypotheses<span class="op">=</span><span class="va">name_hypotheses</span>, trhw<span class="op">=</span><span class="fl">.2</span>, trhh<span class="op">=</span><span class="fl">.1</span>,</span>
-<span>  digits<span class="op">=</span><span class="fl">5</span>, trdigits<span class="op">=</span><span class="fl">3</span>, size<span class="op">=</span><span class="fl">5</span>, halfWid<span class="op">=</span><span class="fl">1</span>, halfHgt<span class="op">=</span><span class="fl">0.5</span>,</span>
-<span>  offset<span class="op">=</span><span class="fl">0.2</span> , trprop<span class="op">=</span> <span class="fl">0.4</span>,</span>
-<span>  fill<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fl">3</span>,</span>
+<span>  alphaHypotheses <span class="op">=</span> <span class="va">w</span>, m <span class="op">=</span> <span class="va">m</span>,</span>
+<span>  nameHypotheses <span class="op">=</span> <span class="va">name_hypotheses</span>, trhw <span class="op">=</span> <span class="fl">.2</span>, trhh <span class="op">=</span> <span class="fl">.1</span>,</span>
+<span>  digits <span class="op">=</span> <span class="fl">5</span>, trdigits <span class="op">=</span> <span class="fl">3</span>, size <span class="op">=</span> <span class="fl">5</span>, halfWid <span class="op">=</span> <span class="fl">1</span>, halfHgt <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  offset <span class="op">=</span> <span class="fl">0.2</span>, trprop <span class="op">=</span> <span class="fl">0.4</span>,</span>
+<span>  fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#BDBDBD"</span>, <span class="st">"#E0E0E0"</span>, <span class="st">"#EEEEEE"</span><span class="op">)</span>,</span>
-<span>  wchar <span class="op">=</span> <span class="st">"w"</span><span class="op">)</span></span>
+<span>  wchar <span class="op">=</span> <span class="st">"w"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">hplot</span></span></code></pre></div>
 <p><img src="adj-seq-p_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>The correlation of the 6 statistisc (2 analysis <span class="math inline">\(\times\)</span> 3 hypothesis) are</p>
@@ -700,18 +703,19 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="co"># (1, 2) for counts for the intersection of hypotheses 1 and 2</span></span>
 <span><span class="va">event</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">H1</span>, <span class="op">~</span><span class="va">H2</span>, <span class="op">~</span><span class="va">Analysis</span>, <span class="op">~</span><span class="va">Event</span>,</span>
-<span>  <span class="fl">1</span>,    <span class="fl">1</span>,      <span class="fl">1</span>,     <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"A positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fl">2</span>,    <span class="fl">2</span>,      <span class="fl">1</span>,     <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"B positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fl">3</span>,    <span class="fl">3</span>,      <span class="fl">1</span>,     <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"overall"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fl">1</span>,    <span class="fl">2</span>,      <span class="fl">1</span>,     <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"AB positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fl">1</span>,    <span class="fl">3</span>,      <span class="fl">1</span>,     <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"A positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fl">2</span>,    <span class="fl">3</span>,      <span class="fl">1</span>,     <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"B positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fl">1</span>,    <span class="fl">1</span>,      <span class="fl">2</span>,     <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"A positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fl">2</span>,    <span class="fl">2</span>,      <span class="fl">2</span>,     <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"B positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fl">3</span>,    <span class="fl">3</span>,      <span class="fl">2</span>,     <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"overall"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fl">1</span>,    <span class="fl">2</span>,      <span class="fl">2</span>,     <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"AB positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fl">1</span>,    <span class="fl">3</span>,      <span class="fl">2</span>,     <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"A positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fl">2</span>,    <span class="fl">3</span>,      <span class="fl">2</span>,     <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"B positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"A positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"B positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"overall"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"AB positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"A positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"B positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"A positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"B positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"overall"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"AB positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"A positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">analysis</span> <span class="op">==</span> <span class="fl">2</span>, <span class="va">population</span> <span class="op">==</span> <span class="st">"B positive"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">event</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 12 × 4</span></span></span>
 <span><span class="co">##       H1    H2 Analysis Event</span></span>
@@ -748,9 +752,9 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 </h3>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">seq_p_IA_H123</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -759,13 +763,13 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun <span class="op">=</span> <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>,</span>
 <span>  spending_fun_par <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.15</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H12</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -774,13 +778,13 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun <span class="op">=</span> <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>,</span>
 <span>  spending_fun_par <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.15</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H13</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -789,13 +793,13 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun <span class="op">=</span> <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>,</span>
 <span>  spending_fun_par <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.15</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H23</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -804,13 +808,13 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun <span class="op">=</span> <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>,</span>
 <span>  spending_fun_par <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.15</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -820,12 +824,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -835,12 +839,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -850,12 +854,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">seq_p_IA_H123_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -864,13 +868,13 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>, <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>, <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span><span class="op">)</span>,</span>
 <span>  spending_fun_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.3</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H12_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -880,12 +884,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H13_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -894,13 +898,13 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>, <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>, <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span><span class="op">)</span>,</span>
 <span>  spending_fun_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.3</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H23_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -909,13 +913,13 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>, <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>, <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span><span class="op">)</span>,</span>
 <span>  spending_fun_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.3</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H1_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -924,13 +928,13 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>, <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>, <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span><span class="op">)</span>,</span>
 <span>  spending_fun_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.3</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H2_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -939,13 +943,13 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>, <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>, <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span><span class="op">)</span>,</span>
 <span>  spending_fun_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.3</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H3_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -954,17 +958,17 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>, <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span>, <span class="fu">gsDesign</span><span class="fu">::</span><span class="va"><a href="https://keaven.github.io/gsDesign/reference/sfHSD.html" class="external-link">sfHSD</a></span><span class="op">)</span>,</span>
 <span>  spending_fun_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.3</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="fa">FA<a class="anchor" aria-label="anchor" href="#fa"></a>
 </h3>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">seq_p_FA_H123</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -974,12 +978,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.15</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_FA_H12</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -989,12 +993,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.15</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_FA_H13</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1004,12 +1008,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.15</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_FA_H23</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1019,12 +1023,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.15</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_FA_H1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1034,12 +1038,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_FA_H2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1049,12 +1053,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_FA_H3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1064,12 +1068,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">seq_p_FA_H123_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1079,12 +1083,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_FA_H12_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1094,12 +1098,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_FA_H13_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1109,12 +1113,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_FA_H23_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1124,12 +1128,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_FA_H1_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1139,12 +1143,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_FA_H2_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1154,12 +1158,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_FA_H3_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>,            <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>,             <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1169,7 +1173,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>  spending_fun_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
 <span>  info_frac <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">IF_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">0.2</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -1184,14 +1188,14 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">adj_seq_IA_H3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_IA_H123</span>, <span class="va">seq_p_IA_H13</span>, <span class="va">seq_p_IA_H23</span>, <span class="va">seq_p_IA_H3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"The adjusted-sequential p-value of H1, H2, H3 in IA via WPGSD is"</span>, <span class="va">adj_seq_IA_H1</span>, <span class="va">adj_seq_IA_H2</span>, <span class="va">adj_seq_IA_H3</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in IA via WPGSD is 0.1677811 0.1399851 0.1007932</span></span></code></pre>
+<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in IA via WPGSD is 0.1677811 0.1574336 0.1574336</span></span></code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adj_seq_IA_H1_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_IA_H123_B</span>, <span class="va">seq_p_IA_H12_B</span>, <span class="va">seq_p_IA_H13_B</span>, <span class="va">seq_p_IA_H1_B</span><span class="op">)</span></span>
 <span><span class="va">adj_seq_IA_H2_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_IA_H123_B</span>, <span class="va">seq_p_IA_H12_B</span>, <span class="va">seq_p_IA_H23_B</span>, <span class="va">seq_p_IA_H2_B</span><span class="op">)</span></span>
 <span><span class="va">adj_seq_IA_H3_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_IA_H123_B</span>, <span class="va">seq_p_IA_H13_B</span>, <span class="va">seq_p_IA_H23_B</span>, <span class="va">seq_p_IA_H3_B</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni is"</span>, <span class="va">adj_seq_IA_H1_B</span>, <span class="va">adj_seq_IA_H2_B</span>, <span class="va">adj_seq_IA_H3_B</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni is 0.1677811 0.1677811 0.1258358</span></span></code></pre>
+<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni is 0.2013373 0.2013373 0.2013373</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="fa-1">FA<a class="anchor" aria-label="anchor" href="#fa-1"></a>
@@ -1205,14 +1209,14 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">adj_seq_FA_H3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_FA_H123</span>, <span class="va">seq_p_FA_H13</span>, <span class="va">seq_p_FA_H23</span>, <span class="va">seq_p_FA_H3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"The adjusted-sequential p-value of H1, H2, H3 in FA via WPGSD is"</span>, <span class="va">adj_seq_FA_H1</span>, <span class="va">adj_seq_FA_H2</span>, <span class="va">adj_seq_FA_H3</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in FA via WPGSD is 0.02107688 0.01765111 0.01278816</span></span></code></pre>
+<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in FA via WPGSD is 0.02107688 0.01987703 0.01987703</span></span></code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adj_seq_FA_H1_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_FA_H123_B</span>, <span class="va">seq_p_FA_H12_B</span>, <span class="va">seq_p_FA_H13_B</span>, <span class="va">seq_p_FA_H1_B</span><span class="op">)</span></span>
 <span><span class="va">adj_seq_FA_H2_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_FA_H123_B</span>, <span class="va">seq_p_FA_H12_B</span>, <span class="va">seq_p_FA_H23_B</span>, <span class="va">seq_p_FA_H2_B</span><span class="op">)</span></span>
 <span><span class="va">adj_seq_FA_H3_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_FA_H123_B</span>, <span class="va">seq_p_FA_H13_B</span>, <span class="va">seq_p_FA_H23_B</span>, <span class="va">seq_p_FA_H3_B</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni is"</span>, <span class="va">adj_seq_FA_H1_B</span>, <span class="va">adj_seq_FA_H2_B</span>, <span class="va">adj_seq_FA_H3_B</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni is 0.02126682 0.02126682 0.01604666</span></span></code></pre>
+<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni is 0.02553192 0.02553192 0.02553192</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1221,50 +1225,65 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 </h2>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span>  <span class="op">~</span><span class="va">Analysis</span>, <span class="op">~</span><span class="va">Hypothesis</span>, <span class="op">~</span><span class="va">`Sequantial p-values of WPGSD`</span>,  <span class="op">~</span><span class="va">`Sequantial p-values of Weighted Bonferroni`</span>, <span class="op">~</span><span class="va">`Adjusted-sequantial p-values of WPGSD`</span>, <span class="op">~</span><span class="va">`Adjusted-sequantial p-values of Weighted Bonferroni`</span>,</span>
-<span>  <span class="st">"IA"</span>,       <span class="st">"H123"</span>,       <span class="va">seq_p_IA_H123</span>,      <span class="va">seq_p_IA_H123_B</span>,    <span class="cn">NA</span>,                    <span class="cn">NA</span>,</span>
-<span>  <span class="st">"IA"</span>,       <span class="st">"H12"</span>,        <span class="va">seq_p_IA_H12</span>,       <span class="va">seq_p_IA_H12_B</span>,     <span class="cn">NA</span>,                    <span class="cn">NA</span>,</span>
-<span>  <span class="st">"IA"</span>,       <span class="st">"H13"</span>,        <span class="va">seq_p_IA_H13</span>,       <span class="va">seq_p_IA_H13_B</span>,     <span class="cn">NA</span>,                    <span class="cn">NA</span>,</span>
-<span>  <span class="st">"IA"</span>,       <span class="st">"H23"</span>,        <span class="va">seq_p_IA_H23</span>,       <span class="va">seq_p_IA_H23_B</span>,     <span class="cn">NA</span>,                    <span class="cn">NA</span>,</span>
-<span>  <span class="st">"IA"</span>,       <span class="st">"H1"</span>,         <span class="va">seq_p_IA_H1</span>,        <span class="va">seq_p_IA_H1_B</span>,      <span class="va">adj_seq_IA_H1</span>,         <span class="va">adj_seq_IA_H1_B</span>,</span>
-<span>  <span class="st">"IA"</span>,       <span class="st">"H2"</span>,         <span class="va">seq_p_IA_H2</span>,        <span class="va">seq_p_IA_H2_B</span>,      <span class="va">adj_seq_IA_H2</span>,         <span class="va">adj_seq_IA_H2_B</span>,</span>
-<span>  <span class="st">"IA"</span>,       <span class="st">"H3"</span>,         <span class="va">seq_p_IA_H3</span>,        <span class="va">seq_p_IA_H3_B</span>,      <span class="va">adj_seq_IA_H3</span>,         <span class="va">adj_seq_IA_H3_B</span>,</span>
-<span>  <span class="st">"FA"</span>,       <span class="st">"H123"</span>,       <span class="va">seq_p_FA_H123</span>,      <span class="va">seq_p_FA_H123_B</span>,    <span class="cn">NA</span>,                    <span class="cn">NA</span>,</span>
-<span>  <span class="st">"FA"</span>,       <span class="st">"H12"</span>,        <span class="va">seq_p_FA_H12</span>,       <span class="va">seq_p_FA_H12_B</span>,     <span class="cn">NA</span>,                    <span class="cn">NA</span>,</span>
-<span>  <span class="st">"FA"</span>,       <span class="st">"H13"</span>,        <span class="va">seq_p_FA_H13</span>,       <span class="va">seq_p_FA_H13_B</span>,     <span class="cn">NA</span>,                    <span class="cn">NA</span>,</span>
-<span>  <span class="st">"FA"</span>,       <span class="st">"H23"</span>,        <span class="va">seq_p_FA_H23</span>,       <span class="va">seq_p_FA_H23_B</span>,     <span class="cn">NA</span>,                    <span class="cn">NA</span>,</span>
-<span>  <span class="st">"FA"</span>,       <span class="st">"H1"</span>,         <span class="va">seq_p_FA_H1</span>,        <span class="va">seq_p_FA_H1_B</span>,      <span class="va">adj_seq_FA_H1</span>,         <span class="va">adj_seq_FA_H1_B</span>,</span>
-<span>  <span class="st">"FA"</span>,       <span class="st">"H2"</span>,         <span class="va">seq_p_FA_H2</span>,        <span class="va">seq_p_FA_H2_B</span>,      <span class="va">adj_seq_FA_H2</span>,         <span class="va">adj_seq_FA_H2_B</span>,</span>
-<span>  <span class="st">"FA"</span>,       <span class="st">"H3"</span>,         <span class="va">seq_p_FA_H3</span>,        <span class="va">seq_p_FA_H3_B</span>,      <span class="va">adj_seq_FA_H3</span>,         <span class="va">adj_seq_FA_H3_B</span></span>
-<span>  <span class="op">)</span></span>
+<span>  <span class="op">~</span><span class="va">Analysis</span>, <span class="op">~</span><span class="va">Hypothesis</span>, <span class="op">~</span><span class="va">`Sequantial p-values of WPGSD`</span>, <span class="op">~</span><span class="va">`Sequantial p-values of Weighted Bonferroni`</span>, <span class="op">~</span><span class="va">`Adjusted-sequantial p-values of WPGSD`</span>, <span class="op">~</span><span class="va">`Adjusted-sequantial p-values of Weighted Bonferroni`</span>,</span>
+<span>  <span class="st">"IA"</span>, <span class="st">"H123"</span>, <span class="va">seq_p_IA_H123</span>, <span class="va">seq_p_IA_H123_B</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span>  <span class="st">"IA"</span>, <span class="st">"H12"</span>, <span class="va">seq_p_IA_H12</span>, <span class="va">seq_p_IA_H12_B</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span>  <span class="st">"IA"</span>, <span class="st">"H13"</span>, <span class="va">seq_p_IA_H13</span>, <span class="va">seq_p_IA_H13_B</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span>  <span class="st">"IA"</span>, <span class="st">"H23"</span>, <span class="va">seq_p_IA_H23</span>, <span class="va">seq_p_IA_H23_B</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span>  <span class="st">"IA"</span>, <span class="st">"H1"</span>, <span class="va">seq_p_IA_H1</span>, <span class="va">seq_p_IA_H1_B</span>, <span class="va">adj_seq_IA_H1</span>, <span class="va">adj_seq_IA_H1_B</span>,</span>
+<span>  <span class="st">"IA"</span>, <span class="st">"H2"</span>, <span class="va">seq_p_IA_H2</span>, <span class="va">seq_p_IA_H2_B</span>, <span class="va">adj_seq_IA_H2</span>, <span class="va">adj_seq_IA_H2_B</span>,</span>
+<span>  <span class="st">"IA"</span>, <span class="st">"H3"</span>, <span class="va">seq_p_IA_H3</span>, <span class="va">seq_p_IA_H3_B</span>, <span class="va">adj_seq_IA_H3</span>, <span class="va">adj_seq_IA_H3_B</span>,</span>
+<span>  <span class="st">"FA"</span>, <span class="st">"H123"</span>, <span class="va">seq_p_FA_H123</span>, <span class="va">seq_p_FA_H123_B</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span>  <span class="st">"FA"</span>, <span class="st">"H12"</span>, <span class="va">seq_p_FA_H12</span>, <span class="va">seq_p_FA_H12_B</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span>  <span class="st">"FA"</span>, <span class="st">"H13"</span>, <span class="va">seq_p_FA_H13</span>, <span class="va">seq_p_FA_H13_B</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span>  <span class="st">"FA"</span>, <span class="st">"H23"</span>, <span class="va">seq_p_FA_H23</span>, <span class="va">seq_p_FA_H23_B</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span>  <span class="st">"FA"</span>, <span class="st">"H1"</span>, <span class="va">seq_p_FA_H1</span>, <span class="va">seq_p_FA_H1_B</span>, <span class="va">adj_seq_FA_H1</span>, <span class="va">adj_seq_FA_H1_B</span>,</span>
+<span>  <span class="st">"FA"</span>, <span class="st">"H2"</span>, <span class="va">seq_p_FA_H2</span>, <span class="va">seq_p_FA_H2_B</span>, <span class="va">adj_seq_FA_H2</span>, <span class="va">adj_seq_FA_H2_B</span>,</span>
+<span>  <span class="st">"FA"</span>, <span class="st">"H3"</span>, <span class="va">seq_p_FA_H3</span>, <span class="va">seq_p_FA_H3_B</span>, <span class="va">adj_seq_FA_H3</span>, <span class="va">adj_seq_FA_H3_B</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">Analysis</span>, <span class="va">Hypothesis</span>,</span>
+<span>    <span class="va">`Sequantial p-values of Weighted Bonferroni`</span>, <span class="va">`Adjusted-sequantial p-values of Weighted Bonferroni`</span>,</span>
+<span>    <span class="va">`Sequantial p-values of WPGSD`</span>, <span class="va">`Adjusted-sequantial p-values of WPGSD`</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html" class="external-link">tab_spanner</a></span><span class="op">(</span></span>
+<span>    label <span class="op">=</span> <span class="st">"Weighted Bonferroni"</span>,</span>
+<span>    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">`Sequantial p-values of Weighted Bonferroni`</span>, <span class="va">`Adjusted-sequantial p-values of Weighted Bonferroni`</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html" class="external-link">tab_spanner</a></span><span class="op">(</span></span>
+<span>    label <span class="op">=</span> <span class="st">"WPGSD"</span>,</span>
+<span>    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">`Sequantial p-values of WPGSD`</span>, <span class="va">`Adjusted-sequantial p-values of WPGSD`</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/tab_style_body.html" class="external-link">tab_style_body</a></span><span class="op">(</span></span>
 <span>    columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html" class="external-link">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>,</span>
 <span>    style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_fill.html" class="external-link">cell_fill</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"pink"</span><span class="op">)</span>,</span>
 <span>    fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">&lt;=</span> <span class="fl">0.025</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fl">6</span>, decimals <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"(Adjusted-) sequantial p-values"</span>,</span>
-<span>                 subtitle <span class="op">=</span> <span class="st">"Multiple experiment arm vs. common control"</span><span class="op">)</span> <span class="co"># %&gt;% gt::as_latex()</span></span></code></pre></div>
-<div id="clcbojuaxl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#clcbojuaxl table {
+<span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"(Adjusted-) sequantial p-values"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Multiple populations"</span></span>
+<span>  <span class="op">)</span> <span class="co"># %&gt;% gt::as_latex()</span></span></code></pre></div>
+<div id="iqhpldizkh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#iqhpldizkh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#clcbojuaxl thead, #clcbojuaxl tbody, #clcbojuaxl tfoot, #clcbojuaxl tr, #clcbojuaxl td, #clcbojuaxl th {
+#iqhpldizkh thead, #iqhpldizkh tbody, #iqhpldizkh tfoot, #iqhpldizkh tr, #iqhpldizkh td, #iqhpldizkh th {
   border-style: none;
 }
 
-#clcbojuaxl p {
+#iqhpldizkh p {
   margin: 0;
   padding: 0;
 }
 
-#clcbojuaxl .gt_table {
+#iqhpldizkh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1290,12 +1309,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-left-color: #D3D3D3;
 }
 
-#clcbojuaxl .gt_caption {
+#iqhpldizkh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#clcbojuaxl .gt_title {
+#iqhpldizkh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1307,7 +1326,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-bottom-width: 0;
 }
 
-#clcbojuaxl .gt_subtitle {
+#iqhpldizkh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1319,7 +1338,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-top-width: 0;
 }
 
-#clcbojuaxl .gt_heading {
+#iqhpldizkh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1331,13 +1350,13 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-right-color: #D3D3D3;
 }
 
-#clcbojuaxl .gt_bottom_border {
+#iqhpldizkh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#clcbojuaxl .gt_col_headings {
+#iqhpldizkh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1352,7 +1371,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-right-color: #D3D3D3;
 }
 
-#clcbojuaxl .gt_col_heading {
+#iqhpldizkh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1372,7 +1391,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   overflow-x: hidden;
 }
 
-#clcbojuaxl .gt_column_spanner_outer {
+#iqhpldizkh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1384,15 +1403,15 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 4px;
 }
 
-#clcbojuaxl .gt_column_spanner_outer:first-child {
+#iqhpldizkh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#clcbojuaxl .gt_column_spanner_outer:last-child {
+#iqhpldizkh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#clcbojuaxl .gt_column_spanner {
+#iqhpldizkh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1404,11 +1423,11 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   width: 100%;
 }
 
-#clcbojuaxl .gt_spanner_row {
+#iqhpldizkh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#clcbojuaxl .gt_group_heading {
+#iqhpldizkh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1434,7 +1453,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   text-align: left;
 }
 
-#clcbojuaxl .gt_empty_group_heading {
+#iqhpldizkh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1449,15 +1468,15 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   vertical-align: middle;
 }
 
-#clcbojuaxl .gt_from_md > :first-child {
+#iqhpldizkh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#clcbojuaxl .gt_from_md > :last-child {
+#iqhpldizkh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#clcbojuaxl .gt_row {
+#iqhpldizkh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1476,7 +1495,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   overflow-x: hidden;
 }
 
-#clcbojuaxl .gt_stub {
+#iqhpldizkh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1489,7 +1508,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 5px;
 }
 
-#clcbojuaxl .gt_stub_row_group {
+#iqhpldizkh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1503,15 +1522,15 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   vertical-align: top;
 }
 
-#clcbojuaxl .gt_row_group_first td {
+#iqhpldizkh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#clcbojuaxl .gt_row_group_first th {
+#iqhpldizkh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#clcbojuaxl .gt_summary_row {
+#iqhpldizkh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1521,16 +1540,16 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 5px;
 }
 
-#clcbojuaxl .gt_first_summary_row {
+#iqhpldizkh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#clcbojuaxl .gt_first_summary_row.thick {
+#iqhpldizkh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#clcbojuaxl .gt_last_summary_row {
+#iqhpldizkh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1540,7 +1559,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-bottom-color: #D3D3D3;
 }
 
-#clcbojuaxl .gt_grand_summary_row {
+#iqhpldizkh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1550,7 +1569,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 5px;
 }
 
-#clcbojuaxl .gt_first_grand_summary_row {
+#iqhpldizkh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1560,7 +1579,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-top-color: #D3D3D3;
 }
 
-#clcbojuaxl .gt_last_grand_summary_row_top {
+#iqhpldizkh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1570,11 +1589,11 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-bottom-color: #D3D3D3;
 }
 
-#clcbojuaxl .gt_striped {
+#iqhpldizkh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#clcbojuaxl .gt_table_body {
+#iqhpldizkh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1583,7 +1602,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-bottom-color: #D3D3D3;
 }
 
-#clcbojuaxl .gt_footnotes {
+#iqhpldizkh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1597,7 +1616,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-right-color: #D3D3D3;
 }
 
-#clcbojuaxl .gt_footnote {
+#iqhpldizkh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1606,7 +1625,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 5px;
 }
 
-#clcbojuaxl .gt_sourcenotes {
+#iqhpldizkh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1620,7 +1639,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-right-color: #D3D3D3;
 }
 
-#clcbojuaxl .gt_sourcenote {
+#iqhpldizkh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1628,63 +1647,63 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 5px;
 }
 
-#clcbojuaxl .gt_left {
+#iqhpldizkh .gt_left {
   text-align: left;
 }
 
-#clcbojuaxl .gt_center {
+#iqhpldizkh .gt_center {
   text-align: center;
 }
 
-#clcbojuaxl .gt_right {
+#iqhpldizkh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#clcbojuaxl .gt_font_normal {
+#iqhpldizkh .gt_font_normal {
   font-weight: normal;
 }
 
-#clcbojuaxl .gt_font_bold {
+#iqhpldizkh .gt_font_bold {
   font-weight: bold;
 }
 
-#clcbojuaxl .gt_font_italic {
+#iqhpldizkh .gt_font_italic {
   font-style: italic;
 }
 
-#clcbojuaxl .gt_super {
+#iqhpldizkh .gt_super {
   font-size: 65%;
 }
 
-#clcbojuaxl .gt_footnote_marks {
+#iqhpldizkh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#clcbojuaxl .gt_asterisk {
+#iqhpldizkh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#clcbojuaxl .gt_indent_1 {
+#iqhpldizkh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#clcbojuaxl .gt_indent_2 {
+#iqhpldizkh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#clcbojuaxl .gt_indent_3 {
+#iqhpldizkh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#clcbojuaxl .gt_indent_4 {
+#iqhpldizkh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#clcbojuaxl .gt_indent_5 {
+#iqhpldizkh .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1694,129 +1713,137 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <td colspan="6" class="gt_heading gt_title gt_font_normal" style>(Adjusted-) sequantial p-values</td>
     </tr>
 <tr class="gt_heading">
-<td colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Multiple experiment arm vs. common control</td>
+<td colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Multiple populations</td>
+    </tr>
+<tr class="gt_col_headings gt_spanner_row">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="Analysis">Analysis</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="Hypothesis">Hypothesis</th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="Weighted Bonferroni">
+        <span class="gt_column_spanner">Weighted Bonferroni</span>
+      </th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="WPGSD">
+        <span class="gt_column_spanner">WPGSD</span>
+      </th>
     </tr>
 <tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Analysis">Analysis</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Hypothesis">Hypothesis</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Sequantial p-values of WPGSD">Sequantial p-values of WPGSD</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Sequantial p-values of Weighted Bonferroni">Sequantial p-values of Weighted Bonferroni</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Adjusted-sequantial p-values of WPGSD">Adjusted-sequantial p-values of WPGSD</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Sequantial p-values of Weighted Bonferroni">Sequantial p-values of Weighted Bonferroni</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Adjusted-sequantial p-values of Weighted Bonferroni">Adjusted-sequantial p-values of Weighted Bonferroni</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Sequantial p-values of WPGSD">Sequantial p-values of WPGSD</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Adjusted-sequantial p-values of WPGSD">Adjusted-sequantial p-values of WPGSD</th>
     </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr>
 <td headers="Analysis" class="gt_row gt_left">IA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H123</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1008</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.1258</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.2013</td>
 <td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">NA</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1574</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">IA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H12</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1400</td>
 <td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.1678</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 <td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">NA</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1400</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">IA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H13</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.0793</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0881</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.1409</td>
 <td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">NA</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1252</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">IA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H23</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.0781</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0881</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.1409</td>
 <td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">NA</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1232</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">IA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H1</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1678</td>
 <td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.1678</td>
+<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.2013</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1678</td>
 <td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">0.1678</td>
-<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.1678</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">IA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H2</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.0839</td>
 <td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0839</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">0.1400</td>
-<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.1678</td>
+<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.2013</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.0839</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">0.1574</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">IA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H3</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.0503</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0503</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">0.1008</td>
-<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.1258</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0805</td>
+<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.2013</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.0805</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">0.1574</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">FA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H123</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0128</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0160</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0255</td>
 <td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">NA</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0199</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">FA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H12</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0177</td>
 <td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0213</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 <td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">NA</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0176</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">FA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H13</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0101</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0112</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0179</td>
 <td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">NA</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0158</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">FA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H23</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0099</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0112</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0179</td>
 <td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">NA</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0156</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">FA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H1</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0211</td>
 <td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0211</td>
+<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0255</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0211</td>
 <td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0211</td>
-<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0213</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">FA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H2</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0106</td>
 <td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0106</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0177</td>
-<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0213</td>
+<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0255</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0106</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0199</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">FA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H3</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0064</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0064</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0128</td>
-<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0160</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0102</td>
+<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0255</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0102</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0199</td>
 </tr>
 </tbody>
 </table>
