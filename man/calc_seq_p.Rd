@@ -5,17 +5,23 @@
 \title{Calculate sequential p-values for interaction/elementary hypothesis}
 \usage{
 calc_seq_p(
-  test_analysis = 1,
+  test_analysis = 2,
   test_hypothesis = "H1, H2, H3",
-  p_obs,
+  p_obs = tibble(analysis = 1:2, H1 = c(0.02, 0.0015), H2 = c(0.01, 0.01), H3 = c(0.01,
+    0.004)),
   alpha_spending_type = 3,
   n_analysis = 2,
-  initial_weight,
-  transition_mat,
-  z_corr,
-  spending_fun,
-  spending_fun_par,
-  info_frac,
+  initial_weight = c(0.3, 0.3, 0.4),
+  transition_mat = matrix(c(0, 0.4285714, 0.5714286, 0.4285714, 0, 0.5714286, 0.5, 0.5,
+    0), nrow = 3, byrow = TRUE),
+  z_corr = matrix(c(1, 0.7627701, 0.6666667, 0.7071068, 0.5393599, 0.4714045, 0.7627701,
+    1, 0.6992059, 0.5393599, 0.7071068, 0.4944132, 0.6666667, 0.6992059, 1, 0.4714045,
+    0.4944132, 0.7071068, 0.7071068, 0.5393599, 0.4714045, 1, 0.7627701, 0.6666667,
+    0.5393599, 0.7071068, 0.4944132, 0.7627701, 1, 0.6992059, 0.4714045, 0.4944132,
+    0.7071068, 0.6666667, 0.6992059, 1), nrow = 6, byrow = TRUE),
+  spending_fun = gsDesign::sfHSD,
+  spending_fun_par = -4,
+  info_frac = c(0.5, 1),
   interval = c(1e-04, 0.2)
 )
 }
@@ -25,7 +31,7 @@ calc_seq_p(
 \item{test_hypothesis}{A character of the tested interaction/elementary hypothesis,
 such as \code{"H1, H2, H3"}, \verb{H1, H2}, \code{"H1"}.}
 
-\item{p_obs}{Observed p-values.}
+\item{p_obs}{Observed p-values up to \code{test_analysis}.}
 
 \item{alpha_spending_type}{Type Boundary type.
 \itemize{
@@ -58,19 +64,29 @@ The sequential p-values of the \code{test_hypothesis} at the \code{test_analysis
 Calculate sequential p-values for interaction/elementary hypothesis
 }
 \examples{
-p_obs <- dplyr::bind_rows(
-  tibble::tibble(Analysis = 1, H1 = 0.001, H2 = 0.001),
-  tibble::tibble(Analysis = 2, H1 = 0.001, H2 = 0.001)
-)
-bound <- tibble::tribble(
-  ~Analysis, ~Hypotheses, ~H1, ~H2,
-  1, "H1", 0.02, NA,
-  1, "H1, H2", 0.0001, 0.00001,
-  1, "H2", NA, 0.003,
-  2, "H1", 0.02, NA,
-  2, "H1, H2", 0.02, 0.00001,
-  2, "H2", NA, 0.003
-)
-
-closed_test <- closed_test(bound, p_obs)
+calc_seq_p(
+   test_analysis = 2, 
+   test_hypothesis = "H1, H2, H3",
+   p_obs = tibble(analysis = 1:2, 
+                  H1 = c(0.02, 0.0015), 
+                  H2 = c(0.01, 0.01), 
+                  H3 = c(0.01, 0.004)), 
+   alpha_spending_type = 3,
+   n_analysis = 2,
+   initial_weight = c(0.3, 0.3, 0.4),
+   transition_mat = matrix(c(0.0000000, 0.4285714, 0.5714286,
+                             0.4285714, 0.0000000, 0.5714286,
+                             0.5000000, 0.5000000, 0.0000000), nrow = 3, byrow = TRUE),
+   z_corr = matrix(c(1.0000000, 0.7627701, 0.6666667, 0.7071068, 0.5393599, 0.4714045,
+                     0.7627701, 1.0000000, 0.6992059, 0.5393599, 0.7071068, 0.4944132,
+                     0.6666667, 0.6992059, 1.0000000, 0.4714045, 0.4944132, 0.7071068,
+                     0.7071068, 0.5393599, 0.4714045, 1.0000000, 0.7627701, 0.6666667,
+                     0.5393599, 0.7071068, 0.4944132, 0.7627701, 1.0000000, 0.6992059,
+                     0.4714045, 0.4944132, 0.7071068, 0.6666667, 0.6992059, 1.0000000),
+                   nrow = 6, byrow = TRUE),
+   spending_fun = gsDesign::sfHSD,
+   spending_fun_par = -4,
+   info_frac = c(0.5, 1),
+   interval = c(1e-4, 0.2) 
+   )
 }

@@ -21,7 +21,7 @@
 #' @param test_analysis The index of the analysis to be tested, such as 1, 2, ...
 #' @param test_hypothesis A character of the tested interaction/elementary hypothesis,
 #'   such as `"H1, H2, H3"`, `H1, H2`, `"H1"`.
-#' @param p_obs Observed p-values.
+#' @param p_obs Observed p-values up to `test_analysis`.
 #' @param n_analysis Total number of analysis.
 #' @param alpha_spending_type Type Boundary type.
 #'   - `0` - Bonferroni. Separate alpha spending for each hypotheses.
@@ -44,34 +44,55 @@
 #' @export
 #'
 #' @examples
-#' p_obs <- dplyr::bind_rows(
-#'   tibble::tibble(Analysis = 1, H1 = 0.001, H2 = 0.001),
-#'   tibble::tibble(Analysis = 2, H1 = 0.001, H2 = 0.001)
-#' )
-#' bound <- tibble::tribble(
-#'   ~Analysis, ~Hypotheses, ~H1, ~H2,
-#'   1, "H1", 0.02, NA,
-#'   1, "H1, H2", 0.0001, 0.00001,
-#'   1, "H2", NA, 0.003,
-#'   2, "H1", 0.02, NA,
-#'   2, "H1, H2", 0.02, 0.00001,
-#'   2, "H2", NA, 0.003
-#' )
-#'
-#' closed_test <- closed_test(bound, p_obs)
+#' calc_seq_p(
+#'    test_analysis = 2, 
+#'    test_hypothesis = "H1, H2, H3",
+#'    p_obs = tibble(analysis = 1:2, 
+#'                   H1 = c(0.02, 0.0015), 
+#'                   H2 = c(0.01, 0.01), 
+#'                   H3 = c(0.01, 0.004)), 
+#'    alpha_spending_type = 3,
+#'    n_analysis = 2,
+#'    initial_weight = c(0.3, 0.3, 0.4),
+#'    transition_mat = matrix(c(0.0000000, 0.4285714, 0.5714286,
+#'                              0.4285714, 0.0000000, 0.5714286,
+#'                              0.5000000, 0.5000000, 0.0000000), nrow = 3, byrow = TRUE),
+#'    z_corr = matrix(c(1.0000000, 0.7627701, 0.6666667, 0.7071068, 0.5393599, 0.4714045,
+#'                      0.7627701, 1.0000000, 0.6992059, 0.5393599, 0.7071068, 0.4944132,
+#'                      0.6666667, 0.6992059, 1.0000000, 0.4714045, 0.4944132, 0.7071068,
+#'                      0.7071068, 0.5393599, 0.4714045, 1.0000000, 0.7627701, 0.6666667,
+#'                      0.5393599, 0.7071068, 0.4944132, 0.7627701, 1.0000000, 0.6992059,
+#'                      0.4714045, 0.4944132, 0.7071068, 0.6666667, 0.6992059, 1.0000000),
+#'                    nrow = 6, byrow = TRUE),
+#'    spending_fun = gsDesign::sfHSD,
+#'    spending_fun_par = -4,
+#'    info_frac = c(0.5, 1),
+#'    interval = c(1e-4, 0.2) 
+#'    )
 calc_seq_p <- function(
-    test_analysis = 1, # Stage of interest
+    test_analysis = 2, 
     test_hypothesis = "H1, H2, H3",
-    p_obs, # Observed p-value
+    p_obs = tibble(analysis = 1:2, 
+                   H1 = c(0.02, 0.0015), 
+                   H2 = c(0.01, 0.01), 
+                   H3 = c(0.01, 0.004)), 
     alpha_spending_type = 3,
     n_analysis = 2,
-    initial_weight,
-    transition_mat,
-    z_corr,
-    spending_fun,
-    spending_fun_par,
-    info_frac,
-    interval = c(1e-4, 0.2) # Interval for uniroot
+    initial_weight = c(0.3, 0.3, 0.4),
+    transition_mat = matrix(c(0.0000000, 0.4285714, 0.5714286,
+                              0.4285714, 0.0000000, 0.5714286,
+                              0.5000000, 0.5000000, 0.0000000), nrow = 3, byrow = TRUE),
+    z_corr = matrix(c(1.0000000, 0.7627701, 0.6666667, 0.7071068, 0.5393599, 0.4714045,
+                      0.7627701, 1.0000000, 0.6992059, 0.5393599, 0.7071068, 0.4944132,
+                      0.6666667, 0.6992059, 1.0000000, 0.4714045, 0.4944132, 0.7071068,
+                      0.7071068, 0.5393599, 0.4714045, 1.0000000, 0.7627701, 0.6666667,
+                      0.5393599, 0.7071068, 0.4944132, 0.7627701, 1.0000000, 0.6992059,
+                      0.4714045, 0.4944132, 0.7071068, 0.6666667, 0.6992059, 1.0000000),
+                    nrow = 6, byrow = TRUE),
+    spending_fun = gsDesign::sfHSD,
+    spending_fun_par = -4,
+    info_frac = c(0.5, 1),
+    interval = c(1e-4, 0.2) 
     ) {
   foo <- function(x) {
     all_hypothesis <- strsplit(test_hypothesis, split = ", ") %>% unlist()
@@ -89,14 +110,15 @@ calc_seq_p <- function(
       t = info_frac
     ) %>%
       arrange(Analysis) %>%
-      filter(Analysis == test_analysis, Hypotheses == test_hypothesis)
+      filter(Analysis <= test_analysis, Hypotheses == test_hypothesis)
 
-    p_bound <- NULL
+    p_diff <- NULL
     for (hhh in all_hypothesis) {
-      p_bound <- c(p_bound, ans[[hhh]])
+      p_diff_new <- p_obs[[hhh]] - ans[[hhh]]
+      p_diff <- c(p_diff, p_diff_new)
     }
 
-    return(min(p_obs[all_hypothesis_idx] - p_bound))
+    return(min(p_diff))
   }
 
   seq_p <- uniroot(foo, lower = interval[1], upper = interval[2])$root

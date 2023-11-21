@@ -1,0 +1,12 @@
+name: adj-seq-p
+title: adj-seq-p
+username: zhayuji4
+account: zhayuji4
+server: rconnect.merck.com
+hostUrl: https://rconnect.merck.com:3939/__api__
+appId: 1549
+bundleId: 12110
+url: https://rconnect.merck.com:3939/adj-seq-p/
+version: 1
+asMultiple: FALSE
+asStatic: TRUE
