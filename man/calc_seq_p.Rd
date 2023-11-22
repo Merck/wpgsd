@@ -71,7 +71,7 @@ calc_seq_p(
                   H1 = c(0.02, 0.0015), 
                   H2 = c(0.01, 0.01), 
                   H3 = c(0.01, 0.004)), 
-   alpha_spending_type = 3,
+   alpha_spending_type = 2,
    n_analysis = 2,
    initial_weight = c(0.3, 0.3, 0.4),
    transition_mat = matrix(c(0.0000000, 0.4285714, 0.5714286,
