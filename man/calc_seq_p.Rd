@@ -9,7 +9,7 @@ calc_seq_p(
   test_hypothesis = "H1, H2, H3",
   p_obs = tibble(analysis = 1:2, H1 = c(0.02, 0.0015), H2 = c(0.01, 0.01), H3 = c(0.01,
     0.004)),
-  alpha_spending_type = 3,
+  alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = c(0.3, 0.3, 0.4),
   transition_mat = matrix(c(0, 0.4285714, 0.5714286, 0.4285714, 0, 0.5714286, 0.5, 0.5,
