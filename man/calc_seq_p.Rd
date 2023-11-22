@@ -7,7 +7,7 @@
 calc_seq_p(
   test_analysis = 2,
   test_hypothesis = "H1, H2, H3",
-  p_obs = tibble(analysis = 1:2, H1 = c(0.02, 0.0015), H2 = c(0.01, 0.01), H3 = c(0.01,
+  p_obs = tibble::tibble(analysis = 1:2, H1 = c(0.02, 0.0015), H2 = c(0.01, 0.01), H3 = c(0.01,
     0.004)),
   alpha_spending_type = 2,
   n_analysis = 2,
@@ -67,7 +67,7 @@ Calculate sequential p-values for interaction/elementary hypothesis
 calc_seq_p(
    test_analysis = 2, 
    test_hypothesis = "H1, H2, H3",
-   p_obs = tibble(analysis = 1:2, 
+   p_obs = tibble::tibble(analysis = 1:2, 
                   H1 = c(0.02, 0.0015), 
                   H2 = c(0.01, 0.01), 
                   H3 = c(0.01, 0.004)), 
