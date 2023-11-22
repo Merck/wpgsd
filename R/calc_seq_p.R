@@ -53,7 +53,7 @@
 #'     H2 = c(0.01, 0.01),
 #'     H3 = c(0.01, 0.004)
 #'   ),
-#'   alpha_spending_type = 3,
+#'   alpha_spending_type = 2,
 #'   n_analysis = 2,
 #'   initial_weight = c(0.3, 0.3, 0.4),
 #'   transition_mat = matrix(c(
