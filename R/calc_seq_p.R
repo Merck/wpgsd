@@ -47,7 +47,7 @@
 #' calc_seq_p(
 #'   test_analysis = 2,
 #'   test_hypothesis = "H1, H2, H3",
-#'   p_obs = tibble(
+#'   p_obs = tibble::tibble(
 #'     analysis = 1:2,
 #'     H1 = c(0.02, 0.0015),
 #'     H2 = c(0.01, 0.01),
@@ -80,7 +80,7 @@
 calc_seq_p <- function(
     test_analysis = 2,
     test_hypothesis = "H1, H2, H3",
-    p_obs = tibble(
+    p_obs = tibble::tibble(
       analysis = 1:2,
       H1 = c(0.02, 0.0015),
       H2 = c(0.01, 0.01),
