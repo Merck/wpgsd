@@ -44,14 +44,14 @@ Assume an interim analysis and a final analysis are planned for the study and th
 ```{r}
 event_tbl <- tribble(
   ~population, ~analysis, ~event,
-  "A positive", 1, 80,
-  "B positive", 1, 88,
-  "AB positive", 1, 64,
-  "overall", 1, 180,
-  "A positive", 2, 160,
-  "B positive", 2, 176,
-  "AB positive", 2, 128,
-  "overall", 2, 360,
+  "A positive", 1, 100,
+  "B positive", 1, 110,
+  "AB positive", 1, 80,
+  "overall", 1, 225,
+  "A positive", 2, 200,
+  "B positive", 2, 220,
+  "AB positive", 2, 160,
+  "overall", 2, 450,
 )
 ```
 
@@ -62,10 +62,10 @@ obs_tbl <- tribble(
   ~hypothesis, ~analysis, ~obs_p,
   "H1", 1, 0.02,
   "H2", 1, 0.01,
-  "H3", 1, 0.0096,
-  "H1", 2, 0.0015,
-  "H2", 2, 0.01,
-  "H3", 2, 0.004
+  "H3", 1, 0.012,
+  "H1", 2, 0.015,
+  "H2", 2, 0.012,
+  "H3", 2, 0.010
 ) %>%
   mutate(obs_Z = -qnorm(obs_p))
 
@@ -156,9 +156,14 @@ gs_corr %>% round(2)
 
 ```{r, wpgsdSeqIA, message=FALSE}
 seq_p_IA_H123 <- calc_seq_p(
-  test_analysis = 1, # stage of interest
+  test_analysis = 1,
   test_hypothesis = "H1, H2, H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ),
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -171,9 +176,14 @@ seq_p_IA_H123 <- calc_seq_p(
 )
 
 seq_p_IA_H12 <- calc_seq_p(
-  test_analysis = 1, # stage of interest
+  test_analysis = 1,
   test_hypothesis = "H1, H2",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ),
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -186,9 +196,14 @@ seq_p_IA_H12 <- calc_seq_p(
 )
 
 seq_p_IA_H13 <- calc_seq_p(
-  test_analysis = 1, # stage of interest
+  test_analysis = 1,
   test_hypothesis = "H1, H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ),
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -203,7 +218,12 @@ seq_p_IA_H13 <- calc_seq_p(
 seq_p_IA_H23 <- calc_seq_p(
   test_analysis = 1, # stage of interest
   test_hypothesis = "H2, H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ),
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -216,9 +236,14 @@ seq_p_IA_H23 <- calc_seq_p(
 )
 
 seq_p_IA_H1 <- calc_seq_p(
-  test_analysis = 1, # stage of interest
+  test_analysis = 1,
   test_hypothesis = "H1",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ),
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -231,9 +256,14 @@ seq_p_IA_H1 <- calc_seq_p(
 )
 
 seq_p_IA_H2 <- calc_seq_p(
-  test_analysis = 1, # stage of interest
+  test_analysis = 1,
   test_hypothesis = "H2",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ),
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -246,9 +276,14 @@ seq_p_IA_H2 <- calc_seq_p(
 )
 
 seq_p_IA_H3 <- calc_seq_p(
-  test_analysis = 1, # stage of interest
+  test_analysis = 1,
   test_hypothesis = "H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ),
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -265,7 +300,12 @@ seq_p_IA_H3 <- calc_seq_p(
 seq_p_IA_H123_B <- calc_seq_p(
   test_analysis = 1, # stage of interest
   test_hypothesis = "H1, H2, H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -280,7 +320,12 @@ seq_p_IA_H123_B <- calc_seq_p(
 seq_p_IA_H12_B <- calc_seq_p(
   test_analysis = 1, # stage of interest
   test_hypothesis = "H1, H2",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -295,7 +340,12 @@ seq_p_IA_H12_B <- calc_seq_p(
 seq_p_IA_H13_B <- calc_seq_p(
   test_analysis = 1, # stage of interest
   test_hypothesis = "H1, H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -310,7 +360,12 @@ seq_p_IA_H13_B <- calc_seq_p(
 seq_p_IA_H23_B <- calc_seq_p(
   test_analysis = 1, # stage of interest
   test_hypothesis = "H2, H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -325,7 +380,12 @@ seq_p_IA_H23_B <- calc_seq_p(
 seq_p_IA_H1_B <- calc_seq_p(
   test_analysis = 1, # stage of interest
   test_hypothesis = "H1",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -340,7 +400,12 @@ seq_p_IA_H1_B <- calc_seq_p(
 seq_p_IA_H2_B <- calc_seq_p(
   test_analysis = 1, # stage of interest
   test_hypothesis = "H2",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -355,7 +420,12 @@ seq_p_IA_H2_B <- calc_seq_p(
 seq_p_IA_H3_B <- calc_seq_p(
   test_analysis = 1, # stage of interest
   test_hypothesis = "H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -374,7 +444,12 @@ seq_p_IA_H3_B <- calc_seq_p(
 seq_p_FA_H123 <- calc_seq_p(
   test_analysis = 2, # stage of interest
   test_hypothesis = "H1, H2, H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -389,7 +464,12 @@ seq_p_FA_H123 <- calc_seq_p(
 seq_p_FA_H12 <- calc_seq_p(
   test_analysis = 2, # stage of interest
   test_hypothesis = "H1, H2",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -404,7 +484,12 @@ seq_p_FA_H12 <- calc_seq_p(
 seq_p_FA_H13 <- calc_seq_p(
   test_analysis = 2, # stage of interest
   test_hypothesis = "H1, H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -419,7 +504,12 @@ seq_p_FA_H13 <- calc_seq_p(
 seq_p_FA_H23 <- calc_seq_p(
   test_analysis = 2, # stage of interest
   test_hypothesis = "H2, H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -434,7 +524,12 @@ seq_p_FA_H23 <- calc_seq_p(
 seq_p_FA_H1 <- calc_seq_p(
   test_analysis = 2, # stage of interest
   test_hypothesis = "H1",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -449,7 +544,12 @@ seq_p_FA_H1 <- calc_seq_p(
 seq_p_FA_H2 <- calc_seq_p(
   test_analysis = 2, # stage of interest
   test_hypothesis = "H2",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -464,7 +564,12 @@ seq_p_FA_H2 <- calc_seq_p(
 seq_p_FA_H3 <- calc_seq_p(
   test_analysis = 2, # stage of interest
   test_hypothesis = "H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = w,
@@ -481,7 +586,12 @@ seq_p_FA_H3 <- calc_seq_p(
 seq_p_FA_H123_B <- calc_seq_p(
   test_analysis = 2, # stage of interest
   test_hypothesis = "H1, H2, H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -496,7 +606,12 @@ seq_p_FA_H123_B <- calc_seq_p(
 seq_p_FA_H12_B <- calc_seq_p(
   test_analysis = 2, # stage of interest
   test_hypothesis = "H1, H2",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -511,7 +626,12 @@ seq_p_FA_H12_B <- calc_seq_p(
 seq_p_FA_H13_B <- calc_seq_p(
   test_analysis = 2, # stage of interest
   test_hypothesis = "H1, H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -526,7 +646,12 @@ seq_p_FA_H13_B <- calc_seq_p(
 seq_p_FA_H23_B <- calc_seq_p(
   test_analysis = 2, # stage of interest
   test_hypothesis = "H2, H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -541,7 +666,12 @@ seq_p_FA_H23_B <- calc_seq_p(
 seq_p_FA_H1_B <- calc_seq_p(
   test_analysis = 2, # stage of interest
   test_hypothesis = "H1",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -556,7 +686,12 @@ seq_p_FA_H1_B <- calc_seq_p(
 seq_p_FA_H2_B <- calc_seq_p(
   test_analysis = 2, # stage of interest
   test_hypothesis = "H2",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
@@ -571,7 +706,12 @@ seq_p_FA_H2_B <- calc_seq_p(
 seq_p_FA_H3_B <- calc_seq_p(
   test_analysis = 2, # stage of interest
   test_hypothesis = "H3",
-  p_obs = p_obs_IA, # observed p-value
+  p_obs = tibble(
+    analysis = 1:2,
+    H1 = c(p_obs_IA[1], p_obs_FA[1]),
+    H2 = c(p_obs_IA[2], p_obs_FA[2]),
+    H3 = c(p_obs_IA[3], p_obs_FA[3])
+  ), # observed p-value
   alpha_spending_type = 0,
   n_analysis = 2,
   initial_weight = w,
