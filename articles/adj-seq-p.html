@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Adjusted sequential p-values">
@@ -96,7 +96,7 @@ Liu, Linda Sun, Keaven Anderson</h4>
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/" class="external-link">tibble</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com/" class="external-link">gt</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://keaven.github.io/gsDesign/" class="external-link">gsDesign</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://mvtnorm.R-forge.R-project.org" class="external-link">mvtnorm</a></span><span class="op">)</span></span>
@@ -130,14 +130,14 @@ study and the number of events are listed as</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">event_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">population</span>, <span class="op">~</span><span class="va">analysis</span>, <span class="op">~</span><span class="va">event</span>,</span>
-<span>  <span class="st">"A positive"</span>, <span class="fl">1</span>, <span class="fl">80</span>,</span>
-<span>  <span class="st">"B positive"</span>, <span class="fl">1</span>, <span class="fl">88</span>,</span>
-<span>  <span class="st">"AB positive"</span>, <span class="fl">1</span>, <span class="fl">64</span>,</span>
-<span>  <span class="st">"overall"</span>, <span class="fl">1</span>, <span class="fl">180</span>,</span>
-<span>  <span class="st">"A positive"</span>, <span class="fl">2</span>, <span class="fl">160</span>,</span>
-<span>  <span class="st">"B positive"</span>, <span class="fl">2</span>, <span class="fl">176</span>,</span>
-<span>  <span class="st">"AB positive"</span>, <span class="fl">2</span>, <span class="fl">128</span>,</span>
-<span>  <span class="st">"overall"</span>, <span class="fl">2</span>, <span class="fl">360</span>,</span>
+<span>  <span class="st">"A positive"</span>, <span class="fl">1</span>, <span class="fl">100</span>,</span>
+<span>  <span class="st">"B positive"</span>, <span class="fl">1</span>, <span class="fl">110</span>,</span>
+<span>  <span class="st">"AB positive"</span>, <span class="fl">1</span>, <span class="fl">80</span>,</span>
+<span>  <span class="st">"overall"</span>, <span class="fl">1</span>, <span class="fl">225</span>,</span>
+<span>  <span class="st">"A positive"</span>, <span class="fl">2</span>, <span class="fl">200</span>,</span>
+<span>  <span class="st">"B positive"</span>, <span class="fl">2</span>, <span class="fl">220</span>,</span>
+<span>  <span class="st">"AB positive"</span>, <span class="fl">2</span>, <span class="fl">160</span>,</span>
+<span>  <span class="st">"overall"</span>, <span class="fl">2</span>, <span class="fl">450</span>,</span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The observed p-values are</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -145,33 +145,33 @@ study and the number of events are listed as</p>
 <span>  <span class="op">~</span><span class="va">hypothesis</span>, <span class="op">~</span><span class="va">analysis</span>, <span class="op">~</span><span class="va">obs_p</span>,</span>
 <span>  <span class="st">"H1"</span>, <span class="fl">1</span>, <span class="fl">0.02</span>,</span>
 <span>  <span class="st">"H2"</span>, <span class="fl">1</span>, <span class="fl">0.01</span>,</span>
-<span>  <span class="st">"H3"</span>, <span class="fl">1</span>, <span class="fl">0.0096</span>,</span>
-<span>  <span class="st">"H1"</span>, <span class="fl">2</span>, <span class="fl">0.0015</span>,</span>
-<span>  <span class="st">"H2"</span>, <span class="fl">2</span>, <span class="fl">0.01</span>,</span>
-<span>  <span class="st">"H3"</span>, <span class="fl">2</span>, <span class="fl">0.004</span></span>
+<span>  <span class="st">"H3"</span>, <span class="fl">1</span>, <span class="fl">0.012</span>,</span>
+<span>  <span class="st">"H1"</span>, <span class="fl">2</span>, <span class="fl">0.015</span>,</span>
+<span>  <span class="st">"H2"</span>, <span class="fl">2</span>, <span class="fl">0.012</span>,</span>
+<span>  <span class="st">"H3"</span>, <span class="fl">2</span>, <span class="fl">0.010</span></span>
 <span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>obs_Z <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">qnorm</a></span><span class="op">(</span><span class="va">obs_p</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">obs_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Nominal p-values"</span><span class="op">)</span></span></code></pre></div>
-<div id="pyvdzjpylx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pyvdzjpylx table {
+<div id="njsrzmntqq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#njsrzmntqq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pyvdzjpylx thead, #pyvdzjpylx tbody, #pyvdzjpylx tfoot, #pyvdzjpylx tr, #pyvdzjpylx td, #pyvdzjpylx th {
+#njsrzmntqq thead, #njsrzmntqq tbody, #njsrzmntqq tfoot, #njsrzmntqq tr, #njsrzmntqq td, #njsrzmntqq th {
   border-style: none;
 }
 
-#pyvdzjpylx p {
+#njsrzmntqq p {
   margin: 0;
   padding: 0;
 }
 
-#pyvdzjpylx .gt_table {
+#njsrzmntqq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -197,12 +197,12 @@ study and the number of events are listed as</p>
   border-left-color: #D3D3D3;
 }
 
-#pyvdzjpylx .gt_caption {
+#njsrzmntqq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pyvdzjpylx .gt_title {
+#njsrzmntqq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -214,7 +214,7 @@ study and the number of events are listed as</p>
   border-bottom-width: 0;
 }
 
-#pyvdzjpylx .gt_subtitle {
+#njsrzmntqq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -226,7 +226,7 @@ study and the number of events are listed as</p>
   border-top-width: 0;
 }
 
-#pyvdzjpylx .gt_heading {
+#njsrzmntqq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -238,13 +238,13 @@ study and the number of events are listed as</p>
   border-right-color: #D3D3D3;
 }
 
-#pyvdzjpylx .gt_bottom_border {
+#njsrzmntqq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pyvdzjpylx .gt_col_headings {
+#njsrzmntqq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -259,7 +259,7 @@ study and the number of events are listed as</p>
   border-right-color: #D3D3D3;
 }
 
-#pyvdzjpylx .gt_col_heading {
+#njsrzmntqq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -279,7 +279,7 @@ study and the number of events are listed as</p>
   overflow-x: hidden;
 }
 
-#pyvdzjpylx .gt_column_spanner_outer {
+#njsrzmntqq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -291,15 +291,15 @@ study and the number of events are listed as</p>
   padding-right: 4px;
 }
 
-#pyvdzjpylx .gt_column_spanner_outer:first-child {
+#njsrzmntqq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pyvdzjpylx .gt_column_spanner_outer:last-child {
+#njsrzmntqq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pyvdzjpylx .gt_column_spanner {
+#njsrzmntqq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -311,11 +311,11 @@ study and the number of events are listed as</p>
   width: 100%;
 }
 
-#pyvdzjpylx .gt_spanner_row {
+#njsrzmntqq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pyvdzjpylx .gt_group_heading {
+#njsrzmntqq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -341,7 +341,7 @@ study and the number of events are listed as</p>
   text-align: left;
 }
 
-#pyvdzjpylx .gt_empty_group_heading {
+#njsrzmntqq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -356,15 +356,15 @@ study and the number of events are listed as</p>
   vertical-align: middle;
 }
 
-#pyvdzjpylx .gt_from_md > :first-child {
+#njsrzmntqq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pyvdzjpylx .gt_from_md > :last-child {
+#njsrzmntqq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pyvdzjpylx .gt_row {
+#njsrzmntqq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -383,7 +383,7 @@ study and the number of events are listed as</p>
   overflow-x: hidden;
 }
 
-#pyvdzjpylx .gt_stub {
+#njsrzmntqq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -396,7 +396,7 @@ study and the number of events are listed as</p>
   padding-right: 5px;
 }
 
-#pyvdzjpylx .gt_stub_row_group {
+#njsrzmntqq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -410,15 +410,15 @@ study and the number of events are listed as</p>
   vertical-align: top;
 }
 
-#pyvdzjpylx .gt_row_group_first td {
+#njsrzmntqq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pyvdzjpylx .gt_row_group_first th {
+#njsrzmntqq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pyvdzjpylx .gt_summary_row {
+#njsrzmntqq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -428,16 +428,16 @@ study and the number of events are listed as</p>
   padding-right: 5px;
 }
 
-#pyvdzjpylx .gt_first_summary_row {
+#njsrzmntqq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pyvdzjpylx .gt_first_summary_row.thick {
+#njsrzmntqq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pyvdzjpylx .gt_last_summary_row {
+#njsrzmntqq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -447,7 +447,7 @@ study and the number of events are listed as</p>
   border-bottom-color: #D3D3D3;
 }
 
-#pyvdzjpylx .gt_grand_summary_row {
+#njsrzmntqq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -457,7 +457,7 @@ study and the number of events are listed as</p>
   padding-right: 5px;
 }
 
-#pyvdzjpylx .gt_first_grand_summary_row {
+#njsrzmntqq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -467,7 +467,7 @@ study and the number of events are listed as</p>
   border-top-color: #D3D3D3;
 }
 
-#pyvdzjpylx .gt_last_grand_summary_row_top {
+#njsrzmntqq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -477,11 +477,11 @@ study and the number of events are listed as</p>
   border-bottom-color: #D3D3D3;
 }
 
-#pyvdzjpylx .gt_striped {
+#njsrzmntqq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pyvdzjpylx .gt_table_body {
+#njsrzmntqq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -490,7 +490,7 @@ study and the number of events are listed as</p>
   border-bottom-color: #D3D3D3;
 }
 
-#pyvdzjpylx .gt_footnotes {
+#njsrzmntqq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -504,7 +504,7 @@ study and the number of events are listed as</p>
   border-right-color: #D3D3D3;
 }
 
-#pyvdzjpylx .gt_footnote {
+#njsrzmntqq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -513,7 +513,7 @@ study and the number of events are listed as</p>
   padding-right: 5px;
 }
 
-#pyvdzjpylx .gt_sourcenotes {
+#njsrzmntqq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -527,7 +527,7 @@ study and the number of events are listed as</p>
   border-right-color: #D3D3D3;
 }
 
-#pyvdzjpylx .gt_sourcenote {
+#njsrzmntqq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -535,63 +535,63 @@ study and the number of events are listed as</p>
   padding-right: 5px;
 }
 
-#pyvdzjpylx .gt_left {
+#njsrzmntqq .gt_left {
   text-align: left;
 }
 
-#pyvdzjpylx .gt_center {
+#njsrzmntqq .gt_center {
   text-align: center;
 }
 
-#pyvdzjpylx .gt_right {
+#njsrzmntqq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pyvdzjpylx .gt_font_normal {
+#njsrzmntqq .gt_font_normal {
   font-weight: normal;
 }
 
-#pyvdzjpylx .gt_font_bold {
+#njsrzmntqq .gt_font_bold {
   font-weight: bold;
 }
 
-#pyvdzjpylx .gt_font_italic {
+#njsrzmntqq .gt_font_italic {
   font-style: italic;
 }
 
-#pyvdzjpylx .gt_super {
+#njsrzmntqq .gt_super {
   font-size: 65%;
 }
 
-#pyvdzjpylx .gt_footnote_marks {
+#njsrzmntqq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pyvdzjpylx .gt_asterisk {
+#njsrzmntqq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pyvdzjpylx .gt_indent_1 {
+#njsrzmntqq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pyvdzjpylx .gt_indent_2 {
+#njsrzmntqq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pyvdzjpylx .gt_indent_3 {
+#njsrzmntqq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pyvdzjpylx .gt_indent_4 {
+#njsrzmntqq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pyvdzjpylx .gt_indent_5 {
+#njsrzmntqq .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -611,38 +611,38 @@ study and the number of events are listed as</p>
 <tr>
 <td headers="hypothesis" class="gt_row gt_left">H1</td>
 <td headers="analysis" class="gt_row gt_right">1</td>
-<td headers="obs_p" class="gt_row gt_right">0.0200</td>
+<td headers="obs_p" class="gt_row gt_right">0.020</td>
 <td headers="obs_Z" class="gt_row gt_right">2.053749</td>
 </tr>
 <tr>
 <td headers="hypothesis" class="gt_row gt_left">H2</td>
 <td headers="analysis" class="gt_row gt_right">1</td>
-<td headers="obs_p" class="gt_row gt_right">0.0100</td>
+<td headers="obs_p" class="gt_row gt_right">0.010</td>
 <td headers="obs_Z" class="gt_row gt_right">2.326348</td>
 </tr>
 <tr>
 <td headers="hypothesis" class="gt_row gt_left">H3</td>
 <td headers="analysis" class="gt_row gt_right">1</td>
-<td headers="obs_p" class="gt_row gt_right">0.0096</td>
-<td headers="obs_Z" class="gt_row gt_right">2.341625</td>
+<td headers="obs_p" class="gt_row gt_right">0.012</td>
+<td headers="obs_Z" class="gt_row gt_right">2.257129</td>
 </tr>
 <tr>
 <td headers="hypothesis" class="gt_row gt_left">H1</td>
 <td headers="analysis" class="gt_row gt_right">2</td>
-<td headers="obs_p" class="gt_row gt_right">0.0015</td>
-<td headers="obs_Z" class="gt_row gt_right">2.967738</td>
+<td headers="obs_p" class="gt_row gt_right">0.015</td>
+<td headers="obs_Z" class="gt_row gt_right">2.170090</td>
 </tr>
 <tr>
 <td headers="hypothesis" class="gt_row gt_left">H2</td>
 <td headers="analysis" class="gt_row gt_right">2</td>
-<td headers="obs_p" class="gt_row gt_right">0.0100</td>
-<td headers="obs_Z" class="gt_row gt_right">2.326348</td>
+<td headers="obs_p" class="gt_row gt_right">0.012</td>
+<td headers="obs_Z" class="gt_row gt_right">2.257129</td>
 </tr>
 <tr>
 <td headers="hypothesis" class="gt_row gt_left">H3</td>
 <td headers="analysis" class="gt_row gt_right">2</td>
-<td headers="obs_p" class="gt_row gt_right">0.0040</td>
-<td headers="obs_Z" class="gt_row gt_right">2.652070</td>
+<td headers="obs_p" class="gt_row gt_right">0.010</td>
+<td headers="obs_Z" class="gt_row gt_right">2.326348</td>
 </tr>
 </tbody>
 </table>
@@ -720,18 +720,18 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 12 × 4</span></span></span>
 <span><span class="co">##       H1    H2 Analysis Event</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>     1     1        1    80</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>     2     2        1    88</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span>     3     3        1   180</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>     1     2        1    64</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>     1     3        1    80</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>     2     3        1    88</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>     1     1        2   160</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>     2     2        2   176</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span>     3     3        2   360</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span>     1     2        2   128</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span>     1     3        2   160</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">12</span>     2     3        2   176</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>     1     1        1   100</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>     2     2        1   110</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span>     3     3        1   225</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>     1     2        1    80</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>     1     3        1   100</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>     2     3        1   110</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>     1     1        2   200</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>     2     2        2   220</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span>     3     3        2   450</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span>     1     2        2   160</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span>     1     3        2   200</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span>     2     3        2   220</span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Generate correlation from events</span></span>
 <span><span class="va">gs_corr</span> <span class="op">&lt;-</span> <span class="fu">wpgsd</span><span class="fu">::</span><span class="fu"><a href="../reference/generate_corr.html">generate_corr</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span></span>
@@ -752,9 +752,14 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 </h3>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">seq_p_IA_H123</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -767,9 +772,14 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H12</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -782,9 +792,14 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H13</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -799,7 +814,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_IA_H23</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -812,9 +832,14 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -827,9 +852,14 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -842,9 +872,14 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">seq_p_IA_H3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
-<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
+<span>  test_analysis <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -859,7 +894,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <code class="sourceCode R"><span><span class="va">seq_p_IA_H123_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -874,7 +914,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_IA_H12_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -889,7 +934,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_IA_H13_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -904,7 +954,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_IA_H23_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -919,7 +974,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_IA_H1_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -934,7 +994,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_IA_H2_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -949,7 +1014,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_IA_H3_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">1</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -968,7 +1038,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <code class="sourceCode R"><span><span class="va">seq_p_FA_H123</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -983,7 +1058,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_FA_H12</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -998,7 +1078,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_FA_H13</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1013,7 +1098,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_FA_H23</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1028,7 +1118,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_FA_H1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1043,7 +1138,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_FA_H2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1058,7 +1158,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_FA_H3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1073,7 +1178,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <code class="sourceCode R"><span><span class="va">seq_p_FA_H123_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1088,7 +1198,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_FA_H12_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1103,7 +1218,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_FA_H13_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1118,7 +1238,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_FA_H23_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2, H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1133,7 +1258,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_FA_H1_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H1"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1148,7 +1278,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_FA_H2_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H2"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1163,7 +1298,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">seq_p_FA_H3_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_seq_p.html">calc_seq_p</a></span><span class="op">(</span></span>
 <span>  test_analysis <span class="op">=</span> <span class="fl">2</span>, <span class="co"># stage of interest</span></span>
 <span>  test_hypothesis <span class="op">=</span> <span class="st">"H3"</span>,</span>
-<span>  p_obs <span class="op">=</span> <span class="va">p_obs_IA</span>, <span class="co"># observed p-value</span></span>
+<span>  p_obs <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>    analysis <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>    H1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    H3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">p_obs_IA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">p_obs_FA</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, <span class="co"># observed p-value</span></span>
 <span>  alpha_spending_type <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  n_analysis <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  initial_weight <span class="op">=</span> <span class="va">w</span>,</span>
@@ -1188,14 +1328,14 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">adj_seq_IA_H3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_IA_H123</span>, <span class="va">seq_p_IA_H13</span>, <span class="va">seq_p_IA_H23</span>, <span class="va">seq_p_IA_H3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"The adjusted-sequential p-value of H1, H2, H3 in IA via WPGSD is"</span>, <span class="va">adj_seq_IA_H1</span>, <span class="va">adj_seq_IA_H2</span>, <span class="va">adj_seq_IA_H3</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in IA via WPGSD is 0.1677811 0.1574336 0.1574336</span></span></code></pre>
+<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in IA via WPGSD is 0.1635843 0.1635843 0.1635843</span></span></code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adj_seq_IA_H1_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_IA_H123_B</span>, <span class="va">seq_p_IA_H12_B</span>, <span class="va">seq_p_IA_H13_B</span>, <span class="va">seq_p_IA_H1_B</span><span class="op">)</span></span>
 <span><span class="va">adj_seq_IA_H2_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_IA_H123_B</span>, <span class="va">seq_p_IA_H12_B</span>, <span class="va">seq_p_IA_H23_B</span>, <span class="va">seq_p_IA_H2_B</span><span class="op">)</span></span>
 <span><span class="va">adj_seq_IA_H3_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_IA_H123_B</span>, <span class="va">seq_p_IA_H13_B</span>, <span class="va">seq_p_IA_H23_B</span>, <span class="va">seq_p_IA_H3_B</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni is"</span>, <span class="va">adj_seq_IA_H1_B</span>, <span class="va">adj_seq_IA_H2_B</span>, <span class="va">adj_seq_IA_H3_B</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni is 0.2013373 0.2013373 0.2013373</span></span></code></pre>
+<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni is 0.2097264 0.2097264 0.2097264</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="fa-1">FA<a class="anchor" aria-label="anchor" href="#fa-1"></a>
@@ -1209,14 +1349,14 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span><span class="va">adj_seq_FA_H3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_FA_H123</span>, <span class="va">seq_p_FA_H13</span>, <span class="va">seq_p_FA_H23</span>, <span class="va">seq_p_FA_H3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"The adjusted-sequential p-value of H1, H2, H3 in FA via WPGSD is"</span>, <span class="va">adj_seq_FA_H1</span>, <span class="va">adj_seq_FA_H2</span>, <span class="va">adj_seq_FA_H3</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in FA via WPGSD is 0.02107688 0.01987703 0.01987703</span></span></code></pre>
+<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in FA via WPGSD is 0.02097765 0.02097765 0.02058172</span></span></code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adj_seq_FA_H1_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_FA_H123_B</span>, <span class="va">seq_p_FA_H12_B</span>, <span class="va">seq_p_FA_H13_B</span>, <span class="va">seq_p_FA_H1_B</span><span class="op">)</span></span>
 <span><span class="va">adj_seq_FA_H2_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_FA_H123_B</span>, <span class="va">seq_p_FA_H12_B</span>, <span class="va">seq_p_FA_H23_B</span>, <span class="va">seq_p_FA_H2_B</span><span class="op">)</span></span>
 <span><span class="va">adj_seq_FA_H3_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">seq_p_FA_H123_B</span>, <span class="va">seq_p_FA_H13_B</span>, <span class="va">seq_p_FA_H23_B</span>, <span class="va">seq_p_FA_H3_B</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni is"</span>, <span class="va">adj_seq_FA_H1_B</span>, <span class="va">adj_seq_FA_H2_B</span>, <span class="va">adj_seq_FA_H3_B</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni is 0.02553192 0.02553192 0.02553192</span></span></code></pre>
+<pre><code><span><span class="co">## The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni is 0.0265823 0.0265823 0.0265823</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1267,23 +1407,23 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <span>    title <span class="op">=</span> <span class="st">"(Adjusted-) sequantial p-values"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"Multiple populations"</span></span>
 <span>  <span class="op">)</span> <span class="co"># %&gt;% gt::as_latex()</span></span></code></pre></div>
-<div id="iqhpldizkh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#iqhpldizkh table {
+<div id="chnhljbtvt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#chnhljbtvt table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#iqhpldizkh thead, #iqhpldizkh tbody, #iqhpldizkh tfoot, #iqhpldizkh tr, #iqhpldizkh td, #iqhpldizkh th {
+#chnhljbtvt thead, #chnhljbtvt tbody, #chnhljbtvt tfoot, #chnhljbtvt tr, #chnhljbtvt td, #chnhljbtvt th {
   border-style: none;
 }
 
-#iqhpldizkh p {
+#chnhljbtvt p {
   margin: 0;
   padding: 0;
 }
 
-#iqhpldizkh .gt_table {
+#chnhljbtvt .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1309,12 +1449,12 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-left-color: #D3D3D3;
 }
 
-#iqhpldizkh .gt_caption {
+#chnhljbtvt .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#iqhpldizkh .gt_title {
+#chnhljbtvt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1326,7 +1466,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-bottom-width: 0;
 }
 
-#iqhpldizkh .gt_subtitle {
+#chnhljbtvt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1338,7 +1478,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-top-width: 0;
 }
 
-#iqhpldizkh .gt_heading {
+#chnhljbtvt .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1350,13 +1490,13 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-right-color: #D3D3D3;
 }
 
-#iqhpldizkh .gt_bottom_border {
+#chnhljbtvt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#iqhpldizkh .gt_col_headings {
+#chnhljbtvt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1371,7 +1511,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-right-color: #D3D3D3;
 }
 
-#iqhpldizkh .gt_col_heading {
+#chnhljbtvt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1391,7 +1531,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   overflow-x: hidden;
 }
 
-#iqhpldizkh .gt_column_spanner_outer {
+#chnhljbtvt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1403,15 +1543,15 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 4px;
 }
 
-#iqhpldizkh .gt_column_spanner_outer:first-child {
+#chnhljbtvt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#iqhpldizkh .gt_column_spanner_outer:last-child {
+#chnhljbtvt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#iqhpldizkh .gt_column_spanner {
+#chnhljbtvt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1423,11 +1563,11 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   width: 100%;
 }
 
-#iqhpldizkh .gt_spanner_row {
+#chnhljbtvt .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#iqhpldizkh .gt_group_heading {
+#chnhljbtvt .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1453,7 +1593,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   text-align: left;
 }
 
-#iqhpldizkh .gt_empty_group_heading {
+#chnhljbtvt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1468,15 +1608,15 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   vertical-align: middle;
 }
 
-#iqhpldizkh .gt_from_md > :first-child {
+#chnhljbtvt .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#iqhpldizkh .gt_from_md > :last-child {
+#chnhljbtvt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#iqhpldizkh .gt_row {
+#chnhljbtvt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1495,7 +1635,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   overflow-x: hidden;
 }
 
-#iqhpldizkh .gt_stub {
+#chnhljbtvt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1508,7 +1648,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 5px;
 }
 
-#iqhpldizkh .gt_stub_row_group {
+#chnhljbtvt .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1522,15 +1662,15 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   vertical-align: top;
 }
 
-#iqhpldizkh .gt_row_group_first td {
+#chnhljbtvt .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#iqhpldizkh .gt_row_group_first th {
+#chnhljbtvt .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#iqhpldizkh .gt_summary_row {
+#chnhljbtvt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1540,16 +1680,16 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 5px;
 }
 
-#iqhpldizkh .gt_first_summary_row {
+#chnhljbtvt .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#iqhpldizkh .gt_first_summary_row.thick {
+#chnhljbtvt .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#iqhpldizkh .gt_last_summary_row {
+#chnhljbtvt .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1559,7 +1699,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-bottom-color: #D3D3D3;
 }
 
-#iqhpldizkh .gt_grand_summary_row {
+#chnhljbtvt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1569,7 +1709,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 5px;
 }
 
-#iqhpldizkh .gt_first_grand_summary_row {
+#chnhljbtvt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1579,7 +1719,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-top-color: #D3D3D3;
 }
 
-#iqhpldizkh .gt_last_grand_summary_row_top {
+#chnhljbtvt .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1589,11 +1729,11 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-bottom-color: #D3D3D3;
 }
 
-#iqhpldizkh .gt_striped {
+#chnhljbtvt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#iqhpldizkh .gt_table_body {
+#chnhljbtvt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1602,7 +1742,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-bottom-color: #D3D3D3;
 }
 
-#iqhpldizkh .gt_footnotes {
+#chnhljbtvt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1616,7 +1756,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-right-color: #D3D3D3;
 }
 
-#iqhpldizkh .gt_footnote {
+#chnhljbtvt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1625,7 +1765,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 5px;
 }
 
-#iqhpldizkh .gt_sourcenotes {
+#chnhljbtvt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1639,7 +1779,7 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   border-right-color: #D3D3D3;
 }
 
-#iqhpldizkh .gt_sourcenote {
+#chnhljbtvt .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1647,63 +1787,63 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
   padding-right: 5px;
 }
 
-#iqhpldizkh .gt_left {
+#chnhljbtvt .gt_left {
   text-align: left;
 }
 
-#iqhpldizkh .gt_center {
+#chnhljbtvt .gt_center {
   text-align: center;
 }
 
-#iqhpldizkh .gt_right {
+#chnhljbtvt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#iqhpldizkh .gt_font_normal {
+#chnhljbtvt .gt_font_normal {
   font-weight: normal;
 }
 
-#iqhpldizkh .gt_font_bold {
+#chnhljbtvt .gt_font_bold {
   font-weight: bold;
 }
 
-#iqhpldizkh .gt_font_italic {
+#chnhljbtvt .gt_font_italic {
   font-style: italic;
 }
 
-#iqhpldizkh .gt_super {
+#chnhljbtvt .gt_super {
   font-size: 65%;
 }
 
-#iqhpldizkh .gt_footnote_marks {
+#chnhljbtvt .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#iqhpldizkh .gt_asterisk {
+#chnhljbtvt .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#iqhpldizkh .gt_indent_1 {
+#chnhljbtvt .gt_indent_1 {
   text-indent: 5px;
 }
 
-#iqhpldizkh .gt_indent_2 {
+#chnhljbtvt .gt_indent_2 {
   text-indent: 10px;
 }
 
-#iqhpldizkh .gt_indent_3 {
+#chnhljbtvt .gt_indent_3 {
   text-indent: 15px;
 }
 
-#iqhpldizkh .gt_indent_4 {
+#chnhljbtvt .gt_indent_4 {
   text-indent: 20px;
 }
 
-#iqhpldizkh .gt_indent_5 {
+#chnhljbtvt .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1736,9 +1876,9 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <tr>
 <td headers="Analysis" class="gt_row gt_left">IA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H123</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.2013</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.2097</td>
 <td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">NA</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1574</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1636</td>
 <td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 </tr>
 <tr>
@@ -1752,98 +1892,98 @@ propagated to <span class="math inline">\(H_2\)</span>, and <span class="math in
 <tr>
 <td headers="Analysis" class="gt_row gt_left">IA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H13</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.1409</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.1468</td>
 <td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">NA</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1252</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1302</td>
 <td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">IA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H23</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.1409</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.1468</td>
 <td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">NA</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1232</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1282</td>
 <td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">IA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H1</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.1678</td>
-<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.2013</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1678</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">0.1678</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.1258</td>
+<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.2097</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.1258</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">0.1636</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">IA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H2</td>
 <td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0839</td>
-<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.2013</td>
+<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.2097</td>
 <td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.0839</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">0.1574</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">0.1636</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">IA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H3</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0805</td>
-<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.2013</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.0805</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">0.1574</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0839</td>
+<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.2097</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right">0.0839</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">0.1636</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">FA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H123</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0255</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0266</td>
 <td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">NA</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0199</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0206</td>
 <td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">FA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H12</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0213</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0255</td>
 <td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">NA</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0176</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0210</td>
 <td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">FA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H13</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0179</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0186</td>
 <td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">NA</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0158</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0165</td>
 <td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">FA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H23</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0179</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0186</td>
 <td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">NA</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0156</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0162</td>
 <td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right">NA</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">FA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H1</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0211</td>
-<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0255</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0211</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0211</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0159</td>
+<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0266</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0159</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0210</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">FA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H2</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0106</td>
-<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0255</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0106</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0199</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0127</td>
+<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0266</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0127</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0210</td>
 </tr>
 <tr>
 <td headers="Analysis" class="gt_row gt_left">FA</td>
 <td headers="Hypothesis" class="gt_row gt_left">H3</td>
-<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0102</td>
-<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0255</td>
-<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0102</td>
-<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0199</td>
+<td headers="Sequantial p-values of Weighted Bonferroni" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0106</td>
+<td headers="Adjusted-sequantial p-values of Weighted Bonferroni" class="gt_row gt_right">0.0266</td>
+<td headers="Sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0106</td>
+<td headers="Adjusted-sequantial p-values of WPGSD" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0206</td>
 </tr>
 </tbody>
 </table>
