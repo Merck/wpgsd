@@ -150,7 +150,7 @@ gs_corr <- wpgsd::generate_corr(event)
 gs_corr %>% round(2)
 ```
 
-# Sequantial p-value
+# Sequential p-value
 
 ## IA
 
@@ -767,7 +767,7 @@ cat("The adjusted-sequential p-value of H1, H2, H3 in FA via weighted Bonferroni
 
 ```{r}
 ans <- tribble(
-  ~Analysis, ~Hypothesis, ~`Sequantial p-values of WPGSD`, ~`Sequantial p-values of Weighted Bonferroni`, ~`Adjusted-sequantial p-values of WPGSD`, ~`Adjusted-sequantial p-values of Weighted Bonferroni`,
+  ~Analysis, ~Hypothesis, ~`Sequential p-values of WPGSD`, ~`Sequential p-values of Weighted Bonferroni`, ~`Adjusted-sequential p-values of WPGSD`, ~`Adjusted-sequential p-values of Weighted Bonferroni`,
   "IA", "H123", seq_p_IA_H123, seq_p_IA_H123_B, NA, NA,
   "IA", "H12", seq_p_IA_H12, seq_p_IA_H12_B, NA, NA,
   "IA", "H13", seq_p_IA_H13, seq_p_IA_H13_B, NA, NA,
@@ -787,17 +787,17 @@ ans <- tribble(
 ans %>%
   select(
     Analysis, Hypothesis,
-    `Sequantial p-values of Weighted Bonferroni`, `Adjusted-sequantial p-values of Weighted Bonferroni`,
-    `Sequantial p-values of WPGSD`, `Adjusted-sequantial p-values of WPGSD`
+    `Sequential p-values of Weighted Bonferroni`, `Adjusted-sequential p-values of Weighted Bonferroni`,
+    `Sequential p-values of WPGSD`, `Adjusted-sequential p-values of WPGSD`
   ) %>%
   gt::gt() %>%
   gt::tab_spanner(
     label = "Weighted Bonferroni",
-    columns = c(`Sequantial p-values of Weighted Bonferroni`, `Adjusted-sequantial p-values of Weighted Bonferroni`)
+    columns = c(`Sequential p-values of Weighted Bonferroni`, `Adjusted-sequential p-values of Weighted Bonferroni`)
   ) %>%
   gt::tab_spanner(
     label = "WPGSD",
-    columns = c(`Sequantial p-values of WPGSD`, `Adjusted-sequantial p-values of WPGSD`)
+    columns = c(`Sequential p-values of WPGSD`, `Adjusted-sequential p-values of WPGSD`)
   ) %>%
   gt::tab_style_body(
     columns = where(is.numeric),
@@ -806,7 +806,7 @@ ans %>%
   ) %>%
   gt::fmt_number(columns = 3:6, decimals = 4) %>%
   gt::tab_header(
-    title = "(Adjusted-) sequantial p-values",
+    title = "(Adjusted-) sequential p-values",
     subtitle = "Multiple populations"
   ) # %>% gt::as_latex()
 ```
