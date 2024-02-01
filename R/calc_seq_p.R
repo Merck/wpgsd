@@ -129,7 +129,7 @@ calc_seq_p <- function(
 
     p_diff <- NULL
     for (hhh in all_hypothesis) {
-      p_diff_new <- p_obs[[hhh]] - ans[[hhh]]
+      p_diff_new <- (p_obs %>% filter(analysis <= test_analysis))[[hhh]] - ans[[hhh]]
       p_diff <- c(p_diff, p_diff_new)
     }
 
