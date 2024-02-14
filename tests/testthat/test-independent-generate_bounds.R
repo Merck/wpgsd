@@ -1,9 +1,3 @@
-library(gsDesign)
-library(gMCPLite)
-library(tibble)
-library(mvtnorm)
-library(dplyr)
-
 test_that("BH bounds replicate tables A3 and A4", {
   # Example 1 BH weighting results in Table A3 and A4
   set.seed(1234)
@@ -19,7 +13,7 @@ test_that("BH bounds replicate tables A3 and A4", {
   w <- c(0.3, 0.3, 0.4)
 
   # Event count of intersection of paired hypotheses - Table 1
-  event <- tribble(
+  event <- tibble::tribble(
     ~H1, ~H2, ~Analysis, ~Event,
     1, 1, 1, 100,
     2, 2, 1, 110,
@@ -43,7 +37,7 @@ test_that("BH bounds replicate tables A3 and A4", {
   # WPGSD bounds, spending method 3b
   bound_WPGSD <- generate_bounds(
     type = 2, k = 2, w = w, m = m, corr = corr, alpha = 0.025,
-    sf = sfHSD,
+    sf = gsDesign::sfHSD,
     sfparm = -4,
     t = c(min(100 / 200, 110 / 220, 225 / 450), 1)
   )
@@ -51,27 +45,29 @@ test_that("BH bounds replicate tables A3 and A4", {
   # Bonferroni bounds
   bound_Bonf <- generate_bounds(
     type = 0, k = 2, w = w, m = m, corr = corr, alpha = 0.025,
-    sf = list(sfHSD, sfHSD, sfHSD),
+    sf = list(gsDesign::sfHSD, gsDesign::sfHSD, gsDesign::sfHSD),
     sfparm = list(-4, -4, -4),
     t = list(c(0.5, 1), c(0.5, 1), c(0.5, 1))
   )
 
   # Combine and back-calculate xi
-  bounds <- left_join(bound_Bonf, bound_WPGSD,
+  bounds <- dplyr::left_join(
+    bound_Bonf,
+    bound_WPGSD,
     by = c("Hypotheses", "Analysis"),
     suffix = c(".B", ".W")
   )
   bounds <- bounds %>%
-    rowwise() %>%
-    mutate(xi = sum(H1.W, H2.W, H3.W, na.rm = TRUE) /
+    dplyr::rowwise() %>%
+    dplyr::mutate(xi = sum(H1.W, H2.W, H3.W, na.rm = TRUE) /
       sum(H1.B, H2.B, H3.B, na.rm = TRUE))
   # Reorder for output
   bounds$order <- rep(c(5, 2, 1, 3, 6, 4, 7), 2)
-  bounds <- bounds %>% arrange(Analysis, order)
+  bounds <- bounds %>% dplyr::arrange(Analysis, order)
 
   # Z-statistics boundary, Table A4
   zbounds <- bounds %>%
-    mutate(
+    dplyr::mutate(
       zH1.B = -qnorm(H1.B),
       zH2.B = -qnorm(H2.B),
       zH3.B = -qnorm(H3.B),
@@ -234,7 +230,7 @@ test_that("BH bounds replicate tables A6 and A7", {
   w <- c(1 / 3, 1 / 3, 1 / 3)
 
   # Event count of intersection of paired hypotheses - Table 2
-  event <- tribble(
+  event <- tibble::tribble(
     ~H1, ~H2, ~Analysis, ~Event,
     1, 1, 1, 155,
     2, 2, 1, 160,
@@ -258,7 +254,7 @@ test_that("BH bounds replicate tables A6 and A7", {
   # WPGSD bounds, spending method 3c
   bound_WPGSD <- generate_bounds(
     type = 3, k = 2, w = w, m = m, corr = corr, alpha = 0.025,
-    sf = list(sfLDOF, sfLDOF, sfLDOF),
+    sf = list(gsDesign::sfLDOF, gsDesign::sfLDOF, gsDesign::sfLDOF),
     sfparm = list(0, 0, 0),
     t = list(c(155 / 305, 1), c(160 / 320, 1), c(165 / 335, 1))
   )
@@ -266,12 +262,14 @@ test_that("BH bounds replicate tables A6 and A7", {
   # Bonferroni bounds
   bound_Bonf <- generate_bounds(
     type = 0, k = 2, w = w, m = m, corr = corr, alpha = 0.025,
-    sf = list(sfLDOF, sfLDOF, sfLDOF),
+    sf = list(gsDesign::sfLDOF, gsDesign::sfLDOF, gsDesign::sfLDOF),
     sfparm = list(0, 0, 0),
     t = list(c(155 / 305, 1), c(160 / 320, 1), c(165 / 335, 1))
   )
 
-  bounds <- left_join(bound_Bonf, bound_WPGSD,
+  bounds <- dplyr::left_join(
+    bound_Bonf,
+    bound_WPGSD,
     by = c("Hypotheses", "Analysis"),
     suffix = c(".B", ".W")
   )
