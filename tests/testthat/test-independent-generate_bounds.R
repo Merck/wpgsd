@@ -214,7 +214,6 @@ test_that("BH bounds replicate tables A3 and A4", {
   expect_equal(wA4_result3_test, wA4_result3)
 })
 
-
 test_that("BH bounds replicate tables A6 and A7", {
   # From wpgsd github:
   # Example 2 BH weighting results in Table A6 and A7
