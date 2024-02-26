@@ -1,21 +1,21 @@
-a1 <- 80
-b1 <- 100
-ab1 <- 60
-a2 <- 120
-b2 <- 150
-ab2 <- 80
-
-event <- tibble::tribble(
-  ~H1, ~H2, ~Analysis, ~Event,
-  1, 1, 1, a1,
-  2, 2, 1, b1,
-  1, 2, 1, ab1,
-  1, 1, 2, a2,
-  2, 2, 2, b2,
-  1, 2, 2, ab2
-)
-
 test_that("2 endpoints 2 analysis correlation as expected", {
+  a1 <- 80
+  b1 <- 100
+  ab1 <- 60
+  a2 <- 120
+  b2 <- 150
+  ab2 <- 80
+
+  event <- tibble::tribble(
+    ~H1, ~H2, ~Analysis, ~Event,
+    1, 1, 1, a1,
+    2, 2, 1, b1,
+    1, 2, 1, ab1,
+    1, 1, 2, a2,
+    2, 2, 2, b2,
+    1, 2, 2, ab2
+  )
+
   corr <- generate_corr(event)
   corr_test <- matrix(
     c(
