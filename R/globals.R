@@ -19,6 +19,8 @@
 utils::globalVariables(
   unique(
     c(
+      # From `calc_seq_p()`
+      c("analysis"),
       # From `closed_test()`
       c("Analysis"),
       # From `generate_bounds()`

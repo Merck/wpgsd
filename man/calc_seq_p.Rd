@@ -7,8 +7,8 @@
 calc_seq_p(
   test_analysis = 2,
   test_hypothesis = "H1, H2, H3",
-  p_obs = tibble::tibble(analysis = 1:2, H1 = c(0.02, 0.0015), H2 = c(0.01, 0.01), H3 = c(0.01,
-    0.004)),
+  p_obs = tibble::tibble(analysis = 1:2, H1 = c(0.02, 0.0015), H2 = c(0.01, 0.01), H3 =
+    c(0.01, 0.004)),
   alpha_spending_type = 2,
   n_analysis = 2,
   initial_weight = c(0.3, 0.3, 0.4),
@@ -64,29 +64,38 @@ The sequential p-values of the \code{test_hypothesis} at the \code{test_analysis
 Calculate sequential p-values for interaction/elementary hypothesis
 }
 \examples{
+\donttest{
 calc_seq_p(
-   test_analysis = 2, 
-   test_hypothesis = "H1, H2, H3",
-   p_obs = tibble::tibble(analysis = 1:2, 
-                  H1 = c(0.02, 0.0015), 
-                  H2 = c(0.01, 0.01), 
-                  H3 = c(0.01, 0.004)), 
-   alpha_spending_type = 2,
-   n_analysis = 2,
-   initial_weight = c(0.3, 0.3, 0.4),
-   transition_mat = matrix(c(0.0000000, 0.4285714, 0.5714286,
-                             0.4285714, 0.0000000, 0.5714286,
-                             0.5000000, 0.5000000, 0.0000000), nrow = 3, byrow = TRUE),
-   z_corr = matrix(c(1.0000000, 0.7627701, 0.6666667, 0.7071068, 0.5393599, 0.4714045,
-                     0.7627701, 1.0000000, 0.6992059, 0.5393599, 0.7071068, 0.4944132,
-                     0.6666667, 0.6992059, 1.0000000, 0.4714045, 0.4944132, 0.7071068,
-                     0.7071068, 0.5393599, 0.4714045, 1.0000000, 0.7627701, 0.6666667,
-                     0.5393599, 0.7071068, 0.4944132, 0.7627701, 1.0000000, 0.6992059,
-                     0.4714045, 0.4944132, 0.7071068, 0.6666667, 0.6992059, 1.0000000),
-                   nrow = 6, byrow = TRUE),
-   spending_fun = gsDesign::sfHSD,
-   spending_fun_par = -4,
-   info_frac = c(0.5, 1),
-   interval = c(1e-4, 0.2) 
-   )
+  test_analysis = 2,
+  test_hypothesis = "H1, H2, H3",
+  p_obs = tibble::tibble(
+    analysis = 1:2,
+    H1 = c(0.02, 0.0015),
+    H2 = c(0.01, 0.01),
+    H3 = c(0.01, 0.004)
+  ),
+  alpha_spending_type = 2,
+  n_analysis = 2,
+  initial_weight = c(0.3, 0.3, 0.4),
+  transition_mat = matrix(c(
+    0.0000000, 0.4285714, 0.5714286,
+    0.4285714, 0.0000000, 0.5714286,
+    0.5000000, 0.5000000, 0.0000000
+  ), nrow = 3, byrow = TRUE),
+  z_corr = matrix(
+    c(
+      1.0000000, 0.7627701, 0.6666667, 0.7071068, 0.5393599, 0.4714045,
+      0.7627701, 1.0000000, 0.6992059, 0.5393599, 0.7071068, 0.4944132,
+      0.6666667, 0.6992059, 1.0000000, 0.4714045, 0.4944132, 0.7071068,
+      0.7071068, 0.5393599, 0.4714045, 1.0000000, 0.7627701, 0.6666667,
+      0.5393599, 0.7071068, 0.4944132, 0.7627701, 1.0000000, 0.6992059,
+      0.4714045, 0.4944132, 0.7071068, 0.6666667, 0.6992059, 1.0000000
+    ),
+    nrow = 6, byrow = TRUE
+  ),
+  spending_fun = gsDesign::sfHSD,
+  spending_fun_par = -4,
+  info_frac = c(0.5, 1),
+  interval = c(1e-4, 0.2)
+)}
 }

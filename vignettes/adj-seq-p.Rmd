@@ -16,13 +16,11 @@ vignette: >
 ---
 
 ```{r, message = FALSE, warning = FALSE}
+library(wpgsd)
+library(gsDesign)
 library(tibble)
 library(gt)
-library(gsDesign)
 library(dplyr)
-library(mvtnorm)
-library(ggplot2)
-library(wpgsd)
 ```
 
 # Example overview
@@ -790,23 +788,23 @@ ans %>%
     `Sequential p-values of Weighted Bonferroni`, `Adjusted-sequential p-values of Weighted Bonferroni`,
     `Sequential p-values of WPGSD`, `Adjusted-sequential p-values of WPGSD`
   ) %>%
-  gt::gt() %>%
-  gt::tab_spanner(
+  gt() %>%
+  tab_spanner(
     label = "Weighted Bonferroni",
     columns = c(`Sequential p-values of Weighted Bonferroni`, `Adjusted-sequential p-values of Weighted Bonferroni`)
   ) %>%
-  gt::tab_spanner(
+  tab_spanner(
     label = "WPGSD",
     columns = c(`Sequential p-values of WPGSD`, `Adjusted-sequential p-values of WPGSD`)
   ) %>%
-  gt::tab_style_body(
+  tab_style_body(
     columns = where(is.numeric),
     style = cell_fill(color = "pink"),
     fn = function(x) x <= 0.025
   ) %>%
-  gt::fmt_number(columns = 3:6, decimals = 4) %>%
-  gt::tab_header(
+  fmt_number(columns = 3:6, decimals = 4) %>%
+  tab_header(
     title = "(Adjusted-) sequential p-values",
     subtitle = "Multiple populations"
-  ) # %>% gt::as_latex()
+  ) # %>% as_latex()
 ```

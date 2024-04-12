@@ -44,6 +44,7 @@
 #' @export
 #'
 #' @examples
+#' \donttest{
 #' calc_seq_p(
 #'   test_analysis = 2,
 #'   test_hypothesis = "H1, H2, H3",
@@ -76,7 +77,7 @@
 #'   spending_fun_par = -4,
 #'   info_frac = c(0.5, 1),
 #'   interval = c(1e-4, 0.2)
-#' )
+#' )}
 calc_seq_p <- function(
     test_analysis = 2,
     test_hypothesis = "H1, H2, H3",
