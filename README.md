@@ -14,11 +14,31 @@ in the control arm.
 
 ## Installation
 
-Install the development version of wpgsd from GitHub:
+The easiest way to get wpgsd is to install from CRAN:
 
 ```r
+install.packages("wpgsd")
+```
+
+Alternatively, to use a new feature or get a bug fix,
+you can install the development version of wpgsd from GitHub:
+
+```r
+# install.packages("remotes")
 remotes::install_github("Merck/wpgsd")
 ```
+
+## Current limitations
+
+There are some limitations that are currently being addressed.
+Please use the package with caution in production environments.
+
+- The current implementation may have limitations when handling more
+  complex scenarios beyond what has been demonstrated.
+- The API is subject to potential breaking changes as it is currently
+  being reviewed and refactored.
+- Further validation is needed to ensure the reliability of the package.
+- More documentation is expected in the future releases.
 
 ## References
 
