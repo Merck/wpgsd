@@ -1,0 +1,120 @@
+---
+title: "Correlation Matrix Calculation"
+author: "Chenguang Zhang"
+date: "2024-05-14"
+output: html_document
+---
+
+The weighted parametric group sequential design (WPGSD) (Anderson et al. (2022)) approach allows one to take advantage of the known correlation structure in constructing efficacy bounds to control family-wise error rate (FWER) for a group sequential design. Here correlation may be due to common observations in nested populations, due to common observations in overlapping populations, or due to common observations in the control arm. 
+
+## Notation
+
+Suppose that in a group sequential trial there are $m$ elementary null hypotheses $H_i$, $i \in I={1,...,m}$, and there are $K$ analyses. Let $k$ be the index for the interim analyses and final analyses, $k=1,2,...K$. For any noempty set $J \subseteq I$, we denote the intersection hypothesis $H_J=\cap_{j \in J}H_j$. We note that $H_I$ is the global null hypothesis.
+
+We assume the plan is for all hypotheses to be tested at each of the $k$ planned analyses if the trial continues to the end for all hypotheses. We further assume that the distribution of the $m \times K$ tests of $m$ individual hypotheses at all $k$ analyses is multivariate normal with a completely known correlation matrix. 
+
+Let $Z_{ik}$ be the standardized normal test statistic for hypothesis $i \in I$, analysis $1 \le k \le K$. Let $n_{ik}$ be the number of events collected cumulatively through stage $k$ for hypothesis $i$. Then $n_{i \wedge i',k \wedge k'}$ is the number of events included in both $Z_{ik}$ and $i$, $i' \in I$, $1 \le k$, $k' \le K$. The key of the parametric tests to utilize the correlation among the test statistics. The correlation between $Z_{ik}$ and $Z_{i'k'}$ is
+$$Corr(Z_{ik},Z_{i'k'})=\frac{n_{i \wedge i',k \wedge k'}}{\sqrt{n_{ik}*n_{i'k'}}}$$. 
+
+## Examples
+
+In a 2-arm controlled clinical trial example with one primary endpoint, there are 3 patient populations defined by the status of two biomarkers A and B:
+
+* Biomarker A positive, the population 1,
+* Biomarker B positive, the population 2,
+* Overall population.
+
+The 3 primary elementary hypotheses are:
+
+* H1: the experimental treatment is superior to the control in the population 1
+* H2: the experimental treatment is superior to the control in the population 2
+* H3: the experimental treatment is superior to the control in the overall population
+  
+Assume an interim analysis and a final analysis are planned for the study. The number of events are listed as
+```{r}
+library(dplyr)
+library(tibble)
+library(gt)
+event_tb <- tribble(
+  ~Population, ~"Number of Event in IA", ~"Number of Event in FA",
+  "Population 1", 100,200,
+  "Population 2",  110,220,
+  "Overlap of Population 1 and 2", 80,160,
+  "Overall Population", 225, 450
+)
+event_tb %>%
+  gt() %>%
+  tab_header(title = "Number of events at each population")
+```
+
+### Example 1 - Same Analyses Different Population
+Let's consider a simple situation, we want to compare the population 1 and population 2 in only interim analyses. Then $k=1$, and to compare $H_{1}$ and $H_{2}$, the $i$ will be $i=1$ and $i=2$. 
+The correlation matrix will be
+$$Corr(Z_{11},Z_{21})=\frac{n_{1 \wedge 2,1 \wedge 1}}{\sqrt{n_{11}*n_{21}}}$$
+The number of events are listed as
+```{r}
+event_tbl <- tribble(
+  ~Population, ~"Number of Event in IA",
+  "Population 1", 100,
+  "Population 2",  110,
+  "Overlap in population 1 and 2", 80
+)
+event_tbl %>%
+  gt() %>%
+  tab_header(title = "Number of events at each population in example 1")
+```
+The the corrleation could be simply calculated as 
+$$Corr(Z_{11},Z_{21})=\frac{80}{\sqrt{100*110}}=0.76$$
+```{r}
+Corr1=80/sqrt(100*110)
+round(Corr1,2)
+```
+
+### Example 2 - Same Population Different Analyses
+Let's consider another simple situation, we want to compare single population, for example population 1, but in different analyses, interim and final analyses. Then  $i=1$, and to compare IA and FA, the $k$ will be $k=1$ and $k=2$. 
+The correlation matrix will be
+$$Corr(Z_{11},Z_{12})=\frac{n_{1 \wedge 1,1 \wedge 2}}{\sqrt{n_{11}*n_{12}}}$$
+The number of events are listed as
+```{r}
+event_tb2 <- tribble(
+  ~Population, ~"Number of Event in IA", ~"Number of Event in FA",
+  "Population 1", 100,200
+)
+event_tb2 %>%
+  gt() %>%
+  tab_header(title = "Number of events at each analyses in example 2")
+```
+The the corrleation could be simply calculated as 
+$$Corr(Z_{11},Z_{12})=\frac{100}{\sqrt{100*200}}=0.71$$
+```{r}
+Corr1=100/sqrt(100*200)
+round(Corr1,2)
+```
+### Example 3 - Cross Population Cross Analyses
+Let's consider the situation that we want to compare population 1 in interim analyses and population 2 in final analyses. Then for different population, $i=1$ and $i=2$, and to compare IA and FA, the $k$ will be $k=1$ and $k=2$. 
+The correlation matrix will be
+$$Corr(Z_{11},Z_{22})=\frac{n_{1 \wedge 1,2 \wedge 2}}{\sqrt{n_{11}*n_{22}}}$$
+The number of events are listed as
+```{r}
+event_tb3 <- tribble(
+  ~Population, ~"Number of Event in IA", ~"Number of Event in FA",
+  "Population 1", 100,200,
+  "Population 2", 110, 220,
+  "Overlap in population 1 and 2", 80,160
+
+)
+event_tb3 %>%
+  gt() %>%
+  tab_header(title = "Number of events at each population & analyses in example 3")
+```
+The the corrleation could be simply calculated as 
+$$Corr(Z_{11},Z_{22})=\frac{80}{\sqrt{100*220}}=0.54$$
+```{r}
+Corr1=80/sqrt(100*220)
+round(Corr1,2)
+```
+Now we know how to calculate the correlation values under different situations, and the generate_corr function was built based on this logic. We can directly calculate the results for each cross situation via the function. See code below.
+```{r}
+#library(wpgsd)
+
+```
