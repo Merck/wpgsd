@@ -37,9 +37,9 @@ library(tibble)
 library(gt)
 event_tb <- tribble(
   ~Population, ~"Number of Event in IA", ~"Number of Event in FA",
-  "Population 1", 100,200,
-  "Population 2",  110,220,
-  "Overlap of Population 1 and 2", 80,160,
+  "Population 1", 100, 200,
+  "Population 2", 110, 220,
+  "Overlap of Population 1 and 2", 80, 160,
   "Overall Population", 225, 450
 )
 event_tb %>%
@@ -56,7 +56,7 @@ The number of events are listed as
 event_tbl <- tribble(
   ~Population, ~"Number of Event in IA",
   "Population 1", 100,
-  "Population 2",  110,
+  "Population 2", 110,
   "Overlap in population 1 and 2", 80
 )
 event_tbl %>%
@@ -66,8 +66,8 @@ event_tbl %>%
 The the corrleation could be simply calculated as 
 $$Corr(Z_{11},Z_{21})=\frac{80}{\sqrt{100*110}}=0.76$$
 ```{r}
-Corr1=80/sqrt(100*110)
-round(Corr1,2)
+Corr1 <- 80 / sqrt(100 * 110)
+round(Corr1, 2)
 ```
 
 ### Example 2 - Same Population Different Analyses
@@ -78,7 +78,7 @@ The number of events are listed as
 ```{r}
 event_tb2 <- tribble(
   ~Population, ~"Number of Event in IA", ~"Number of Event in FA",
-  "Population 1", 100,200
+  "Population 1", 100, 200
 )
 event_tb2 %>%
   gt() %>%
@@ -87,8 +87,8 @@ event_tb2 %>%
 The the corrleation could be simply calculated as 
 $$Corr(Z_{11},Z_{12})=\frac{100}{\sqrt{100*200}}=0.71$$
 ```{r}
-Corr1=100/sqrt(100*200)
-round(Corr1,2)
+Corr1 <- 100 / sqrt(100 * 200)
+round(Corr1, 2)
 ```
 ### Example 3 - Cross Population Cross Analyses
 Let's consider the situation that we want to compare population 1 in interim analyses and population 2 in final analyses. Then for different population, $i=1$ and $i=2$, and to compare IA and FA, the $k$ will be $k=1$ and $k=2$. 
@@ -98,10 +98,9 @@ The number of events are listed as
 ```{r}
 event_tb3 <- tribble(
   ~Population, ~"Number of Event in IA", ~"Number of Event in FA",
-  "Population 1", 100,200,
+  "Population 1", 100, 200,
   "Population 2", 110, 220,
-  "Overlap in population 1 and 2", 80,160
-
+  "Overlap in population 1 and 2", 80, 160
 )
 event_tb3 %>%
   gt() %>%
@@ -110,11 +109,10 @@ event_tb3 %>%
 The the corrleation could be simply calculated as 
 $$Corr(Z_{11},Z_{22})=\frac{80}{\sqrt{100*220}}=0.54$$
 ```{r}
-Corr1=80/sqrt(100*220)
-round(Corr1,2)
+Corr1 <- 80 / sqrt(100 * 220)
+round(Corr1, 2)
 ```
 Now we know how to calculate the correlation values under different situations, and the generate_corr function was built based on this logic. We can directly calculate the results for each cross situation via the function. See code below.
 ```{r}
-#library(wpgsd)
-
+# library(wpgsd)
 ```
