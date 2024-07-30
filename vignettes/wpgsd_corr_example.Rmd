@@ -3,9 +3,10 @@ title: "Correlation Matrix Calculation"
 author: "Chenguang Zhang"
 date: "2024-05-14"
 output: html_document
+bibliography: citations.bib
 ---
 
-The weighted parametric group sequential design (WPGSD) (Anderson et al. (2022)) approach allows one to take advantage of the known correlation structure in constructing efficacy bounds to control family-wise error rate (FWER) for a group sequential design. Here correlation may be due to common observations in nested populations, due to common observations in overlapping populations, or due to common observations in the control arm. 
+The weighted parametric group sequential design (WPGSD) (@anderson_unified_2022) approach allows one to take advantage of the known correlation structure in constructing efficacy bounds to control family-wise error rate (FWER) for a group sequential design. Here correlation may be due to common observations in nested populations, due to common observations in overlapping populations, or due to common observations in the control arm. 
 
 ## Notation
 
@@ -18,7 +19,7 @@ $$Corr(Z_{ik},Z_{i'k'})=\frac{n_{i \wedge i',k \wedge k'}}{\sqrt{n_{ik}*n_{i'k'}
 
 ## Examples
 
-In a 2-arm controlled clinical trial example with one primary endpoint, there are 3 patient populations defined by the status of two biomarkers A and B:
+In a 2-arm controlled clinical trial example with one primary endpoint (@anderson_unified_2022), there are 3 patient populations defined by the status of two biomarkers A and B :
 
 * Biomarker A positive, the population 1,
 * Biomarker B positive, the population 2,
@@ -31,14 +32,17 @@ The 3 primary elementary hypotheses are:
 * H3: the experimental treatment is superior to the control in the overall population
   
 Assume an interim analysis and a final analysis are planned for the study. The number of events are listed as
-```{r}
+```{r,message=FALSE}
 library(dplyr)
 library(tibble)
 library(gt)
+```
+
+```{r}
 event_tb <- tribble(
   ~Population, ~"Number of Event in IA", ~"Number of Event in FA",
-  "Population 1", 100, 200,
-  "Population 2", 110, 220,
+  "Population 1", 100,200,
+  "Population 2",  110,220,
   "Overlap of Population 1 and 2", 80, 160,
   "Overall Population", 225, 450
 )
@@ -47,7 +51,7 @@ event_tb %>%
   tab_header(title = "Number of events at each population")
 ```
 
-### Example 1 - Same Analyses Different Population
+### Example 1 - Correlation of different populations within the same analysis
 Let's consider a simple situation, we want to compare the population 1 and population 2 in only interim analyses. Then $k=1$, and to compare $H_{1}$ and $H_{2}$, the $i$ will be $i=1$ and $i=2$. 
 The correlation matrix will be
 $$Corr(Z_{11},Z_{21})=\frac{n_{1 \wedge 2,1 \wedge 1}}{\sqrt{n_{11}*n_{21}}}$$
@@ -56,7 +60,7 @@ The number of events are listed as
 event_tbl <- tribble(
   ~Population, ~"Number of Event in IA",
   "Population 1", 100,
-  "Population 2", 110,
+  "Population 2",  110,
   "Overlap in population 1 and 2", 80
 )
 event_tbl %>%
@@ -66,19 +70,19 @@ event_tbl %>%
 The the corrleation could be simply calculated as 
 $$Corr(Z_{11},Z_{21})=\frac{80}{\sqrt{100*110}}=0.76$$
 ```{r}
-Corr1 <- 80 / sqrt(100 * 110)
-round(Corr1, 2)
+Corr1=80/sqrt(100*110)
+round(Corr1,2)
 ```
 
-### Example 2 - Same Population Different Analyses
-Let's consider another simple situation, we want to compare single population, for example population 1, but in different analyses, interim and final analyses. Then  $i=1$, and to compare IA and FA, the $k$ will be $k=1$ and $k=2$. 
+### Example 2 - Correlation of different analyses within the same population
+Let's consider another simple situation, we want to compare single population, for example, the population 1, but in different analyses, interim and final analyses. Then  $i=1$, and to compare IA and FA, the $k$ will be $k=1$ and $k=2$. 
 The correlation matrix will be
 $$Corr(Z_{11},Z_{12})=\frac{n_{1 \wedge 1,1 \wedge 2}}{\sqrt{n_{11}*n_{12}}}$$
 The number of events are listed as
 ```{r}
 event_tb2 <- tribble(
   ~Population, ~"Number of Event in IA", ~"Number of Event in FA",
-  "Population 1", 100, 200
+  "Population 1", 100,200
 )
 event_tb2 %>%
   gt() %>%
@@ -86,11 +90,12 @@ event_tb2 %>%
 ```
 The the corrleation could be simply calculated as 
 $$Corr(Z_{11},Z_{12})=\frac{100}{\sqrt{100*200}}=0.71$$
+The 100 in the numerator is the overlap number of events of interim analysis and final analysis in population 1.
 ```{r}
-Corr1 <- 100 / sqrt(100 * 200)
-round(Corr1, 2)
+Corr1=100/sqrt(100*200)
+round(Corr1,2)
 ```
-### Example 3 - Cross Population Cross Analyses
+### Example 3 - Correlation of different analyses and different population
 Let's consider the situation that we want to compare population 1 in interim analyses and population 2 in final analyses. Then for different population, $i=1$ and $i=2$, and to compare IA and FA, the $k$ will be $k=1$ and $k=2$. 
 The correlation matrix will be
 $$Corr(Z_{11},Z_{22})=\frac{n_{1 \wedge 1,2 \wedge 2}}{\sqrt{n_{11}*n_{22}}}$$
@@ -98,165 +103,57 @@ The number of events are listed as
 ```{r}
 event_tb3 <- tribble(
   ~Population, ~"Number of Event in IA", ~"Number of Event in FA",
-  "Population 1", 100, 200,
+  "Population 1", 100,200,
   "Population 2", 110, 220,
-  "Overlap in population 1 and 2", 80, 160
+  "Overlap in population 1 and 2", 80,160
+
 )
 event_tb3 %>%
   gt() %>%
   tab_header(title = "Number of events at each population & analyses in example 3")
 ```
-The the corrleation could be simply calculated as 
+The correlation could be simply calculated as 
 $$Corr(Z_{11},Z_{22})=\frac{80}{\sqrt{100*220}}=0.54$$
+The 80 in the numerator is the overlap number of events of population 1 in interim analysis and population 2 in final analysis.
 ```{r}
-Corr1 <- 80 / sqrt(100 * 220)
-round(Corr1, 2)
+Corr1=80/sqrt(100*220)
+round(Corr1,2)
 ```
-Now we know how to calculate the correlation values under different situations, and the generate_corr function was built based on this logic. We can directly calculate the results for each cross situation via the function. 
+Now we know how to calculate the correlation values under different situations, and the generate_corr() function was built based on this logic. We can directly calculate the results for each cross situation via the function. 
 
-First, we need a event table including the information of the cohort.
-
+First, we need a event table including the information of the study.
 
 ```{r}
 library(wpgsd)
-# The event table
+#The event table
 event <- tibble::tribble(
-  ~H1, ~H2, ~Analysis, ~Event,
-  1, 1, 1, 100,
-  2, 2, 1, 110,
-  3, 3, 1, 225,
-  1, 2, 1, 80,
-  1, 3, 1, 100,
-  2, 3, 1, 110,
-  1, 1, 2, 200,
-  2, 2, 2, 220,
-  3, 3, 2, 450,
-  1, 2, 2, 160,
-  1, 3, 2, 200,
-  2, 3, 2, 220
-)
+   ~ H1, ~H2, ~Analysis, ~Event,
+   1, 1, 1, 100,
+   2, 2, 1, 110,
+   3, 3, 1, 225,
+   1, 2, 1, 80,
+   1, 3, 1, 100,
+   2, 3, 1, 110,
+   1, 1, 2, 200,
+   2, 2, 2, 220,
+   3, 3, 2, 450,
+   1, 2, 2, 160,
+   1, 3, 2, 200,
+   2, 3, 2, 220
+ )
 event %>%
   gt() %>%
   tab_header(title = "Number of events at each population & analyses")
 ```
-"H1" means the experimental treatment is superior to the control in the population 1/experimental arm 1; "H2" means the experimental treatment is superior to the control in the population 2/experimental arm 2; "Analysis" means different analysis stages, for example, 1 means the interim analysis, and 2 means the final analysis; and the "Event" means the number of events in this condition. 
+* "H1" refers to one hypothesis, selected depending on the interest, while "H2" refers to the other hypothesis, both of which are listed for multiplicity testing. For example, "H1" means the experimental treatment is superior to the control in the population 1/experimental arm 1; "H2" means the experimental treatment is superior to the control in the population 2/experimental arm 2; 
+
+* "Analysis" means different analysis stages, for example, 1 means the interim analysis, and 2 means the final analysis;
+
+* "Event" is the common events overlap by H1 and H2.
+
 
 For example: H1=1, H2=1, Analysis=1, Event=100 means in the first population, there are 100 cases of experimental treatment is superior to the control in the interim analysis.
 
 Another example: H1=1, H2=2, Analysis=2, Event=160 means the overlap number of experimental treatment superior to the control in population 1 and 2 in the final analysis is 160.
 
-*To be noticed, the column names in this function are fixed to be 'H1, H2, Analysis, Event'.                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-After we have the event table, we can use generate_corr function to calculate correlation.
-
-```{r}
-all_corr <- round(generate_corr(event), 2)
-colnames(all_corr) <- c("P1, IA", "P2, IA", "P3, IA", "P1, FA", "P2, FA", "P3, FA")
-rownames(all_corr) <- c("P1, IA", "P2, IA", "P3, IA", "P1, FA", "P2, FA", "P3, FA")
-all_corr
-```
-* P1/P2: Population 1/2; IA: Interim analysis; FA: Final analysis
-
-### Some situations could be considered:
-Situation 1: The number of events in one of the population is extremely small.
-
-For example, the number of events in population 1 is very small. 
-
-The code will still give you the results
-
-```{r}
-event <- tibble::tribble(
-  ~H1, ~H2, ~Analysis, ~Event,
-  1, 1, 1, 5,
-  2, 2, 1, 1100,
-  3, 3, 1, 2250,
-  1, 2, 1, 4,
-  1, 3, 1, 2,
-  2, 3, 1, 1100,
-  1, 1, 2, 8,
-  2, 2, 2, 2200,
-  3, 3, 2, 4500,
-  1, 2, 2, 6,
-  1, 3, 2, 7,
-  2, 3, 2, 2200
-)
-all_corr <- round(generate_corr(event), 2)
-colnames(all_corr) <- c("Population 1, IA", "P2, IA", "P3, IA", "P1, FA", "P2, FA", "P3, FA")
-rownames(all_corr) <- c("Population 1, IA", "P2, IA", "P3, IA", "P1, FA", "P2, FA", "P3, FA")
-all_corr
-```
-
-Situation 2: The overlap between population 1&2 is 0
-
-The code will still give you results but with some correlations are 0
-
-```{r}
-event <- tibble::tribble(
-  ~H1, ~H2, ~Analysis, ~Event,
-  1, 1, 1, 100,
-  2, 2, 1, 110,
-  3, 3, 1, 225,
-  1, 2, 1, 0,
-  1, 3, 1, 100,
-  2, 3, 1, 110,
-  1, 1, 2, 200,
-  2, 2, 2, 220,
-  3, 3, 2, 450,
-  1, 2, 2, 0,
-  1, 3, 2, 200,
-  2, 3, 2, 220
-)
-all_corr <- round(generate_corr(event), 2)
-colnames(all_corr) <- c("Population 1, IA", "P2, IA", "P3, IA", "P1, FA", "P2, FA", "P3, FA")
-rownames(all_corr) <- c("Population 1, IA", "P2, IA", "P3, IA", "P1, FA", "P2, FA", "P3, FA")
-all_corr
-```
-
-Situation 3-1: The number of events number mistakenly been recorded as negative
-
-The warning message will be displayed, and NA's have been generated.
-```{r}
-event <- tibble::tribble(
-  ~H1, ~H2, ~Analysis, ~Event,
-  1, 1, 1, -100,
-  2, 2, 1, 110,
-  3, 3, 1, 225,
-  1, 2, 1, 80,
-  1, 3, 1, 100,
-  2, 3, 1, 110,
-  1, 1, 2, -200,
-  2, 2, 2, 220,
-  3, 3, 2, 450,
-  1, 2, 2, 160,
-  1, 3, 2, 200,
-  2, 3, 2, 220
-)
-all_corr <- round(generate_corr(event), 2)
-colnames(all_corr) <- c("Population 1, IA", "P2, IA", "P3, IA", "P1, FA", "P2, FA", "P3, FA")
-rownames(all_corr) <- c("Population 1, IA", "P2, IA", "P3, IA", "P1, FA", "P2, FA", "P3, FA")
-all_corr
-```
-
-Situation 3-2: The number of overlap events number mistakenly been recorded as negative
-
-No warning or error message generated. But the correlation could be negative, which is misleading information. Please be careful and check data before go to the next step.
-```{r}
-event <- tibble::tribble(
-  ~H1, ~H2, ~Analysis, ~Event,
-  1, 1, 1, 100,
-  2, 2, 1, 110,
-  3, 3, 1, 225,
-  1, 2, 1, -80,
-  1, 3, 1, 100,
-  2, 3, 1, 110,
-  1, 1, 2, 200,
-  2, 2, 2, 220,
-  3, 3, 2, 450,
-  1, 2, 2, -160,
-  1, 3, 2, 200,
-  2, 3, 2, 220
-)
-all_corr <- round(generate_corr(event), 2)
-colnames(all_corr) <- c("Population 1, IA", "P2, IA", "P3, IA", "P1, FA", "P2, FA", "P3, FA")
-rownames(all_corr) <- c("Population 1, IA", "P2, IA", "P3, IA", "P1, FA", "P2, FA", "P3, FA")
-all_corr
-```
+*To be noticed, the column names in this function are fixed to be 'H1, H2, Analysis, Event'.
