@@ -1,60 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://merck.github.io/wpgsd/404.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/articles/adj-seq-p.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/articles/tech-detail-wb.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/articles/wpgsd.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/index.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/reference/calc_seq_p.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/reference/closed_test.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/reference/find_astar.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/reference/find_xi.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/reference/generate_bounds.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/reference/generate_corr.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/reference/generate_event_table.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/reference/tidyeval.html</loc>
-  </url>
-  <url>
-    <loc>https://merck.github.io/wpgsd/reference/wpgsd-package.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://merck.github.io/wpgsd/404.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/LICENSE-text.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/articles/adj-seq-p.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/articles/corr_calculation.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/articles/index.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/articles/tech-detail-wb.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/articles/wpgsd.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/authors.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/index.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/news/index.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/reference/calc_seq_p.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/reference/closed_test.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/reference/find_astar.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/reference/find_xi.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/reference/generate_bounds.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/reference/generate_corr.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/reference/generate_event_table.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/reference/index.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/reference/tidyeval.html</loc></url>
+<url><loc>https://merck.github.io/wpgsd/reference/wpgsd-package.html</loc></url>
 </urlset>
+
