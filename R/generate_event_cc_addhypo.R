@@ -5,36 +5,36 @@ generate_event_table_cc <- function(input_data, hypothesis) {
     analysis = integer(),
     common_events = integer()
   )
-  
+
   # Iterate through the input data to calculate the events
-  for (i in 1:length(hypothesis)) {  # number of hypothesis
-    for (j in i:length(hypothesis)) {  # 
-      for (k in 1:(ncol(input_data)-1)) {  # Iterate through the analyses
+  for (i in 1:length(hypothesis)) { # number of hypothesis
+    for (j in i:length(hypothesis)) { #
+      for (k in 1:(ncol(input_data) - 1)) { # Iterate through the analyses
         if (i != j) {
           hyp_i <- unlist(strsplit(hypothesis[[i]], " vs. "))
           hyp_j <- unlist(strsplit(hypothesis[[j]], " vs. "))
           common_factor <- intersect(hyp_i, hyp_j)
-          event <- input_data[input_data$Population == common_factor,k+1]
+          event <- input_data[input_data$Population == common_factor, k + 1]
         } else {
-          event <- input_data[i, k+1] + input_data[input_data$Population == "Control", k+1]
+          event <- input_data[i, k + 1] + input_data[input_data$Population == "Control", k + 1]
         }
-        
+
         result_df <- rbind(result_df, tibble(
-          one_hypothesis  = i,
-          another_hypothesis  = j,
+          one_hypothesis = i,
+          another_hypothesis = j,
           analysis = k,
           common_events = event
         ))
       }
     }
   }
-  
+
   # Remove duplicate rows
   result_df <- result_df[!duplicated(result_df), ]
-  
+
   # Sort the output by H1, H2, and analysis
-  result_df <- result_df[order(result_df$one_hypothesis , result_df$another_hypothesis , result_df$analysis), ]
-  
+  result_df <- result_df[order(result_df$one_hypothesis, result_df$another_hypothesis, result_df$analysis), ]
+
   return(result_df)
 }
 
@@ -44,9 +44,11 @@ input_data <- data.frame(
   FA = c(135, 150, 165, 170)
 )
 
-hypothesis <- list(H1 = "Experimental 1 vs. Control",
-                   H2 = "Experimental 2 vs. Control",
-                   H3 = "Experimental 1 vs. Experimental 2")
+hypothesis <- list(
+  H1 = "Experimental 1 vs. Control",
+  H2 = "Experimental 2 vs. Control",
+  H3 = "Experimental 1 vs. Experimental 2"
+)
 
 input_data
 hypothesis
