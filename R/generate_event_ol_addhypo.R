@@ -1,3 +1,28 @@
+#' generate event table in overall population
+#'
+#' @param input_data input data in overall population situation
+#' @param hypothesis comparison group
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' input_data <- data.frame(
+#'Population = c("Population 1", "Population 2", "Population 1 ∩ 2", "Overall population"),
+#'IA = c(100, 110, 80, 225),
+#'FA = c(200, 220, 160, 450)
+#')
+#'
+#'hypothesis <- list(
+#'  H1 = "Efficacy in Population 1",
+#'  H2 = "Efficacy in Population 2",
+#'  H3 = "Efficacy in Overall population"
+#')
+#'
+#'result_table <- generate_event_table_ol(input_data, hypothesis)
+#'sorted_data <- result_table[order(result_table$analysis), ]
+#'print(sorted_data)
+
 generate_event_table_ol <- function(input_data, hypothesis) {
   result_df <- tibble(
     one_hypothesis = integer(),
@@ -42,21 +67,4 @@ generate_event_table_ol <- function(input_data, hypothesis) {
   return(result_df)
 }
 
-input_data <- data.frame(
-  Population = c("Population 1", "Population 2", "Population 1 ∩ 2", "Overall population"),
-  IA = c(100, 110, 80, 225),
-  FA = c(200, 220, 160, 450)
-)
 
-hypothesis <- list(
-  H1 = "Efficacy in Population 1",
-  H2 = "Efficacy in Population 2",
-  H3 = "Efficacy in Overall population"
-)
-
-input_data
-hypothesis
-
-result_table <- generate_event_table_ol(input_data, hypothesis)
-sorted_data <- result_table[order(result_table$analysis), ]
-print(sorted_data)
