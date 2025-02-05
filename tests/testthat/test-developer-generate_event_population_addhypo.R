@@ -7,7 +7,7 @@ test_that("Generate event table ol returns the expected sorted data", {
   )
 
   input_data <- data.frame(
-    Population = c("Population 1", "Population 2", "Population 1 $\u2229$ 2", "Overall population"),
+    Population = c("Population 1", "Population 2", "Population 1 Intersection 2", "Overall population"),
     IA = c(100, 110, 80, 225),
     FA = c(200, 220, 160, 450)
   )

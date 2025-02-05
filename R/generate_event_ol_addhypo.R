@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' input_data <- data.frame(
-#'   Population = c("Population 1", "Population 2", "Population 1 $\u2229$ 2", "Overall population"),
+#'   Population = c("Population 1", "Population 2", "Population 1 Intersection 2", "Overall population"),
 #'   IA = c(100, 110, 80, 225),
 #'   FA = c(200, 220, 160, 450)
 #' )
@@ -47,7 +47,7 @@ generate_event_table_ol <- function(input_data, hypothesis) {
         } else if ("Overall population" %in% c(hyp_i, hyp_j)) {
           event <- input_data[i, k + 1]
         } else {
-          event <- input_data[input_data$Population == "Population 1 $\u2229$ 2", k + 1]
+          event <- input_data[input_data$Population == "Population 1 Intersection 2", k + 1]
         }
 
         result_df <- rbind(result_df, tibble(
