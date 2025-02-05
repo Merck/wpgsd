@@ -54,7 +54,7 @@
 #' sorted_data <- result_table[order(result_table$analysis), ]
 #' print(sorted_data)
 generate_event_table_1 <- function(input_data, hypothesis, type = c("common_control", "overlap_population")) {
-  type <-   match.arg(type)
+  type <- match.arg(type)
 
   result_df <- tibble(
     one_hypothesis = integer(),
