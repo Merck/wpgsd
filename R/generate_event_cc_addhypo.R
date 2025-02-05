@@ -8,20 +8,20 @@
 #'
 #' @examples
 #' input_data <- data.frame(
-#'Population = c("Experimental 1", "Experimental 2", "Experimental 3", "Control"),
-#'IA = c(70, 75, 80, 85),
-#'FA = c(135, 150, 165, 170)
-#')
+#'   Population = c("Experimental 1", "Experimental 2", "Experimental 3", "Control"),
+#'   IA = c(70, 75, 80, 85),
+#'   FA = c(135, 150, 165, 170)
+#' )
 #'
-#'hypothesis <- list(
-#'  H1 = "Experimental 1 vs. Control",
-#'  H2 = "Experimental 2 vs. Control",
-#'  H3 = "Experimental 1 vs. Experimental 2"
-#')
+#' hypothesis <- list(
+#'   H1 = "Experimental 1 vs. Control",
+#'   H2 = "Experimental 2 vs. Control",
+#'   H3 = "Experimental 1 vs. Experimental 2"
+#' )
 #'
-#'result_table <- generate_event_table_cc(input_data, hypothesis)
-#'sorted_data <- result_table[order(result_table$analysis), ]
-#'print(sorted_data)
+#' result_table <- generate_event_table_cc(input_data, hypothesis)
+#' sorted_data <- result_table[order(result_table$analysis), ]
+#' print(sorted_data)
 #'
 generate_event_table_cc <- function(input_data, hypothesis) {
   result_df <- tibble(
@@ -62,5 +62,3 @@ generate_event_table_cc <- function(input_data, hypothesis) {
 
   return(result_df)
 }
-
-
