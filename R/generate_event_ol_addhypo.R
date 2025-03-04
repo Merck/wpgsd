@@ -73,7 +73,7 @@ generate_event_table_ol <- function(input_data, hypothesis) {
           analysis = k,
           common_events = event
         ))
-        result_df<- result_table[order(result_table$analysis), ]
+        result_df<- result_df[order(result_table$analysis), ]
       }
     }
   }
