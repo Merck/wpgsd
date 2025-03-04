@@ -1,15 +1,33 @@
-#' generate event table in overall population
+#' generate_event_table_ol
 #'
-#' @param input_data input data in overall population situation
-#' @param hypothesis comparison group
+#' This function generates a table of events for specified populations based on the provided hypotheses.
 #'
-#' @return
+#' @param input_data A dataframe containing at least two columns: one for the population (e.g., "Population 1", "Population 2") 
+#'                   and one or more columns indicating the number of events observed during analyses (e.g., interim and final analyses).
+#'                   The first column must be named 'Population', and it should include total counts for each specified population:
+#'                   - "Population 1"
+#'                   - "Population 2"
+#'                   - "Population 1 Intersection 2" (the intersection of events observed in both populations)
+#'                   - "Overall population" (the total count of events observed across all populations).
+#'                   
+#' @param hypothesis A list of strings where each item represents a hypothesis regarding efficacy, formatted as follows:
+#'                   - H1: "Efficacy in Population 1"
+#'                   - H2: "Efficacy in Population 2"
+#'                   - H3: "Efficacy in Overall population"
+#'                   Each hypothesis is used for comparisons in the generated event table.
+#'
+#' @return A dataframe with the following columns:
+#'   - `one_hypothesis`: The index of the first selected hypothesis from the provided list.
+#'   - `another_hypothesis`: The index of the second selected hypothesis from the provided list.
+#'   - `analysis`: The index indicating which analysis is being performed (e.g., interim or final).
+#'   - `common_events`: The calculated number of common events associated with the selected hypotheses.
+#'
 #' @export
 #'
 #' @examples
 #' input_data <- data.frame(
 #'   Population = c("Population 1", "Population 2", "Population 1 Intersection 2", "Overall population"),
-#'   IA = c(100, 110, 80, 225),
+#'   IA = c(100, 110, 80, 225), # Interim Analysis values indicating the number of events observed in each group
 #'   FA = c(200, 220, 160, 450)
 #' )
 #'
@@ -19,9 +37,8 @@
 #'   H3 = "Efficacy in Overall population"
 #' )
 #'
-#' result_table <- generate_event_table_ol(input_data, hypothesis)
-#' sorted_data <- result_table[order(result_table$analysis), ]
-#' print(sorted_data)
+#' generate_event_table_ol(input_data, hypothesis)
+
 generate_event_table_ol <- function(input_data, hypothesis) {
   result_df <- tibble(
     one_hypothesis = integer(),
@@ -56,12 +73,11 @@ generate_event_table_ol <- function(input_data, hypothesis) {
           analysis = k,
           common_events = event
         ))
+        result_df<- result_table[order(result_table$analysis), ]
       }
     }
   }
 
-  result_df <- result_df[!duplicated(result_df), ]
-  result_df <- result_df[order(result_df$one_hypothesis, result_df$another_hypothesis, result_df$analysis), ]
-
   return(result_df)
 }
+

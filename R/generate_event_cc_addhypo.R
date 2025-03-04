@@ -1,15 +1,23 @@
-#' generate event table in common control
+#' generate_event_table_cc
 #'
-#' @param input_data input data in common control situation
-#' @param hypothesis comparison group
+#' This function generates a table of events for given experimental arms and a control group based on specified hypotheses.
 #'
-#' @return
-#' @export
+#' @param input_data A dataframe containing at least two columns: one for the population (experimental arms and control) 
+#'                   and one or more columns for analyses (e.g., interim and final analyses).The analysis columns must be numerical values 
+#'                   representing the number of events observed during the interim and/or final analyses.
+#' @param hypothesis A list containing hypotheses specifying comparisons between experimental arms and the control group, 
+#'                   as well as comparisons among experimental arms.
+#'
+#' @return A dataframe with columns:
+#'   - `one_hypothesis`: The index of the first selected hypothesis from the provided list.
+#'   - `another_hypothesis`: The index of the second selected hypothesis from the provided list.
+#'   - `analysis`: The index indicating which analysis is being performed (e.g., interim or final).
+#'   - `common_events`: The calculated number of common events associated with the selected hypotheses.
 #'
 #' @examples
 #' input_data <- data.frame(
 #'   Population = c("Experimental 1", "Experimental 2", "Experimental 3", "Control"),
-#'   IA = c(70, 75, 80, 85),
+#'   IA = c(70, 75, 80, 85), # Interim Analysis values indicating the number of events observed in each group
 #'   FA = c(135, 150, 165, 170)
 #' )
 #'
@@ -19,9 +27,7 @@
 #'   H3 = "Experimental 1 vs. Experimental 2"
 #' )
 #'
-#' result_table <- generate_event_table_cc(input_data, hypothesis)
-#' sorted_data <- result_table[order(result_table$analysis), ]
-#' print(sorted_data)
+#' generate_event_table_cc(input_data, hypothesis)
 #'
 generate_event_table_cc <- function(input_data, hypothesis) {
   result_df <- tibble(
@@ -33,7 +39,7 @@ generate_event_table_cc <- function(input_data, hypothesis) {
 
   # Iterate through the input data to calculate the events
   for (i in 1:length(hypothesis)) { # number of hypothesis
-    for (j in i:length(hypothesis)) { #
+    for (j in i:length(hypothesis)) { 
       for (k in 1:(ncol(input_data) - 1)) { # Iterate through the analyses
         if (i != j) {
           hyp_i <- unlist(strsplit(hypothesis[[i]], " vs. "))
@@ -50,15 +56,10 @@ generate_event_table_cc <- function(input_data, hypothesis) {
           analysis = k,
           common_events = event
         ))
+        result_df<- result_table[order(result_table$analysis), ]
       }
     }
   }
-
-  # Remove duplicate rows
-  result_df <- result_df[!duplicated(result_df), ]
-
-  # Sort the output by H1, H2, and analysis
-  result_df <- result_df[order(result_df$one_hypothesis, result_df$another_hypothesis, result_df$analysis), ]
-
   return(result_df)
 }
+
