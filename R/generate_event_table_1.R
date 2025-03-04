@@ -1,17 +1,17 @@
 #' generate_event_table_1
 #'
-#' This function creates a table summarizing event counts based on specified hypotheses and user input data. 
+#' This function creates a table summarizing event counts based on specified hypotheses and user input data.
 #' It can handle two types of analysis: one comparing experimental groups to a common control and another analyzing the overlap of populations.
 #'
 #' @param input_data A dataframe containing at least two columns: one for the population (experimental arms, control, or overall populations)
 #'                   and one or more columns for event counts observed during analyses (e.g., interim and final analyses).
 #'                   The first column must be named 'Population', with subsequent columns (e.g., `IA`, `FA`) reflecting the event counts.
-#'                   
+#'
 #' @param hypothesis A list containing hypotheses that specify the comparisons to be made between the groups:
-#'                   - For example: 
+#'                   - For example:
 #'                     - "Experimental 1 vs. Control"
 #'                     - "Efficacy in Population 1"
-#'                   
+#'
 #' @param type A character string specifying the type of analysis to conduct. It should be one of the following:
 #'             - `"common_control"`: Analyze the event counts comparing experimental groups to common control.
 #'             - `"overlap_population"`: Analyze the event counts to assess overlap in populations.
@@ -33,8 +33,8 @@
 #' )
 #'
 #' hypothesis <- list(
-#'   H1 = "Experimental 1 vs. Control",  # Hypothesis comparing Experimental 1 with Control.
-#'   H2 = "Experimental 2 vs. Control",  # Hypothesis comparing Experimental 2 with Control.
+#'   H1 = "Experimental 1 vs. Control", # Hypothesis comparing Experimental 1 with Control.
+#'   H2 = "Experimental 2 vs. Control", # Hypothesis comparing Experimental 2 with Control.
 #'   H3 = "Experimental 1 vs. Experimental 2" # Hypothesis comparing Experimental 1 and Experimental 2.
 #' )
 #'
@@ -48,13 +48,12 @@
 #' )
 #'
 #' hypothesis <- list(
-#'   H1 = "Efficacy in Population 1",               # Hypothesis assessing efficacy in Population 1.
-#'   H2 = "Efficacy in Population 2",               # Hypothesis assessing efficacy in Population 2.
-#'   H3 = "Efficacy in Overall population"           # Hypothesis assessing efficacy in the overall population.
+#'   H1 = "Efficacy in Population 1", # Hypothesis assessing efficacy in Population 1.
+#'   H2 = "Efficacy in Population 2", # Hypothesis assessing efficacy in Population 2.
+#'   H3 = "Efficacy in Overall population" # Hypothesis assessing efficacy in the overall population.
 #' )
 #'
 #' generate_event_table_1(input_data, hypothesis, type = "overlap_population")
-#'
 #'
 generate_event_table_1 <- function(input_data, hypothesis, type = c("common_control", "overlap_population")) {
   type <- match.arg(type)

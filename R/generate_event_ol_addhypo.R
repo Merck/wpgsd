@@ -2,14 +2,14 @@
 #'
 #' This function generates a table of events for specified populations based on the provided hypotheses.
 #'
-#' @param input_data A dataframe containing at least two columns: one for the population (e.g., "Population 1", "Population 2") 
+#' @param input_data A dataframe containing at least two columns: one for the population (e.g., "Population 1", "Population 2")
 #'                   and one or more columns indicating the number of events observed during analyses (e.g., interim and final analyses).
 #'                   The first column must be named 'Population', and it should include total counts for each specified population:
 #'                   - "Population 1"
 #'                   - "Population 2"
 #'                   - "Population 1 Intersection 2" (the intersection of events observed in both populations)
 #'                   - "Overall population" (the total count of events observed across all populations).
-#'                   
+#'
 #' @param hypothesis A list of strings where each item represents a hypothesis regarding efficacy, formatted as follows:
 #'                   - H1: "Efficacy in Population 1"
 #'                   - H2: "Efficacy in Population 2"
@@ -38,7 +38,6 @@
 #' )
 #'
 #' generate_event_table_ol(input_data, hypothesis)
-
 generate_event_table_ol <- function(input_data, hypothesis) {
   result_df <- tibble(
     one_hypothesis = integer(),
@@ -73,7 +72,7 @@ generate_event_table_ol <- function(input_data, hypothesis) {
           analysis = k,
           common_events = event
         ))
-        result_df<- result_df[order(result_df$analysis), ]
+        result_df <- result_df[order(result_df$analysis), ]
       }
     }
   }
@@ -81,16 +80,16 @@ generate_event_table_ol <- function(input_data, hypothesis) {
   return(result_df)
 }
 
- input_data <- data.frame(
-   Population = c("Population 1", "Population 2", "Population 1 Intersection 2", "Overall population"),
-   IA = c(100, 110, 80, 225), # Interim Analysis values indicating the number of events observed in each group
-   FA = c(200, 220, 160, 450)
- )
+input_data <- data.frame(
+  Population = c("Population 1", "Population 2", "Population 1 Intersection 2", "Overall population"),
+  IA = c(100, 110, 80, 225), # Interim Analysis values indicating the number of events observed in each group
+  FA = c(200, 220, 160, 450)
+)
 
- hypothesis <- list(
-   H1 = "Efficacy in Population 1",
-   H2 = "Efficacy in Population 2",
-   H3 = "Efficacy in Overall population"
- )
+hypothesis <- list(
+  H1 = "Efficacy in Population 1",
+  H2 = "Efficacy in Population 2",
+  H3 = "Efficacy in Overall population"
+)
 
- generate_event_table_ol(input_data, hypothesis)
+generate_event_table_ol(input_data, hypothesis)

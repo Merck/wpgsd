@@ -2,10 +2,10 @@
 #'
 #' This function generates a table of events for given experimental arms and a control group based on specified hypotheses.
 #'
-#' @param input_data A dataframe containing at least two columns: one for the population (experimental arms and control) 
-#'                   and one or more columns for analyses (e.g., interim and final analyses).The analysis columns must be numerical values 
+#' @param input_data A dataframe containing at least two columns: one for the population (experimental arms and control)
+#'                   and one or more columns for analyses (e.g., interim and final analyses).The analysis columns must be numerical values
 #'                   representing the number of events observed during the interim and/or final analyses.
-#' @param hypothesis A list containing hypotheses specifying comparisons between experimental arms and the control group, 
+#' @param hypothesis A list containing hypotheses specifying comparisons between experimental arms and the control group,
 #'                   as well as comparisons among experimental arms.
 #'
 #' @return A dataframe with columns:
@@ -39,7 +39,7 @@ generate_event_table_cc <- function(input_data, hypothesis) {
 
   # Iterate through the input data to calculate the events
   for (i in 1:length(hypothesis)) { # number of hypothesis
-    for (j in i:length(hypothesis)) { 
+    for (j in i:length(hypothesis)) {
       for (k in 1:(ncol(input_data) - 1)) { # Iterate through the analyses
         if (i != j) {
           hyp_i <- unlist(strsplit(hypothesis[[i]], " vs. "))
@@ -56,10 +56,9 @@ generate_event_table_cc <- function(input_data, hypothesis) {
           analysis = k,
           common_events = event
         ))
-        result_df<- result_df[order(result_df$analysis), ]
+        result_df <- result_df[order(result_df$analysis), ]
       }
     }
   }
   return(result_df)
 }
-
