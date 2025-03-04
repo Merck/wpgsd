@@ -56,7 +56,7 @@ generate_event_table_cc <- function(input_data, hypothesis) {
           analysis = k,
           common_events = event
         ))
-        result_df<- result_df[order(result_table$analysis), ]
+        result_df<- result_df[order(result_df$analysis), ]
       }
     }
   }

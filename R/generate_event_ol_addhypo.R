@@ -73,7 +73,7 @@ generate_event_table_ol <- function(input_data, hypothesis) {
           analysis = k,
           common_events = event
         ))
-        result_df<- result_df[order(result_table$analysis), ]
+        result_df<- result_df[order(result_df$analysis), ]
       }
     }
   }
@@ -81,3 +81,16 @@ generate_event_table_ol <- function(input_data, hypothesis) {
   return(result_df)
 }
 
+ input_data <- data.frame(
+   Population = c("Population 1", "Population 2", "Population 1 Intersection 2", "Overall population"),
+   IA = c(100, 110, 80, 225), # Interim Analysis values indicating the number of events observed in each group
+   FA = c(200, 220, 160, 450)
+ )
+
+ hypothesis <- list(
+   H1 = "Efficacy in Population 1",
+   H2 = "Efficacy in Population 2",
+   H3 = "Efficacy in Overall population"
+ )
+
+ generate_event_table_ol(input_data, hypothesis)
