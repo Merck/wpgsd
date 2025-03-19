@@ -6,7 +6,7 @@ test_that("Generate event table ol returns the expected sorted data", {
     common_events = c(100, 80, 100, 110, 110, 225, 200, 160, 200, 220, 220, 450)
   )
 
-  input_data <- data.frame(
+  event_data <- data.frame(
     Population = c("Population 1", "Population 2", "Population 1 Intersection 2", "Overall population"),
     IA = c(100, 110, 80, 225),
     FA = c(200, 220, 160, 450)
@@ -18,7 +18,7 @@ test_that("Generate event table ol returns the expected sorted data", {
     H3 = "Efficacy in Overall population"
   )
 
-  result_table <- generate_event_table_ol(input_data, hypothesis)
+  result_table <- generate_event_table_ol(event_data, hypothesis)
 
   expect_identical(result_table, expected_data)
 })
