@@ -32,20 +32,19 @@
 #'
 #' #----------------------Example of two IAs and FA
 #' event_data <- data.frame(
-#'Population = c("Experimental 1", "Experimental 2", "Experimental 3", "Control"),
-#'IA1 = c(70, 75, 80, 85),  # First Interim Analysis values indicating the number of events observed in each group
-#'IA2 = c(90, 95, 100, 105), # Second Interim Analysis values indicating the number of events observed in each group
-#'FA = c(135, 150, 165, 170) 
-#')
+#'   Population = c("Experimental 1", "Experimental 2", "Experimental 3", "Control"),
+#'   IA1 = c(70, 75, 80, 85), # First Interim Analysis values indicating the number of events observed in each group
+#'   IA2 = c(90, 95, 100, 105), # Second Interim Analysis values indicating the number of events observed in each group
+#'   FA = c(135, 150, 165, 170)
+#' )
 #'
-#'hypothesis <- list(
-#'  H1 = "Experimental 1 vs. Control",
-#'  H2 = "Experimental 2 vs. Control",
-#'  H3 = "Experimental 1 vs. Experimental 2"
-#')
+#' hypothesis <- list(
+#'   H1 = "Experimental 1 vs. Control",
+#'   H2 = "Experimental 2 vs. Control",
+#'   H3 = "Experimental 1 vs. Experimental 2"
+#' )
 #'
-#'generate_event_table_cc(event_data, hypothesis)
-
+#' generate_event_table_cc(event_data, hypothesis)
 generate_event_table_cc <- function(event_data, hypothesis) {
   result_df <- tibble(
     one_hypothesis = integer(),

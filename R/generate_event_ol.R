@@ -34,22 +34,22 @@
 #' )
 #'
 #' generate_event_table_ol(event_data, hypothesis)
-#' 
+#'
 #' #----------------------Example of two IAs and FA
 #' event_data <- data.frame(
-#'Population = c("Population 1", "Population 2", "Population 1 Intersection 2", "Overall population"),
-#'IA1 = c(100, 110, 80, 225), # First Interim Analysis values indicating the number of events observed in each group
-#'IA2 = c(120, 130, 90, 240), # Second Interim Analysis values indicating the number of events observed in each group
-#'FA = c(200, 220, 160, 450)
-#')
+#'   Population = c("Population 1", "Population 2", "Population 1 Intersection 2", "Overall population"),
+#'   IA1 = c(100, 110, 80, 225), # First Interim Analysis values indicating the number of events observed in each group
+#'   IA2 = c(120, 130, 90, 240), # Second Interim Analysis values indicating the number of events observed in each group
+#'   FA = c(200, 220, 160, 450)
+#' )
 #'
-#'hypothesis <- list(
-#'  H1 = "Efficacy in Population 1",
-#'  H2 = "Efficacy in Population 2",
-#'  H3 = "Efficacy in Overall population"
-#')
+#' hypothesis <- list(
+#'   H1 = "Efficacy in Population 1",
+#'   H2 = "Efficacy in Population 2",
+#'   H3 = "Efficacy in Overall population"
+#' )
 #'
-#'generate_event_table_ol(event_data, hypothesis)
+#' generate_event_table_ol(event_data, hypothesis)
 #'
 generate_event_table_ol <- function(event_data, hypothesis) {
   result_df <- tibble(
@@ -92,5 +92,3 @@ generate_event_table_ol <- function(event_data, hypothesis) {
 
   return(result_df)
 }
-
-
