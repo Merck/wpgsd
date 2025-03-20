@@ -1,7 +1,7 @@
 #' This function creates a table summarizing event counts based on specified hypotheses and user input data.
 #' It can handle two types of analysis: one comparing experimental groups to a common control and another analyzing the overlap of populations.
 #'
-#' @param event_data` dataframe should have the following structure:
+#' @param event` dataframe should have the following structure:
 #'   - `Population`: A character vector indicating the population groups. For example, "Population 1", "Population 2", "Overall population" in overlap population situation; or experimental arms and control in common control situation.
 #'   - `IA`: Numeric vector indicating the number of events observed in each group during interim analysis.
 #'   - `FA`: Numeric vector indicating the number of events observed in each group during final analysis.
@@ -25,7 +25,7 @@
 #'
 #' @examples
 #' # ----------------------- Example of common control
-#' event_data <- data.frame(
+#' event <- data.frame(
 #'   Population = c("Experimental 1", "Experimental 2", "Experimental 3", "Control"),
 #'   IA = c(70, 75, 80, 85), # Interim analysis values indicating the number of events observed in each experimental group.
 #'   FA = c(135, 150, 165, 170) # Final analysis values indicating the cumulative number of events observed in each group.
@@ -37,10 +37,10 @@
 #'   H3 = "Experimental 1 vs. Experimental 2" # Hypothesis comparing Experimental 1 and Experimental 2.
 #' )
 #'
-#' generate_event_table_(event_data, hypothesis, type = "common_control")
+#' generate_event_table_(event, hypothesis, type = "common_control")
 #'
 #' # ------------------------ Example of overall population
-#' event_data <- data.frame(
+#' event <- data.frame(
 #'   Population = c("Population 1", "Population 2", "Population 1 Intersection 2", "Overall population"),
 #'   IA = c(100, 110, 80, 225), # Interim analysis values for the overall population.
 #'   FA = c(200, 220, 160, 450) # Final analysis values for the overall population.
@@ -52,9 +52,9 @@
 #'   H3 = "Efficacy in Overall population" # Hypothesis assessing efficacy in the overall population.
 #' )
 #'
-#' generate_event_table_(event_data, hypothesis, type = "overlap_population")
+#' generate_event_table_(event, hypothesis, type = "overlap_population")
 #'
-generate_event_table_ <- function(event_data, hypothesis, type = c("common_control", "overlap_population")) {
+generate_event_table_ <- function(event, hypothesis, type = c("common_control", "overlap_population")) {
   type <- match.arg(type)
 
   result_df <- tibble(
@@ -65,9 +65,9 @@ generate_event_table_ <- function(event_data, hypothesis, type = c("common_contr
   )
 
   if (type == "common_control") {
-    result_df <- generate_event_table_cc(event_data, hypothesis) # see generate_event_cc.R
+    result_df <- generate_event_table_cc(event, hypothesis) # see generate_event_cc.R
   } else if (type == "overlap_population") {
-    result_df <- generate_event_table_ol(event_data, hypothesis) # see generate_event_ol.R
+    result_df <- generate_event_table_ol(event, hypothesis) # see generate_event_ol.R
   }
   return(result_df)
 }

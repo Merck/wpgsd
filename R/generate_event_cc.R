@@ -1,6 +1,6 @@
 #' This function generates a table of events for given experimental arms and a control group based on specified hypotheses.
 #'
-#' @param event_data A dataframe containing the following columns:
+#' @param event A dataframe containing the following columns:
 #'   - `Population`: A character vector listing the population groups (e.g., experimental arms and control).
 #'   - `IA`: A numeric vector indicating the number of events observed in each group during interim analysis.
 #'   - `FA`: A numeric vector indicating the number of events observed in each group during final analysis.
@@ -16,7 +16,7 @@
 #'
 #' @examples
 #' #------------------------Example of IA and FA
-#' event_data <- data.frame(
+#' event <- data.frame(
 #'   Population = c("Experimental 1", "Experimental 2", "Experimental 3", "Control"),
 #'   IA = c(70, 75, 80, 85), # Interim Analysis values indicating the number of events observed in each group
 #'   FA = c(135, 150, 165, 170)
@@ -28,10 +28,10 @@
 #'   H3 = "Experimental 1 vs. Experimental 2"
 #' )
 #'
-#' generate_event_table_cc(event_data, hypothesis)
+#' generate_event_table_cc(event, hypothesis)
 #'
 #' #----------------------Example of two IAs and FA
-#' event_data <- data.frame(
+#' event <- data.frame(
 #'Population = c("Experimental 1", "Experimental 2", "Experimental 3", "Control"),
 #'IA1 = c(70, 75, 80, 85),  # First Interim Analysis values indicating the number of events observed in each group
 #'IA2 = c(90, 95, 100, 105), # Second Interim Analysis values indicating the number of events observed in each group
@@ -44,9 +44,9 @@
 #'  H3 = "Experimental 1 vs. Experimental 2"
 #')
 #'
-#'generate_event_table_cc(event_data, hypothesis)
+#'generate_event_table_cc(event, hypothesis)
 
-generate_event_table_cc <- function(event_data, hypothesis) {
+generate_event_table_cc <- function(event, hypothesis) {
   result_df <- tibble(
     one_hypothesis = integer(),
     another_hypothesis = integer(),
@@ -57,21 +57,21 @@ generate_event_table_cc <- function(event_data, hypothesis) {
   # Iterate through the input data to calculate the events
   for (i in 1:length(hypothesis)) { # number of hypothesis
     for (j in i:length(hypothesis)) {
-      for (k in 1:(ncol(event_data) - 1)) { # Iterate through the analyses
+      for (k in 1:(ncol(event) - 1)) { # Iterate through the analyses
         if (i != j) {
           hyp_i <- unlist(strsplit(hypothesis[[i]], " vs. "))
           hyp_j <- unlist(strsplit(hypothesis[[j]], " vs. "))
           common_factor <- intersect(hyp_i, hyp_j)
-          event <- event_data[event_data$Population == common_factor, k + 1]
+          eventn <- event[event$Population == common_factor, k + 1]
         } else {
-          event <- event_data[i, k + 1] + event_data[event_data$Population == "Control", k + 1]
+          eventn <- event[i, k + 1] + event[event$Population == "Control", k + 1]
         }
 
         result_df <- rbind(result_df, tibble(
           one_hypothesis = i,
           another_hypothesis = j,
           analysis = k,
-          common_events = event
+          common_events = eventn
         ))
         result_df <- result_df[order(result_df$analysis), ]
       }
@@ -79,3 +79,17 @@ generate_event_table_cc <- function(event_data, hypothesis) {
   }
   return(result_df)
 }
+
+ event <- data.frame(
+  Population = c("Experimental 1", "Experimental 2", "Experimental 3", "Control"),
+   IA = c(70, 75, 80, 85), # Interim Analysis values indicating the number of events observed in each group
+   FA = c(135, 150, 165, 170)
+ )
+
+ hypothesis <- list(
+   H1 = "Experimental 1 vs. Control",
+   H2 = "Experimental 2 vs. Control",
+   H3 = "Experimental 1 vs. Experimental 2"
+ )
+
+ generate_event_table_cc(event, hypothesis)

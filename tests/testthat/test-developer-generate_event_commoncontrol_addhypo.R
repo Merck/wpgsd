@@ -6,7 +6,7 @@ test_that("Generate event table returns the expected sorted data", {
     common_events = c(155, 85, 70, 160, 75, 165, 305, 170, 135, 320, 150, 335)
   )
 
-  event_data <- data.frame(
+  event <- data.frame(
     Population = c("Experimental 1", "Experimental 2", "Experimental 3", "Control"),
     IA = c(70, 75, 80, 85),
     FA = c(135, 150, 165, 170)
@@ -18,7 +18,7 @@ test_that("Generate event table returns the expected sorted data", {
     H3 = "Experimental 1 vs. Experimental 2"
   )
 
-  result_table <- generate_event_table_cc(event_data, hypothesis)
+  result_table <- generate_event_table_cc(event, hypothesis)
 
 
   expect_identical(result_table, expected_data)
