@@ -11,7 +11,7 @@ test_that("Generate event table ol returns the expected sorted data", {
     IA = c(100, 110, 80, 225),
     FA = c(200, 220, 160, 450)
   )
-  
+
   hypothesis <- list(
     H1 = "Efficacy in Population 1",
     H2 = "Efficacy in Population 2",

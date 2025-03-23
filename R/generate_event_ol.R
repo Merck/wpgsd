@@ -58,15 +58,15 @@ generate_event_table_ol <- function(event, hypothesis) {
     analysis = integer(),
     common_events = integer()
   )
-  
+
   for (i in 1:length(hypothesis)) {
     for (j in i:length(hypothesis)) {
       for (k in 1:(ncol(event) - 1)) {
         hyp_i <- unlist(strsplit(hypothesis[[i]], "Efficacy in "))[2]
         hyp_j <- unlist(strsplit(hypothesis[[j]], "Efficacy in "))[2]
-        
+
         common_factor <- intersect(hyp_i, hyp_j)
-        
+
         if (length(common_factor) > 0) {
           if ("Overall population" %in% c(hyp_i, hyp_j)) {
             eventn <- event[event$Population == "Overall population", k + 1]
@@ -78,7 +78,7 @@ generate_event_table_ol <- function(event, hypothesis) {
         } else {
           eventn <- event[event$Population == "Population 1 Intersection 2", k + 1]
         }
-        
+
         result_df <- rbind(result_df, tibble(
           one_hypothesis = i,
           another_hypothesis = j,
@@ -89,6 +89,6 @@ generate_event_table_ol <- function(event, hypothesis) {
       }
     }
   }
-  
+
   return(result_df)
 }

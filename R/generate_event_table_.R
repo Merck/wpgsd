@@ -56,14 +56,14 @@
 #'
 generate_event_table_ <- function(event, hypothesis, type = c("common_control", "overlap_population")) {
   type <- match.arg(type)
-  
+
   result_df <- tibble(
     one_hypothesis = integer(),
     another_hypothesis = integer(),
     analysis = integer(),
     common_events = integer()
   )
-  
+
   if (type == "common_control") {
     result_df <- generate_event_table_cc(event, hypothesis) # see generate_event_cc.R
   } else if (type == "overlap_population") {

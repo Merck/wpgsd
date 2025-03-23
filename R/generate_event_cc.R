@@ -52,7 +52,7 @@ generate_event_table_cc <- function(event, hypothesis) {
     analysis = integer(),
     common_events = integer()
   )
-  
+
   # Iterate through the input data to calculate the events
   for (i in 1:length(hypothesis)) { # number of hypothesis
     for (j in i:length(hypothesis)) {
@@ -65,7 +65,7 @@ generate_event_table_cc <- function(event, hypothesis) {
         } else {
           eventn <- event[i, k + 1] + event[event$Population == "Control", k + 1]
         }
-        
+
         result_df <- rbind(result_df, tibble(
           one_hypothesis = i,
           another_hypothesis = j,
@@ -78,4 +78,3 @@ generate_event_table_cc <- function(event, hypothesis) {
   }
   return(result_df)
 }
-
