@@ -78,3 +78,4 @@ generate_event_table_cc <- function(event, hypothesis) {
   }
   return(result_df)
 }
+

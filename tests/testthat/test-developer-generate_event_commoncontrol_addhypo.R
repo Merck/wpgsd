@@ -17,9 +17,7 @@ test_that("Generate event table returns the expected sorted data", {
     H2 = "Experimental 2 vs. Control",
     H3 = "Experimental 1 vs. Experimental 2"
   )
-  
+
   result_table <- generate_event_table_cc(event, hypothesis)
-  
-  
   expect_identical(result_table, expected_data)
 })
