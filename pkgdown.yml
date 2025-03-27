@@ -1,12 +1,12 @@
 pandoc: 3.1.11
-pkgdown: 2.1.0
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   adj-seq-p: adj-seq-p.html
   corr_calculation: corr_calculation.html
   tech-detail-wb: tech-detail-wb.html
   wpgsd: wpgsd.html
-last_built: 2024-08-26T17:40Z
+last_built: 2025-03-27T19:06Z
 urls:
   reference: https://merck.github.io/wpgsd/reference
   article: https://merck.github.io/wpgsd/articles
