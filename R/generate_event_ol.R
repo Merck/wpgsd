@@ -1,6 +1,6 @@
 #' This function generates a table of events for specified populations based on the provided hypotheses.
 #'
-#' @param event` dataframe should have the following structure:
+#' @param event dataframe should have the following structure:
 #'   - `Population`: A character vector indicating the population groups (e.g., "Population 1", "Population 2", "Population 1 Intersection 2", and "Overall population").
 #'   - `IA`: Numeric vector indicating the number of events observed in each group during interim analysis.
 #'   - `FA`: Numeric vector indicating the number of events observed in each group during final analysis.

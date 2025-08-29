@@ -1,6 +1,6 @@
 Package: wpgsd
 Title: Weighted Parametric Group Sequential Design
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
     person("Keaven", "Anderson", email = "keaven_anderson@merck.com", role = "aut"),
     person("Zifang", "Guo", email = "zifang.guo@merck.com", role = "aut"),
@@ -24,7 +24,8 @@ URL: https://merck.github.io/wpgsd/, https://github.com/Merck/wpgsd
 BugReports: https://github.com/Merck/wpgsd/issues
 Encoding: UTF-8
 Depends:
-    R (>= 3.6)
+    R (>= 3.6),
+    S7
 Imports:
     dplyr,
     gMCPLite,
@@ -48,4 +49,4 @@ VignetteBuilder:
     knitr
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
