@@ -15,6 +15,51 @@ template:
     dropdown-link-hover-color: "#fff"
     dropdown-link-hover-bg: "#00857c"
 
+reference:
+  - title: "S7 Classes (New Enhanced Interface)"
+    desc: "Modern S7 classes with type safety and validation"
+    contents:
+      - CorrelationMatrix
+      - new_correlation_matrix
+      - as_correlation_matrix
+      - new_event_table
+      - as_event_table
+      - print.CorrelationMatrix
+      - subset_correlation_matrix
+      - subset_event_table
+      - validate_event_table_data
+      - check_event_data
+
+  - title: "Core WPGSD Functions"
+    desc: "Main functions for weighted parametric group sequential design"
+    contents:
+      - generate_corr_s7
+      - generate_corr
+      - generate_bounds
+      - closed_test
+      - calc_seq_p
+
+  - title: "Event Table Generation"
+    desc: "Functions for creating event count data structures"
+    contents:
+      - generate_event_table
+      - generate_event_table_
+      - generate_event_table_cc
+      - generate_event_table_ol
+
+  - title: "Internal/Advanced Functions"
+    desc: "Lower-level functions and utilities"
+    contents:
+      - compute_correlations
+      - gen_corr
+      - find_astar
+      - find_xi
+
+  - title: "Utilities and Helpers"
+    desc: "Support functions and tidy evaluation"
+    contents:
+      - tidyeval
+
 footer:
   structure:
     left: [developed_by, built_with, legal]

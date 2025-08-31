@@ -73,4 +73,3 @@ Rows should be labeled the same way.
 Diagonal elements are all 1.
 Off-diagonal elements are filled with the computed correlations.
 Only cells included should be where `Event` value was provided for the combination of Analysis, H1 and H2. 
-

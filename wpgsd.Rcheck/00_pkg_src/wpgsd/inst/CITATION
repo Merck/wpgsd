@@ -1,0 +1,12 @@
+bibentry(
+  "Article",
+  title = "A unified framework for weighted parametric group sequential design",
+  author = "Keaven M Anderson and Zifang Guo and Jing Zhao and Linda Z Sun",
+  journal = "Biometrical Journal",
+  volume = "64",
+  number = "7",
+  pages = "1219--1239",
+  year = "2022",
+  publisher = "Wiley Online Library",
+  doi = "10.1002/bimj.202100085",
+)
