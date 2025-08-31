@@ -24,6 +24,7 @@
 
 #' @import S7
 
+#' @export
 # Define the EventTable S7 class
 EventTable <- S7::new_class(
   "EventTable",
@@ -343,14 +344,12 @@ new_event_table <- function(data = tibble::tibble()) {
 #' CorrelationMatrix S7 Class
 #' 
 #' @description
-#' An S7 class for representing correlation matrices used in group sequential 
-#' and graph-based multiple testing procedures. Provides type-safe storage and
-#' validation for correlation matrices with proper mathematical constraints.
+#' S7 class for correlation matrices in wpgsd package.
 #' 
-#' @field matrix A numeric matrix representing the correlation matrix
-#' @field n_hypotheses Integer number of hypotheses 
-#' @field n_analyses Integer number of analyses
-#' @field column_names Character vector of column names (e.g., "H1_A1", "H2_A1")
+#' @param matrix A numeric matrix representing the correlation matrix
+#' @param n_hypotheses Integer number of hypotheses 
+#' @param n_analyses Integer number of analyses
+#' @param column_names Character vector of column names (e.g., "H1_A1", "H2_A1")
 #' 
 #' @examples
 #' library(tibble)
@@ -458,7 +457,7 @@ CorrelationMatrix <- S7::new_class("CorrelationMatrix",
       }
       
       # Check matrix is symmetric (with tolerance for numerical precision)
-      if (!isSymmetric(matrix, tol = 1e-10)) {
+      if (!isSymmetric(matrix, tol = 1e-12, check.attributes = FALSE)) {
         return("Correlation matrix must be symmetric")
       }
       
@@ -500,7 +499,7 @@ CorrelationMatrix <- S7::new_class("CorrelationMatrix",
 #' @method print CorrelationMatrix
 S7::method(print, CorrelationMatrix) <- function(x, ...) {
   cat("<wpgsd::CorrelationMatrix>\n")
-  cat("  @ matrix        : num [", nrow(x@matrix), " × ", ncol(x@matrix), "] correlation matrix\n", sep = "")
+  cat("  @ matrix        : num [", nrow(x@matrix), " x ", ncol(x@matrix), "] correlation matrix\n", sep = "")
   cat("  @ n_hypotheses  : int", x@n_hypotheses, "\n")
   cat("  @ n_analyses    : int", x@n_analyses, "\n")
   cat("  @ column_names  : chr [1:", length(x@column_names), "] ", sep = "")

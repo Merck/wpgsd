@@ -33,16 +33,16 @@ library(tibble)
 # Valid data passes silently
 valid_data <- tibble(
   H1 = c(1, 2),
-  H2 = c(1, 2), 
+  H2 = c(1, 2),
   Analysis = c(1, 1),
   Event = c(100, 200)
 )
-validate_event_table_data(valid_data)  # Returns TRUE
+validate_event_table_data(valid_data) # Returns TRUE
 
 # Invalid data throws error
 \dontrun{
-invalid_data <- tibble(H1 = c(1, 2))  # Missing columns
-validate_event_table_data(invalid_data)  # Error
+invalid_data <- tibble(H1 = c(1, 2)) # Missing columns
+validate_event_table_data(invalid_data) # Error
 }
 
 }

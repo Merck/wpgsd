@@ -35,7 +35,7 @@ event_table <- EventTable(data = event_data)
 # Subset by analysis
 analysis_1 <- subset_event_table(event_table, analysis = 1)
 
-# Subset by hypotheses  
+# Subset by hypotheses
 h1_h2_only <- subset_event_table(event_table, hypotheses = c(1, 2))
 
 }

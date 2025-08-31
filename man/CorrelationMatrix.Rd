@@ -11,23 +11,18 @@ CorrelationMatrix(
   column_names = character()
 )
 }
-\description{
-An S7 class for representing correlation matrices used in group sequential
-and graph-based multiple testing procedures. Provides type-safe storage and
-validation for correlation matrices with proper mathematical constraints.
+\arguments{
+\item{matrix}{A numeric matrix representing the correlation matrix}
+
+\item{n_hypotheses}{Integer number of hypotheses}
+
+\item{n_analyses}{Integer number of analyses}
+
+\item{column_names}{Character vector of column names (e.g., "H1_A1", "H2_A1")}
 }
-\section{Fields}{
-
-\describe{
-\item{\code{matrix}}{A numeric matrix representing the correlation matrix}
-
-\item{\code{n_hypotheses}}{Integer number of hypotheses}
-
-\item{\code{n_analyses}}{Integer number of analyses}
-
-\item{\code{column_names}}{Character vector of column names (e.g., "H1_A1", "H2_A1")}
-}}
-
+\description{
+S7 class for correlation matrices in wpgsd package.
+}
 \examples{
 library(tibble)
 

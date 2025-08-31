@@ -45,7 +45,7 @@ library(tibble)
 # Create sample event data
 event_data <- tibble(
   H1 = c(1, 2, 1, 1, 2, 1),
-  H2 = c(1, 2, 2, 1, 2, 2), 
+  H2 = c(1, 2, 2, 1, 2, 2),
   Analysis = c(1, 1, 1, 2, 2, 2),
   Event = c(155, 160, 85, 305, 320, 170)
 )
@@ -54,8 +54,8 @@ event_data <- tibble(
 event_table <- new_event_table(data = event_data)
 
 # Access properties
-print(event_table@n_hypotheses)  # Number of hypotheses
-print(event_table@n_analyses)    # Number of analyses
+print(event_table@n_hypotheses) # Number of hypotheses
+print(event_table@n_analyses) # Number of analyses
 
 # Use with existing wpgsd functions
 correlation_matrix <- generate_corr(event_table@data)

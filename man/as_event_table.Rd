@@ -32,6 +32,6 @@ event_table <- as_event_table(event_data)
 
 # If already EventTable, returns unchanged
 same_table <- as_event_table(event_table)
-identical(event_table, same_table)  # TRUE
+identical(event_table, same_table) # TRUE
 
 }
