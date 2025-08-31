@@ -4,7 +4,7 @@ Version: 0.2.0
 Authors@R: c(
     person("Keaven", "Anderson", email = "keaven_anderson@merck.com", role = "aut"),
     person("Zifang", "Guo", email = "zifang.guo@merck.com", role = "aut"),
-    person("Jing", "Zhao", email = "jzhao@alumni.upenn.edu", role = "aut"),
+    person("Jing", "Zhao", email = "jing_zhaox@merck.com", role = "aut"),
     person("Linda", "Sun", email = "linda_sun@merck.com", role = "aut"),
     person("Yi", "Cui", email = "yi.cui@merck.com", role = "aut"),
     person("Yujie", "Zhao", email = "yujie.zhao@merck.com", role = c("aut", "cre")),
@@ -31,6 +31,7 @@ Imports:
     gsDesign,
     mvtnorm,
     rlang (>= 0.4.11),
+    S7,
     stats,
     tibble,
     tidyselect
