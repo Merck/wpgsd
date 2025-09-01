@@ -327,6 +327,7 @@ The systematic approach demonstrates:
 4. **Flexibility**: Easy to modify for different hypothesis combinations or parameters
 
 The adjusted sequential p-values account for both:
+
 - **Multiple comparisons** (across populations)  
 - **Sequential testing** (interim and final analyses)
 
