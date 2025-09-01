@@ -8,3 +8,5 @@
 ^\.github$
 ^codecov\.yml$
 ^CITATION\.cff$
+^doc$
+^Meta$
