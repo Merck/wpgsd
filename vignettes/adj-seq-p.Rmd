@@ -52,12 +52,12 @@ We will use a graphical approach to visualize the multiplicity strategy.
 ```{r}
 # Transition matrix and initial weights
 m <- matrix(c(
-  0, 3/7, 4/7,
-  3/7, 0, 4/7,
+  0, 3 / 7, 4 / 7,
+  3 / 7, 0, 4 / 7,
   0.5, 0.5, 0
 ), nrow = 3, byrow = TRUE)
 
-w <- c(0.3, 0.3, 0.4)  # Initial weights
+w <- c(0.3, 0.3, 0.4) # Initial weights
 
 # Visualize strategy
 name_hypotheses <- c("H1: Biomarker A positive", "H2: Biomarker B positive", "H3: Overall Population")
@@ -87,11 +87,11 @@ In the following AB positive means positive for both biomarker A and biomarker B
 create_event_data <- function() {
   populations <- rep(c("A positive", "B positive", "AB positive", "overall"), 2)
   analyses <- rep(c(1, 2), each = 4)
-  events <- c(100, 110, 80, 225, 200, 220, 160, 450)  # IA, then FA
-  
+  events <- c(100, 110, 80, 225, 200, 220, 160, 450) # IA, then FA
+
   tibble(
     population = populations,
-    analysis = analyses, 
+    analysis = analyses,
     event = events
   )
 }
@@ -135,8 +135,8 @@ The final event count at each analysis is assumed to be the planned count for ea
 ```{r}
 # Helper function to extract events
 get_events <- function(analysis_num, population_name) {
-  event_tbl %>% 
-    filter(analysis == analysis_num, population == population_name) %>% 
+  event_tbl %>%
+    filter(analysis == analysis_num, population == population_name) %>%
     pull(event)
 }
 
@@ -156,9 +156,9 @@ overall_FA <- get_events(2, "overall")
 
 # Calculate information fractions
 IF_IA <- c(
-  (a_pos_IA + overall_IA) / (a_pos_FA + overall_FA),    # H1
-  (b_pos_IA + overall_IA) / (b_pos_FA + overall_FA),    # H2  
-  (ab_pos_IA + overall_IA) / (ab_pos_FA + overall_FA)   # H3
+  (a_pos_IA + overall_IA) / (a_pos_FA + overall_FA), # H1
+  (b_pos_IA + overall_IA) / (b_pos_FA + overall_FA), # H2
+  (ab_pos_IA + overall_IA) / (ab_pos_FA + overall_FA) # H3
 )
 
 tibble(
@@ -181,7 +181,7 @@ event_intersections <- tribble(
   ~H1, ~H2, ~Analysis, ~Event,
   # Analysis 1 - Interim
   1, 1, 1, a_pos_IA,
-  2, 2, 1, b_pos_IA, 
+  2, 2, 1, b_pos_IA,
   3, 3, 1, overall_IA,
   1, 2, 1, ab_pos_IA,
   1, 3, 1, a_pos_IA,
@@ -189,7 +189,7 @@ event_intersections <- tribble(
   # Analysis 2 - Final
   1, 1, 2, a_pos_FA,
   2, 2, 2, b_pos_FA,
-  3, 3, 2, overall_FA, 
+  3, 3, 2, overall_FA,
   1, 2, 2, ab_pos_FA,
   1, 3, 2, a_pos_FA,
   2, 3, 2, b_pos_FA
@@ -198,7 +198,7 @@ event_intersections <- tribble(
 # Generate correlation from events
 correlation_matrix <- generate_corr(event_intersections)
 
-correlation_matrix %>% 
+correlation_matrix %>%
   round(3) %>%
   knitr::kable(caption = "Correlation Matrix (6x6)")
 ```
@@ -208,9 +208,8 @@ correlation_matrix %>%
 ```{r}
 # Helper function for systematic calculations
 calculate_seq_p_systematic <- function(test_analysis, p_obs_IA, p_obs_FA, w, m, correlation_matrix, IF_IA) {
-  
   combinations <- c("H1, H2, H3", "H1, H2", "H1, H3", "H2, H3", "H1", "H2", "H3")
-  
+
   results <- map_dfr(combinations, ~ {
     seq_p <- calc_seq_p(
       test_analysis = test_analysis,
@@ -231,13 +230,13 @@ calculate_seq_p_systematic <- function(test_analysis, p_obs_IA, p_obs_FA, w, m, 
       info_frac = c(min(IF_IA), 1),
       interval = c(1e-4, 0.2)
     )
-    
+
     tibble(
       combination = .x,
       sequential_p = seq_p
     )
   })
-  
+
   return(results)
 }
 
@@ -264,7 +263,7 @@ combined_results %>%
     locations = cells_body(rows = analysis == "Interim")
   ) %>%
   tab_style(
-    style = cell_fill(color = "lightgreen"), 
+    style = cell_fill(color = "lightgreen"),
     locations = cells_body(rows = analysis == "Final")
   )
 ```
@@ -280,21 +279,21 @@ calculate_adjusted <- function(results_df) {
     results_df$sequential_p[results_df$combination == "H1, H3"],
     results_df$sequential_p[results_df$combination == "H1"]
   )
-  
+
   h2_adj <- max(
     results_df$sequential_p[results_df$combination == "H1, H2, H3"],
     results_df$sequential_p[results_df$combination == "H1, H2"],
     results_df$sequential_p[results_df$combination == "H2, H3"],
     results_df$sequential_p[results_df$combination == "H2"]
   )
-  
+
   h3_adj <- max(
     results_df$sequential_p[results_df$combination == "H1, H2, H3"],
     results_df$sequential_p[results_df$combination == "H1, H3"],
     results_df$sequential_p[results_df$combination == "H2, H3"],
     results_df$sequential_p[results_df$combination == "H3"]
   )
-  
+
   tibble(
     hypothesis = c("H1", "H2", "H3"),
     adjusted_sequential_p = c(h1_adj, h2_adj, h3_adj)

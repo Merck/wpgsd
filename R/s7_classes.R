@@ -214,27 +214,27 @@ as_event_table <- function(data) {
 #' @param return_errors Logical. If TRUE, return error messages instead of stopping.
 #'   Used for S7 validators which expect error messages.
 #'
-#' @return If `return_errors = FALSE`: `TRUE` if validation passes (invisible), 
+#' @return If `return_errors = FALSE`: `TRUE` if validation passes (invisible),
 #'   otherwise stops with descriptive error message.
-#'   If `return_errors = TRUE`: `TRUE` if validation passes, otherwise 
+#'   If `return_errors = TRUE`: `TRUE` if validation passes, otherwise
 #'   first error message as character string.
 #'
 #' @details
 #' Validation checks performed:
-#' 
+#'
 #' **Basic level:**
 #' - Required columns (H1, H2, Analysis, Event) are present
 #' - All columns are numeric
 #' - Hypothesis indices (H1, H2) are positive
 #' - Analysis numbers are positive
 #' - Event counts are non-negative
-#' 
+#'
 #' **Strict level (includes basic plus):**
 #' - H1 <= H2 for all rows (correlation computation requirement)
 #' - Unique combinations of H1, H2, Analysis
 #' - Sequential hypothesis and analysis indices starting from 1
 #' - Diagonal entries exist for all off-diagonal entries
-#' 
+#'
 
 
 #' Validate EventTable Data Format
@@ -326,30 +326,29 @@ validate_event_table_data <- function(data) {
 #'
 #' # Use with existing wpgsd functions
 #' correlation_matrix <- generate_corr(event_table@data)
-
 # CorrelationMatrix S7 Class ====
 
 #' CorrelationMatrix S7 Class
-#' 
+#'
 #' @description
 #' Create a type-safe S7 CorrelationMatrix object that represents correlation matrices
 #' used in the wpgsd package. This class provides validation for matrix properties
 #' such as symmetry and positive definiteness.
-#' 
+#'
 #' @param matrix A numeric matrix representing correlations
 #' @param n_hypotheses Integer number of hypotheses
-#' @param n_analyses Integer number of analyses  
+#' @param n_analyses Integer number of analyses
 #' @param column_names Character vector of column names
-#' 
+#'
 #' @details
 #' The CorrelationMatrix class validates that:
 #' - Matrix is symmetric (with tolerance 1e-12)
 #' - Matrix is positive definite
 #' - Diagonal elements are 1 (within tolerance)
 #' - Dimensions are consistent with n_hypotheses and n_analyses
-#' 
+#'
 #' @return A CorrelationMatrix S7 object with validated matrix and metadata
-#' 
+#'
 #' @examples
 #' # Create a simple 2x2 correlation matrix
 #' corr_matrix <- matrix(c(1, 0.5, 0.5, 1), nrow = 2)
@@ -359,22 +358,21 @@ validate_event_table_data <- function(data) {
 #'   n_analyses = 2L,
 #'   column_names = colnames(corr_matrix)
 #' )
-#' 
+#'
 #' print(corr_obj)
-#' 
+#'
 #' @export
-CorrelationMatrix <- S7::new_class("CorrelationMatrix",  properties = list(
+CorrelationMatrix <- S7::new_class("CorrelationMatrix",
+  properties = list(
     matrix = S7::new_S3_class("matrix"),
     n_hypotheses = S7::class_integer,
     n_analyses = S7::class_integer,
     column_names = S7::class_character
   ),
-  
   constructor = function(matrix = matrix(numeric(), nrow = 0, ncol = 0),
-                        n_hypotheses = 0L,
-                        n_analyses = 0L,
-                        column_names = character()) {
-    
+                         n_hypotheses = 0L,
+                         n_analyses = 0L,
+                         column_names = character()) {
     # Auto-calculate dimensions if not provided
     if (length(matrix) > 0) {
       if (n_hypotheses == 0L) {
@@ -390,7 +388,7 @@ CorrelationMatrix <- S7::new_class("CorrelationMatrix",  properties = list(
           n_analyses <- as.integer(total_dim / n_hypotheses)
         }
       }
-      
+
       # Generate column names if not provided
       if (length(column_names) == 0) {
         column_names <- character()
@@ -402,70 +400,73 @@ CorrelationMatrix <- S7::new_class("CorrelationMatrix",  properties = list(
         }
       }
     }
-    
+
     S7::new_object(S7::S7_object(),
       matrix = matrix,
       n_hypotheses = as.integer(n_hypotheses),
-      n_analyses = as.integer(n_analyses), 
+      n_analyses = as.integer(n_analyses),
       column_names = column_names
     )
   },
-  
   validator = function(self) {
     matrix <- self@matrix
     n_hypotheses <- self@n_hypotheses
     n_analyses <- self@n_analyses
     column_names <- self@column_names
-    
+
     # Check basic properties
     if (!is.numeric(matrix)) {
       return("Matrix must be numeric")
     }
-    
+
     if (length(matrix) > 0) {
       # Check matrix is square
       if (nrow(matrix) != ncol(matrix)) {
         return("Matrix must be square")
       }
-      
+
       # Check dimensions consistency
       expected_dim <- n_hypotheses * n_analyses
       if (nrow(matrix) != expected_dim) {
-        return(paste("Matrix dimensions (", nrow(matrix), "x", ncol(matrix), 
-                    ") don't match n_hypotheses (", n_hypotheses, 
-                    ") * n_analyses (", n_analyses, ") = ", expected_dim))
+        return(paste(
+          "Matrix dimensions (", nrow(matrix), "x", ncol(matrix),
+          ") don't match n_hypotheses (", n_hypotheses,
+          ") * n_analyses (", n_analyses, ") = ", expected_dim
+        ))
       }
-      
+
       # Check column names length
       if (length(column_names) != expected_dim) {
-        return(paste("Length of column_names (", length(column_names), 
-                    ") must equal matrix dimensions (", expected_dim, ")"))
+        return(paste(
+          "Length of column_names (", length(column_names),
+          ") must equal matrix dimensions (", expected_dim, ")"
+        ))
       }
-      
+
       # Check matrix is symmetric (with tolerance for numerical precision)
       if (!isSymmetric(matrix, tol = 1e-12, check.attributes = FALSE)) {
         return("Correlation matrix must be symmetric")
       }
-      
+
       # Check diagonal elements are 1
       diag_elements <- diag(matrix)
       if (any(abs(diag_elements - 1) > 1e-10)) {
         return("Diagonal elements of correlation matrix must be 1")
       }
-      
+
       # Check off-diagonal elements are between -1 and 1
       off_diag <- matrix[upper.tri(matrix) | lower.tri(matrix)]
       if (any(off_diag < -1 - 1e-10) || any(off_diag > 1 + 1e-10)) {
         return("Off-diagonal elements must be between -1 and 1")
       }
-      
+
       # Check matrix is positive semi-definite (eigenvalues >= 0)
       eigenvals <- eigen(matrix, only.values = TRUE)$values
       if (any(eigenvals < -1e-10)) {
         return("Correlation matrix must be positive semi-definite")
       }
     }
-    
+
     # Check n_hypotheses and n_analyses are positive
     if (n_hypotheses < 0) {
       return("n_hypotheses must be non-negative")
@@ -494,7 +495,7 @@ S7::method(print, CorrelationMatrix) <- function(x, ...) {
     if (length(x@column_names) > 3) cat(" ...")
   }
   cat("\n")
-  
+
   if (nrow(x@matrix) > 0) {
     cat("\nCorrelation Matrix:\n")
     # Print matrix with column names
@@ -503,7 +504,7 @@ S7::method(print, CorrelationMatrix) <- function(x, ...) {
     rownames(matrix_to_print) <- x@column_names
     print(round(matrix_to_print, 4))
   }
-  
+
   invisible(x)
 }
 
@@ -546,7 +547,7 @@ as_correlation_matrix <- function(matrix, n_hypotheses = 0L, n_analyses = 0L) {
 #'
 #' @examples
 #' library(tibble)
-#' 
+#'
 #' # Create sample data and correlation matrix
 #' event_data <- tibble(
 #'   H1 = c(1, 2, 1, 1, 2, 1),
@@ -560,27 +561,27 @@ as_correlation_matrix <- function(matrix, n_hypotheses = 0L, n_analyses = 0L) {
 #'   n_hypotheses = 2L,
 #'   n_analyses = 2L
 #' )
-#' 
+#'
 #' # Extract subset for analysis 1 only
 #' subset_corr <- subset_correlation_matrix(corr_obj, analysis = 1)
-#' 
+#'
 #' @export
 subset_correlation_matrix <- function(x, analysis = NULL, hypotheses = NULL) {
   if (!S7::S7_inherits(x, CorrelationMatrix)) {
     stop("x must be a CorrelationMatrix object")
   }
-  
+
   n_hypotheses <- x@n_hypotheses
   n_analyses <- x@n_analyses
-  
+
   # Default to all if not specified
   if (is.null(analysis)) analysis <- seq_len(n_analyses)
   if (is.null(hypotheses)) hypotheses <- seq_len(n_hypotheses)
-  
+
   # Create indices for subsetting
   indices <- integer(0)
   new_column_names <- character(0)
-  
+
   for (a in analysis) {
     for (h in hypotheses) {
       idx <- (a - 1) * n_hypotheses + h
@@ -590,11 +591,11 @@ subset_correlation_matrix <- function(x, analysis = NULL, hypotheses = NULL) {
       }
     }
   }
-  
+
   # Extract submatrix
   if (length(indices) > 0) {
     subset_matrix <- x@matrix[indices, indices, drop = FALSE]
-    
+
     CorrelationMatrix(
       matrix = subset_matrix,
       n_hypotheses = length(hypotheses),
@@ -613,8 +614,8 @@ subset_correlation_matrix <- function(x, analysis = NULL, hypotheses = NULL) {
 #' with proper validation and type safety. Uses the new compute_correlations()
 #' function for mathematically rigorous correlation computation.
 #'
-#' This function requires an EventTable S7 object as input and returns a 
-#' CorrelationMatrix with column ordering that matches generate_corr() 
+#' This function requires an EventTable S7 object as input and returns a
+#' CorrelationMatrix with column ordering that matches generate_corr()
 #' (Analysis then Hypothesis: H1A1, H2A1, H1A2, H2A2, ...).
 #'
 #' @param event_table An EventTable S7 object containing validated event count data
@@ -625,7 +626,7 @@ subset_correlation_matrix <- function(x, analysis = NULL, hypotheses = NULL) {
 #'
 #' @examples
 #' library(tibble)
-#' 
+#'
 #' # Create EventTable S7 object
 #' event_data <- tibble(
 #'   H1 = c(1, 2, 1, 1, 2, 1),
@@ -643,19 +644,19 @@ generate_corr_s7 <- function(event_table, check = TRUE) {
   if (!S7::S7_inherits(event_table, EventTable)) {
     stop("Input must be an EventTable S7 object. Use EventTable() to create one.")
   }
-  
+
   # Extract data from EventTable
   event_data <- event_table@data
   n_hypotheses <- event_table@n_hypotheses
   n_analyses <- event_table@n_analyses
-  
+
   # Generate the correlation matrix using new rigorous function
   corr_matrix <- compute_correlations(event_data, check = check, return_matrix = TRUE)
-  
+
   # Reorder matrix to match generate_corr() (Analysis then Hypothesis)
   # Current ordering: H1A1, H1A2, H2A1, H2A2 (hypothesis-major)
   # Desired ordering: H1A1, H2A1, H1A2, H2A2 (analysis-major)
-  
+
   # Create new column names in analysis-major order
   col_names_new <- character(n_hypotheses * n_analyses)
   idx <- 1
@@ -665,24 +666,24 @@ generate_corr_s7 <- function(event_table, check = TRUE) {
       idx <- idx + 1
     }
   }
-  
+
   # Create mapping from hypothesis-major to analysis-major ordering
   reorder_idx <- integer(n_hypotheses * n_analyses)
   for (k in seq_len(n_analyses)) {
     for (m in seq_len(n_hypotheses)) {
       # Current position in hypothesis-major ordering (H1A1, H1A2, H2A1, H2A2)
       old_pos <- (m - 1) * n_analyses + k
-      # Desired position in analysis-major ordering (H1A1, H2A1, H1A2, H2A2)  
+      # Desired position in analysis-major ordering (H1A1, H2A1, H1A2, H2A2)
       new_pos <- (k - 1) * n_hypotheses + m
       reorder_idx[new_pos] <- old_pos
     }
   }
-  
+
   # Reorder matrix
   corr_matrix_reordered <- corr_matrix[reorder_idx, reorder_idx]
   colnames(corr_matrix_reordered) <- col_names_new
   rownames(corr_matrix_reordered) <- col_names_new
-  
+
   # Create and return CorrelationMatrix S7 object
   CorrelationMatrix(
     matrix = corr_matrix_reordered,
