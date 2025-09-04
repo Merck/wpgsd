@@ -2,7 +2,7 @@
 % Please edit documentation in R/s7_classes.R
 \name{CorrelationMatrix}
 \alias{CorrelationMatrix}
-\title{CorrelationMatrix S7 Class}
+\title{Create EventTable S7 Object}
 \usage{
 CorrelationMatrix(
   matrix = matrix(numeric(), nrow = 0, ncol = 0),
@@ -12,16 +12,59 @@ CorrelationMatrix(
 )
 }
 \arguments{
-\item{matrix}{A numeric matrix representing the correlation matrix}
+\item{matrix}{A numeric matrix representing correlations}
 
 \item{n_hypotheses}{Integer number of hypotheses}
 
 \item{n_analyses}{Integer number of analyses}
 
-\item{column_names}{Character vector of column names (e.g., "H1_A1", "H2_A1")}
+\item{column_names}{Character vector of column names}
+
+\item{data}{A tibble or data.frame containing the required columns:
+\itemize{
+\item \code{H1}: First hypothesis index (numeric, positive integers)
+\item \code{H2}: Second hypothesis index (numeric, positive integers)
+\item \code{Analysis}: Analysis number (numeric, positive integers)
+\item \code{Event}: Event count (numeric, non-negative)
+}}
+}
+\value{
+An EventTable S7 object with validated data and computed properties
+
+A CorrelationMatrix S7 object with validated matrix and metadata
 }
 \description{
-S7 class for correlation matrices in wpgsd package.
+Create a type-safe S7 EventTable object that represents event count data
+structure used in \code{generate_corr()} and \code{generate_event_table()}. This class
+provides validation and computed properties for hypothesis and analysis counts.
+
+Create a type-safe S7 CorrelationMatrix object that represents correlation matrices
+used in the wpgsd package. This class provides validation for matrix properties
+such as symmetry and positive definiteness.
+}
+\details{
+The EventTable class automatically validates the input data and computes:
+\itemize{
+\item \code{n_hypotheses}: Maximum hypothesis index across H1 and H2 columns
+\item \code{n_analyses}: Maximum analysis number
+}
+
+The class ensures data integrity by validating that:
+\itemize{
+\item All required columns are present
+\item H1, H2, Analysis, and Event are numeric
+\item Hypothesis indices are positive integers
+\item Analysis numbers are positive integers
+\item Event counts are non-negative
+}
+
+The CorrelationMatrix class validates that:
+\itemize{
+\item Matrix is symmetric (with tolerance 1e-12)
+\item Matrix is positive definite
+\item Diagonal elements are 1 (within tolerance)
+\item Dimensions are consistent with n_hypotheses and n_analyses
+}
 }
 \examples{
 library(tibble)
@@ -34,14 +77,23 @@ event_data <- tibble(
   Event = c(155, 160, 85, 305, 320, 170)
 )
 
-# Generate correlation matrix using traditional function
-corr_matrix <- generate_corr(event_data)
+# Create EventTable object
+event_table <- EventTable(data = event_data)
 
-# Create CorrelationMatrix object
-corr_obj <- new_correlation_matrix(
+# Access properties
+print(event_table@n_hypotheses) # Number of hypotheses
+print(event_table@n_analyses) # Number of analyses
+
+# Use with existing wpgsd functions
+correlation_matrix <- generate_corr(event_table@data)
+CorrelationMatrix S7 Class
+
+# Create a simple 2x2 correlation matrix
+corr_matrix <- matrix(c(1, 0.5, 0.5, 1), nrow = 2)
+corr_obj <- CorrelationMatrix(
   matrix = corr_matrix,
-  n_hypotheses = 2,
-  n_analyses = 2,
+  n_hypotheses = 1L,
+  n_analyses = 2L,
   column_names = colnames(corr_matrix)
 )
 

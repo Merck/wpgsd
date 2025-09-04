@@ -1,7 +1,7 @@
 test_that("CorrelationMatrix can be created with valid data", {
   # Create simple 2x2 correlation matrix
   corr_mat <- matrix(c(1, 0.5, 0.5, 1), nrow = 2)
-  corr_obj <- new_correlation_matrix(
+  corr_obj <- CorrelationMatrix(
     matrix = corr_mat,
     n_hypotheses = 1L,
     n_analyses = 2L,
@@ -21,35 +21,35 @@ test_that("CorrelationMatrix validates matrix properties", {
   # Test non-square matrix
   invalid_mat1 <- matrix(c(1, 0.5, 0.5), nrow = 1)
   expect_error(
-    new_correlation_matrix(matrix = invalid_mat1, n_hypotheses = 1L, n_analyses = 3L),
+    CorrelationMatrix(matrix = invalid_mat1, n_hypotheses = 1L, n_analyses = 3L),
     "Matrix must be square"
   )
   
   # Test non-symmetric matrix
   invalid_mat2 <- matrix(c(1, 0.3, 0.5, 1), nrow = 2)
   expect_error(
-    new_correlation_matrix(matrix = invalid_mat2, n_hypotheses = 1L, n_analyses = 2L),
+    CorrelationMatrix(matrix = invalid_mat2, n_hypotheses = 1L, n_analyses = 2L),
     "Correlation matrix must be symmetric"
   )
   
   # Test diagonal not equal to 1
   invalid_mat3 <- matrix(c(0.8, 0.3, 0.3, 1), nrow = 2)
   expect_error(
-    new_correlation_matrix(matrix = invalid_mat3, n_hypotheses = 1L, n_analyses = 2L),
+    CorrelationMatrix(matrix = invalid_mat3, n_hypotheses = 1L, n_analyses = 2L),
     "Diagonal elements of correlation matrix must be 1"
   )
   
   # Test off-diagonal elements outside [-1, 1]
   invalid_mat4 <- matrix(c(1, 1.2, 1.2, 1), nrow = 2)
   expect_error(
-    new_correlation_matrix(matrix = invalid_mat4, n_hypotheses = 1L, n_analyses = 2L),
+    CorrelationMatrix(matrix = invalid_mat4, n_hypotheses = 1L, n_analyses = 2L),
     "Off-diagonal elements must be between -1 and 1"
   )
   
   # Test non-positive definite matrix  
   invalid_mat5 <- matrix(c(1, 0.9, 0.9, 0.9, 1, -0.9, 0.9, -0.9, 1), nrow = 3)  # This should be non-PD
   expect_error(
-    new_correlation_matrix(matrix = invalid_mat5, n_hypotheses = 1L, n_analyses = 3L),
+    CorrelationMatrix(matrix = invalid_mat5, n_hypotheses = 1L, n_analyses = 3L),
     "Correlation matrix must be positive semi-definite"
   )
 })
@@ -58,13 +58,13 @@ test_that("CorrelationMatrix validates dimension consistency", {
   # Test inconsistent dimensions
   corr_mat <- matrix(c(1, 0.5, 0.5, 1), nrow = 2)
   expect_error(
-    new_correlation_matrix(matrix = corr_mat, n_hypotheses = 2L, n_analyses = 2L),
+    CorrelationMatrix(matrix = corr_mat, n_hypotheses = 2L, n_analyses = 2L),
     "Matrix dimensions.*don't match n_hypotheses.*n_analyses"
   )
   
   # Test wrong column names length
   expect_error(
-    new_correlation_matrix(
+    CorrelationMatrix(
       matrix = corr_mat,
       n_hypotheses = 1L,
       n_analyses = 2L,
@@ -81,7 +81,7 @@ test_that("CorrelationMatrix auto-infers dimensions", {
                       0.3, 0.4, 1, 0.5,
                       0.2, 0.3, 0.5, 1), nrow = 4)
   
-  corr_obj <- new_correlation_matrix(
+  corr_obj <- CorrelationMatrix(
     matrix = corr_mat,
     column_names = c("H1_A1", "H2_A1", "H1_A2", "H2_A2")
   )
@@ -92,7 +92,7 @@ test_that("CorrelationMatrix auto-infers dimensions", {
 
 test_that("CorrelationMatrix generates column names automatically", {
   corr_mat <- matrix(c(1, 0.5, 0.5, 1), nrow = 2)
-  corr_obj <- new_correlation_matrix(
+  corr_obj <- CorrelationMatrix(
     matrix = corr_mat,
     n_hypotheses = 1L,
     n_analyses = 2L
@@ -116,7 +116,7 @@ test_that("subset_correlation_matrix works correctly", {
                       0.3, 0.4, 1, 0.5,
                       0.2, 0.3, 0.5, 1), nrow = 4)
   
-  corr_obj <- new_correlation_matrix(
+  corr_obj <- CorrelationMatrix(
     matrix = corr_mat,
     n_hypotheses = 2L,
     n_analyses = 2L,
@@ -147,7 +147,7 @@ test_that("generate_corr_s7 works with EventTable", {
   )
   
   # Test with EventTable object
-  event_table <- new_event_table(event_data)
+  event_table <- EventTable(data = event_data)
   corr_s7 <- generate_corr_s7(event_table)
   
   expect_true(S7::S7_inherits(corr_s7, CorrelationMatrix))
@@ -158,7 +158,7 @@ test_that("generate_corr_s7 works with EventTable", {
   
   # Test with EventTable object - generate_corr_s7 now requires EventTable input
   # Creating EventTable from the same data
-  event_table_df <- new_event_table(data = event_data)
+  event_table_df <- EventTable(data = event_data)
   corr_s7_df <- generate_corr_s7(event_table_df)
   
   expect_true(S7::S7_inherits(corr_s7_df, CorrelationMatrix))
@@ -176,7 +176,7 @@ test_that("generate_corr_s7 produces mathematically valid correlations", {
   )
   
   # Create EventTable for S7 function
-  event_table <- new_event_table(data = event_data)
+  event_table <- EventTable(data = event_data)
   
   # Test new function produces valid correlation matrix
   s7_corr <- generate_corr_s7(event_table)
@@ -198,7 +198,7 @@ test_that("generate_corr_s7 produces mathematically valid correlations", {
 
 test_that("CorrelationMatrix print method works", {
   corr_mat <- matrix(c(1, 0.5, 0.5, 1), nrow = 2)
-  corr_obj <- new_correlation_matrix(
+  corr_obj <- CorrelationMatrix(
     matrix = corr_mat,
     n_hypotheses = 1L,
     n_analyses = 2L,

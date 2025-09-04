@@ -31,10 +31,10 @@ event_data <- tibble(
   Event = c(155, 160, 85, 305, 320, 170)
 )
 corr_matrix <- generate_corr(event_data)
-corr_obj <- new_correlation_matrix(
+corr_obj <- CorrelationMatrix(
   matrix = corr_matrix,
-  n_hypotheses = 2,
-  n_analyses = 2
+  n_hypotheses = 2L,
+  n_analyses = 2L
 )
 
 # Extract subset for analysis 1 only

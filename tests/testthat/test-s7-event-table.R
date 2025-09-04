@@ -183,7 +183,7 @@ test_that("EventTable validation - mathematical requirements", {
     Event = c(10, 8, 5, 7) # H1=1, H2=1 decreases from 10 to 8
   )
   expect_error(
-    new_event_table(invalid_data_1),
+    EventTable(data = invalid_data_1),
     "Event counts must be non-decreasing across analyses"
   )
 
@@ -195,7 +195,7 @@ test_that("EventTable validation - mathematical requirements", {
     Event = c(5, 7, 6, 8) # H1=1,H2=1 (5) < H1=1,H2=2 (7) at Analysis=1
   )
   expect_error(
-    new_event_table(invalid_data_2),
+    EventTable(data = invalid_data_2),
     "Diagonal entry.*has Event.*< off-diagonal Event"
   )
 
@@ -206,7 +206,7 @@ test_that("EventTable validation - mathematical requirements", {
     Analysis = c(1, 2, 1, 2, 1, 2, 1, 2),
     Event = c(10, 15, 8, 12, 8, 12, 9, 14) # Non-decreasing and diagonals >= off-diagonals
   )
-  et <- new_event_table(valid_data)
+  et <- EventTable(data = valid_data)
   expect_true(S7::S7_inherits(et, EventTable))
   expect_equal(et@n_hypotheses, 2)
   expect_equal(et@n_analyses, 2)
@@ -221,7 +221,7 @@ test_that("EventTable validation - missing diagonal entries", {
     Event = c(5, 6, 8)
   )
   expect_error(
-    new_event_table(incomplete_data),
+    EventTable(data = incomplete_data),
     "Missing diagonal entry: H1=1, H2=1"
   )
 })

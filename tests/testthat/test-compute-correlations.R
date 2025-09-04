@@ -15,7 +15,7 @@ test_that("check_event_data validates H1 <= H2 constraint", {
   invalid_order <- tibble(
     H1 = c(2, 1),
     H2 = c(1, 1),
-    Analysis = c(1, 1),
+    Analysis = c(1, 2),
     Event = c(100, 100)
   )
   expect_error(check_event_data(invalid_order), "H1 must be <= H2 for all rows")
@@ -40,19 +40,19 @@ test_that("check_event_data validates Event values", {
   negative_events <- tibble(
     H1 = c(1, 2),
     H2 = c(1, 2),
-    Analysis = c(1, 1),
+    Analysis = c(1, 2),
     Event = c(-1, 100)
   )
-  expect_error(check_event_data(negative_events), "Event must be non-negative integers")
+  expect_error(check_event_data(negative_events), "Event must be non-negative")
   
   # Test non-integer events
   non_integer_events <- tibble(
     H1 = c(1, 2),
     H2 = c(1, 2),
-    Analysis = c(1, 1),
+    Analysis = c(1, 2),
     Event = c(100.5, 100)
   )
-  expect_error(check_event_data(non_integer_events), "Event must be non-negative integers")
+  expect_no_error(check_event_data(non_integer_events))
 })
 
 test_that("check_event_data validates sequential values", {
@@ -185,7 +185,7 @@ test_that("compute_correlations skips validation when check=FALSE", {
   invalid_data <- tibble(
     H1 = c(2, 1),  # H1 > H2, which violates validation
     H2 = c(1, 1),
-    Analysis = c(1, 1),
+    Analysis = c(1, 2),
     Event = c(100, 100)
   )
   
@@ -207,7 +207,7 @@ test_that("generate_corr_s7 works with new correlation functions", {
   )
   
   # Test with EventTable (now required input type)
-  event_table <- new_event_table(valid_data)
+  event_table <- EventTable(data = valid_data)
   corr_s7 <- generate_corr_s7(event_table)
   expect_true(S7::S7_inherits(corr_s7, CorrelationMatrix))
   expect_true(isSymmetric(corr_s7@matrix, tol = 1e-10))

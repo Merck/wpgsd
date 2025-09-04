@@ -34,7 +34,7 @@ event_data <- tibble(
   Analysis = c(1, 1, 1, 2, 2, 2),
   Event = c(155, 160, 85, 305, 320, 170)
 )
-event_table <- new_event_table(data = event_data)
+event_table <- EventTable(data = event_data)
 corr_matrix_s7 <- generate_corr_s7(event_table)
 print(corr_matrix_s7)
 

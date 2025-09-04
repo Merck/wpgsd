@@ -16,7 +16,7 @@ valid_data <- data.frame(
   Event = c(10, 15, 8, 12, 8, 12, 9, 14)  # Non-decreasing and diagonals >= off-diagonals
 )
 
-et <- new_event_table(valid_data)
+et <- EventTable(data = valid_data)
 print(et)
 cat("\n")
 
@@ -30,7 +30,7 @@ invalid_data_1 <- data.frame(
 )
 
 tryCatch({
-  new_event_table(invalid_data_1)
+  EventTable(data = invalid_data_1)
 }, error = function(e) {
   cat("ERROR:", conditionMessage(e), "\n")
 })
@@ -46,7 +46,7 @@ invalid_data_2 <- data.frame(
 )
 
 tryCatch({
-  new_event_table(invalid_data_2)
+  EventTable(data = invalid_data_2)
 }, error = function(e) {
   cat("ERROR:", conditionMessage(e), "\n")
 })
@@ -62,7 +62,7 @@ incomplete_data <- data.frame(
 )
 
 tryCatch({
-  new_event_table(incomplete_data)
+  EventTable(data = incomplete_data)
 }, error = function(e) {
   cat("ERROR:", conditionMessage(e), "\n")
 })

@@ -22,8 +22,56 @@
 # These classes provide type safety and method dispatch for the main
 # data structures used in weighted parametric group sequential designs.
 
-#' @import S7
+#' @importFrom S7 new_class new_object class_data.frame class_integer class_character new_S3_class S7_inherits S7_object method
 
+#' EventTable S7 Class
+#'
+#' @description
+#' Create a type-safe S7 EventTable object that represents event count data
+#' structure used in `generate_corr()` and `generate_event_table()`. This class
+#' provides validation and computed properties for hypothesis and analysis counts.
+#'
+#' @param data A tibble or data.frame containing the required columns:
+#'   - `H1`: First hypothesis index (numeric, positive integers)
+#'   - `H2`: Second hypothesis index (numeric, positive integers)
+#'   - `Analysis`: Analysis number (numeric, positive integers)
+#'   - `Event`: Event count (numeric, non-negative)
+#'
+#' @details
+#' The EventTable class automatically validates the input data and computes:
+#' - `n_hypotheses`: Maximum hypothesis index across H1 and H2 columns
+#' - `n_analyses`: Maximum analysis number
+#'
+#' The class ensures data integrity by validating that:
+#' - All required columns are present
+#' - H1, H2, Analysis are positive integers and sequential
+#' - Event counts are non-negative (can be decimals)
+#' - For S7 validation: Event counts non-decreasing across analyses for fixed H1, H2
+#' - For S7 validation: Diagonal entries have Event >= corresponding off-diagonal entries
+#'
+#' @return An EventTable S7 object with validated data and computed properties
+#'
+#' @examples
+#' library(tibble)
+#'
+#' # Create valid event data
+#' event_data <- tibble(
+#'   H1 = c(1L, 1L, 2L, 2L),
+#'   H2 = c(1L, 2L, 2L, 2L),
+#'   Analysis = c(1L, 1L, 1L, 2L),
+#'   Event = c(155.5, 85.2, 160.7, 170.3)
+#' )
+#'
+#' # Create EventTable object
+#' event_table <- EventTable(data = event_data)
+#'
+#' # Access properties
+#' print(event_table@n_hypotheses) # Number of hypotheses
+#' print(event_table@n_analyses) # Number of analyses
+#'
+#' # Use with existing wpgsd functions
+#' correlation_matrix <- generate_corr(event_table@data)
+#'
 #' @export
 # Define the EventTable S7 class
 EventTable <- S7::new_class(
@@ -53,69 +101,8 @@ EventTable <- S7::new_class(
     )
   },
   validator = function(self) {
-    # Validate data types
-    if (!is.numeric(self@data$H1) || !is.numeric(self@data$H2)) {
-      "@data$H1 and @data$H2 must be numeric"
-    } else if (!is.numeric(self@data$Analysis)) {
-      "@data$Analysis must be numeric"
-    } else if (!is.numeric(self@data$Event)) {
-      "@data$Event must be numeric"
-    } else if (any(self@data$H1 <= 0, na.rm = TRUE) || any(self@data$H2 <= 0, na.rm = TRUE)) {
-      "Hypothesis indices (H1, H2) must be positive integers"
-    } else if (any(self@data$Analysis <= 0, na.rm = TRUE)) {
-      "Analysis numbers must be positive integers"
-    } else if (any(self@data$Event < 0, na.rm = TRUE)) {
-      "Event counts must be non-negative"
-    } else {
-      # Additional validation requirements
-      data <- self@data
-
-      # Requirement 1: For fixed H1, H2, Event must be non-decreasing as Analysis increases
-      for (h1 in unique(data$H1)) {
-        for (h2 in unique(data$H2)) {
-          subset_data <- data[data$H1 == h1 & data$H2 == h2, ]
-          if (nrow(subset_data) > 1) {
-            subset_data <- subset_data[order(subset_data$Analysis), ]
-            if (any(diff(subset_data$Event) < 0)) {
-              return(paste0("For H1=", h1, ", H2=", h2, ", Event counts must be non-decreasing across analyses"))
-            }
-          }
-        }
-      }
-
-      # Requirement 2: For off-diagonal entries, diagonal entries must exist with >= Event counts
-      for (i in seq_len(nrow(data))) {
-        h1 <- data$H1[i]
-        h2 <- data$H2[i]
-        analysis <- data$Analysis[i]
-        event_val <- data$Event[i]
-
-        # Skip if this is already a diagonal entry
-        if (h1 == h2) next
-
-        # Check that diagonal H1=H1 entry exists with Event >= current Event
-        h1_diagonal <- data[data$H1 == h1 & data$H2 == h1 & data$Analysis == analysis, ]
-        if (nrow(h1_diagonal) == 0) {
-          return(paste0("Missing diagonal entry: H1=", h1, ", H2=", h1, ", Analysis=", analysis))
-        } else if (h1_diagonal$Event[1] < event_val) {
-          return(paste0(
-            "Diagonal entry H1=", h1, ", H2=", h1, ", Analysis=", analysis,
-            " has Event (", h1_diagonal$Event[1], ") < off-diagonal Event (", event_val, ")"
-          ))
-        }
-
-        # Check that diagonal H2=H2 entry exists with Event >= current Event
-        h2_diagonal <- data[data$H1 == h2 & data$H2 == h2 & data$Analysis == analysis, ]
-        if (nrow(h2_diagonal) == 0) {
-          return(paste0("Missing diagonal entry: H1=", h2, ", H2=", h2, ", Analysis=", analysis))
-        } else if (h2_diagonal$Event[1] < event_val) {
-          return(paste0(
-            "Diagonal entry H1=", h2, ", H2=", h2, ", Analysis=", analysis,
-            " has Event (", h2_diagonal$Event[1], ") < off-diagonal Event (", event_val, ")"
-          ))
-        }
-      }
-    }
+    # Use core validation function with S7 level and return errors instead of stopping
+    validate_event_data_core(self@data, validation_level = "s7", return_errors = TRUE)
   }
 )
 
@@ -213,6 +200,43 @@ as_event_table <- function(data) {
   EventTable(data = data)
 }
 
+#' Core Event Data Validation Function
+#'
+#' @description
+#' Comprehensive validation function for event data used across the package.
+#' This is the single source of truth for event data validation logic.
+#'
+#' @param data A data.frame or tibble to validate
+#' @param validation_level Character string specifying validation level:
+#'   - "basic": Check required columns, data types, and basic constraints
+#'   - "strict": Include advanced mathematical requirements for correlation computation
+#'   - "s7": Full validation for S7 EventTable objects
+#' @param return_errors Logical. If TRUE, return error messages instead of stopping.
+#'   Used for S7 validators which expect error messages.
+#'
+#' @return If `return_errors = FALSE`: `TRUE` if validation passes (invisible), 
+#'   otherwise stops with descriptive error message.
+#'   If `return_errors = TRUE`: `TRUE` if validation passes, otherwise 
+#'   first error message as character string.
+#'
+#' @details
+#' Validation checks performed:
+#' 
+#' **Basic level:**
+#' - Required columns (H1, H2, Analysis, Event) are present
+#' - All columns are numeric
+#' - Hypothesis indices (H1, H2) are positive
+#' - Analysis numbers are positive
+#' - Event counts are non-negative
+#' 
+#' **Strict level (includes basic plus):**
+#' - H1 <= H2 for all rows (correlation computation requirement)
+#' - Unique combinations of H1, H2, Analysis
+#' - Sequential hypothesis and analysis indices starting from 1
+#' - Diagonal entries exist for all off-diagonal entries
+#' 
+
+
 #' Validate EventTable Data Format
 #'
 #' @description
@@ -252,38 +276,7 @@ as_event_table <- function(data) {
 #'
 #' @export
 validate_event_table_data <- function(data) {
-  required_cols <- c("H1", "H2", "Analysis", "Event")
-  missing_cols <- setdiff(required_cols, names(data))
-
-  if (length(missing_cols) > 0) {
-    stop("Missing required columns: ", paste(missing_cols, collapse = ", "))
-  }
-
-  if (!is.numeric(data$H1) || !is.numeric(data$H2)) {
-    stop("H1 and H2 must be numeric")
-  }
-
-  if (!is.numeric(data$Analysis)) {
-    stop("Analysis must be numeric")
-  }
-
-  if (!is.numeric(data$Event)) {
-    stop("Event must be numeric")
-  }
-
-  if (any(data$H1 <= 0, na.rm = TRUE) || any(data$H2 <= 0, na.rm = TRUE)) {
-    stop("Hypothesis indices (H1, H2) must be positive integers")
-  }
-
-  if (any(data$Analysis <= 0, na.rm = TRUE)) {
-    stop("Analysis numbers must be positive integers")
-  }
-
-  if (any(data$Event < 0, na.rm = TRUE)) {
-    stop("Event counts must be non-negative")
-  }
-
-  TRUE
+  validate_event_data_core(data, validation_level = "basic")
 }
 
 #' Create EventTable S7 Object
@@ -325,7 +318,7 @@ validate_event_table_data <- function(data) {
 #' )
 #'
 #' # Create EventTable object
-#' event_table <- new_event_table(data = event_data)
+#' event_table <- EventTable(data = event_data)
 #'
 #' # Access properties
 #' print(event_table@n_hypotheses) # Number of hypotheses
@@ -333,51 +326,44 @@ validate_event_table_data <- function(data) {
 #'
 #' # Use with existing wpgsd functions
 #' correlation_matrix <- generate_corr(event_table@data)
-#'
-#' @export
-new_event_table <- function(data = tibble::tibble()) {
-  EventTable(data = data)
-}
 
 # CorrelationMatrix S7 Class ====
 
 #' CorrelationMatrix S7 Class
 #' 
 #' @description
-#' S7 class for correlation matrices in wpgsd package.
+#' Create a type-safe S7 CorrelationMatrix object that represents correlation matrices
+#' used in the wpgsd package. This class provides validation for matrix properties
+#' such as symmetry and positive definiteness.
 #' 
-#' @param matrix A numeric matrix representing the correlation matrix
-#' @param n_hypotheses Integer number of hypotheses 
-#' @param n_analyses Integer number of analyses
-#' @param column_names Character vector of column names (e.g., "H1_A1", "H2_A1")
+#' @param matrix A numeric matrix representing correlations
+#' @param n_hypotheses Integer number of hypotheses
+#' @param n_analyses Integer number of analyses  
+#' @param column_names Character vector of column names
+#' 
+#' @details
+#' The CorrelationMatrix class validates that:
+#' - Matrix is symmetric (with tolerance 1e-12)
+#' - Matrix is positive definite
+#' - Diagonal elements are 1 (within tolerance)
+#' - Dimensions are consistent with n_hypotheses and n_analyses
+#' 
+#' @return A CorrelationMatrix S7 object with validated matrix and metadata
 #' 
 #' @examples
-#' library(tibble)
-#' 
-#' # Create sample event data
-#' event_data <- tibble(
-#'   H1 = c(1, 2, 1, 1, 2, 1),
-#'   H2 = c(1, 2, 2, 1, 2, 2),
-#'   Analysis = c(1, 1, 1, 2, 2, 2),
-#'   Event = c(155, 160, 85, 305, 320, 170)
-#' )
-#' 
-#' # Generate correlation matrix using traditional function
-#' corr_matrix <- generate_corr(event_data)
-#' 
-#' # Create CorrelationMatrix object
-#' corr_obj <- new_correlation_matrix(
+#' # Create a simple 2x2 correlation matrix
+#' corr_matrix <- matrix(c(1, 0.5, 0.5, 1), nrow = 2)
+#' corr_obj <- CorrelationMatrix(
 #'   matrix = corr_matrix,
-#'   n_hypotheses = 2,
-#'   n_analyses = 2,
+#'   n_hypotheses = 1L,
+#'   n_analyses = 2L,
 #'   column_names = colnames(corr_matrix)
 #' )
 #' 
 #' print(corr_obj)
 #' 
 #' @export
-CorrelationMatrix <- S7::new_class("CorrelationMatrix",
-  properties = list(
+CorrelationMatrix <- S7::new_class("CorrelationMatrix",  properties = list(
     matrix = S7::new_S3_class("matrix"),
     n_hypotheses = S7::class_integer,
     n_analyses = S7::class_integer,
@@ -521,38 +507,6 @@ S7::method(print, CorrelationMatrix) <- function(x, ...) {
   invisible(x)
 }
 
-#' Create a new CorrelationMatrix object
-#'
-#' @description
-#' Constructor function to create a CorrelationMatrix S7 object with validation.
-#' This function provides a user-friendly interface to create CorrelationMatrix objects.
-#'
-#' @param matrix A numeric matrix representing the correlation matrix
-#' @param n_hypotheses Integer number of hypotheses (optional, inferred if not provided)
-#' @param n_analyses Integer number of analyses (optional, inferred if not provided)  
-#' @param column_names Character vector of column names (optional, generated if not provided)
-#'
-#' @return A CorrelationMatrix S7 object
-#'
-#' @examples
-#' # Create a simple 2x2 correlation matrix
-#' corr_mat <- matrix(c(1, 0.5, 0.5, 1), nrow = 2)
-#' corr_obj <- new_correlation_matrix(matrix = corr_mat, n_hypotheses = 1, n_analyses = 2)
-#' print(corr_obj)
-#'
-#' @export
-new_correlation_matrix <- function(matrix = matrix(numeric(), nrow = 0, ncol = 0),
-                                  n_hypotheses = 0L,
-                                  n_analyses = 0L,
-                                  column_names = character()) {
-  CorrelationMatrix(
-    matrix = matrix,
-    n_hypotheses = n_hypotheses,
-    n_analyses = n_analyses,
-    column_names = column_names
-  )
-}
-
 #' Convert matrix to CorrelationMatrix object
 #'
 #' @description
@@ -571,7 +525,7 @@ new_correlation_matrix <- function(matrix = matrix(numeric(), nrow = 0, ncol = 0
 #'
 #' @export
 as_correlation_matrix <- function(matrix, n_hypotheses = 0L, n_analyses = 0L) {
-  new_correlation_matrix(
+  CorrelationMatrix(
     matrix = matrix,
     n_hypotheses = n_hypotheses,
     n_analyses = n_analyses
@@ -601,10 +555,10 @@ as_correlation_matrix <- function(matrix, n_hypotheses = 0L, n_analyses = 0L) {
 #'   Event = c(155, 160, 85, 305, 320, 170)
 #' )
 #' corr_matrix <- generate_corr(event_data)
-#' corr_obj <- new_correlation_matrix(
+#' corr_obj <- CorrelationMatrix(
 #'   matrix = corr_matrix,
-#'   n_hypotheses = 2,
-#'   n_analyses = 2
+#'   n_hypotheses = 2L,
+#'   n_analyses = 2L
 #' )
 #' 
 #' # Extract subset for analysis 1 only
@@ -641,14 +595,14 @@ subset_correlation_matrix <- function(x, analysis = NULL, hypotheses = NULL) {
   if (length(indices) > 0) {
     subset_matrix <- x@matrix[indices, indices, drop = FALSE]
     
-    new_correlation_matrix(
+    CorrelationMatrix(
       matrix = subset_matrix,
       n_hypotheses = length(hypotheses),
       n_analyses = length(analysis),
       column_names = new_column_names
     )
   } else {
-    new_correlation_matrix()
+    CorrelationMatrix()
   }
 }
 
@@ -679,7 +633,7 @@ subset_correlation_matrix <- function(x, analysis = NULL, hypotheses = NULL) {
 #'   Analysis = c(1, 1, 1, 2, 2, 2),
 #'   Event = c(155, 160, 85, 305, 320, 170)
 #' )
-#' event_table <- new_event_table(data = event_data)
+#' event_table <- EventTable(data = event_data)
 #' corr_matrix_s7 <- generate_corr_s7(event_table)
 #' print(corr_matrix_s7)
 #'
@@ -687,7 +641,7 @@ subset_correlation_matrix <- function(x, analysis = NULL, hypotheses = NULL) {
 generate_corr_s7 <- function(event_table, check = TRUE) {
   # Require EventTable S7 object
   if (!S7::S7_inherits(event_table, EventTable)) {
-    stop("Input must be an EventTable S7 object. Use new_event_table() to create one.")
+    stop("Input must be an EventTable S7 object. Use EventTable() to create one.")
   }
   
   # Extract data from EventTable
@@ -730,7 +684,7 @@ generate_corr_s7 <- function(event_table, check = TRUE) {
   rownames(corr_matrix_reordered) <- col_names_new
   
   # Create and return CorrelationMatrix S7 object
-  new_correlation_matrix(
+  CorrelationMatrix(
     matrix = corr_matrix_reordered,
     n_hypotheses = n_hypotheses,
     n_analyses = n_analyses,

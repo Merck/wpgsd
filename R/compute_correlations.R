@@ -37,6 +37,28 @@
 #'   Analysis = c(1, 1, 1, 2, 2, 2),
 #'   Event = c(155, 160, 85, 305, 320, 170)
 #' )
+#' Check Event Data for Correlation Computation
+#'
+#' @description
+#' This function validates event data before correlation computation.
+#' It ensures the data has the correct structure and satisfies all mathematical
+#' requirements for computing correlations.
+#'
+#' @param event A data.frame or tibble containing event data with columns
+#'   H1, H2, Analysis, and Event
+#'
+#' @return `TRUE` if validation passes (invisible), otherwise stops with
+#'   descriptive error message
+#'
+#' @details
+#' This function performs comprehensive validation including:
+#' - Required columns and data types
+#' - H1 <= H2 requirement for correlation computation
+#' - Sequential hypothesis and analysis indices
+#' - Diagonal entries exist for all off-diagonal entries
+#' - Unique combinations of H1, H2, Analysis
+#'
+#' @examples
 #' check_event_data(event_data)
 #'
 #' @export
@@ -46,100 +68,8 @@ check_event_data <- function(event) {
     stop("'event' must be a data frame", call. = FALSE)
   }
   
-  # Check required columns exist
-  required_cols <- c("H1", "H2", "Analysis", "Event")
-  missing_cols <- setdiff(required_cols, names(event))
-  if (length(missing_cols) > 0) {
-    stop("Missing required columns: ", paste(missing_cols, collapse = ", "), call. = FALSE)
-  }
-  
-  # Check H1 <= H2 for each row
-  if (any(event$H1 > event$H2, na.rm = TRUE)) {
-    stop("H1 must be <= H2 for all rows", call. = FALSE)
-  }
-  
-  # Check uniqueness of H1, H2, Analysis combinations
-  combo_check <- paste(event$H1, event$H2, event$Analysis, sep = "_")
-  if (any(duplicated(combo_check))) {
-    stop("Combinations of H1, H2, Analysis must be unique", call. = FALSE)
-  }
-  
-  # Check Event is non-negative integer
-  if (any(!is.numeric(event$Event) | event$Event < 0 | event$Event != floor(event$Event), na.rm = TRUE)) {
-    stop("Event must be non-negative integers", call. = FALSE)
-  }
-  
-  # Check Analysis values are sequential positive integers starting from 1
-  unique_analyses <- sort(unique(as.integer(event$Analysis)))
-  expected_analyses <- seq_len(max(unique_analyses))
-  if (!identical(unique_analyses, expected_analyses)) {
-    stop("Analysis values must be sequential positive integers starting from 1", call. = FALSE)
-  }
-  if (length(unique_analyses) <= 1) {
-    stop("Analysis must have more than one unique value", call. = FALSE)
-  }
-  
-  # Check H1 values are sequential integers starting from 1
-  unique_h1 <- sort(unique(as.integer(event$H1)))
-  expected_h1 <- seq_len(max(unique_h1))
-  if (!identical(unique_h1, expected_h1)) {
-    stop("H1 values must be sequential positive integers starting from 1", call. = FALSE)
-  }
-  if (length(unique_h1) <= 1) {
-    stop("H1 must have more than one unique value", call. = FALSE)
-  }
-  
-  # Check H2 values are sequential integers starting from 1
-  unique_h2 <- sort(unique(as.integer(event$H2)))
-  expected_h2 <- seq_len(max(unique_h2))
-  if (!identical(unique_h2, expected_h2)) {
-    stop("H2 values must be sequential positive integers starting from 1", call. = FALSE)
-  }
-  if (length(unique_h2) <= 1) {
-    stop("H2 must have more than one unique value", call. = FALSE)
-  }
-  
-  # Check that for each analysis k, if there's a row with H1 < H2, 
-  # then there's also a row with H1 == H2
-  K <- max(unique_analyses)
-  for (k in seq_len(K)) {
-    analysis_data <- event[event$Analysis == k, ]
-    off_diagonal <- analysis_data[analysis_data$H1 < analysis_data$H2, ]
-    
-    if (nrow(off_diagonal) > 0) {
-      # Check diagonal entries exist
-      diagonal_data <- analysis_data[analysis_data$H1 == analysis_data$H2, ]
-      if (nrow(diagonal_data) == 0) {
-        stop("For Analysis ", k, ", off-diagonal entries exist but no diagonal entries found", 
-             call. = FALSE)
-      }
-    }
-  }
-  
-  # Check that for any off-diagonal entry, both corresponding diagonal entries exist
-  for (i in seq_len(nrow(event))) {
-    h1 <- event$H1[i]
-    h2 <- event$H2[i]
-    analysis <- event$Analysis[i]
-    
-    if (h1 < h2) {  # Off-diagonal entry
-      # Check H1=h1, H2=h1 exists for this analysis
-      diag_h1 <- event[event$H1 == h1 & event$H2 == h1 & event$Analysis == analysis, ]
-      if (nrow(diag_h1) == 0) {
-        stop("Missing diagonal entry: H1=", h1, ", H2=", h1, ", Analysis=", analysis, 
-             call. = FALSE)
-      }
-      
-      # Check H1=h2, H2=h2 exists for this analysis
-      diag_h2 <- event[event$H1 == h2 & event$H2 == h2 & event$Analysis == analysis, ]
-      if (nrow(diag_h2) == 0) {
-        stop("Missing diagonal entry: H1=", h2, ", H2=", h2, ", Analysis=", analysis, 
-             call. = FALSE)
-      }
-    }
-  }
-  
-  invisible(TRUE)
+  # Use core validation function with strict level (includes H1 <= H2 requirement)
+  validate_event_data_core(event, validation_level = "strict")
 }
 
 #' Compute correlations from event data

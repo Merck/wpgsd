@@ -7,15 +7,32 @@
 check_event_data(event)
 }
 \arguments{
-\item{event}{A data frame with columns H1, H2, Analysis, and Event containing
-event count data for correlation computation}
+\item{event}{A data.frame or tibble containing event data with columns
+H1, H2, Analysis, and Event}
 }
 \value{
 Invisibly returns TRUE if all checks pass, otherwise throws an error
+
+\code{TRUE} if validation passes (invisible), otherwise stops with
+descriptive error message
 }
 \description{
 Validates input event data for computing correlations between test statistics.
 Performs comprehensive checks on data structure, values, and completeness.
+
+This function validates event data before correlation computation.
+It ensures the data has the correct structure and satisfies all mathematical
+requirements for computing correlations.
+}
+\details{
+This function performs comprehensive validation including:
+\itemize{
+\item Required columns and data types
+\item H1 <= H2 requirement for correlation computation
+\item Sequential hypothesis and analysis indices
+\item Diagonal entries exist for all off-diagonal entries
+\item Unique combinations of H1, H2, Analysis
+}
 }
 \examples{
 library(tibble)
@@ -27,6 +44,8 @@ event_data <- tibble(
   Analysis = c(1, 1, 1, 2, 2, 2),
   Event = c(155, 160, 85, 305, 320, 170)
 )
+Check Event Data for Correlation Computation
+
 check_event_data(event_data)
 
 }

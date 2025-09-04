@@ -7,6 +7,25 @@
   - `CorrelationMatrix` class with symmetry and positive definiteness validation
   - Improved `generate_corr()` function with S7 class support
 
+## Code Quality Improvements
+
+### Validation System Refactoring
+- **Eliminated ~80% code duplication** between `check_event_data()`, `validate_event_table_data()`, and `EventTable` validator method through centralized `validate_event_data_core()` function
+- **Improved validation consistency** with three validation levels: "basic", "strict", and "s7" to support different use cases
+- **Enhanced error handling** with clearer, more specific error messages for validation failures
+- **Relaxed Event value requirements** to allow non-integer values (e.g., 100.5 events) while maintaining H1, H2, and Analysis as positive integers
+
+### S7 Class Implementation Improvements  
+- **Removed redundant wrapper functions** `new_event_table()` and `new_correlation_matrix()` following S7 best practices
+- **Enhanced S7 class documentation** with comprehensive parameter descriptions, validation details, and usage examples
+- **Improved API consistency** by using direct S7 class constructors (`EventTable()`, `CorrelationMatrix()`) throughout codebase
+- **Updated all examples and tests** to use proper S7 constructor patterns instead of wrapper functions
+
+### Testing and Documentation Updates
+- **Updated test suite** to reflect validation changes and S7 constructor usage
+- **Regenerated package documentation** with roxygen2 to remove deprecated wrapper function documentation
+- **Enhanced code maintainability** through consolidated validation logic and cleaner S7 implementation
+
 ## Bug Fixes and Improvements
 
 - Fixed correlation matrix validation tolerance issues (improved numerical precision handling with 1e-12 tolerance)
