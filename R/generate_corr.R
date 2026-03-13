@@ -68,13 +68,18 @@ generate_corr <- function(event) {
   D <- diag(elem$Event)
 
   # Within hypothesis across analyses
+  # D[Hi_As, Hi_At] = events for hypothesis i at min(s, t)
   for (i in 1:n_hypotheses) {
-    for (j in 2:n_analyses) {
-      count <- as.numeric(event %>%
-        filter(H1 == i & H2 == i & Analysis == j - 1) %>%
-        select(Event))
-      D[i, n_hypotheses * (j - 1) + i] <- count
-      D[n_hypotheses * (j - 1) + i, i] <- count
+    for (s in 1:n_analyses) {
+      for (t in 1:n_analyses) {
+        if (s == t) next
+        count <- as.numeric(event %>%
+          filter(H1 == i & H2 == i & Analysis == min(s, t)) %>%
+          select(Event))
+        row_idx <- n_hypotheses * (s - 1) + i
+        col_idx <- n_hypotheses * (t - 1) + i
+        D[row_idx, col_idx] <- count
+      }
     }
   }
 
