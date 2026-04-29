@@ -1,0 +1,537 @@
+---
+title: "Dunnett-type dose-finding with group sequential design"
+author: "Keaven Anderson"
+output:
+  rmarkdown::html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    code_folding: hide
+    number_sections: true
+    highlight: "textmate"
+    css: "custom.css"
+bibliography: wpgsd.bib
+vignette: >
+  %\VignetteIndexEntry{Dunnett-type dose-finding with group sequential design}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  error = TRUE,
+  fig.align = "center"
+)
+```
+
+```{r, message=FALSE, warning=FALSE}
+library(wpgsd)
+library(gsDesign)
+library(gMCPLite)
+library(dplyr)
+library(tibble)
+library(gt)
+```
+
+# Background
+
+A common clinical trial design compares multiple experimental dose
+groups against a shared control arm. This is known as a Dunnett-type
+design (@dunnett1955multiple). When combined with a group sequential
+design allowing an interim analysis for futility, the correlation
+between test statistics for different dose-versus-control comparisons
+arises naturally from the shared control arm.
+
+The weighted parametric group sequential design (WPGSD) approach
+(@anderson2022unified) exploits these known correlations to produce
+tighter efficacy bounds compared to the Bonferroni approach. This
+vignette demonstrates the WPGSD methodology for a trial with 4
+experimental dose groups versus a common control, using overall survival
+(OS) as the primary endpoint, with a group sequential design having an
+interim analysis at approximately 40% information fraction.
+
+# Trial Setup
+
+## Hypotheses
+
+We consider 4 hypotheses, each comparing an experimental dose group to
+the common control:
+
+-   $H_1$: Dose 1 vs. Control
+-   $H_2$: Dose 2 vs. Control
+-   $H_3$: Dose 3 vs. Control
+-   $H_4$: Dose 4 vs. Control
+
+## Multiplicity Strategy
+
+We use equal initial weights ($w_i = 1/4$ for each hypothesis) and
+equal transitions ($m_{ij} = 1/3$ for $i \neq j$). This symmetric
+strategy reflects no prior preference among doses.
+
+```{r, out.width="90%"}
+# Transition matrix: equal transitions among 4 hypotheses
+m <- matrix(1 / 3, nrow = 4, ncol = 4)
+diag(m) <- 0
+
+# Initial weights: equal allocation
+w <- rep(1 / 4, 4)
+
+# Multiplicity graph
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73")
+
+nameHypotheses <- c(
+  "H1: Dose 1 vs Control",
+  "H2: Dose 2 vs Control",
+  "H3: Dose 3 vs Control",
+  "H4: Dose 4 vs Control"
+)
+
+hplot <- hGraph(4,
+  alphaHypotheses = w,
+  m = m,
+  nameHypotheses = nameHypotheses,
+  trhw = .2, trhh = .1,
+  digits = 4, trdigits = 4, size = 5, halfWid = 1.2,
+  halfHgt = 0.5, offset = 0.2, trprop = 0.35,
+  fill = as.factor(1:4),
+  palette = cbPalette,
+  wchar = "w"
+)
+hplot
+```
+
+## Event Counts
+
+We assume approximately balanced event counts across treatment arms with
+an interim analysis (IA) at roughly 40% of the planned final analysis
+(FA) events. For OS, events are deaths observed in each
+dose-versus-control comparison.
+
+| Treatment Arm  | Events at IA | Events at FA |
+|:--------------:|:------------:|:------------:|
+| Dose 1         | 24           | 60           |
+| Dose 2         | 26           | 65           |
+| Dose 3         | 25           | 63           |
+| Dose 4         | 27           | 67           |
+| Control        | 25           | 63           |
+
+Table: Number of events at each analysis for each treatment arm.
+IA: interim analysis (~40% information). FA: final analysis.
+
+The diagonal entries of the event table represent total events for each
+hypothesis (experimental arm + control), while off-diagonal entries
+represent events shared between two comparisons (control arm events
+only).
+
+```{r}
+# Event counts per arm
+# IA: Dose 1=24, Dose 2=26, Dose 3=25, Dose 4=27, Control=25
+# FA: Dose 1=60, Dose 2=65, Dose 3=63, Dose 4=67, Control=63
+
+# Event table: diagonal = experimental + control; off-diagonal = control only
+event <- tribble(
+  ~H1, ~H2, ~Analysis, ~Event,
+  # IA diagonal (total events per hypothesis = dose + control)
+  1, 1, 1, 49,   # Dose 1 (24) + Control (25)
+  2, 2, 1, 51,   # Dose 2 (26) + Control (25)
+  3, 3, 1, 50,   # Dose 3 (25) + Control (25)
+  4, 4, 1, 52,   # Dose 4 (27) + Control (25)
+  # IA off-diagonal (shared events = control only)
+  1, 2, 1, 25,
+  1, 3, 1, 25,
+  1, 4, 1, 25,
+  2, 3, 1, 25,
+  2, 4, 1, 25,
+  3, 4, 1, 25,
+  # FA diagonal (total events per hypothesis = dose + control)
+  1, 1, 2, 123,  # Dose 1 (60) + Control (63)
+  2, 2, 2, 128,  # Dose 2 (65) + Control (63)
+  3, 3, 2, 126,  # Dose 3 (63) + Control (63)
+  4, 4, 2, 130,  # Dose 4 (67) + Control (63)
+  # FA off-diagonal (shared events = control only)
+  1, 2, 2, 63,
+  1, 3, 2, 63,
+  1, 4, 2, 63,
+  2, 3, 2, 63,
+  2, 4, 2, 63,
+  3, 4, 2, 63
+)
+
+event %>%
+  gt() %>%
+  tab_header(title = "Event Count Table")
+```
+
+# Correlation Structure
+
+## Computing Correlations
+
+The correlation between test statistics follows the formula
+(@anderson2022unified):
+
+$$\text{Corr}(Z_{ik}, Z_{i'k'}) = \frac{n_{i \wedge i', k \wedge k'}}{\sqrt{n_{ik} \cdot n_{i'k'}}}$$
+
+where $n_{i \wedge i', k \wedge k'}$ denotes the number of events
+included in both $Z_{ik}$ and $Z_{i'k'}$.
+
+For the Dunnett-type design, the shared events between two different
+dose-versus-control comparisons at the same analysis are the control arm
+events. For example, at the interim analysis:
+
+$$\text{Corr}(Z_{1,1}, Z_{2,1}) = \frac{n_{\text{control, IA}}}{\sqrt{n_{1,1} \cdot n_{2,1}}} = \frac{25}{\sqrt{49 \cdot 51}} \approx 0.500$$
+
+```{r}
+# Generate correlation matrix
+corr <- generate_corr(event)
+
+corr %>%
+  as_tibble() %>%
+  gt() %>%
+  fmt_number(columns = everything(), decimals = 3) %>%
+  tab_header(title = "Correlation Matrix (8 x 8)")
+```
+
+## Verification of Correlation Entries
+
+We manually verify key entries of the correlation matrix to confirm
+correctness for the 4-hypothesis Dunnett scenario.
+
+```{r}
+# --- Verification of key correlation entries ---
+
+# Case 1: Same hypothesis, same analysis -> should be 1.0
+cat("Corr(Z_1,1, Z_1,1) =", corr[1, 1], " (expected: 1.0)\n")
+
+# Case 2: Different hypotheses, same analysis (IA)
+# Corr(Z_1,1, Z_2,1) = n_control_IA / sqrt(n_H1_IA * n_H2_IA) = 25 / sqrt(49 * 51)
+expected_12_ia <- 25 / sqrt(49 * 51)
+cat("Corr(Z_1,1, Z_2,1) =", round(corr[1, 2], 6),
+    " (expected:", round(expected_12_ia, 6), ")\n")
+
+# Case 3: Different hypotheses, same analysis (FA)
+# Corr(Z_1,2, Z_3,2) = n_control_FA / sqrt(n_H1_FA * n_H3_FA) = 63 / sqrt(123 * 126)
+expected_13_fa <- 63 / sqrt(123 * 126)
+cat("Corr(Z_1,2, Z_3,2) =", round(corr[5, 7], 6),
+    " (expected:", round(expected_13_fa, 6), ")\n")
+
+# Case 4: Same hypothesis, different analyses
+# Corr(Z_1,1, Z_1,2) = n_H1_IA / sqrt(n_H1_IA * n_H1_FA) = 49 / sqrt(49 * 123)
+expected_11_cross <- 49 / sqrt(49 * 123)
+cat("Corr(Z_1,1, Z_1,2) =", round(corr[1, 5], 6),
+    " (expected:", round(expected_11_cross, 6), ")\n")
+
+# Case 5: Different hypotheses, different analyses
+# Corr(Z_2,1, Z_4,2) = n_control_min(IA) / sqrt(n_H2_IA * n_H4_FA) = 25 / sqrt(51 * 130)
+expected_24_cross <- 25 / sqrt(51 * 130)
+cat("Corr(Z_2,1, Z_4,2) =", round(corr[2, 8], 6),
+    " (expected:", round(expected_24_cross, 6), ")\n")
+```
+
+The correlation matrix for this 4-hypothesis Dunnett scenario has the
+following structure:
+
+-   **Same analysis, different hypotheses**: Correlation $\approx 0.50$
+    at IA and $\approx 0.50$ at FA, driven by the shared control arm.
+    With balanced arms, this approaches $n_C / (n_C + n_E) \approx 0.5$
+    when $n_C \approx n_E$.
+-   **Same hypothesis, different analyses**: Correlation $\approx 0.63$,
+    the standard group sequential information fraction correlation
+    $\sqrt{n_{ik}/n_{ik'}}$.
+-   **Different hypotheses, different analyses**: Correlation
+    $\approx 0.31$, combining both sources of correlation.
+
+# Futility Bound
+
+We use `gsDesign` to compute a common non-binding futility bound at the
+interim analysis. This bound applies equally to all 4 dose arms. The
+futility bound is based on a beta-spending approach using a
+Hwang-Shih-DeCani spending function.
+
+```{r}
+# Group sequential design with non-binding futility
+# Approximately 40% information fraction
+# Using a common design for all hypotheses
+
+# Average information fraction across hypotheses
+IF_avg <- mean(c(49 / 123, 51 / 128, 50 / 126, 52 / 130))
+
+gs_design <- gsDesign(
+  k = 2,
+  test.type = 4, # Non-binding futility
+  alpha = 0.025 / 4, # Per-hypothesis alpha (Bonferroni for single hypothesis)
+  beta = 0.1,
+  timing = IF_avg,
+  sfu = sfLDOF,   # Lan-DeMets O'Brien-Fleming for efficacy
+  sfl = sfHSD,     # HSD for futility
+  sflpar = -2
+)
+
+# Futility bound (on p-value scale)
+futility_z <- gs_design$lower$bound[1]
+futility_p <- pnorm(futility_z)
+
+cat("Information fraction:", round(IF_avg, 3), "\n")
+cat("Futility Z-bound at IA:", round(futility_z, 4), "\n")
+cat("Futility p-value bound at IA:", round(futility_p, 4), "\n")
+cat("Interpretation: Stop for futility if one-sided p-value >",
+    round(futility_p, 4), "\n")
+```
+
+```{r}
+# Display the gsDesign summary
+tibble(
+  Analysis = c("IA", "FA"),
+  `Information Fraction` = round(c(IF_avg, 1), 3),
+  `Futility Z-bound` = round(gs_design$lower$bound, 4),
+  `Futility p-value` = round(pnorm(gs_design$lower$bound), 4)
+) %>%
+  gt() %>%
+  tab_header(title = "Non-binding Futility Bounds (Common Across All Doses)")
+```
+
+The futility bound is applied as a common bar: at the interim analysis,
+any dose arm with a one-sided p-value exceeding the futility threshold
+is dropped for futility. This is a non-binding bound, meaning it does
+not affect the Type I error control of the efficacy bounds.
+
+# Efficacy Bounds
+
+## Information Fractions
+
+Each hypothesis has its own information fraction based on the ratio of
+events at the interim to final analysis.
+
+```{r}
+# Information fractions for each hypothesis
+IF_H1 <- c(49 / 123, 1)
+IF_H2 <- c(51 / 128, 1)
+IF_H3 <- c(50 / 126, 1)
+IF_H4 <- c(52 / 130, 1)
+
+tibble(
+  Hypothesis = paste0("H", 1:4),
+  `IF at IA` = round(c(IF_H1[1], IF_H2[1], IF_H3[1], IF_H4[1]), 3),
+  `IF at FA` = 1
+) %>%
+  gt() %>%
+  tab_header(title = "Information Fractions")
+```
+
+## Bonferroni Bounds
+
+We first compute Bonferroni bounds (Type 0) as a reference, using
+Lan-DeMets O'Brien-Fleming spending for each hypothesis.
+
+```{r}
+# Bonferroni bounds
+bound_Bonf <- generate_bounds(
+  type = 0, k = 2, w = w, m = m,
+  corr = corr, alpha = 0.025,
+  sf = list(sfLDOF, sfLDOF, sfLDOF, sfLDOF),
+  sfparm = list(0, 0, 0, 0),
+  t = list(IF_H1, IF_H2, IF_H3, IF_H4)
+)
+
+bound_Bonf %>%
+  gt() %>%
+  fmt_number(columns = 3:6, decimals = 6) %>%
+  tab_header(title = "Bonferroni Bounds (Type 0)")
+```
+
+## WPGSD Bounds
+
+We compute WPGSD bounds using $\alpha$-spending approach 2 (Type 3,
+separate spending per hypothesis), which applies an inflation factor
+$\xi$ to the Bonferroni nominal boundaries.
+
+```{r}
+set.seed(1234)
+
+# WPGSD bounds with separate alpha spending (Type 3)
+bound_WPGSD <- generate_bounds(
+  type = 3, k = 2, w = w, m = m,
+  corr = corr, alpha = 0.025,
+  sf = list(sfLDOF, sfLDOF, sfLDOF, sfLDOF),
+  sfparm = list(0, 0, 0, 0),
+  t = list(IF_H1, IF_H2, IF_H3, IF_H4)
+)
+
+bound_WPGSD %>%
+  gt() %>%
+  fmt_number(columns = 3:6, decimals = 6) %>%
+  tab_header(title = "WPGSD Bounds (Type 3, Separate Spending)")
+```
+
+## Comparison: Bonferroni vs. WPGSD
+
+```{r, echo=FALSE}
+# Combine bounds for comparison
+bounds_compare <- left_join(bound_Bonf, bound_WPGSD,
+  by = c("Hypotheses", "Analysis"),
+  suffix = c(".B", ".W")
+)
+
+bounds_compare %>%
+  gt() %>%
+  fmt_number(columns = where(is.numeric), decimals = 6) %>%
+  tab_header(title = "Bonferroni vs. WPGSD Bounds")
+```
+
+The WPGSD bounds are less conservative than the Bonferroni bounds
+because they account for the positive correlation induced by the shared
+control arm. With 4 dose groups sharing a common control, the
+correlations are substantial (~0.50 within the same analysis), and the
+WPGSD approach provides a meaningful improvement.
+
+# Combined Efficacy and Futility Summary
+
+```{r}
+# Extract elementary hypothesis bounds at each analysis for both methods
+elementary_hyps <- c("H1", "H2", "H3", "H4")
+
+# Get WPGSD bounds for elementary hypotheses
+wpgsd_elem <- bound_WPGSD %>%
+  filter(Hypotheses %in% elementary_hyps)
+
+bonf_elem <- bound_Bonf %>%
+  filter(Hypotheses %in% elementary_hyps)
+
+# Summary table
+summary_tbl <- tibble(
+  Hypothesis = rep(elementary_hyps, each = 2),
+  Analysis = rep(c("IA", "FA"), 4),
+  `Bonferroni p-bound` = NA_real_,
+  `WPGSD p-bound` = NA_real_,
+  `Futility p-bound` = NA_real_
+)
+
+for (i in seq_along(elementary_hyps)) {
+  h <- elementary_hyps[i]
+  bonf_row <- bonf_elem %>% filter(Hypotheses == h)
+  wpgsd_row <- wpgsd_elem %>% filter(Hypotheses == h)
+
+  for (k in 1:2) {
+    row_idx <- (i - 1) * 2 + k
+    summary_tbl$`Bonferroni p-bound`[row_idx] <- as.numeric(bonf_row[bonf_row$Analysis == k, h])
+    summary_tbl$`WPGSD p-bound`[row_idx] <- as.numeric(wpgsd_row[wpgsd_row$Analysis == k, h])
+    if (k == 1) {
+      summary_tbl$`Futility p-bound`[row_idx] <- futility_p
+    } else {
+      summary_tbl$`Futility p-bound`[row_idx] <- NA
+    }
+  }
+}
+
+summary_tbl %>%
+  gt() %>%
+  fmt_number(columns = 3:5, decimals = 6) %>%
+  sub_missing(missing_text = "-") %>%
+  tab_header(
+    title = "Combined Efficacy and Futility Bounds",
+    subtitle = "Futility applied as a common non-binding bar at IA"
+  )
+```
+
+# Closed Testing
+
+We demonstrate the closed testing procedure with hypothetical observed
+p-values. Suppose at the interim analysis we observe promising results
+for Doses 2 and 4 but not for Doses 1 and 3. At the final analysis,
+Dose 2 confirms its efficacy.
+
+```{r}
+# Observed p-values (hypothetical)
+p_obs <- tribble(
+  ~Analysis, ~H1, ~H2, ~H3, ~H4,
+  1, 0.20, 0.003, 0.15, 0.005,
+  2, 0.10, 0.001, 0.08, 0.003
+)
+
+p_obs %>%
+  gt() %>%
+  fmt_number(columns = 2:5, decimals = 6, drop_trailing_zeros = TRUE) %>%
+  tab_header(title = "Observed Nominal p-Values")
+```
+
+```{r}
+# Apply closed testing procedure
+test_result <- closed_test(bound_WPGSD, p_obs)
+
+test_result %>%
+  gt() %>%
+  tab_header(title = "Closed Testing Results (WPGSD)")
+```
+
+```{r}
+# Compare with Bonferroni closed testing
+test_result_bonf <- closed_test(bound_Bonf, p_obs)
+
+test_result_bonf %>%
+  gt() %>%
+  tab_header(title = "Closed Testing Results (Bonferroni)")
+```
+
+## Futility Assessment
+
+At the interim analysis, we also check each dose against the common
+futility bar:
+
+```{r}
+# Futility assessment at IA
+futility_check <- tibble(
+  Hypothesis = paste0("H", 1:4),
+  `Observed p (IA)` = c(0.20, 0.003, 0.15, 0.005),
+  `Futility bound` = futility_p,
+  `Drop for futility?` = ifelse(
+    c(0.20, 0.003, 0.15, 0.005) > futility_p,
+    "Yes", "No"
+  )
+)
+
+futility_check %>%
+  gt() %>%
+  fmt_number(columns = 2:3, decimals = 4) %>%
+  tab_header(
+    title = "Futility Assessment at Interim Analysis",
+    subtitle = paste("Common futility p-value threshold:", round(futility_p, 4))
+  )
+```
+
+# Discussion
+
+This vignette demonstrates the WPGSD approach for a Dunnett-type
+dose-finding trial with 4 experimental arms versus a common control.
+Key observations:
+
+1.  **Correlation structure**: The shared control arm induces positive
+    correlations of approximately 0.50 between test statistics for
+    different dose-versus-control comparisons at the same analysis. This
+    correlation is substantial and directly exploitable by the WPGSD
+    approach.
+
+2.  **Bound improvement**: The WPGSD bounds are less conservative than
+    Bonferroni bounds, providing increased nominal significance levels
+    at both interim and final analyses. This gain comes at no cost to
+    FWER control.
+
+3.  **Scalability**: The event table and correlation formula scale
+    naturally to any number of dose groups. With $M$ hypotheses, the
+    event table requires $M(M+1)/2$ entries per analysis (4 diagonal + 6
+    off-diagonal for $M = 4$).
+
+4.  **Futility**: A common non-binding futility bound is computed
+    externally via `gsDesign` and applied as a screening criterion at
+    the interim analysis. Since the futility bound is non-binding, it
+    does not affect the WPGSD efficacy bounds or FWER control.
+
+5.  **Closed testing**: The closed testing procedure is necessary for
+    FWER control because consonance does not always hold for the WPGSD
+    approach. With 4 hypotheses, there are $2^4 - 1 = 15$ intersection
+    hypotheses to evaluate.
+
+# References
