@@ -12,6 +12,14 @@ generate_event_table_(
 )
 }
 \arguments{
+\item{event}{dataframe should have the following structure:
+\itemize{
+\item \code{Population}: A character vector indicating the population groups. For example, "Population 1", "Population 2", "Overall population" in overlap population situation; or experimental arms and control in common control situation.
+\item \code{IA}: Numeric vector indicating the number of events observed in each group during interim analysis.
+\item \code{FA}: Numeric vector indicating the number of events observed in each group during final analysis.
+The dataframe must contain at least these columns and can include additional analysis columns as needed.
+}}
+
 \item{hypothesis}{A list containing hypotheses that specify the comparisons to be made between the groups:
 - For example:
 - "Experimental 1 vs. Control"
@@ -20,14 +28,6 @@ generate_event_table_(
 \item{type}{A character string specifying the type of analysis to conduct. It should be one of the following:
 - \code{"common_control"}: Analyze the event counts comparing experimental groups to common control.
 - \code{"overlap_population"}: Analyze the event counts to assess overlap in populations.}
-
-\item{event`}{dataframe should have the following structure:
-\itemize{
-\item \code{Population}: A character vector indicating the population groups. For example, "Population 1", "Population 2", "Overall population" in overlap population situation; or experimental arms and control in common control situation.
-\item \code{IA}: Numeric vector indicating the number of events observed in each group during interim analysis.
-\item \code{FA}: Numeric vector indicating the number of events observed in each group during final analysis.
-The dataframe must contain at least these columns and can include additional analysis columns as needed.
-}}
 }
 \value{
 A dataframe with four columns:

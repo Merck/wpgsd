@@ -7,19 +7,19 @@
 generate_event_table_ol(event, hypothesis)
 }
 \arguments{
-\item{hypothesis}{A list of strings where each item represents a hypothesis regarding efficacy, formatted as follows:
-- H1: "Efficacy in Population 1"
-- H2: "Efficacy in Population 2"
-- H3: "Efficacy in Overall population"
-Each hypothesis is used for comparisons in the generated event table.}
-
-\item{event`}{dataframe should have the following structure:
+\item{event}{dataframe should have the following structure:
 \itemize{
 \item \code{Population}: A character vector indicating the population groups (e.g., "Population 1", "Population 2", "Population 1 Intersection 2", and "Overall population").
 \item \code{IA}: Numeric vector indicating the number of events observed in each group during interim analysis.
 \item \code{FA}: Numeric vector indicating the number of events observed in each group during final analysis.
 The dataframe must contain at least these columns and can include additional analysis columns as needed.
 }}
+
+\item{hypothesis}{A list of strings where each item represents a hypothesis regarding efficacy, formatted as follows:
+- H1: "Efficacy in Population 1"
+- H2: "Efficacy in Population 2"
+- H3: "Efficacy in Overall population"
+Each hypothesis is used for comparisons in the generated event table.}
 }
 \value{
 A dataframe with the following columns:

@@ -19,27 +19,6 @@
 #' Check event data for correlation computation
 #'
 #' @description
-#' Validates input event data for computing correlations between test statistics.
-#' Performs comprehensive checks on data structure, values, and completeness.
-#'
-#' @param event A data frame with columns H1, H2, Analysis, and Event containing
-#'   event count data for correlation computation
-#'
-#' @return Invisibly returns TRUE if all checks pass, otherwise throws an error
-#'
-#' @examples
-#' library(tibble)
-#' 
-#' # Valid event data
-#' event_data <- tibble(
-#'   H1 = c(1, 2, 1, 1, 2, 1),
-#'   H2 = c(1, 2, 2, 1, 2, 2),
-#'   Analysis = c(1, 1, 1, 2, 2, 2),
-#'   Event = c(155, 160, 85, 305, 320, 170)
-#' )
-#' Check Event Data for Correlation Computation
-#'
-#' @description
 #' This function validates event data before correlation computation.
 #' It ensures the data has the correct structure and satisfies all mathematical
 #' requirements for computing correlations.
@@ -59,6 +38,15 @@
 #' - Unique combinations of H1, H2, Analysis
 #'
 #' @examples
+#' library(tibble)
+#'
+#' # Valid event data
+#' event_data <- tibble(
+#'   H1 = c(1, 2, 1, 1, 2, 1),
+#'   H2 = c(1, 2, 2, 1, 2, 2),
+#'   Analysis = c(1, 1, 1, 2, 2, 2),
+#'   Event = c(155, 160, 85, 305, 320, 170)
+#' )
 #' check_event_data(event_data)
 #'
 #' @export

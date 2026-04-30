@@ -2,7 +2,7 @@
 % Please edit documentation in R/s7_classes.R
 \name{CorrelationMatrix}
 \alias{CorrelationMatrix}
-\title{Create EventTable S7 Object}
+\title{CorrelationMatrix S7 Class}
 \usage{
 CorrelationMatrix(
   matrix = matrix(numeric(), nrow = 0, ncol = 0),
@@ -19,45 +19,16 @@ CorrelationMatrix(
 \item{n_analyses}{Integer number of analyses}
 
 \item{column_names}{Character vector of column names}
-
-\item{data}{A tibble or data.frame containing the required columns:
-\itemize{
-\item \code{H1}: First hypothesis index (numeric, positive integers)
-\item \code{H2}: Second hypothesis index (numeric, positive integers)
-\item \code{Analysis}: Analysis number (numeric, positive integers)
-\item \code{Event}: Event count (numeric, non-negative)
-}}
 }
 \value{
-An EventTable S7 object with validated data and computed properties
-
 A CorrelationMatrix S7 object with validated matrix and metadata
 }
 \description{
-Create a type-safe S7 EventTable object that represents event count data
-structure used in \code{generate_corr()} and \code{generate_event_table()}. This class
-provides validation and computed properties for hypothesis and analysis counts.
-
 Create a type-safe S7 CorrelationMatrix object that represents correlation matrices
 used in the wpgsd package. This class provides validation for matrix properties
 such as symmetry and positive definiteness.
 }
 \details{
-The EventTable class automatically validates the input data and computes:
-\itemize{
-\item \code{n_hypotheses}: Maximum hypothesis index across H1 and H2 columns
-\item \code{n_analyses}: Maximum analysis number
-}
-
-The class ensures data integrity by validating that:
-\itemize{
-\item All required columns are present
-\item H1, H2, Analysis, and Event are numeric
-\item Hypothesis indices are positive integers
-\item Analysis numbers are positive integers
-\item Event counts are non-negative
-}
-
 The CorrelationMatrix class validates that:
 \itemize{
 \item Matrix is symmetric (with tolerance 1e-12)
@@ -67,27 +38,6 @@ The CorrelationMatrix class validates that:
 }
 }
 \examples{
-library(tibble)
-
-# Create sample event data
-event_data <- tibble(
-  H1 = c(1, 2, 1, 1, 2, 1),
-  H2 = c(1, 2, 2, 1, 2, 2),
-  Analysis = c(1, 1, 1, 2, 2, 2),
-  Event = c(155, 160, 85, 305, 320, 170)
-)
-
-# Create EventTable object
-event_table <- EventTable(data = event_data)
-
-# Access properties
-print(event_table@n_hypotheses) # Number of hypotheses
-print(event_table@n_analyses) # Number of analyses
-
-# Use with existing wpgsd functions
-correlation_matrix <- generate_corr(event_table@data)
-CorrelationMatrix S7 Class
-
 # Create a simple 2x2 correlation matrix
 corr_matrix <- matrix(c(1, 0.5, 0.5, 1), nrow = 2)
 corr_obj <- CorrelationMatrix(

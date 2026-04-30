@@ -2,61 +2,22 @@
 % Please edit documentation in R/s7_classes.R
 \name{validate_event_table_data}
 \alias{validate_event_table_data}
-\title{Core Event Data Validation Function}
+\title{Validate EventTable Data Format}
 \usage{
 validate_event_table_data(data)
 }
 \arguments{
 \item{data}{A data.frame or tibble to validate}
-
-\item{validation_level}{Character string specifying validation level:
-\itemize{
-\item "basic": Check required columns, data types, and basic constraints
-\item "strict": Include advanced mathematical requirements for correlation computation
-\item "s7": Full validation for S7 EventTable objects
-}}
-
-\item{return_errors}{Logical. If TRUE, return error messages instead of stopping.
-Used for S7 validators which expect error messages.}
 }
 \value{
-If \code{return_errors = FALSE}: \code{TRUE} if validation passes (invisible),
-otherwise stops with descriptive error message.
-If \code{return_errors = TRUE}: \code{TRUE} if validation passes, otherwise
-first error message as character string.
-
 \code{TRUE} if validation passes (invisible), otherwise stops with
 descriptive error message
 }
 \description{
-Comprehensive validation function for event data used across the package.
-This is the single source of truth for event data validation logic.
-
 Validate that a data.frame or tibble has the correct structure and
 data types required for creating an EventTable object.
 }
 \details{
-Validation checks performed:
-
-\strong{Basic level:}
-\itemize{
-\item Required columns (H1, H2, Analysis, Event) are present
-\item All columns are numeric
-\item Hypothesis indices (H1, H2) are positive
-\item Analysis numbers are positive
-\item Event counts are non-negative
-}
-
-\strong{Strict level (includes basic plus):}
-\itemize{
-\item H1 <= H2 for all rows (correlation computation requirement)
-\item Unique combinations of H1, H2, Analysis
-\item Sequential hypothesis and analysis indices starting from 1
-\item Diagonal entries exist for all off-diagonal entries
-}
-
-Validate EventTable Data Format
-
 This function checks that:
 \itemize{
 \item Required columns (H1, H2, Analysis, Event) are present

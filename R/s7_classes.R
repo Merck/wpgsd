@@ -23,6 +23,7 @@
 # data structures used in weighted parametric group sequential designs.
 
 #' @importFrom S7 new_class new_object class_data.frame class_integer class_character new_S3_class S7_inherits S7_object method
+NULL
 
 #' EventTable S7 Class
 #'
@@ -56,10 +57,10 @@
 #'
 #' # Create valid event data
 #' event_data <- tibble(
-#'   H1 = c(1L, 1L, 2L, 2L),
-#'   H2 = c(1L, 2L, 2L, 2L),
-#'   Analysis = c(1L, 1L, 1L, 2L),
-#'   Event = c(155.5, 85.2, 160.7, 170.3)
+#'   H1 = c(1L, 2L, 1L, 1L, 2L, 1L),
+#'   H2 = c(1L, 2L, 2L, 1L, 2L, 2L),
+#'   Analysis = c(1L, 1L, 1L, 2L, 2L, 2L),
+#'   Event = c(155, 160, 85, 305, 320, 170)
 #' )
 #'
 #' # Create EventTable object
@@ -69,9 +70,7 @@
 #' print(event_table@n_hypotheses) # Number of hypotheses
 #' print(event_table@n_analyses) # Number of analyses
 #'
-#' # Use with existing wpgsd functions
-#' correlation_matrix <- generate_corr(event_table@data)
-#'
+#' @name EventTable
 #' @export
 # Define the EventTable S7 class
 EventTable <- S7::new_class(
@@ -200,43 +199,6 @@ as_event_table <- function(data) {
   EventTable(data = data)
 }
 
-#' Core Event Data Validation Function
-#'
-#' @description
-#' Comprehensive validation function for event data used across the package.
-#' This is the single source of truth for event data validation logic.
-#'
-#' @param data A data.frame or tibble to validate
-#' @param validation_level Character string specifying validation level:
-#'   - "basic": Check required columns, data types, and basic constraints
-#'   - "strict": Include advanced mathematical requirements for correlation computation
-#'   - "s7": Full validation for S7 EventTable objects
-#' @param return_errors Logical. If TRUE, return error messages instead of stopping.
-#'   Used for S7 validators which expect error messages.
-#'
-#' @return If `return_errors = FALSE`: `TRUE` if validation passes (invisible),
-#'   otherwise stops with descriptive error message.
-#'   If `return_errors = TRUE`: `TRUE` if validation passes, otherwise
-#'   first error message as character string.
-#'
-#' @details
-#' Validation checks performed:
-#'
-#' **Basic level:**
-#' - Required columns (H1, H2, Analysis, Event) are present
-#' - All columns are numeric
-#' - Hypothesis indices (H1, H2) are positive
-#' - Analysis numbers are positive
-#' - Event counts are non-negative
-#'
-#' **Strict level (includes basic plus):**
-#' - H1 <= H2 for all rows (correlation computation requirement)
-#' - Unique combinations of H1, H2, Analysis
-#' - Sequential hypothesis and analysis indices starting from 1
-#' - Diagonal entries exist for all off-diagonal entries
-#'
-
-
 #' Validate EventTable Data Format
 #'
 #' @description
@@ -279,53 +241,6 @@ validate_event_table_data <- function(data) {
   validate_event_data_core(data, validation_level = "basic")
 }
 
-#' Create EventTable S7 Object
-#'
-#' @description
-#' Create a type-safe S7 EventTable object that represents event count data
-#' structure used in `generate_corr()` and `generate_event_table()`. This class
-#' provides validation and computed properties for hypothesis and analysis counts.
-#'
-#' @param data A tibble or data.frame containing the required columns:
-#'   - `H1`: First hypothesis index (numeric, positive integers)
-#'   - `H2`: Second hypothesis index (numeric, positive integers)
-#'   - `Analysis`: Analysis number (numeric, positive integers)
-#'   - `Event`: Event count (numeric, non-negative)
-#'
-#' @details
-#' The EventTable class automatically validates the input data and computes:
-#' - `n_hypotheses`: Maximum hypothesis index across H1 and H2 columns
-#' - `n_analyses`: Maximum analysis number
-#'
-#' The class ensures data integrity by validating that:
-#' - All required columns are present
-#' - H1, H2, Analysis, and Event are numeric
-#' - Hypothesis indices are positive integers
-#' - Analysis numbers are positive integers
-#' - Event counts are non-negative
-#'
-#' @return An EventTable S7 object with validated data and computed properties
-#'
-#' @examples
-#' library(tibble)
-#'
-#' # Create sample event data
-#' event_data <- tibble(
-#'   H1 = c(1, 2, 1, 1, 2, 1),
-#'   H2 = c(1, 2, 2, 1, 2, 2),
-#'   Analysis = c(1, 1, 1, 2, 2, 2),
-#'   Event = c(155, 160, 85, 305, 320, 170)
-#' )
-#'
-#' # Create EventTable object
-#' event_table <- EventTable(data = event_data)
-#'
-#' # Access properties
-#' print(event_table@n_hypotheses) # Number of hypotheses
-#' print(event_table@n_analyses) # Number of analyses
-#'
-#' # Use with existing wpgsd functions
-#' correlation_matrix <- generate_corr(event_table@data)
 # CorrelationMatrix S7 Class ====
 
 #' CorrelationMatrix S7 Class
@@ -361,6 +276,7 @@ validate_event_table_data <- function(data) {
 #'
 #' print(corr_obj)
 #'
+#' @name CorrelationMatrix
 #' @export
 CorrelationMatrix <- S7::new_class("CorrelationMatrix",
   properties = list(

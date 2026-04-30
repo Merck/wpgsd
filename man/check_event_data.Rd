@@ -11,15 +11,10 @@ check_event_data(event)
 H1, H2, Analysis, and Event}
 }
 \value{
-Invisibly returns TRUE if all checks pass, otherwise throws an error
-
 \code{TRUE} if validation passes (invisible), otherwise stops with
 descriptive error message
 }
 \description{
-Validates input event data for computing correlations between test statistics.
-Performs comprehensive checks on data structure, values, and completeness.
-
 This function validates event data before correlation computation.
 It ensures the data has the correct structure and satisfies all mathematical
 requirements for computing correlations.
@@ -44,8 +39,6 @@ event_data <- tibble(
   Analysis = c(1, 1, 1, 2, 2, 2),
   Event = c(155, 160, 85, 305, 320, 170)
 )
-Check Event Data for Correlation Computation
-
 check_event_data(event_data)
 
 }
