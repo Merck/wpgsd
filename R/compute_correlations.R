@@ -55,7 +55,7 @@ check_event_data <- function(event) {
   if (!is.data.frame(event)) {
     stop("'event' must be a data frame", call. = FALSE)
   }
-  
+
   # Use core validation function with strict level (includes H1 <= H2 requirement)
   validate_event_data_core(event, validation_level = "strict")
 }
@@ -69,16 +69,16 @@ check_event_data <- function(event) {
 #' @param event A data frame with columns H1, H2, Analysis, and Event containing
 #'   event count data for correlation computation
 #' @param check Logical indicating whether to perform input validation (default: TRUE)
-#' @param return_matrix Logical indicating whether to return as matrix (TRUE) or 
+#' @param return_matrix Logical indicating whether to return as matrix (TRUE) or
 #'   data frame (FALSE). Default: TRUE
 #'
-#' @return If return_matrix=TRUE, returns a symmetric correlation matrix. 
-#'   If return_matrix=FALSE, returns a data frame with columns H1, H2, Analysis1, 
+#' @return If return_matrix=TRUE, returns a symmetric correlation matrix.
+#'   If return_matrix=FALSE, returns a data frame with columns H1, H2, Analysis1,
 #'   Analysis2, Correlation.
 #'
 #' @examples
 #' library(tibble)
-#' 
+#'
 #' # Sample event data
 #' event_data <- tribble(
 #'   ~H1, ~H2, ~Analysis, ~Event,
@@ -89,10 +89,10 @@ check_event_data <- function(event) {
 #'   2, 2, 2, 150,
 #'   1, 2, 2, 80
 #' )
-#' 
+#'
 #' # Get correlation matrix
 #' corr_matrix <- compute_correlations(event_data)
-#' 
+#'
 #' # Get detailed data frame
 #' corr_df <- compute_correlations(event_data, return_matrix = FALSE)
 #'
@@ -102,10 +102,10 @@ compute_correlations <- function(event, check = TRUE, return_matrix = TRUE) {
   if (check) {
     check_event_data(event)
   }
-  
+
   M <- max(event$H1, event$H2)
   K <- max(event$Analysis)
-  
+
   results <- data.frame(
     H1 = integer(0),
     H2 = integer(0),
@@ -113,7 +113,7 @@ compute_correlations <- function(event, check = TRUE, return_matrix = TRUE) {
     Analysis2 = integer(0),
     Correlation = numeric(0)
   )
-  
+
   # Compute correlations for all pairs of test statistics
   for (m1 in seq_len(M)) {
     for (k1 in seq_len(K)) {
@@ -126,7 +126,7 @@ compute_correlations <- function(event, check = TRUE, return_matrix = TRUE) {
             # Same hypothesis, different analyses: n_mk1 / sqrt(n_mk1 * n_mk2)
             n_mk1_row <- event[event$H1 == m1 & event$H2 == m1 & event$Analysis == k1, ]
             n_mk2_row <- event[event$H1 == m2 & event$H2 == m2 & event$Analysis == k2, ]
-            
+
             if (nrow(n_mk1_row) > 0 && nrow(n_mk2_row) > 0) {
               n_mk1 <- n_mk1_row$Event[1]
               n_mk2 <- n_mk2_row$Event[1]
@@ -136,7 +136,7 @@ compute_correlations <- function(event, check = TRUE, return_matrix = TRUE) {
                 corr_val <- n_mk2 / sqrt(n_mk1 * n_mk2)
               }
             } else {
-              next  # Skip if data not available
+              next # Skip if data not available
             }
           } else if (k1 == k2) {
             # Same analysis, different hypotheses: n_m1m2k / sqrt(n_m1k * n_m2k)
@@ -146,17 +146,17 @@ compute_correlations <- function(event, check = TRUE, return_matrix = TRUE) {
             } else {
               off_diag_row <- event[event$H1 == m2 & event$H2 == m1 & event$Analysis == k1, ]
             }
-            
+
             n_m1k_row <- event[event$H1 == m1 & event$H2 == m1 & event$Analysis == k1, ]
             n_m2k_row <- event[event$H1 == m2 & event$H2 == m2 & event$Analysis == k1, ]
-            
+
             if (nrow(off_diag_row) > 0 && nrow(n_m1k_row) > 0 && nrow(n_m2k_row) > 0) {
               n_m1m2k <- off_diag_row$Event[1]
               n_m1k <- n_m1k_row$Event[1]
               n_m2k <- n_m2k_row$Event[1]
               corr_val <- n_m1m2k / sqrt(n_m1k * n_m2k)
             } else {
-              next  # Skip if data not available
+              next # Skip if data not available
             }
           } else {
             # Different hypotheses and analyses: n_m1m2k1 / sqrt(n_m1k1 * n_m2k2)
@@ -166,24 +166,24 @@ compute_correlations <- function(event, check = TRUE, return_matrix = TRUE) {
             } else {
               off_diag_row <- event[event$H1 == m2 & event$H2 == m1 & event$Analysis == min(k1, k2), ]
             }
-            
+
             n_m1k1_row <- event[event$H1 == m1 & event$H2 == m1 & event$Analysis == k1, ]
             n_m2k2_row <- event[event$H1 == m2 & event$H2 == m2 & event$Analysis == k2, ]
-            
+
             if (nrow(off_diag_row) > 0 && nrow(n_m1k1_row) > 0 && nrow(n_m2k2_row) > 0) {
               n_m1m2_early <- off_diag_row$Event[1]
               n_m1k1 <- n_m1k1_row$Event[1]
               n_m2k2 <- n_m2k2_row$Event[1]
               corr_val <- n_m1m2_early / sqrt(n_m1k1 * n_m2k2)
             } else {
-              next  # Skip if data not available
+              next # Skip if data not available
             }
           }
-          
+
           # Add result
           results <- rbind(results, data.frame(
             H1 = m1,
-            H2 = m2, 
+            H2 = m2,
             Analysis1 = k1,
             Analysis2 = k2,
             Correlation = corr_val
@@ -192,7 +192,7 @@ compute_correlations <- function(event, check = TRUE, return_matrix = TRUE) {
       }
     }
   }
-  
+
   if (return_matrix) {
     return(gen_corr(results, M = M, K = K))
   } else {
@@ -221,7 +221,7 @@ compute_correlations <- function(event, check = TRUE, return_matrix = TRUE) {
 #'   Analysis2 = c(1, 1, 1, 2, 2, 2),
 #'   Correlation = c(1, 0.5, 1, 1, 1, 1)
 #' )
-#' 
+#'
 #' corr_matrix <- gen_corr(corr_df, M = 2, K = 2)
 #'
 #' @export
@@ -229,13 +229,13 @@ gen_corr <- function(corr_df, M = NULL, K = NULL) {
   # Infer M and K if not provided
   if (is.null(M)) M <- max(corr_df$H1, corr_df$H2)
   if (is.null(K)) K <- max(corr_df$Analysis1, corr_df$Analysis2)
-  
+
   # Create matrix dimensions: M * K
   n_dim <- M * K
-  
+
   # Initialize correlation matrix
   corr_matrix <- matrix(0, nrow = n_dim, ncol = n_dim)
-  
+
   # Create row and column names (hypothesis-major order: H1A1, H1A2, H2A1, H2A2)
   row_names <- character(n_dim)
   for (m in seq_len(M)) {
@@ -246,7 +246,7 @@ gen_corr <- function(corr_df, M = NULL, K = NULL) {
   }
   rownames(corr_matrix) <- row_names
   colnames(corr_matrix) <- row_names
-  
+
   # Fill matrix using proper indexing (hypothesis-major)
   for (i in seq_len(nrow(corr_df))) {
     h1 <- corr_df$H1[i]
@@ -254,15 +254,15 @@ gen_corr <- function(corr_df, M = NULL, K = NULL) {
     k1 <- corr_df$Analysis1[i]
     k2 <- corr_df$Analysis2[i]
     corr_val <- corr_df$Correlation[i]
-    
+
     # Convert to matrix indices (hypothesis-major: H1A1, H1A2, H2A1, H2A2)
     row_idx <- (h1 - 1) * K + k1
     col_idx <- (h2 - 1) * K + k2
-    
+
     # Fill both symmetric positions
     corr_matrix[row_idx, col_idx] <- corr_val
     corr_matrix[col_idx, row_idx] <- corr_val
   }
-  
+
   return(corr_matrix)
 }
