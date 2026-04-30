@@ -57,7 +57,7 @@ test_that("EventTable validates data types and values", {
 
   expect_error(
     EventTable(data = invalid_data1),
-    "@data\\$H1 and @data\\$H2 must be numeric"
+    "H1 and H2 must be numeric"
   )
 
   # Negative hypothesis index
@@ -83,7 +83,7 @@ test_that("EventTable validates data types and values", {
 
   expect_error(
     EventTable(data = invalid_data3),
-    "Event counts must be non-negative"
+    "Event must be non-negative"
   )
 })
 
@@ -177,10 +177,10 @@ test_that("validate_event_table_data works", {
 test_that("EventTable validation - mathematical requirements", {
   # Test 1: Event counts must be non-decreasing across analyses for fixed H1,H2
   invalid_data_1 <- data.frame(
-    H1 = c(1, 1, 1, 1),
-    H2 = c(1, 1, 2, 2),
-    Analysis = c(1, 2, 1, 2),
-    Event = c(10, 8, 5, 7) # H1=1, H2=1 decreases from 10 to 8
+    H1 = c(1, 1, 1, 1, 2, 2),
+    H2 = c(1, 1, 2, 2, 2, 2),
+    Analysis = c(1, 2, 1, 2, 1, 2),
+    Event = c(10, 8, 5, 7, 12, 15) # H1=1, H2=1 decreases from 10 to 8
   )
   expect_error(
     EventTable(data = invalid_data_1),

@@ -71,22 +71,26 @@ validate_event_data_core <- function(data, validation_level = c("basic", "strict
     handle_error("Event must be numeric")
   }
 
-  if (any(data$H1 <= 0, na.rm = TRUE) || any(data$H2 <= 0, na.rm = TRUE)) {
-    handle_error("Hypothesis indices (H1, H2) must be positive integers")
+  if (is.numeric(data$H1) && is.numeric(data$H2)) {
+    if (any(data$H1 <= 0, na.rm = TRUE) || any(data$H2 <= 0, na.rm = TRUE)) {
+      handle_error("Hypothesis indices (H1, H2) must be positive integers")
+    }
+
+    # Check that H1 and H2 are integers
+    if (any(data$H1 != floor(data$H1), na.rm = TRUE) || any(data$H2 != floor(data$H2), na.rm = TRUE)) {
+      handle_error("Hypothesis indices (H1, H2) must be integers")
+    }
   }
 
-  # Check that H1 and H2 are integers
-  if (any(data$H1 != floor(data$H1), na.rm = TRUE) || any(data$H2 != floor(data$H2), na.rm = TRUE)) {
-    handle_error("Hypothesis indices (H1, H2) must be integers")
-  }
+  if (is.numeric(data$Analysis)) {
+    if (any(data$Analysis <= 0, na.rm = TRUE)) {
+      handle_error("Analysis numbers must be positive integers")
+    }
 
-  if (any(data$Analysis <= 0, na.rm = TRUE)) {
-    handle_error("Analysis numbers must be positive integers")
-  }
-
-  # Check that Analysis values are integers
-  if (any(data$Analysis != floor(data$Analysis), na.rm = TRUE)) {
-    handle_error("Analysis numbers must be integers")
+    # Check that Analysis values are integers
+    if (any(data$Analysis != floor(data$Analysis), na.rm = TRUE)) {
+      handle_error("Analysis numbers must be integers")
+    }
   }
 
   # Basic event value check - only verify it's numeric for basic validation
@@ -128,9 +132,6 @@ validate_event_data_core <- function(data, validation_level = c("basic", "strict
     if (!identical(unique_analyses, expected_analyses)) {
       handle_error("Analysis values must be sequential positive integers starting from 1")
     }
-    if (length(unique_analyses) <= 1) {
-      handle_error("Analysis must have more than one unique value")
-    }
 
     # Check H1 values are sequential integers starting from 1
     unique_h1 <- sort(unique(as.integer(data$H1)))
@@ -138,18 +139,12 @@ validate_event_data_core <- function(data, validation_level = c("basic", "strict
     if (!identical(unique_h1, expected_h1)) {
       handle_error("H1 values must be sequential positive integers starting from 1")
     }
-    if (length(unique_h1) <= 1) {
-      handle_error("H1 must have more than one unique value")
-    }
 
     # Check H2 values are sequential integers starting from 1
     unique_h2 <- sort(unique(as.integer(data$H2)))
     expected_h2 <- seq_len(max(unique_h2))
     if (!identical(unique_h2, expected_h2)) {
       handle_error("H2 values must be sequential positive integers starting from 1")
-    }
-    if (length(unique_h2) <= 1) {
-      handle_error("H2 must have more than one unique value")
     }
   }
 
@@ -180,13 +175,13 @@ validate_event_data_core <- function(data, validation_level = c("basic", "strict
         # Check H1=h1, H2=h1 exists for this analysis
         diag_h1 <- data[data$H1 == h1 & data$H2 == h1 & data$Analysis == analysis, ]
         if (nrow(diag_h1) == 0) {
-          handle_error(paste("Missing diagonal entry: H1=", h1, ", H2=", h1, ", Analysis=", analysis))
+          handle_error(paste0("Missing diagonal entry: H1=", h1, ", H2=", h1, ", Analysis=", analysis))
         }
 
         # Check H1=h2, H2=h2 exists for this analysis
         diag_h2 <- data[data$H1 == h2 & data$H2 == h2 & data$Analysis == analysis, ]
         if (nrow(diag_h2) == 0) {
-          handle_error(paste("Missing diagonal entry: H1=", h2, ", H2=", h2, ", Analysis=", analysis))
+          handle_error(paste0("Missing diagonal entry: H1=", h2, ", H2=", h2, ", Analysis=", analysis))
         }
       }
     }

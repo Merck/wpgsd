@@ -1,3 +1,22 @@
+# wpgsd 0.3.0
+
+## New Features
+
+- **Dunnett-type dose-finding vignette**: Added new vignette demonstrating Dunnett-type group sequential design for a 4-dose clinical trial with correlation verification.
+
+## Improvements
+
+- Completed S7 wrapper function elimination and validation refactoring.
+- Organized help files into logical sections for better usability.
+- Removed empty `adj-seq-p-simplified.Rmd` vignette that caused UNKNOWN TITLE in pkgdown navigation.
+
+## Bug Fixes
+
+- Fixed S7 `EventTable` validator to allow single-analysis and single-hypothesis event tables (e.g., after subsetting).
+- Fixed `validate_event_data_core()` crash when non-numeric data is passed to `floor()` checks.
+- Fixed inconsistent error message formatting in diagonal entry validation (`paste` → `paste0`).
+- Corrected test expectations to match actual validation error messages.
+
 # wpgsd 0.2.0
 
 ## Major Features
