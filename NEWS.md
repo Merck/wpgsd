@@ -2,7 +2,7 @@
 
 ## New Features
 
-- **Dunnett-type dose-finding vignette**: Added new vignette demonstrating Dunnett-type group sequential design for a 4-dose clinical trial with correlation verification.
+- **Dunnett-type dose-finding vignette**: Added new vignette demonstrating Dunnett-type group sequential design with 2 experimental arms vs. common control and 3 analyses (2 interims + final), exercising correlation computation for K > 2.
 
 ## Improvements
 
@@ -12,6 +12,7 @@
 
 ## Bug Fixes
 
+- Fixed `generate_corr()` correlation computation for K > 2 analyses: within-hypothesis and between-hypotheses loops now correctly enumerate all analysis pairs.
 - Fixed S7 `EventTable` validator to allow single-analysis and single-hypothesis event tables (e.g., after subsetting).
 - Fixed `validate_event_data_core()` crash when non-numeric data is passed to `floor()` checks.
 - Fixed inconsistent error message formatting in diagonal entry validation (`paste` → `paste0`).

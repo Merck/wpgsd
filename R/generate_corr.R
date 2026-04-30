@@ -68,29 +68,33 @@ generate_corr <- function(event) {
   D <- diag(elem$Event)
 
   # Within hypothesis across analyses
-  for (i in 1:n_hypotheses) {
-    for (j in 2:n_analyses) {
-      count <- as.numeric(event %>%
-        filter(H1 == i & H2 == i & Analysis == j - 1) %>%
-        select(Event))
-      D[i, n_hypotheses * (j - 1) + i] <- count
-      D[n_hypotheses * (j - 1) + i, i] <- count
+  # For each hypothesis i and each pair of analyses (j, k) where j < k,
+
+  # the shared event count is the diagonal entry at the earlier analysis j.
+  if (n_analyses > 1) {
+    for (i in 1:n_hypotheses) {
+      for (j in 1:(n_analyses - 1)) {
+        count <- D[(j - 1) * n_hypotheses + i, (j - 1) * n_hypotheses + i]
+        for (k in (j + 1):n_analyses) {
+          D[(j - 1) * n_hypotheses + i, (k - 1) * n_hypotheses + i] <- count
+          D[(k - 1) * n_hypotheses + i, (j - 1) * n_hypotheses + i] <- count
+        }
+      }
     }
   }
 
   # Between hypotheses
-  for (i in 1:n_hypotheses) {
-    for (j in c(1:n_hypotheses)[-i]) {
+  for (i in 1:(n_hypotheses - 1)) {
+    for (j in (i + 1):n_hypotheses) {
       for (k in 1:n_analyses) {
         count1 <- as.numeric(event %>%
           subset(((H1 == i & H2 == j) | (H1 == j & H2 == i)) & Analysis == k) %>%
-          select(Event))
-        D[n_hypotheses * (k - 1) + i, n_hypotheses * (k - 1) + j] <- count1
-        for (l in c(1:n_analyses)[-k]) {
-          count2 <- as.numeric(event %>%
-            subset(((H1 == i & H2 == j) | (H1 == j & H2 == i)) & Analysis == min(k, l)) %>%
-            select(Event))
-          D[n_hypotheses * (k - 1) + i, n_hypotheses * (l - 1) + j] <- count2
+          select(Event))[1]
+        for (l in k:n_analyses) {
+          D[n_hypotheses * (l - 1) + i, n_hypotheses * (k - 1) + j] <- count1
+          D[n_hypotheses * (l - 1) + j, n_hypotheses * (k - 1) + i] <- count1
+          D[n_hypotheses * (k - 1) + j, n_hypotheses * (l - 1) + i] <- count1
+          D[n_hypotheses * (k - 1) + i, n_hypotheses * (l - 1) + j] <- count1
         }
       }
     }
