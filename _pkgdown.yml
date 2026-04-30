@@ -20,6 +20,7 @@ reference:
     desc: "Core S7 data structures for event tables and correlation matrices"
     contents:
       - CorrelationMatrix
+      - EventTable
       - as_correlation_matrix
       - as_event_table
       - print.CorrelationMatrix
