@@ -137,10 +137,10 @@ only).
 event <- tribble(
   ~H1, ~H2, ~Analysis, ~Event,
   # IA diagonal (total events per hypothesis = dose + control)
-  1, 1, 1, 49,   # Dose 1 (24) + Control (25)
-  2, 2, 1, 51,   # Dose 2 (26) + Control (25)
-  3, 3, 1, 50,   # Dose 3 (25) + Control (25)
-  4, 4, 1, 52,   # Dose 4 (27) + Control (25)
+  1, 1, 1, 49, # Dose 1 (24) + Control (25)
+  2, 2, 1, 51, # Dose 2 (26) + Control (25)
+  3, 3, 1, 50, # Dose 3 (25) + Control (25)
+  4, 4, 1, 52, # Dose 4 (27) + Control (25)
   # IA off-diagonal (shared events = control only)
   1, 2, 1, 25,
   1, 3, 1, 25,
@@ -149,10 +149,10 @@ event <- tribble(
   2, 4, 1, 25,
   3, 4, 1, 25,
   # FA diagonal (total events per hypothesis = dose + control)
-  1, 1, 2, 123,  # Dose 1 (60) + Control (63)
-  2, 2, 2, 128,  # Dose 2 (65) + Control (63)
-  3, 3, 2, 126,  # Dose 3 (63) + Control (63)
-  4, 4, 2, 130,  # Dose 4 (67) + Control (63)
+  1, 1, 2, 123, # Dose 1 (60) + Control (63)
+  2, 2, 2, 128, # Dose 2 (65) + Control (63)
+  3, 3, 2, 126, # Dose 3 (63) + Control (63)
+  4, 4, 2, 130, # Dose 4 (67) + Control (63)
   # FA off-diagonal (shared events = control only)
   1, 2, 2, 63,
   1, 3, 2, 63,
@@ -210,26 +210,34 @@ cat("Corr(Z_1,1, Z_1,1) =", corr[1, 1], " (expected: 1.0)\n")
 # Case 2: Different hypotheses, same analysis (IA)
 # Corr(Z_1,1, Z_2,1) = n_control_IA / sqrt(n_H1_IA * n_H2_IA) = 25 / sqrt(49 * 51)
 expected_12_ia <- 25 / sqrt(49 * 51)
-cat("Corr(Z_1,1, Z_2,1) =", round(corr[1, 2], 6),
-    " (expected:", round(expected_12_ia, 6), ")\n")
+cat(
+  "Corr(Z_1,1, Z_2,1) =", round(corr[1, 2], 6),
+  " (expected:", round(expected_12_ia, 6), ")\n"
+)
 
 # Case 3: Different hypotheses, same analysis (FA)
 # Corr(Z_1,2, Z_3,2) = n_control_FA / sqrt(n_H1_FA * n_H3_FA) = 63 / sqrt(123 * 126)
 expected_13_fa <- 63 / sqrt(123 * 126)
-cat("Corr(Z_1,2, Z_3,2) =", round(corr[5, 7], 6),
-    " (expected:", round(expected_13_fa, 6), ")\n")
+cat(
+  "Corr(Z_1,2, Z_3,2) =", round(corr[5, 7], 6),
+  " (expected:", round(expected_13_fa, 6), ")\n"
+)
 
 # Case 4: Same hypothesis, different analyses
 # Corr(Z_1,1, Z_1,2) = n_H1_IA / sqrt(n_H1_IA * n_H1_FA) = 49 / sqrt(49 * 123)
 expected_11_cross <- 49 / sqrt(49 * 123)
-cat("Corr(Z_1,1, Z_1,2) =", round(corr[1, 5], 6),
-    " (expected:", round(expected_11_cross, 6), ")\n")
+cat(
+  "Corr(Z_1,1, Z_1,2) =", round(corr[1, 5], 6),
+  " (expected:", round(expected_11_cross, 6), ")\n"
+)
 
 # Case 5: Different hypotheses, different analyses
 # Corr(Z_2,1, Z_4,2) = n_control_min(IA) / sqrt(n_H2_IA * n_H4_FA) = 25 / sqrt(51 * 130)
 expected_24_cross <- 25 / sqrt(51 * 130)
-cat("Corr(Z_2,1, Z_4,2) =", round(corr[2, 8], 6),
-    " (expected:", round(expected_24_cross, 6), ")\n")
+cat(
+  "Corr(Z_2,1, Z_4,2) =", round(corr[2, 8], 6),
+  " (expected:", round(expected_24_cross, 6), ")\n"
+)
 ```
 
 The correlation matrix for this 4-hypothesis Dunnett scenario has the
@@ -266,8 +274,8 @@ gs_design <- gsDesign(
   alpha = 0.025 / 4, # Per-hypothesis alpha (Bonferroni for single hypothesis)
   beta = 0.1,
   timing = IF_avg,
-  sfu = sfLDOF,   # Lan-DeMets O'Brien-Fleming for efficacy
-  sfl = sfHSD,     # HSD for futility
+  sfu = sfLDOF, # Lan-DeMets O'Brien-Fleming for efficacy
+  sfl = sfHSD, # HSD for futility
   sflpar = -2
 )
 
@@ -278,8 +286,10 @@ futility_p <- pnorm(futility_z)
 cat("Information fraction:", round(IF_avg, 3), "\n")
 cat("Futility Z-bound at IA:", round(futility_z, 4), "\n")
 cat("Futility p-value bound at IA:", round(futility_p, 4), "\n")
-cat("Interpretation: Stop for futility if one-sided p-value >",
-    round(futility_p, 4), "\n")
+cat(
+  "Interpretation: Stop for futility if one-sided p-value >",
+  round(futility_p, 4), "\n"
+)
 ```
 
 ```{r}

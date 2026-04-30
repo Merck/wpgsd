@@ -391,7 +391,6 @@ test_that("BH bounds replicate tables A6 and A7", {
   expect_equal(wA6_result1_test, round(wA6_result1, 4))
 
 
-
   wA6_result2 <- c(
     0.00019939,
     0.000422943,
@@ -484,7 +483,6 @@ test_that("BH bounds replicate tables A6 and A7", {
   expect_equal(A7_result2_test, round(A7_result2, 4))
 
 
-
   A7_result3 <- c(
     3.582064348,
     NA,
@@ -505,9 +503,6 @@ test_that("BH bounds replicate tables A6 and A7", {
   A7_result3_test <- round(zbounds$zH3.B, 4)
 
   expect_equal(A7_result3_test, round(A7_result3, 4))
-
-
-
 
 
   # Table A7
@@ -554,7 +549,6 @@ test_that("BH bounds replicate tables A6 and A7", {
   wA7_result2_test <- round(zbounds$zH2.W, 4)
 
   expect_equal(wA7_result2_test, round(wA7_result2, 4))
-
 
 
   wA7_result3 <- c(
