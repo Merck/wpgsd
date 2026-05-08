@@ -5,19 +5,18 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Correlated test statistics • wpgsd</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<title>Correlated test statistics for  • wpgsd</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="Correlated test statistics">
+<meta property="og:title" content="Correlated test statistics for ">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -27,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">wpgsd</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,8 +40,9 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/adj-seq-p.html">Adjusted sequential p-values</a></li>
-    <li><a class="dropdown-item" href="../articles/corr_calculation.html">Correlated test statistics</a></li>
+<li><a class="dropdown-item" href="../articles/adj-seq-p.html">Adjusted Sequential p-values</a></li>
+    <li><a class="dropdown-item" href="../articles/corr_calculation.html">Correlated test statistics for </a></li>
+    <li><a class="dropdown-item" href="../articles/dunnett_dose.html">Dunnett-type dose-finding with group sequential design</a></li>
     <li><a class="dropdown-item" href="../articles/tech-detail-wb.html">Procedure to compute p-value boundaries by weighted Bonferroni</a></li>
   </ul>
 </li>
@@ -65,9 +65,9 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Correlated test statistics</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Correlated test statistics for </h1>
                         <h4 data-toc-skip class="author">Chenguang
-Zhang, Yujie Zhao</h4>
+Zhang, Yujie Zhao and Keaven Anderson</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/Merck/wpgsd/blob/main/vignettes/corr_calculation.Rmd" class="external-link"><code>vignettes/corr_calculation.Rmd</code></a></small>
@@ -89,14 +89,13 @@ populations, or due to common observations in the control arm.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
 elementary null hypotheses
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>i</mi></msub><annotation encoding="application/x-tex">H_i</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mi>I</mi><mo>=</mo><mrow><mn>1</mn><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><mi>m</mi></mrow></mrow><annotation encoding="application/x-tex">i \in I={1,...,m}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mi>I</mi><mo>=</mo><mrow><mn>1</mn><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><mi>m</mi></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">i \in I={1,...,m},</annotation></semantics></math>
 and there are
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
 analyses. Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-be the index for the interim analyses and final analyses,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mi>K</mi></mrow><annotation encoding="application/x-tex">k=1,2,...K</annotation></semantics></math>.
-For any nonempty set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mi>K</mi></mrow><annotation encoding="application/x-tex">k=1,2,...K</annotation></semantics></math>
+be the index for the interim analyses and final analyses. For any
+nonempty set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>⊆</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">J \subseteq I</annotation></semantics></math>,
 we denote the intersection hypothesis
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>J</mi></msub><mo>=</mo><msub><mo>∩</mo><mrow><mi>j</mi><mo>∈</mo><mi>J</mi></mrow></msub><msub><mi>H</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">H_J=\cap_{j \in J}H_j</annotation></semantics></math>.
@@ -127,57 +126,57 @@ be the number of events collected cumulatively through stage
 for hypothesis
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.
 Then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mrow><mi>i</mi><mo>∧</mo><mi>i</mi><mi>′</mi><mo>,</mo><mi>k</mi><mo>∧</mo><mi>k</mi><mi>′</mi></mrow></msub><annotation encoding="application/x-tex">n_{i \wedge i',k \wedge k'}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mrow><mi>i</mi><mo>∧</mo><msup><mi>i</mi><mo>′</mo></msup><mo>,</mo><mi>k</mi><mo>∧</mo><msup><mi>k</mi><mo>′</mo></msup></mrow></msub><annotation encoding="application/x-tex">n_{i \wedge i',k \wedge k'}</annotation></semantics></math>
 is the number of events included in both
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">Z_{ik}</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>′</mi><mo>∈</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">i' \in I</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>i</mi><mo>′</mo></msup><mo>∈</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">i' \in I</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">1 \le k</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>′</mi><mo>≤</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">k' \le K</annotation></semantics></math>.
-The key of the parametric tests to utilize the correlation among the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mo>′</mo></msup><mo>≤</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">k' \le K</annotation></semantics></math>.
+The key for the parametric tests is to utilize the correlation among the
 test statistics. The correlation between
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">Z_{ik}</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mrow><mi>i</mi><mi>′</mi><mi>k</mi><mi>′</mi></mrow></msub><annotation encoding="application/x-tex">Z_{i'k'}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mrow><msup><mi>i</mi><mo>′</mo></msup><msup><mi>k</mi><mo>′</mo></msup></mrow></msub><annotation encoding="application/x-tex">Z_{i'k'}</annotation></semantics></math>
 is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>o</mi><mi>r</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>,</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>′</mi><mi>k</mi><mi>′</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><msub><mi>n</mi><mrow><mi>i</mi><mo>∧</mo><mi>i</mi><mi>′</mi><mo>,</mo><mi>k</mi><mo>∧</mo><mi>k</mi><mi>′</mi></mrow></msub><msqrt><mrow><msub><mi>n</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>*</mo><msub><mi>n</mi><mrow><mi>i</mi><mi>′</mi><mi>k</mi><mi>′</mi></mrow></msub></mrow></msqrt></mfrac></mrow><annotation encoding="application/x-tex">Corr(Z_{ik},Z_{i'k'})=\frac{n_{i \wedge i',k \wedge k'}}{\sqrt{n_{ik}*n_{i'k'}}}</annotation></semantics></math>.</p>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>o</mi><mi>r</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>,</mo><msub><mi>Z</mi><mrow><msup><mi>i</mi><mo>′</mo></msup><msup><mi>k</mi><mo>′</mo></msup></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><msub><mi>n</mi><mrow><mi>i</mi><mo>∧</mo><msup><mi>i</mi><mo>′</mo></msup><mo>,</mo><mi>k</mi><mo>∧</mo><msup><mi>k</mi><mo>′</mo></msup></mrow></msub><msqrt><mrow><msub><mi>n</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>×</mo><msub><mi>n</mi><mrow><msup><mi>i</mi><mo>′</mo></msup><msup><mi>k</mi><mo>′</mo></msup></mrow></msub></mrow></msqrt></mfrac></mrow><annotation encoding="application/x-tex">Corr(Z_{ik},Z_{i'k'})=\frac{n_{i \wedge i',k \wedge k'}}{\sqrt{n_{ik}\times n_{i'k'}}}</annotation></semantics></math>.</p>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-<p>We borrow an example from a paper by Anderson et al. (<span class="citation">Anderson et al. (2022)</span>), demonstrated in Section
-2 - Motivating Examples, we use Example 1 as the basis here. The setting
-will be:</p>
-<p>In a two-arm controlled clinical trial with one primary endpoint,
-there are three patient populations defined by the status of two
-biomarkers, A and B:</p>
+<p>We borrow an Example 1 from <span class="citation">Anderson et al.
+(2022)</span> here. Assume a two-arm controlled clinical trial with one
+primary endpoint and three patient populations defined by the status of
+two biomarkers, A and B:</p>
 <ul>
-<li>Biomarker A positive, the population 1,</li>
-<li>Biomarker B positive, the population 2,</li>
-<li>Overall population.</li>
+<li>Biomarker A positive (population 1),</li>
+<li>Biomarker B positive (population 2),</li>
+<li>Overall population (population 3).</li>
 </ul>
-<p>The 3 primary elementary hypotheses are:</p>
+<p>The 3 primary elementary null hypotheses are:</p>
 <ul>
 <li>
-<strong>H1</strong>: the experimental treatment is superior to the
-control in the population 1</li>
+<strong>H1</strong>: the experimental treatment is no different than
+control in population 1</li>
 <li>
-<strong>H2</strong>: the experimental treatment is superior to the
-control in the population 2</li>
+<strong>H2</strong>: the experimental treatment is no different than
+control in population 2</li>
 <li>
-<strong>H3</strong>: the experimental treatment is superior to the
+<strong>H3</strong>: the experimental treatment is no different than
 control in the overall population</li>
 </ul>
 <p>Assume an interim analysis and a final analysis are planned for the
-study. The number of events are listed as</p>
+study. The number of events observed at each analysis in each population
+as well as the intersections of populations 1 and 2 to are assumed to
+be</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/" class="external-link">tibble</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">event_tb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span>  <span class="op">~</span><span class="va">Population</span>, <span class="op">~</span><span class="st">"Number of Event in IA"</span>, <span class="op">~</span><span class="st">"Number of Event in FA"</span>,</span>
+<span>  <span class="op">~</span><span class="va">Population</span>, <span class="op">~</span><span class="st">"Number of Event at IA"</span>, <span class="op">~</span><span class="st">"Number of Event at FA"</span>,</span>
 <span>  <span class="st">"Population 1"</span>, <span class="fl">100</span>, <span class="fl">200</span>,</span>
 <span>  <span class="st">"Population 2"</span>, <span class="fl">110</span>, <span class="fl">220</span>,</span>
 <span>  <span class="st">"Overlap of Population 1 and 2"</span>, <span class="fl">80</span>, <span class="fl">160</span>,</span>
@@ -185,7 +184,7 @@ study. The number of events are listed as</p>
 <span><span class="op">)</span></span>
 <span><span class="va">event_tb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Number of events at each population"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Number of events in each population"</span><span class="op">)</span></span></code></pre></div>
 <div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#mwlefoodfi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -638,1603 +637,112 @@ study. The number of events are listed as</p>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading">
-<td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Number of events at each population</td>
+<td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Number of events in each population</td>
     </tr>
 <tr class="gt_col_headings">
 <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Population">Population</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Number-of-Event-in-IA">Number of Event in IA</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Number-of-Event-in-FA">Number of Event in FA</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Number-of-Event-at-IA">Number of Event at IA</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Number-of-Event-at-FA">Number of Event at FA</th>
     </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr>
 <td headers="Population" class="gt_row gt_left">Population 1</td>
-<td headers="Number of Event in IA" class="gt_row gt_right">100</td>
-<td headers="Number of Event in FA" class="gt_row gt_right">200</td>
+<td headers="Number of Event at IA" class="gt_row gt_right">100</td>
+<td headers="Number of Event at FA" class="gt_row gt_right">200</td>
 </tr>
 <tr>
 <td headers="Population" class="gt_row gt_left">Population 2</td>
-<td headers="Number of Event in IA" class="gt_row gt_right">110</td>
-<td headers="Number of Event in FA" class="gt_row gt_right">220</td>
+<td headers="Number of Event at IA" class="gt_row gt_right">110</td>
+<td headers="Number of Event at FA" class="gt_row gt_right">220</td>
 </tr>
 <tr>
 <td headers="Population" class="gt_row gt_left">Overlap of Population 1 and 2</td>
-<td headers="Number of Event in IA" class="gt_row gt_right">80</td>
-<td headers="Number of Event in FA" class="gt_row gt_right">160</td>
+<td headers="Number of Event at IA" class="gt_row gt_right">80</td>
+<td headers="Number of Event at FA" class="gt_row gt_right">160</td>
 </tr>
 <tr>
 <td headers="Population" class="gt_row gt_left">Overall Population</td>
-<td headers="Number of Event in IA" class="gt_row gt_right">225</td>
-<td headers="Number of Event in FA" class="gt_row gt_right">450</td>
+<td headers="Number of Event at IA" class="gt_row gt_right">225</td>
+<td headers="Number of Event at FA" class="gt_row gt_right">450</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level3">
-<h3 id="correlation-of-different-populations-within-the-same-analysis">Correlation of different populations within the same analysis<a class="anchor" aria-label="anchor" href="#correlation-of-different-populations-within-the-same-analysis"></a>
+<h3 id="correlation-of-tests-for-different-populations-at-the-same-analysis">Correlation of tests for different populations at the same
+analysis<a class="anchor" aria-label="anchor" href="#correlation-of-tests-for-different-populations-at-the-same-analysis"></a>
 </h3>
-<p>Let’s consider a simple situation, we want to compare the population
-1 and population 2 in only interim analyses. Then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k=1</annotation></semantics></math>,
-and to compare
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>1</mn></msub><annotation encoding="application/x-tex">H_{1}</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>2</mn></msub><annotation encoding="application/x-tex">H_{2}</annotation></semantics></math>,
-the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-will be
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i=1</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">i=2</annotation></semantics></math>.
-The correlation matrix will be
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>o</mi><mi>r</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Z</mi><mn>11</mn></msub><mo>,</mo><msub><mi>Z</mi><mn>21</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><msub><mi>n</mi><mrow><mn>1</mn><mo>∧</mo><mn>2</mn><mo>,</mo><mn>1</mn><mo>∧</mo><mn>1</mn></mrow></msub><msqrt><mrow><msub><mi>n</mi><mn>11</mn></msub><mo>*</mo><msub><mi>n</mi><mn>21</mn></msub></mrow></msqrt></mfrac></mrow><annotation encoding="application/x-tex">Corr(Z_{11},Z_{21})=\frac{n_{1 \wedge 2,1 \wedge 1}}{\sqrt{n_{11}*n_{21}}}</annotation></semantics></math>
-The number of events are listed as</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">event_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span>  <span class="op">~</span><span class="va">Population</span>, <span class="op">~</span><span class="st">"Number of Event in IA"</span>,</span>
-<span>  <span class="st">"Population 1"</span>, <span class="fl">100</span>,</span>
-<span>  <span class="st">"Population 2"</span>, <span class="fl">110</span>,</span>
-<span>  <span class="st">"Overlap in population 1 and 2"</span>, <span class="fl">80</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">event_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Number of events at each population in example 1"</span><span class="op">)</span></span></code></pre></div>
-<div id="eexombwkke" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#eexombwkke table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#eexombwkke thead, #eexombwkke tbody, #eexombwkke tfoot, #eexombwkke tr, #eexombwkke td, #eexombwkke th {
-  border-style: none;
-}
-
-#eexombwkke p {
-  margin: 0;
-  padding: 0;
-}
-
-#eexombwkke .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#eexombwkke .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#eexombwkke .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#eexombwkke .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#eexombwkke .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#eexombwkke .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#eexombwkke .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#eexombwkke .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#eexombwkke .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#eexombwkke .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#eexombwkke .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#eexombwkke .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#eexombwkke .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#eexombwkke .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#eexombwkke .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#eexombwkke .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#eexombwkke .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#eexombwkke .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#eexombwkke .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#eexombwkke .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#eexombwkke .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#eexombwkke .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#eexombwkke .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#eexombwkke .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#eexombwkke .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#eexombwkke .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#eexombwkke .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#eexombwkke .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#eexombwkke .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#eexombwkke .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#eexombwkke .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#eexombwkke .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#eexombwkke .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#eexombwkke .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#eexombwkke .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#eexombwkke .gt_left {
-  text-align: left;
-}
-
-#eexombwkke .gt_center {
-  text-align: center;
-}
-
-#eexombwkke .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#eexombwkke .gt_font_normal {
-  font-weight: normal;
-}
-
-#eexombwkke .gt_font_bold {
-  font-weight: bold;
-}
-
-#eexombwkke .gt_font_italic {
-  font-style: italic;
-}
-
-#eexombwkke .gt_super {
-  font-size: 65%;
-}
-
-#eexombwkke .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#eexombwkke .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#eexombwkke .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#eexombwkke .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#eexombwkke .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#eexombwkke .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#eexombwkke .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#eexombwkke .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#eexombwkke div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead>
-<tr class="gt_heading">
-<td colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Number of events at each population in example 1</td>
-    </tr>
-<tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Population">Population</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Number-of-Event-in-IA">Number of Event in IA</th>
-    </tr>
-</thead>
-<tbody class="gt_table_body">
-<tr>
-<td headers="Population" class="gt_row gt_left">Population 1</td>
-<td headers="Number of Event in IA" class="gt_row gt_right">100</td>
-</tr>
-<tr>
-<td headers="Population" class="gt_row gt_left">Population 2</td>
-<td headers="Number of Event in IA" class="gt_row gt_right">110</td>
-</tr>
-<tr>
-<td headers="Population" class="gt_row gt_left">Overlap in population 1 and 2</td>
-<td headers="Number of Event in IA" class="gt_row gt_right">80</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>The the corrleation could be simply calculated as
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>o</mi><mi>r</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Z</mi><mn>11</mn></msub><mo>,</mo><msub><mi>Z</mi><mn>21</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>80</mn><msqrt><mrow><mn>100</mn><mo>*</mo><mn>110</mn></mrow></msqrt></mfrac><mo>=</mo><mn>0.76</mn></mrow><annotation encoding="application/x-tex">Corr(Z_{11},Z_{21})=\frac{80}{\sqrt{100*110}}=0.76</annotation></semantics></math></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Corr1</span> <span class="op">&lt;-</span> <span class="fl">80</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">100</span> <span class="op">*</span> <span class="fl">110</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">Corr1</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.76</span></span></code></pre>
+<p>Let’s consider the situation at the interim analysis. The correlation
+between tests of H1 and H2 will be
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>o</mi><mi>r</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>Z</mi><mn>11</mn></msub><mo>,</mo><msub><mi>Z</mi><mn>21</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><msub><mi>n</mi><mrow><mn>1</mn><mo>∧</mo><mn>2</mn><mo>,</mo><mn>1</mn><mo>∧</mo><mn>1</mn></mrow></msub><msqrt><mrow><msub><mi>n</mi><mn>11</mn></msub><mo>×</mo><msub><mi>n</mi><mn>21</mn></msub></mrow></msqrt></mfrac><mo>=</mo><mfrac><mn>80</mn><msqrt><mrow><mn>100</mn><mo>×</mo><mn>110</mn></mrow></msqrt></mfrac><mo>=</mo><mn>0.76</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">Corr(Z_{11},Z_{21})=\frac{n_{1 \wedge 2,1 \wedge 1}}{\sqrt{n_{11}\times n_{21}}}=\frac{80}{\sqrt{100\times 110}}=0.76.</annotation></semantics></math></p>
+<p>The 80 in the numerator is the overlap number of events of population
+1 and population 2 at the interim analysis.</p>
 </div>
 <div class="section level3">
-<h3 id="correlation-of-different-analyses-within-the-same-population">Correlation of different analyses within the same population<a class="anchor" aria-label="anchor" href="#correlation-of-different-analyses-within-the-same-population"></a>
+<h3 id="correlation-for-tests-of-the-same-population-at-different-analyses">Correlation for tests of the same population at different
+analyses<a class="anchor" aria-label="anchor" href="#correlation-for-tests-of-the-same-population-at-different-analyses"></a>
 </h3>
-<p>Let’s consider another simple situation, we want to compare single
-population, for example, the population 1, but in different analyses,
-interim and final analyses. Then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i=1</annotation></semantics></math>,
-and to compare IA and FA, the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-will be
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k=1</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k=2</annotation></semantics></math>.
-The correlation matrix will be
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>o</mi><mi>r</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Z</mi><mn>11</mn></msub><mo>,</mo><msub><mi>Z</mi><mn>12</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><msub><mi>n</mi><mrow><mn>1</mn><mo>∧</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo>∧</mo><mn>2</mn></mrow></msub><msqrt><mrow><msub><mi>n</mi><mn>11</mn></msub><mo>*</mo><msub><mi>n</mi><mn>12</mn></msub></mrow></msqrt></mfrac></mrow><annotation encoding="application/x-tex">Corr(Z_{11},Z_{12})=\frac{n_{1 \wedge 1,1 \wedge 2}}{\sqrt{n_{11}*n_{12}}}</annotation></semantics></math>
-The number of events are listed as</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">event_tb2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span>  <span class="op">~</span><span class="va">Population</span>, <span class="op">~</span><span class="st">"Number of Event in IA"</span>, <span class="op">~</span><span class="st">"Number of Event in FA"</span>,</span>
-<span>  <span class="st">"Population 1"</span>, <span class="fl">100</span>, <span class="fl">200</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">event_tb2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Number of events at each analyses in example 2"</span><span class="op">)</span></span></code></pre></div>
-<div id="ulbfdpbcyv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ulbfdpbcyv table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#ulbfdpbcyv thead, #ulbfdpbcyv tbody, #ulbfdpbcyv tfoot, #ulbfdpbcyv tr, #ulbfdpbcyv td, #ulbfdpbcyv th {
-  border-style: none;
-}
-
-#ulbfdpbcyv p {
-  margin: 0;
-  padding: 0;
-}
-
-#ulbfdpbcyv .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#ulbfdpbcyv .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#ulbfdpbcyv .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#ulbfdpbcyv .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#ulbfdpbcyv .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#ulbfdpbcyv .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#ulbfdpbcyv .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#ulbfdpbcyv .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#ulbfdpbcyv .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#ulbfdpbcyv .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#ulbfdpbcyv .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#ulbfdpbcyv .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#ulbfdpbcyv .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#ulbfdpbcyv .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#ulbfdpbcyv .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#ulbfdpbcyv .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#ulbfdpbcyv .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#ulbfdpbcyv .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#ulbfdpbcyv .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ulbfdpbcyv .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#ulbfdpbcyv .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#ulbfdpbcyv .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#ulbfdpbcyv .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ulbfdpbcyv .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#ulbfdpbcyv .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#ulbfdpbcyv .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#ulbfdpbcyv .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ulbfdpbcyv .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#ulbfdpbcyv .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#ulbfdpbcyv .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#ulbfdpbcyv .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#ulbfdpbcyv .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#ulbfdpbcyv .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ulbfdpbcyv .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#ulbfdpbcyv .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ulbfdpbcyv .gt_left {
-  text-align: left;
-}
-
-#ulbfdpbcyv .gt_center {
-  text-align: center;
-}
-
-#ulbfdpbcyv .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#ulbfdpbcyv .gt_font_normal {
-  font-weight: normal;
-}
-
-#ulbfdpbcyv .gt_font_bold {
-  font-weight: bold;
-}
-
-#ulbfdpbcyv .gt_font_italic {
-  font-style: italic;
-}
-
-#ulbfdpbcyv .gt_super {
-  font-size: 65%;
-}
-
-#ulbfdpbcyv .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#ulbfdpbcyv .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#ulbfdpbcyv .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#ulbfdpbcyv .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#ulbfdpbcyv .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#ulbfdpbcyv .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#ulbfdpbcyv .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#ulbfdpbcyv .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#ulbfdpbcyv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead>
-<tr class="gt_heading">
-<td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Number of events at each analyses in example 2</td>
-    </tr>
-<tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Population">Population</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Number-of-Event-in-IA">Number of Event in IA</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Number-of-Event-in-FA">Number of Event in FA</th>
-    </tr>
-</thead>
-<tbody class="gt_table_body"><tr>
-<td headers="Population" class="gt_row gt_left">Population 1</td>
-<td headers="Number of Event in IA" class="gt_row gt_right">100</td>
-<td headers="Number of Event in FA" class="gt_row gt_right">200</td>
-</tr></tbody>
-</table>
-</div>
-<p>The the corrleation could be simply calculated as
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Corr</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Z</mi><mn>11</mn></msub><mo>,</mo><msub><mi>Z</mi><mn>12</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>100</mn><msqrt><mrow><mn>100</mn><mo>*</mo><mn>200</mn></mrow></msqrt></mfrac><mo>=</mo><mn>0.71</mn></mrow><annotation encoding="application/x-tex">\text{Corr}(Z_{11},Z_{12})=\frac{100}{\sqrt{100*200}}=0.71</annotation></semantics></math>
-The 100 in the numerator is the overlap number of events of interim
-analysis and final analysis in population 1.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Corr1</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">100</span> <span class="op">*</span> <span class="fl">200</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">Corr1</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.71</span></span></code></pre>
+<p>We consider the correlation between tests for population 1 at the IA
+and FA. The correlation will thus be:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>o</mi><mi>r</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>Z</mi><mn>11</mn></msub><mo>,</mo><msub><mi>Z</mi><mn>12</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><msub><mi>n</mi><mrow><mn>1</mn><mo>∧</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo>∧</mo><mn>2</mn></mrow></msub><msqrt><mrow><msub><mi>n</mi><mn>11</mn></msub><mo>×</mo><msub><mi>n</mi><mn>12</mn></msub></mrow></msqrt></mfrac><mo>=</mo><mn>100</mn><mi>/</mi><msqrt><mrow><mn>100</mn><mo>×</mo><mn>200</mn></mrow></msqrt><mo>=</mo><mn>0.71</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">Corr(Z_{11},Z_{12})=\frac{n_{1 \wedge 1,1 \wedge 2}}{\sqrt{n_{11}\times n_{12}}}=100/\sqrt{100\times 200}=0.71.</annotation></semantics></math></p>
 </div>
 <div class="section level3">
-<h3 id="correlation-of-different-analyses-and-different-population">Correlation of different analyses and different population<a class="anchor" aria-label="anchor" href="#correlation-of-different-analyses-and-different-population"></a>
+<h3 id="correlation-of-tests-at-different-analyses-for-different-populations">Correlation of tests at different analyses for different
+populations<a class="anchor" aria-label="anchor" href="#correlation-of-tests-at-different-analyses-for-different-populations"></a>
 </h3>
-<p>Let’s consider the situation that we want to compare population 1 in
-interim analyses and population 2 in final analyses. Then for different
-population,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i=1</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">i=2</annotation></semantics></math>,
-and to compare IA and FA, the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-will be
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k=1</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k=2</annotation></semantics></math>.
-The correlation matrix will be
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Corr</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Z</mi><mn>11</mn></msub><mo>,</mo><msub><mi>Z</mi><mn>22</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><msub><mi>n</mi><mrow><mn>1</mn><mo>∧</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>∧</mo><mn>2</mn></mrow></msub><msqrt><mrow><msub><mi>n</mi><mn>11</mn></msub><mo>*</mo><msub><mi>n</mi><mn>22</mn></msub></mrow></msqrt></mfrac></mrow><annotation encoding="application/x-tex">\text{Corr}(Z_{11},Z_{22})=\frac{n_{1 \wedge 1,2 \wedge 2}}{\sqrt{n_{11}*n_{22}}}</annotation></semantics></math>
-The number of events are listed as</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">event_tb3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span>  <span class="op">~</span><span class="va">Population</span>, <span class="op">~</span><span class="st">"Number of Event in IA"</span>, <span class="op">~</span><span class="st">"Number of Event in FA"</span>,</span>
-<span>  <span class="st">"Population 1"</span>, <span class="fl">100</span>, <span class="fl">200</span>,</span>
-<span>  <span class="st">"Population 2"</span>, <span class="fl">110</span>, <span class="fl">220</span>,</span>
-<span>  <span class="st">"Overlap in population 1 and 2"</span>, <span class="fl">80</span>, <span class="fl">160</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">event_tb3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Number of events at each population &amp; analyses in example 3"</span><span class="op">)</span></span></code></pre></div>
-<div id="kgufivjubq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kgufivjubq table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#kgufivjubq thead, #kgufivjubq tbody, #kgufivjubq tfoot, #kgufivjubq tr, #kgufivjubq td, #kgufivjubq th {
-  border-style: none;
-}
-
-#kgufivjubq p {
-  margin: 0;
-  padding: 0;
-}
-
-#kgufivjubq .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#kgufivjubq .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#kgufivjubq .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#kgufivjubq .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#kgufivjubq .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#kgufivjubq .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#kgufivjubq .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#kgufivjubq .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#kgufivjubq .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#kgufivjubq .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#kgufivjubq .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#kgufivjubq .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#kgufivjubq .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#kgufivjubq .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#kgufivjubq .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#kgufivjubq .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#kgufivjubq .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#kgufivjubq .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#kgufivjubq .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#kgufivjubq .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#kgufivjubq .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#kgufivjubq .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#kgufivjubq .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#kgufivjubq .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#kgufivjubq .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#kgufivjubq .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#kgufivjubq .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#kgufivjubq .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#kgufivjubq .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#kgufivjubq .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#kgufivjubq .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#kgufivjubq .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#kgufivjubq .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#kgufivjubq .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#kgufivjubq .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#kgufivjubq .gt_left {
-  text-align: left;
-}
-
-#kgufivjubq .gt_center {
-  text-align: center;
-}
-
-#kgufivjubq .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#kgufivjubq .gt_font_normal {
-  font-weight: normal;
-}
-
-#kgufivjubq .gt_font_bold {
-  font-weight: bold;
-}
-
-#kgufivjubq .gt_font_italic {
-  font-style: italic;
-}
-
-#kgufivjubq .gt_super {
-  font-size: 65%;
-}
-
-#kgufivjubq .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#kgufivjubq .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#kgufivjubq .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#kgufivjubq .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#kgufivjubq .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#kgufivjubq .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#kgufivjubq .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#kgufivjubq .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#kgufivjubq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead>
-<tr class="gt_heading">
-<td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Number of events at each population &amp; analyses in example 3</td>
-    </tr>
-<tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Population">Population</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Number-of-Event-in-IA">Number of Event in IA</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Number-of-Event-in-FA">Number of Event in FA</th>
-    </tr>
-</thead>
-<tbody class="gt_table_body">
-<tr>
-<td headers="Population" class="gt_row gt_left">Population 1</td>
-<td headers="Number of Event in IA" class="gt_row gt_right">100</td>
-<td headers="Number of Event in FA" class="gt_row gt_right">200</td>
-</tr>
-<tr>
-<td headers="Population" class="gt_row gt_left">Population 2</td>
-<td headers="Number of Event in IA" class="gt_row gt_right">110</td>
-<td headers="Number of Event in FA" class="gt_row gt_right">220</td>
-</tr>
-<tr>
-<td headers="Population" class="gt_row gt_left">Overlap in population 1 and 2</td>
-<td headers="Number of Event in IA" class="gt_row gt_right">80</td>
-<td headers="Number of Event in FA" class="gt_row gt_right">160</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>The correlation could be simply calculated as
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Corr</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Z</mi><mn>11</mn></msub><mo>,</mo><msub><mi>Z</mi><mn>22</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>80</mn><msqrt><mrow><mn>100</mn><mo>*</mo><mn>220</mn></mrow></msqrt></mfrac><mo>=</mo><mn>0.54</mn></mrow><annotation encoding="application/x-tex">\text{Corr}(Z_{11},Z_{22})=\frac{80}{\sqrt{100*220}}=0.54</annotation></semantics></math>
+<p>Next we consider the correlation between the tests of population 1 at
+the interim analysis and population 2 at the final analyses. The
+correlation will be
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Corr</mtext><mo stretchy="false" form="prefix">(</mo><msub><mi>Z</mi><mn>11</mn></msub><mo>,</mo><msub><mi>Z</mi><mn>22</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><msub><mi>n</mi><mrow><mn>1</mn><mo>∧</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>∧</mo><mn>2</mn></mrow></msub><msqrt><mrow><msub><mi>n</mi><mn>11</mn></msub><mo>×</mo><msub><mi>n</mi><mn>22</mn></msub></mrow></msqrt></mfrac><mo>=</mo><mfrac><mn>80</mn><msqrt><mrow><mn>100</mn><mo>×</mo><mn>220</mn></mrow></msqrt></mfrac><mo>=</mo><mn>0.54</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\text{Corr}(Z_{11},Z_{22})=\frac{n_{1 \wedge 1,2 \wedge 2}}{\sqrt{n_{11}\times n_{22}}}=\frac{80}{\sqrt{100\times 220}}=0.54.</annotation></semantics></math>
 The 80 in the numerator is the overlap number of events of population 1
-in interim analysis and population 2 in final analysis.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Corr1</span> <span class="op">&lt;-</span> <span class="fl">80</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">100</span> <span class="op">*</span> <span class="fl">220</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">Corr1</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.54</span></span></code></pre>
+in interim analysis and population 2 in final analysis; i.e., the events
+in both populations 1 and 2 at the interim analysis.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="generate-the-correlation-matrix-by-generate_corr">Generate the correlation matrix by <code>generate_corr()</code><a class="anchor" aria-label="anchor" href="#generate-the-correlation-matrix-by-generate_corr"></a>
+<h2 id="generate-the-correlation-matrix-by-s7_generate_corr">Generate the correlation matrix by
+<code>s7_generate_corr()</code><a class="anchor" aria-label="anchor" href="#generate-the-correlation-matrix-by-s7_generate_corr"></a>
 </h2>
 <p>Now we know how to calculate the correlation values under different
-situations, and the <code><a href="../reference/generate_corr.html">generate_corr()</a></code> function was built
-based on this logic. We can directly calculate the results for each
-cross situation via the function.</p>
-<p>First, we need a event table including the information of the
+situations, and the <code>s7_generate_corr()</code> function was built
+based on this logic. We can directly calculate the complete correlation
+matrix for all tests via the function.</p>
+<p>First, we need an event table including the event counts for testing
+individual hypotheses and pairwise intersection hypotheses for the
 study.</p>
 <ul>
 <li>
-<code>H1</code> refers to one hypothesis, selected depending on the
-interest, while <code>H2</code> refers to the other hypothesis, both of
-which are listed for multiplicity testing. For example, <code>H1</code>
-means the experimental treatment is superior to the control in the
-population 1/experimental arm 1; <code>H2</code> means the experimental
-treatment is superior to the control in the population 2/experimental
-arm 2;</li>
+<code>H1, H2</code> are each the index of a hypothesis. We will have
+the index for <code>H1</code> be
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mo>=</mo></mrow><annotation encoding="application/x-tex">&lt;=</annotation></semantics></math>
+the index for <code>H2</code> to avoid duplication of pairs.</li>
 <li>
-<code>Analysis</code> means different analysis stages, for example,
-1 means the interim analysis, and 2 means the final analysis;</li>
+<code>Analysis</code> indicates which of sequentially indexed
+analyses, interim and final, is being referred to.</li>
 <li>
-<code>Event</code> is the common events overlap by <code>H1</code>
-and <code>H2</code>.</li>
+<code>Event</code> is the common number of events observed for
+testing both <code>H1</code> and <code>H2</code> at the specified
+<code>Analysis</code>.</li>
 </ul>
 <p>For example: <code>H1=1</code>, <code>H2=1</code>,
 <code>Analysis=1</code>, <code>Event=100</code>indicates that in the
-first population, there are 100 cases where the experimental treatment
-is superior to the control in the interim analysis.</p>
-<p>Another example: <code>H1=1</code>, <code>H2=2</code>,
-<code>Analysis=2</code>, <code>Event=160</code> indicates that the
-number of overlapping cases where the experimental treatment is superior
-to the control in population 1 and 2 in the final analysis is 160.</p>
-<p>To be noticed, the column names in this function are fixed to be
-<code>H1</code>, <code>H2</code>, <code>Analysis</code>,
-<code>Event</code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+first population, there are 100 events for comparing the experimental
+treatment to control at the interim analysis. Thus, when
+<code>H1=H2</code>, we are looking at the number of events used for
+testing the simple hypothesis specified in <code>H1=H2</code>.</p>
+<p>For testing an intersection hypothesis with <code>H1 != H2</code> and
+a given <code>Analysis</code> value, we are looking at the number of
+events that are used in testing both <code>H1</code> and
+<code>H2</code>. For our example above, if <code>H1=1</code>,
+<code>H2=2</code>, <code>Analysis=2</code>, <code>Event=160</code>
+indicates that the number of overlapping cases for comparing the
+experimental treatment to the control in population 1 and 2 which is
+160.</p>
+<p>The column names needed for input to <code>s7_generate_corr()</code>
+are <code>H1</code>, <code>H2</code>, <code>Analysis</code>,
+<code>Event</code>. We take the event counts from above accordingly.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://merck.github.io/wpgsd/">wpgsd</a></span><span class="op">)</span></span>
 <span><span class="co"># The event table</span></span>
 <span><span class="va">event</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
@@ -2251,565 +759,68 @@ to the control in population 1 and 2 in the final analysis is 160.</p>
 <span>  <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">160</span>,</span>
 <span>  <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">200</span>,</span>
 <span>  <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">220</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">event</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Number of events at each population &amp; analyses"</span><span class="op">)</span></span></code></pre></div>
-<div id="txvafbsnay" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#txvafbsnay table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#txvafbsnay thead, #txvafbsnay tbody, #txvafbsnay tfoot, #txvafbsnay tr, #txvafbsnay td, #txvafbsnay th {
-  border-style: none;
-}
-
-#txvafbsnay p {
-  margin: 0;
-  padding: 0;
-}
-
-#txvafbsnay .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#txvafbsnay .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#txvafbsnay .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#txvafbsnay .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#txvafbsnay .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#txvafbsnay .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#txvafbsnay .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#txvafbsnay .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#txvafbsnay .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#txvafbsnay .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#txvafbsnay .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#txvafbsnay .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#txvafbsnay .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#txvafbsnay .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#txvafbsnay .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#txvafbsnay .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#txvafbsnay .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#txvafbsnay .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#txvafbsnay .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#txvafbsnay .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#txvafbsnay .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#txvafbsnay .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#txvafbsnay .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#txvafbsnay .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#txvafbsnay .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#txvafbsnay .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#txvafbsnay .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#txvafbsnay .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#txvafbsnay .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#txvafbsnay .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#txvafbsnay .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#txvafbsnay .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#txvafbsnay .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#txvafbsnay .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#txvafbsnay .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#txvafbsnay .gt_left {
-  text-align: left;
-}
-
-#txvafbsnay .gt_center {
-  text-align: center;
-}
-
-#txvafbsnay .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#txvafbsnay .gt_font_normal {
-  font-weight: normal;
-}
-
-#txvafbsnay .gt_font_bold {
-  font-weight: bold;
-}
-
-#txvafbsnay .gt_font_italic {
-  font-style: italic;
-}
-
-#txvafbsnay .gt_super {
-  font-size: 65%;
-}
-
-#txvafbsnay .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#txvafbsnay .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#txvafbsnay .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#txvafbsnay .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#txvafbsnay .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#txvafbsnay .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#txvafbsnay .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#txvafbsnay .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#txvafbsnay div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead>
-<tr class="gt_heading">
-<td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Number of events at each population &amp; analyses</td>
-    </tr>
-<tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="H1">H1</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="H2">H2</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Analysis">Analysis</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Event">Event</th>
-    </tr>
-</thead>
-<tbody class="gt_table_body">
-<tr>
-<td headers="H1" class="gt_row gt_right">1</td>
-<td headers="H2" class="gt_row gt_right">1</td>
-<td headers="Analysis" class="gt_row gt_right">1</td>
-<td headers="Event" class="gt_row gt_right">100</td>
-</tr>
-<tr>
-<td headers="H1" class="gt_row gt_right">2</td>
-<td headers="H2" class="gt_row gt_right">2</td>
-<td headers="Analysis" class="gt_row gt_right">1</td>
-<td headers="Event" class="gt_row gt_right">110</td>
-</tr>
-<tr>
-<td headers="H1" class="gt_row gt_right">3</td>
-<td headers="H2" class="gt_row gt_right">3</td>
-<td headers="Analysis" class="gt_row gt_right">1</td>
-<td headers="Event" class="gt_row gt_right">225</td>
-</tr>
-<tr>
-<td headers="H1" class="gt_row gt_right">1</td>
-<td headers="H2" class="gt_row gt_right">2</td>
-<td headers="Analysis" class="gt_row gt_right">1</td>
-<td headers="Event" class="gt_row gt_right">80</td>
-</tr>
-<tr>
-<td headers="H1" class="gt_row gt_right">1</td>
-<td headers="H2" class="gt_row gt_right">3</td>
-<td headers="Analysis" class="gt_row gt_right">1</td>
-<td headers="Event" class="gt_row gt_right">100</td>
-</tr>
-<tr>
-<td headers="H1" class="gt_row gt_right">2</td>
-<td headers="H2" class="gt_row gt_right">3</td>
-<td headers="Analysis" class="gt_row gt_right">1</td>
-<td headers="Event" class="gt_row gt_right">110</td>
-</tr>
-<tr>
-<td headers="H1" class="gt_row gt_right">1</td>
-<td headers="H2" class="gt_row gt_right">1</td>
-<td headers="Analysis" class="gt_row gt_right">2</td>
-<td headers="Event" class="gt_row gt_right">200</td>
-</tr>
-<tr>
-<td headers="H1" class="gt_row gt_right">2</td>
-<td headers="H2" class="gt_row gt_right">2</td>
-<td headers="Analysis" class="gt_row gt_right">2</td>
-<td headers="Event" class="gt_row gt_right">220</td>
-</tr>
-<tr>
-<td headers="H1" class="gt_row gt_right">3</td>
-<td headers="H2" class="gt_row gt_right">3</td>
-<td headers="Analysis" class="gt_row gt_right">2</td>
-<td headers="Event" class="gt_row gt_right">450</td>
-</tr>
-<tr>
-<td headers="H1" class="gt_row gt_right">1</td>
-<td headers="H2" class="gt_row gt_right">2</td>
-<td headers="Analysis" class="gt_row gt_right">2</td>
-<td headers="Event" class="gt_row gt_right">160</td>
-</tr>
-<tr>
-<td headers="H1" class="gt_row gt_right">1</td>
-<td headers="H2" class="gt_row gt_right">3</td>
-<td headers="Analysis" class="gt_row gt_right">2</td>
-<td headers="Event" class="gt_row gt_right">200</td>
-</tr>
-<tr>
-<td headers="H1" class="gt_row gt_right">2</td>
-<td headers="H2" class="gt_row gt_right">3</td>
-<td headers="Analysis" class="gt_row gt_right">2</td>
-<td headers="Event" class="gt_row gt_right">220</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Then we input the above event table to the function of
-<code><a href="../reference/generate_corr.html">generate_corr()</a></code>, and get the correlation matrix as
+<span><span class="op">)</span></span></code></pre></div>
+<p>By specifying this as the S7 type <code>EventTable</code> we get
+input checks to ensure no missing values or inconsistencies.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">event</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_event_table.html">as_event_table</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span></span>
+<span><span class="va">event</span></span></code></pre></div>
+<pre><code><span><span class="co">## &lt;wpgsd::EventTable&gt; function (data = tibble::tibble())  </span></span>
+<span><span class="co">##  @ data        : tibble [12 × 4] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">##  $ H1      : num [1:12] 1 2 3 1 1 2 1 2 3 1 ...</span></span>
+<span><span class="co">##  $ H2      : num [1:12] 1 2 3 2 3 3 1 2 3 2 ...</span></span>
+<span><span class="co">##  $ Analysis: num [1:12] 1 1 1 1 1 1 2 2 2 2 ...</span></span>
+<span><span class="co">##  $ Event   : num [1:12] 100 110 225 80 100 110 200 220 450 160 ...</span></span>
+<span><span class="co">##  @ n_hypotheses: int 3</span></span>
+<span><span class="co">##  @ n_analyses  : int 2</span></span></code></pre>
+<p>For human readability of the data table:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">event</span><span class="op">@</span><span class="va">data</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 12 × 4</span></span></span>
+<span><span class="co">##       H1    H2 Analysis Event</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>     1     1        1   100</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>     2     2        1   110</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span>     3     3        1   225</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>     1     2        1    80</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>     1     3        1   100</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>     2     3        1   110</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>     1     1        2   200</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>     2     2        2   220</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span>     3     3        2   450</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span>     1     2        2   160</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span>     1     3        2   200</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span>     2     3        2   220</span></span></code></pre>
+<p>Now we input the above event table to the function of
+<code><a href="../reference/generate_corr_s7.html">generate_corr_s7()</a></code>, and get the correlation matrix as
 follow.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/generate_corr.html">generate_corr</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##          H1_A1     H2_A1     H3_A1     H1_A2     H2_A2     H3_A2</span></span>
-<span><span class="co">## [1,] 1.0000000 0.7627701 0.6666667 0.7071068 0.5393599 0.4714045</span></span>
-<span><span class="co">## [2,] 0.7627701 1.0000000 0.6992059 0.5393599 0.7071068 0.4944132</span></span>
-<span><span class="co">## [3,] 0.6666667 0.6992059 1.0000000 0.4714045 0.4944132 0.7071068</span></span>
-<span><span class="co">## [4,] 0.7071068 0.5393599 0.4714045 1.0000000 0.7627701 0.6666667</span></span>
-<span><span class="co">## [5,] 0.5393599 0.7071068 0.4944132 0.7627701 1.0000000 0.6992059</span></span>
-<span><span class="co">## [6,] 0.4714045 0.4944132 0.7071068 0.6666667 0.6992059 1.0000000</span></span></code></pre>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">corr_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_corr_s7.html">generate_corr_s7</a></span><span class="op">(</span><span class="va">event</span><span class="op">)</span></span>
+<span><span class="va">corr_mat</span></span></code></pre></div>
+<pre><code><span><span class="co">## &lt;wpgsd::CorrelationMatrix&gt;</span></span>
+<span><span class="co">##  @ matrix      : num [1:6, 1:6] 1 0.763 0.667 0.707 0.539 ...</span></span>
+<span><span class="co">##  .. - attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">##  ..  ..$ : chr [1:6] "H1_A1" "H2_A1" "H3_A1" "H1_A2" ...</span></span>
+<span><span class="co">##  ..  ..$ : chr [1:6] "H1_A1" "H2_A1" "H3_A1" "H1_A2" ...</span></span>
+<span><span class="co">##  @ n_hypotheses: int 3</span></span>
+<span><span class="co">##  @ n_analyses  : int 2</span></span>
+<span><span class="co">##  @ column_names: chr [1:6] "H1_A1" "H2_A1" "H3_A1" "H1_A2" "H2_A2" "H3_A2"</span></span></code></pre>
+<p>For human readability, we can format the correlation matrix as a
+table.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">corr_mat</span><span class="op">@</span><span class="va">matrix</span></span></code></pre></div>
+<pre><code><span><span class="co">##           H1_A1     H2_A1     H3_A1     H1_A2     H2_A2     H3_A2</span></span>
+<span><span class="co">## H1_A1 1.0000000 0.7627701 0.6666667 0.7071068 0.5393599 0.4714045</span></span>
+<span><span class="co">## H2_A1 0.7627701 1.0000000 0.6992059 0.5393599 0.7071068 0.4944132</span></span>
+<span><span class="co">## H3_A1 0.6666667 0.6992059 1.0000000 0.4714045 0.4944132 0.7071068</span></span>
+<span><span class="co">## H1_A2 0.7071068 0.5393599 0.4714045 1.0000000 0.7627701 0.6666667</span></span>
+<span><span class="co">## H2_A2 0.5393599 0.7071068 0.4944132 0.7627701 1.0000000 0.6992059</span></span>
+<span><span class="co">## H3_A2 0.4714045 0.4944132 0.7071068 0.6666667 0.6992059 1.0000000</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-anderson2022unified" class="csl-entry">
 Anderson, Keaven M, Zifang Guo, Jing Zhao, and Linda Z Sun. 2022.
 <span>“A Unified Framework for Weighted Parametric Group Sequential
@@ -2824,7 +835,7 @@ Design.”</span> <em>Biometrical Journal</em> 64 (7): 1219–39.
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Keaven Anderson, Zifang Guo, Jing Zhao, Linda Sun, Yi Cui, Yujie Zhao, Larry Leon. Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1. <br>Copyright © 2023 Merck &amp; Co., Inc., Rahway, NJ, USA and its affiliates. All rights reserved.</p>
+  <p>Developed by Keaven Anderson, Zifang Guo, Jing Zhao, Linda Sun, Yi Cui, Yujie Zhao, Larry Leon. Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0. <br>Copyright © 2023 Merck &amp; Co., Inc., Rahway, NJ, USA and its affiliates. All rights reserved.</p>
 </div>
 
 <div class="pkgdown-footer-right">

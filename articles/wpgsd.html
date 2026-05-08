@@ -6,12 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Quickstart guide • wpgsd</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -27,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">wpgsd</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,8 +40,9 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/adj-seq-p.html">Adjusted sequential p-values</a></li>
-    <li><a class="dropdown-item" href="../articles/corr_calculation.html">Correlated test statistics</a></li>
+<li><a class="dropdown-item" href="../articles/adj-seq-p.html">Adjusted Sequential p-values</a></li>
+    <li><a class="dropdown-item" href="../articles/corr_calculation.html">Correlated test statistics for </a></li>
+    <li><a class="dropdown-item" href="../articles/dunnett_dose.html">Dunnett-type dose-finding with group sequential design</a></li>
     <li><a class="dropdown-item" href="../articles/tech-detail-wb.html">Procedure to compute p-value boundaries by weighted Bonferroni</a></li>
   </ul>
 </li>
@@ -132,15 +132,17 @@ and Bretz (2013)</span> for group sequential.</p>
 <p>A closed procedure is called consonant if the rejection of the
 complete intersection null hypothesis
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>I</mi></msub><annotation encoding="application/x-tex">H_I</annotation></semantics></math>
-further implies that at least one elementary hypothesis
+further implies<br>
+that at least one elementary hypothesis
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>i</mi></msub><mo>,</mo><mi>i</mi><mo>∈</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">H_i, i \in I</annotation></semantics></math>,
-is rejected. Consonance is a desirable property leading to short-cut
-procedures that give the same rejection decisions as the original closed
-procedure but with fewer operations. For WPGSD, consonance does not
-always hold and in general the closed-testing procedure is required.</p>
+is rejected.<br>
+Consonance is a desirable property leading to short-cut procedures that
+give the same rejection decisions as the original closed procedure but
+with fewer operations. For WPGSD, consonance does not always hold and in
+general the closed-testing procedure is required.</p>
 </div>
 <div class="section level3">
-<h3 id="group-sequential-design-notations-and-assumptions">Group Sequential Design Notations and Assumptions<a class="anchor" aria-label="anchor" href="#group-sequential-design-notations-and-assumptions"></a>
+<h3 id="group-sequential-design-notation-and-assumptions">Group Sequential Design Notation and Assumptions<a class="anchor" aria-label="anchor" href="#group-sequential-design-notation-and-assumptions"></a>
 </h3>
 <ul>
 <li>A set
@@ -172,11 +174,15 @@ is used to reject
 <h3 id="correlation-structure">Correlation Structure<a class="anchor" aria-label="anchor" href="#correlation-structure"></a>
 </h3>
 <ul>
-<li>Notation
+<li>
+<p>Notation</p>
 <ul>
 <li>Events for individual hypothesis
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>i</mi></msub><annotation encoding="application/x-tex">H_i</annotation></semantics></math>,<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">i \in I</annotation></semantics></math>
-at analysis k denoted by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>i</mi></msub><annotation encoding="application/x-tex">H_i</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">i \in I</annotation></semantics></math>
+at analysis
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+denoted by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">n_{ik}</annotation></semantics></math>.</li>
 <li>Assume the same endpoint for all hypotheses (can be relaxed)</li>
 <li>For binary or continuous outcomes
@@ -196,15 +202,17 @@ as the number of observations (or events) included in both
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">Z_{ik}</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mrow><msup><mi>i</mi><mi>′</mi></msup><msup><mi>k</mi><mi>′</mi></msup></mrow></msub><annotation encoding="application/x-tex">Z_{i^\prime k^\prime}</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">i\in I</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">1\le k\le K</annotation></semantics></math>.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">i \in I</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">1 \leq k \leq K</annotation></semantics></math>.</li>
 </ul>
 </li>
-<li>Key result <span class="math display">$$  \hbox{Corr}(Z_{ik},
-Z_{i^\prime k^\prime }) =  \frac{n_{i\wedge i^\prime ,k\wedge k^\prime
-}}{\sqrt{n_{ik}n_{i^\prime k^\prime }}} $$</span>
+<li>
+<p>Key result</p>
+<p><span class="math display">$$\hbox{Corr}(Z_{ik}, Z_{i^\prime k^\prime
+}) =  \frac{n_{i\wedge i^\prime ,k\wedge k^\prime
+}}{\sqrt{n_{ik}n_{i^\prime k^\prime }}}$$</span></p>
 </li>
-<li>Proof builds on standard group sequential theory (<span class="citation">Chen et al. (2021)</span>)</li>
+<li><p>Proof builds on standard group sequential theory (<span class="citation">Chen et al. (2021)</span>)</p></li>
 </ul>
 </div>
 <div class="section level3">
@@ -213,7 +221,7 @@ Z_{i^\prime k^\prime }) =  \frac{n_{i\wedge i^\prime ,k\wedge k^\prime
 <p>Following illustrates the first example, which has overlapping
 populations (e.g. due to biomarker) and is also example 1 in <span class="citation">Anderson et al. (2022)</span>.</p>
 <div class="figure" style="text-align: center">
-<img src="figures%2Fex1-pop.png" alt="Ex1: Populations" width="90%"><p class="caption">
+<img src="figures/ex1-pop.png" class="r-plt" alt="Ex1: Populations" width="90%"><p class="caption">
 Ex1: Populations
 </p>
 </div>
@@ -237,7 +245,7 @@ Ex1: Populations
 <span>  <span class="st">"H3: Overall Population"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">hplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://keaven.github.io/gsDesign/reference/hGraph.html" class="external-link">hGraph</a></span><span class="op">(</span><span class="fl">3</span>,</span>
+<span><span class="va">hplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://merck.github.io/gMCPLite/reference/hGraph.html" class="external-link">hGraph</a></span><span class="op">(</span><span class="fl">3</span>,</span>
 <span>  alphaHypotheses <span class="op">=</span> <span class="va">w</span>,</span>
 <span>  m <span class="op">=</span> <span class="va">m</span>,</span>
 <span>  nameHypotheses <span class="op">=</span> <span class="va">nameHypotheses</span>,</span>
@@ -249,7 +257,7 @@ Ex1: Populations
 <span>  wchar <span class="op">=</span> <span class="st">"w"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">hplot</span></span></code></pre></div>
-<p><img src="wpgsd_files/figure-html/unnamed-chunk-5-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="wpgsd_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="80%" style="display: block; margin: auto;"></p>
 <p>The event count of each hypothesis at each analysis is shown
 below.</p>
 <table class="table">
@@ -278,7 +286,7 @@ Example 1. IA: interim analysis. FA: final analysis.</caption>
 </tr>
 <tr class="odd">
 <td align="center">Population 1
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∩</mo><annotation encoding="application/x-tex">\cap</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>∩</mi><annotation encoding="application/x-tex">\cap</annotation></semantics></math>
 2</td>
 <td align="center">80</td>
 <td align="center">160</td>
@@ -376,7 +384,7 @@ shown.</caption>
 </h3>
 <p>Following illustrates the second example in which correlation comes
 from common control arm. This is also example 2 in <span class="citation">Anderson et al. (2022)</span>.</p>
-<p><img src="wpgsd_files/figure-html/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="wpgsd_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="80%" style="display: block; margin: auto;"></p>
 <table class="table">
 <caption>Number of events at each analysis for each treatment arm in
 Example 2. IA: interim analysis. FA: final analysis.</caption>
@@ -496,9 +504,9 @@ corresponding weighting strategies are illustrated below.</p>
 <caption>Weighting strategy of Example 1.</caption>
 <thead><tr class="header">
 <th align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>J</mi></msub><annotation encoding="application/x-tex">H_J</annotation></semantics></math></th>
-<th align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>1</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">w_1(J)</annotation></semantics></math></th>
-<th align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">w_2(J)</annotation></semantics></math></th>
-<th align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>3</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">w_3(J)</annotation></semantics></math></th>
+<th align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>1</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_1(J)</annotation></semantics></math></th>
+<th align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_2(J)</annotation></semantics></math></th>
+<th align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>3</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_3(J)</annotation></semantics></math></th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -549,9 +557,9 @@ corresponding weighting strategies are illustrated below.</p>
 <caption>Weighting strategy of Example 2.</caption>
 <thead><tr class="header">
 <th align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>J</mi></msub><annotation encoding="application/x-tex">H_J</annotation></semantics></math></th>
-<th align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>1</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">w_1(J)</annotation></semantics></math></th>
-<th align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">w_2(J)</annotation></semantics></math></th>
-<th align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>3</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">w_3(J)</annotation></semantics></math></th>
+<th align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>1</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_1(J)</annotation></semantics></math></th>
+<th align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_2(J)</annotation></semantics></math></th>
+<th align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>3</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_3(J)</annotation></semantics></math></th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -610,39 +618,37 @@ size. Three spending approaches have been proposed:</p>
 <ul>
 <li><p>Fixed spending (Fleming-Harrington-O’Brien (FHO) approach).
 Specify
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>α</mi><mn>1</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>&lt;</mo><msub><mi>α</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>&lt;</mo><mi>…</mi><mo>&lt;</mo><msub><mi>α</mi><mi>K</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>α</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">0 &lt; \alpha_1(J) &lt; \alpha_2(J) &lt; \ldots &lt; \alpha_K(J) = \alpha(J) \leq \alpha</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>α</mi><mn>1</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><msub><mi>α</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>…</mi><mo>&lt;</mo><msub><mi>α</mi><mi>K</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>α</mi><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">0 &lt; \alpha_1(J) &lt; \alpha_2(J) &lt; \ldots &lt; \alpha_K(J) = \alpha(J) \leq \alpha</annotation></semantics></math>
 for all
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>⊆</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">J\subseteq I</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>⊆</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">J \subseteq I</annotation></semantics></math>,
 where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha(J)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha(J)</annotation></semantics></math>
 is the total alpha for intersection hypothesis
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>J</mi></msub><annotation encoding="application/x-tex">H_J</annotation></semantics></math>
 according to the graphical approach.</p></li>
 <li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>-spending
 approach 1. We choose a spending function family
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo>,</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(t,\alpha)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>,</mo><mi>α</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(t,\alpha)</annotation></semantics></math>
 and set
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>α</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha_k(J)=f(t_k(J),\alpha(J))</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>α</mi><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha_k(J) = f(t_k(J), \alpha(J))</annotation></semantics></math>
 for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">1\le k\le K</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">1 \leq k \leq K</annotation></semantics></math>
 for all intersection hypotheses
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>⊆</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">J\subseteq I</annotation></semantics></math>.</p></li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>⊆</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">J \subseteq I</annotation></semantics></math>.</p></li>
 <li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>-spending
 approach 2. For each elementary hypothesis
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-= 1, 2, ,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>),
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">i = 1, 2, \ldots, m</annotation></semantics></math>),
 specify the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>-spending
 function family
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>i</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo>,</mo><mi>γ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f_i(t,\gamma)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>,</mo><mi>γ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f_i(t,\gamma)</annotation></semantics></math>
 where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math>
 is the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
 level for the hypothesis and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>i</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>,</mo><mi>γ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f_i(t_{ik},\gamma)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>,</mo><mi>γ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f_i(t_{ik}, \gamma)</annotation></semantics></math>
 determines how much
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
 to spend up to analysis
@@ -652,7 +658,7 @@ for hypothesis
 when level
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math>
 is allocated to the hypothesis. Then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi></mrow></msub><msub><mi>f</mi><mi>i</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>,</mo><msub><mi>w</mi><mi>i</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha_k(J) = \sum_{i \in J} f_i(t_{ik}, w_i(J)\alpha)</annotation></semantics></math>.</p></li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi></mrow></msub><msub><mi>f</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>,</mo><msub><mi>w</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mi>α</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha_k(J) = \sum_{i \in J} f_i(t_{ik}, w_i(J) \alpha)</annotation></semantics></math>.</p></li>
 </ul>
 </div>
 <div class="section level3">
@@ -668,7 +674,7 @@ bivariate normal with known correlation</p></li>
 factor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>J</mi></msub><annotation encoding="application/x-tex">c_J</annotation></semantics></math>
 such that
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mi>P</mi><mrow><mo stretchy="true" form="prefix">[</mo><msub><mo>∪</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>p</mi><mi>i</mi></msub><mo>≤</mo><msub><mi>c</mi><mi>J</mi></msub><msub><mi>w</mi><mrow><mi>J</mi><mo>,</mo><mi>i</mi></mrow></msub><mi>α</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mi>P</mi><mrow><mo stretchy="true" form="prefix">[</mo><msub><mo>∪</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>Z</mi><mi>i</mi></msub><mo>≥</mo><msup><mi>Φ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>c</mi><mi>J</mi></msub><msub><mi>w</mi><mrow><mi>J</mi><mo>,</mo><mi>i</mi></mrow></msub><mi>α</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex"> \alpha = P[\cup_{i \in J} \{p_i \leq c_Jw_{J,i}\alpha \}] = P[\cup_{i \in J} \{Z_i \geq \Phi^{-1}(1-c_Jw_{J,i}\alpha \}]</annotation></semantics></math></p></li>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mi>P</mi><mrow><mo stretchy="true" form="prefix">[</mo><msub><mo>∪</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>p</mi><mi>i</mi></msub><mo>≤</mo><msub><mi>c</mi><mi>J</mi></msub><msub><mi>w</mi><mrow><mi>J</mi><mo>,</mo><mi>i</mi></mrow></msub><mi>α</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mi>P</mi><mrow><mo stretchy="true" form="prefix">[</mo><msub><mo>∪</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>Z</mi><mi>i</mi></msub><mo>≥</mo><msup><mi mathvariant="normal">Φ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>c</mi><mi>J</mi></msub><msub><mi>w</mi><mrow><mi>J</mi><mo>,</mo><mi>i</mi></mrow></msub><mi>α</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex"> \alpha = P\left[\cup_{i \in J} \{p_i \leq c_J w_{J,i} \alpha\}\right] = P\left[\cup_{i \in J} \{Z_i \geq \Phi^{-1}(1 - c_J w_{J,i} \alpha)\}\right]</annotation></semantics></math></p></li>
 <li><p>Basic algorithm code in <span class="citation">Bretz et al.
 (2011)</span></p></li>
 </ul>
@@ -681,7 +687,7 @@ spending approach 1<a class="anchor" aria-label="anchor" href="#bounds-computati
 <li><p>Assume for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>&lt;</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">j &lt; k</annotation></semantics></math>
 that bounds
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>i</mi><mo>∈</mo><mi>J</mi><mo>,</mo><mi>j</mi><mo>&lt;</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">c_{ij} (J), i \in J, j &lt; k</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>i</mi><mo>∈</mo><mi>J</mi><mo>,</mo><mi>j</mi><mo>&lt;</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">c_{ij} (J), i \in J, j &lt; k</annotation></semantics></math>,
 have already been set and remain unchanged.</p></li>
 <li>
 <p>At analysis
@@ -691,33 +697,33 @@ compute the correlation matrix of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">i \in J</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">j = 1, \ldots, k</annotation></semantics></math>.</p>
 <p>i Initialize
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>α</mi><mi>k</mi><mo>*</mo></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>α</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><msub><mi>α</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha_{k}^{*}(J) = \alpha_{k}(J) - \alpha_{k-1}(J)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>α</mi><mi>k</mi><mo>*</mo></msubsup><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>α</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>α</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha_{k}^{*}(J) = \alpha_{k}(J) - \alpha_{k-1}(J)</annotation></semantics></math>.</p>
 <p>ii Set
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>=</mo><msup><mi>Φ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>w</mi><mi>i</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><msubsup><mi>α</mi><mi>k</mi><mo>*</mo></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">b_{ik} = \Phi^{-1}(1 - w_{i}(J)\alpha_{k}^{*} (J))</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">i\in J</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>=</mo><msup><mi mathvariant="normal">Φ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>w</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><msubsup><mi>α</mi><mi>k</mi><mo>*</mo></msubsup><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">b_{ik} = \Phi^{-1}(1 - w_{i}(J)\alpha_{k}^{*}(J))</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">i \in J</annotation></semantics></math>.</p>
 <p>iii Compute type I error rate up to analysis
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>P</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mo>∩</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>&lt;</mo><msub><mi>b</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo stretchy="false" form="postfix">}</mo><msub><mo>∩</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi><mo>,</mo><mi>j</mi><mo>&lt;</mo><mi>k</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>&lt;</mo><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex"> 1 - Pr(\cap_{i \in J} \{ Z_{ik} &lt; b_{ik} \} \cap_{i \in J, j &lt; k} \{ Z_{ij} &lt; c_{ij}(J) \} ). </annotation></semantics></math></p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><msub><mo>∩</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>&lt;</mo><msub><mi>b</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo stretchy="false" form="postfix">}</mo><msub><mo>∩</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi><mo>,</mo><mi>j</mi><mo>&lt;</mo><mi>k</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>&lt;</mo><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex"> 1 - Pr(\cap_{i \in J} \{ Z_{ik} &lt; b_{ik} \} \cap_{i \in J, j &lt; k} \{ Z_{ij} &lt; c_{ij}(J) \} ). </annotation></semantics></math></p>
 <p>iv Update
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>α</mi><mi>k</mi><mo>*</mo></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha_{k}^{*}(J)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>α</mi><mi>k</mi><mo>*</mo></msubsup><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha_{k}^{*}(J)</annotation></semantics></math>
 using root-finding with steps ii - iii until the type I error rate
 through analysis
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
 is controlled at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha_{k}(J)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha_{k}(J)</annotation></semantics></math>
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>J</mi></msub><annotation encoding="application/x-tex">H_J</annotation></semantics></math>.
 That is,
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>P</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mo>∩</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>&lt;</mo><msub><mi>b</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo stretchy="false" form="postfix">}</mo><msub><mo>∩</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi><mo>,</mo><mi>j</mi><mo>&lt;</mo><mi>k</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>&lt;</mo><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>α</mi><mi>k</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex"> 1 - Pr(\cap_{i \in J} \{ Z_{ik} &lt; b_{ik} \} \cap_{i \in J, j &lt; k} \{ Z_{ij} &lt; c_{ij}(J) \} ) = \alpha_{k}. </annotation></semantics></math></p>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><msub><mo>∩</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>&lt;</mo><msub><mi>b</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo stretchy="false" form="postfix">}</mo><msub><mo>∩</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi><mo>,</mo><mi>j</mi><mo>&lt;</mo><mi>k</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>&lt;</mo><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>α</mi><mi>k</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex"> 1 - Pr(\cap_{i \in J} \{ Z_{ik} &lt; b_{ik} \} \cap_{i \in J, j &lt; k} \{ Z_{ij} &lt; c_{ij}(J) \} ) = \alpha_{k}. </annotation></semantics></math></p>
 <p>v Set
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>b</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ik}(J) = b_{ik}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>b</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ik}(J) = b_{ik}</annotation></semantics></math>
 from the previous step. The corresponding nominal
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-value
 boundary is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>1</mn><mo>−</mo><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>c</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>w</mi><mi>i</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><msubsup><mi>α</mi><mi>k</mi><mo>*</mo></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">p_{ik}(J)= 1-\Phi(c_{ik}(J)) =  w_i(J)\alpha_k^*(J)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mi mathvariant="normal">Φ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>w</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><msubsup><mi>α</mi><mi>k</mi><mo>*</mo></msubsup><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p_{ik}(J) = 1 - \Phi(c_{ik}(J)) = w_i(J)\alpha_k^*(J)</annotation></semantics></math>.</p>
 </li>
 <li><p>Note: interim bound does not depend on future analyses. Solution
 only requires root finding for a single
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>α</mi><mi>k</mi><mo>*</mo></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha_{k}^{*}(J)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>α</mi><mi>k</mi><mo>*</mo></msubsup><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha_{k}^{*}(J)</annotation></semantics></math>
 at a time,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">k = 1, \ldots, K</annotation></semantics></math>.
 Requires multivariate normal computation from mvtnorm R package Genz et
@@ -733,7 +739,7 @@ spending approach 2<a class="anchor" aria-label="anchor" href="#bounds-computati
 <li><p>Assume for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>&lt;</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">j &lt; k</annotation></semantics></math>
 that bounds
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>i</mi><mo>∈</mo><mi>J</mi><mo>,</mo><mi>j</mi><mo>&lt;</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">c_{ij} (J), i \in J, j &lt; k</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>i</mi><mo>∈</mo><mi>J</mi><mo>,</mo><mi>j</mi><mo>&lt;</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">c_{ij} (J), i \in J, j &lt; k</annotation></semantics></math>,
 have already been set and remain unchanged.</p></li>
 <li>
 <p>At analysis
@@ -751,35 +757,35 @@ in <span class="citation">Maurer and Bretz (2013)</span>. Let these
 nominal
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-value
 boundaries be
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>α</mi><mrow><mi>i</mi><mi>k</mi></mrow><mi>′</mi></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha^\prime_{ik}(J)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>α</mi><mrow><mi>i</mi><mi>k</mi></mrow><mi>′</mi></msubsup><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha^\prime_{ik}(J)</annotation></semantics></math>.</p>
 <p>ii Choose an inflation factor
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ξ</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\xi_{k}(J) &gt; 1</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ξ</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\xi_{k}(J) &gt; 1</annotation></semantics></math>
 and set
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>=</mo><msup><mi>Φ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>ξ</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><msubsup><mi>α</mi><mrow><mi>i</mi><mi>k</mi></mrow><mi>′</mi></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">b_{ik} = \Phi^{-1}(1 - \xi_k(J) \alpha^\prime_{ik}(J)).</annotation></semantics></math></p>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>=</mo><msup><mi mathvariant="normal">Φ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>ξ</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><msubsup><mi>α</mi><mrow><mi>i</mi><mi>k</mi></mrow><mi>′</mi></msubsup><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">b_{ik} = \Phi^{-1}(1 - \xi_k(J) \alpha^\prime_{ik}(J)).</annotation></semantics></math></p>
 <p>iii Update
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ξ</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\xi_k(J)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ξ</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\xi_k(J)</annotation></semantics></math>
 until this type I error rate up to analysis
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
 is controlled at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha_{k}(J)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha_{k}(J)</annotation></semantics></math>
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>J</mi></msub><annotation encoding="application/x-tex">H_J</annotation></semantics></math>.
 That is,
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>P</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mo>∩</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>&lt;</mo><msub><mi>b</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo stretchy="false" form="postfix">}</mo><msub><mo>∩</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi><mo>,</mo><mi>j</mi><mo>&lt;</mo><mi>k</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>&lt;</mo><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>α</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex"> 1 - Pr(\cap_{i \in J} \{ Z_{ik} &lt; b_{ik} \} \cap_{i \in J, j &lt; k} \{ Z_{ij} &lt; c_{ij}(J) \} ) = \alpha_{k}(J).</annotation></semantics></math></p>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><msub><mo>∩</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>&lt;</mo><msub><mi>b</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo stretchy="false" form="postfix">}</mo><msub><mo>∩</mo><mrow><mi>i</mi><mo>∈</mo><mi>J</mi><mo>,</mo><mi>j</mi><mo>&lt;</mo><mi>k</mi></mrow></msub><mo stretchy="false" form="prefix">{</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>&lt;</mo><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>α</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex"> 1 - Pr(\cap_{i \in J} \{ Z_{ik} &lt; b_{ik} \} \cap_{i \in J, j &lt; k} \{ Z_{ij} &lt; c_{ij}(J) \} ) = \alpha_{k}(J).</annotation></semantics></math></p>
 <p>iv After the appropriate
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ξ</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\xi_k(J)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ξ</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\xi_k(J)</annotation></semantics></math>
 has been derived, the nominal
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-value
 boundaries are
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>ξ</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><msubsup><mi>α</mi><mrow><mi>i</mi><mi>k</mi></mrow><mi>′</mi></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">p_{ik}(J)=\xi_k(J) \alpha^\prime_{ik}(J)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>ξ</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><msubsup><mi>α</mi><mrow><mi>i</mi><mi>k</mi></mrow><mi>′</mi></msubsup><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p_{ik}(J) = \xi_k(J) \alpha^\prime_{ik}(J)</annotation></semantics></math>,
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>b</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">b_{ik}</annotation></semantics></math>
 is computed as in step ii, we set
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>b</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ik}(J) = b_{ik}</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>b</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ik}(J) = b_{ik}</annotation></semantics></math>.</p>
 </li>
 <li><p>Note: interim bound does not depend on future analyses. Solution
 only requires root finding for a single
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ξ</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\xi_k(J)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ξ</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\xi_k(J)</annotation></semantics></math>
 at a time,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">k = 1, \ldots, K</annotation></semantics></math>.
 Requires multivariate normal computation from the mvtnorm R package Genz
@@ -2393,8 +2399,8 @@ non-trivial impact on bounds for hypothesis tests.</p>
 <p>Bonferroni and WPGSD bounds can then be computed via
 <code><a href="../reference/generate_bounds.html">generate_bounds()</a></code>. In this example, we useHSD(-4) as
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>-spending
-for all hypotheses. Of note, <code><a href="../reference/generate_bounds.html">generate_bounds()</a></code> input type
-specifies boundary type.</p>
+for all hypotheses. Of note, <code><a href="../reference/generate_bounds.html">generate_bounds()</a></code> input
+<code>type</code> specifies boundary type.</p>
 <ul>
 <li>0 = Bonferroni. Separate alpha spending for each hypotheses.</li>
 <li>1 = Fixed alpha spending for all hypotheses. Method 3a in the
@@ -6933,37 +6939,44 @@ method 3c specified in the paper.</p>
 </h3>
 <p>The above illustrates the use of the WPGSD approach to compute bounds
 at the analysis stage. At the design stage, one can take one of the
-following 2 options: 1) The trial can be first designed as if the
-testing would be done with a weighted Bonferroni with conservative
-sample size estimate. At the analysis stage, the correlation can be
-taken into consideration with the WPGSD approach for bound calculation;
-or 2) To adjust the sample size downward using the WPGSD approach at the
-design stage, one can power the study by taking the minimum
+following 2 options:</p>
+<ol style="list-style-type: decimal">
+<li><p>The trial can be first designed as if the testing would be done
+with a weighted Bonferroni with conservative sample size estimate. At
+the analysis stage, the correlation can be taken into consideration with
+the WPGSD approach for bound calculation; or</p></li>
+<li><p>To adjust the sample size downward using the WPGSD approach at
+the design stage, one can power the study by taking the minimum
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-value
 bound for a given individual hypothesis from the WPGSD table (with
 assumed correlation structure). For example, for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>2</mn></msub><annotation encoding="application/x-tex">H_2</annotation></semantics></math>
-of example 1, this is <span class="math inline">$\hbox{min}(0.0011,0.0017,0.0010,0.0030)=0.0010$</span>
+of example 1, this is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">min</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0.0011</mn><mo>,</mo><mn>0.0017</mn><mo>,</mo><mn>0.0010</mn><mo>,</mo><mn>0.0030</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.0010</mn></mrow><annotation encoding="application/x-tex">\min(0.0011, 0.0017, 0.0010, 0.0030) = 0.0010</annotation></semantics></math>
 for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k=1</annotation></semantics></math>
-and <span class="math inline">$\hbox{min}(0.0092,0.0144,0.0081,0.0238)=0.0081$</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k = 1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">min</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0.0092</mn><mo>,</mo><mn>0.0144</mn><mo>,</mo><mn>0.0081</mn><mo>,</mo><mn>0.0238</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.0081</mn></mrow><annotation encoding="application/x-tex">\min(0.0092, 0.0144, 0.0081, 0.0238) = 0.0081</annotation></semantics></math>
 for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k=2</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k = 2</annotation></semantics></math>.
 Then the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>2</mn></msub><annotation encoding="application/x-tex">H_2</annotation></semantics></math>
-bounds of 0.0010
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k=1</annotation></semantics></math>)
-and 0.0081
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k=2</annotation></semantics></math>)
+bounds of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.0010</mn><annotation encoding="application/x-tex">0.0010</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k = 1</annotation></semantics></math>)
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.0081</mn><annotation encoding="application/x-tex">0.0081</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k = 2</annotation></semantics></math>)
 can be used to power
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>2</mn></msub><annotation encoding="application/x-tex">H_2</annotation></semantics></math>.
-R function for the 2nd option is in development.</p>
+This option is not currently supported in the package.</p></li>
+</ol>
 </div>
 </div>
 <div class="section level2">
 <h2 id="conclusions">Conclusions<a class="anchor" aria-label="anchor" href="#conclusions"></a>
 </h2>
-<p>The WPGSD approach provides an unification of previous work on
+<p>The WPGSD approach provides a unification of previous work on
 parametric testing in group sequential design. It enabled more complex
 scenarios and requires attention to consonance and intersection
 hypotheses. Although detailed closed testing is required, this should
@@ -6974,7 +6987,7 @@ to the Bonferroni approach.</p>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-anderson2022unified" class="csl-entry">
 Anderson, Keaven M, Zifang Guo, Jing Zhao, and Linda Z Sun. 2022.
 <span>“A Unified Framework for Weighted Parametric Group Sequential
@@ -7011,7 +7024,7 @@ Procedures.”</span> <em>Biometrical Journal</em> 59 (5): 918–31.
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Keaven Anderson, Zifang Guo, Jing Zhao, Linda Sun, Yi Cui, Yujie Zhao, Larry Leon. Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1. <br>Copyright © 2023 Merck &amp; Co., Inc., Rahway, NJ, USA and its affiliates. All rights reserved.</p>
+  <p>Developed by Keaven Anderson, Zifang Guo, Jing Zhao, Linda Sun, Yi Cui, Yujie Zhao, Larry Leon. Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0. <br>Copyright © 2023 Merck &amp; Co., Inc., Rahway, NJ, USA and its affiliates. All rights reserved.</p>
 </div>
 
 <div class="pkgdown-footer-right">
