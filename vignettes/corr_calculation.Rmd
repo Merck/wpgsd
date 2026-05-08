@@ -1,5 +1,5 @@
 ---
-title: "Correlated test statistics for "
+title: "Correlated test statistics"
 author: "Chenguang Zhang, Yujie Zhao and Keaven Anderson"
 output:
   rmarkdown::html_document:
