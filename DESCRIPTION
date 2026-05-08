@@ -1,6 +1,6 @@
 Package: wpgsd
 Title: Weighted Parametric Group Sequential Design
-Version: 0.1.0
+Version: 0.3.0
 Authors@R: c(
     person("Keaven", "Anderson", email = "keaven_anderson@merck.com", role = "aut"),
     person("Zifang", "Guo", email = "zifang.guo@merck.com", role = "aut"),
@@ -31,6 +31,7 @@ Imports:
     gsDesign,
     mvtnorm,
     rlang (>= 0.4.11),
+    S7,
     stats,
     tibble,
     tidyselect
@@ -48,4 +49,4 @@ VignetteBuilder:
     knitr
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3

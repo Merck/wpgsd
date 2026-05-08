@@ -45,6 +45,7 @@
 #' )
 #'
 #' generate_event_table_cc(event, hypothesis)
+#' @export
 generate_event_table_cc <- function(event, hypothesis) {
   result_df <- tibble(
     one_hypothesis = integer(),

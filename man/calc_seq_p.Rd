@@ -97,5 +97,6 @@ calc_seq_p(
   spending_fun_par = -4,
   info_frac = c(0.5, 1),
   interval = c(1e-4, 0.2)
-)}
+)
+}
 }

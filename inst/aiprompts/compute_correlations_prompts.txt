@@ -1,0 +1,75 @@
+Three functions are defined here, one for checking input data (`check_event_data()`) and 
+another for computing correlations (`compute_correlations()`) and one (`gen_corr()`) for transforming a data frame where correlations are computed
+to a correlation matrix. 
+All three should be exported.
+When users enter the `event` input to `compute_correlations()`, it is advised to call `check_event_data()` first by 
+specifying check = TRUE (the default).
+Output will be output either as a data frame or as a correlation matrix, as specified below.
+An exported function `gen_corr()` will do a transformation from the data frame output to a symmetric matrix. 
+
+Let M > 1 be the integer number of hypotheses to be tested.
+Assume there are integer K > 1 analyses.
+Let real-valued Z[i, k] be the standardized normal test statistic for 
+hypothesis i, 1 <= i <= M, analysis k, 1 <= k <= K. 
+We wish to compute and return correlations for all hypothesis tests 
+performed across analyses.
+For tests Z[i1, k1], Z[i2, k2], 1 <= i1 <= i2 <= M, 1 <= k1 <= k2 <= K that are 
+performed we will provide the count of events (for time-to-event outcomes) or 
+sample size (for other outcomes) that are common between the two tests.
+This is input in a data frame called `event`  
+with the following columns:
+
+`H1` - hypothesis i1 = H1
+`H2` - hypothesis i2 = H2
+`Analysis` - value in 1,2,...,K
+`Event` - event count for time-to-event endpoints, otherwise sample size which
+is included in the both test Z[H1, Analysis] and Z[H2, Analysis].
+
+Other arguments for `compute_correlations()` are
+
+`check` - logical indicating whether to perform input checks using `check_event_data()` (default is TRUE)
+`return_matrix` - logical indicating whether to return a correlation matrix (default is TRUE)
+
+The function `check_event_data()` will have the argument `event` as specified above.
+Data checks in `check_event_data()` :
+- Check that `event` is a data frame and return an informative error message if not.
+- Check that columns specified above exist and return informative error message, if not.
+- Check that H1 <= H2 for each row and provide informative error message, if not.
+- Check that the combination of H1, H2, Analysis is a unique in the input; 
+this should be evaluated and appropriate error message returned if not unique.
+Check that Event is an integer >= 0 for all rows and provide an 
+appropriate error message, if not.
+- Check that unique values of Analysis are sequential positive integers with 
+minimum value 1 and maximum value > 1; K from above will be the maximum value.
+Return an informative error message if any of these checks fail.
+- Check that unique values of H1 are sequential integers with minimum value 1 
+and maximum value > 1; M from above will be the maximum value.
+Same for H2.
+Return an informative error message if any of these checks fail.
+- Check that for k=1,...,K that if there is a row with H1 < H2, then there is also a row with H1 == H2.
+Return an informative error message if not.
+- Check that for any value of Analysis, and H1 = i1 < H2 = i2 specified that there is also a row with H1 = i1, H2 = i1 and another with 
+H1 = i2, H2 = i2. Return an informative error message if not.
+
+
+Returned value from `compute_correlations()`.
+The returned value either a data frame (if `return_matrix = FALSE`) or a correlation matrix, otherwise.
+The data frame has the following columns.
+    H1 - hypothesis i1
+    H2 - hypothesis i2 >= i1
+    Analysis1 - k1.
+    Analysis2 - k2 >= k1.
+    Correlation - correlation between Z[i1, k1] and Z[i2, k2].
+
+Correlation is computed as 
+Event for i1, i2 and k1 divided by square root of the product of 
+Event for H1 = i1, H2 = i1, Analysis = min(k1, k2) times 
+Event for H1 = i2, H2 = i2, Analysis = k2.
+
+If `return_ matrix = TRUE` (default) then a symmetric matrix should be returned as follows.
+Columns should be named `H1_A1`, `H1_A2`, ..., `H1_AK`, `H2_A1`, `H2_A2`, ..., `H2_AK`, ..., `HM_A1`, `HM_A2`, ..., `HM_AK` where
+M and K are as computed from `event`. 
+Rows should be labeled the same way.
+Diagonal elements are all 1.
+Off-diagonal elements are filled with the computed correlations.
+Only cells included should be where `Event` value was provided for the combination of Analysis, H1 and H2. 

@@ -15,6 +15,64 @@ template:
     dropdown-link-hover-color: "#fff"
     dropdown-link-hover-bg: "#00857c"
 
+reference:
+  - title: "S7 Classes and Constructors"
+    desc: "Core S7 data structures for event tables and correlation matrices"
+    contents:
+      - CorrelationMatrix
+      - EventTable
+      - as_correlation_matrix
+      - as_event_table
+      - print.CorrelationMatrix
+  
+  - title: "Event Table Generation"
+    desc: "Functions for generating event count tables from clinical trial data"
+    contents:
+      - generate_event_table
+      - generate_event_table_
+      - generate_event_table_cc
+      - generate_event_table_ol
+  
+  - title: "Correlation Matrix Computation"
+    desc: "Functions for computing correlation matrices from event data"
+    contents:
+      - generate_corr
+      - generate_corr_s7
+      - compute_correlations
+      - gen_corr
+  
+  - title: "Statistical Testing and Analysis"
+    desc: "Core statistical procedures for group sequential designs"
+    contents:
+      - calc_seq_p
+      - closed_test
+      - generate_bounds
+  
+  - title: "Data Manipulation and Subsetting"
+    desc: "Functions for working with event tables and correlation matrices"
+    contents:
+      - subset_event_table
+      - subset_correlation_matrix
+  
+  - title: "Data Validation"
+    desc: "Functions for validating and checking data integrity"
+    contents:
+      - check_event_data
+      - validate_event_data_core
+      - validate_event_table_data
+  
+  - title: "Utility Functions"
+    desc: "Internal utility functions for numerical computations"
+    contents:
+      - find_astar
+      - find_xi
+  
+  - title: "Package Information"
+    desc: "Package documentation and tidy evaluation helpers"
+    contents:
+      - wpgsd-package
+      - tidyeval
+
 footer:
   structure:
     left: [developed_by, built_with, legal]

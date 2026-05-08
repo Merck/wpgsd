@@ -1,0 +1,2960 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Adjusted Sequential p-values</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Adjusted Sequential p-values</h1>
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This vignette demonstrates the calculation of adjusted sequential
+p-values for multiple populations in a group sequential trial design.
+We’ll show a streamlined approach using helper functions to reduce code
+repetition while maintaining technical accuracy. The methods implemented
+in this vignette are based on the work by <span class="citation">Zhao et
+al. (2025)</span>. The end result is a adjusted p-value at both interim
+and final analysis for each hypothesis tested. In all cases, this
+adjusted p-value can be compared to the family-wise error rate (FWER)
+for the trial simplifying interpretation by adjusting for multiplicity
+created by testing multiple hypotheses at group sequential analyses.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(wpgsd)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(gsDesign)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">library</span>(gMCPLite)</span></code></pre></div>
+</div>
+<div id="example-overview" class="section level1">
+<h1>Example Overview</h1>
+<p>In a 2-arm controlled clinical trial with one primary endpoint, there
+are 3 null hypotheses based on populations defined defined by biomarker
+status. In each case the null hypothesis assumes no difference in the
+distribution of the time until a primary endpoint is reached between the
+treatment and control groups:</p>
+<ul>
+<li><strong>H1</strong>: Biomarker A positive population<br />
+</li>
+<li><strong>H2</strong>: Biomarker B positive population</li>
+<li><strong>H3</strong>: Overall population</li>
+</ul>
+<div id="multiplicity-strategy" class="section level2">
+<h2>Multiplicity Strategy</h2>
+<p>We will use a graphical approach to visualize the multiplicity
+strategy.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Transition matrix and initial weights</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">7</span>, <span class="dv">4</span><span class="sc">/</span><span class="dv">7</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="dv">3</span><span class="sc">/</span><span class="dv">7</span>, <span class="dv">0</span>, <span class="dv">4</span><span class="sc">/</span><span class="dv">7</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">0</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>)  <span class="co"># Initial weights</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co"># Visualize strategy</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>name_hypotheses <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;H1: Biomarker A positive&quot;</span>, <span class="st">&quot;H2: Biomarker B positive&quot;</span>, <span class="st">&quot;H3: Overall Population&quot;</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>hplot <span class="ot">&lt;-</span> gMCPLite<span class="sc">::</span><span class="fu">hGraph</span>(</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="dv">3</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>  <span class="at">alphaHypotheses =</span> w, <span class="at">m =</span> m,</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>  <span class="at">nameHypotheses =</span> name_hypotheses, <span class="at">trhw =</span> .<span class="dv">2</span>, <span class="at">trhh =</span> .<span class="dv">1</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">5</span>, <span class="at">trdigits =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">halfWid =</span> <span class="dv">1</span>, <span class="at">halfHgt =</span> <span class="fl">0.5</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>  <span class="at">offset =</span> <span class="fl">0.2</span>, <span class="at">trprop =</span> <span class="fl">0.4</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>  <span class="at">fill =</span> <span class="fu">as.factor</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>)),</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;#BDBDBD&quot;</span>, <span class="st">&quot;#E0E0E0&quot;</span>, <span class="st">&quot;#EEEEEE&quot;</span>),</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>  <span class="at">wchar =</span> <span class="st">&quot;w&quot;</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>)</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>hplot</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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KZGLxEniymwiuFgbtzHtBsZnUuLqWje5yU2qE044YaldvipPfOITIyu8dLHxo5dXqJ0c8akPMurZBOW6XW+WG1Y52NZZrNf7NPszSjuf/OQno35hr732qu54xztGoj7M84gQr/AmDPOsZ4Z5F/jvVd/97ne/ZtOxTievbVTmizmCg3rhC18YjyeY1OMC7pDo5cP6QiR45zvfGdupz0v1b7vtttXjHve4nk31e3fEh3Nhgm7zb9h5qR1lB0EvHA96rn6/3zvVyw3blnGs43uDDTaIKpcb3ehGVb9xpDODwyZ0w2OzjP97reW1eEJqPME3v/nN6q53vWv1wQ9+MF2K3+edd14UIxwv8Mxmm20WO15/8c997nNxktgh6RK22267aosttog7GmqLMJm497///au73/3u1d577x131HpDuIanPOUplYWgjQc+8IFRH/GTn/ykXqx60YteVL3iFa+oiAzKPuxhD6uw9d0A6/uIRzyiokOow4c+9KEok+vLfe973+o5z3lO1aadVLfJiQAZXB/iBMKMDR4GPv/5z0e5/LTTTque+cxnVre61a3iordTwU8ThhkbzxBhTGjlHZ41Nk2Ooi664kZwxMDEvcc97lHRJaQ58oMf/CDe867mzGWXXRZ3U7+JHOBVr3pVFPnS/669/e1vj/jxm56RGsD8SEAn2ZyX7pkvTf3JMO9+5plnVltuuWXst/74TS+38847R46LWIbz0+/1118/bsDGqw4Wn/lGN6WMz9Zbb1295z3vWUaMzKHnPe95keOlWzGvrItuQEf66Ec/OkobcJcAd2Lj0p911123etCDHlQdffTRy9rBOerL17/+9UiUzTOcY309pvoGfcM3ZTMxqx+wZu++++5xfX7xi1+s7nnPe8Zx8n3ggQeusfkhWm984xsjM6N+rid0YJdccsmyZjpHHHFEWDPXwhlnnIG0L7sWdAKdsFN1ggNd57WvfW0n7FCdMGliuaCsjg8GJWUnKIDjtbCLdXz+/d//vRN0H5TcnY033rgTBr4TENUJgx2vaycMYueiiy6Kn0MOOSQ+f7e73a3z/Oc/vxN23E5AfifInrG+Cy+8cKmsusLgdMJE7YSF1LntbW/bCQuhE4hRJxwGXSq37777xjrDi3e+//3vL13fdddd43X9UiYsvE5Y6J2wC3c+85nPLJXr1U7qc7fvMClj3UHh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" /><!-- --></p>
+</div>
+<div id="study-setup" class="section level2">
+<h2>Study Setup</h2>
+<p>We assume 2 analyses: an interim analysis (IA) and a final analysis
+(FA). For the multiplicity adjustments, we need the number of events in
+the treatment and control groups combined that are available for testing
+each hypothesis at both analyses for each population and the
+intersection of populations. In the following AB positive means positive
+for both biomarker A and biomarker B.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Create event data systematically</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>create_event_data <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  populations <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;A positive&quot;</span>, <span class="st">&quot;B positive&quot;</span>, <span class="st">&quot;AB positive&quot;</span>, <span class="st">&quot;overall&quot;</span>), <span class="dv">2</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  analyses <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">each =</span> <span class="dv">4</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  events <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">110</span>, <span class="dv">80</span>, <span class="dv">225</span>, <span class="dv">200</span>, <span class="dv">220</span>, <span class="dv">160</span>, <span class="dv">450</span>)  <span class="co"># IA, then FA</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  </span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    <span class="at">population =</span> populations,</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>    <span class="at">analysis =</span> analyses, </span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>    <span class="at">event =</span> events</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>  )</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>}</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>event_tbl <span class="ot">&lt;-</span> <span class="fu">create_event_data</span>()</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>event_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;Event Count by Population and Analysis&quot;</span>)</span></code></pre></div>
+<div id="fxgjqzzveo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fxgjqzzveo table {
+font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+#fxgjqzzveo thead, #fxgjqzzveo tbody, #fxgjqzzveo tfoot, #fxgjqzzveo tr, #fxgjqzzveo td, #fxgjqzzveo th {
+border-style: none;
+}
+#fxgjqzzveo p {
+margin: 0;
+padding: 0;
+}
+#fxgjqzzveo .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}
+#fxgjqzzveo .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+#fxgjqzzveo .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}
+#fxgjqzzveo .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}
+#fxgjqzzveo .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#fxgjqzzveo .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#fxgjqzzveo .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#fxgjqzzveo .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}
+#fxgjqzzveo .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}
+#fxgjqzzveo .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}
+#fxgjqzzveo .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}
+#fxgjqzzveo .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}
+#fxgjqzzveo .gt_spanner_row {
+border-bottom-style: hidden;
+}
+#fxgjqzzveo .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}
+#fxgjqzzveo .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}
+#fxgjqzzveo .gt_from_md > :first-child {
+margin-top: 0;
+}
+#fxgjqzzveo .gt_from_md > :last-child {
+margin-bottom: 0;
+}
+#fxgjqzzveo .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}
+#fxgjqzzveo .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}
+#fxgjqzzveo .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}
+#fxgjqzzveo .gt_row_group_first td {
+border-top-width: 2px;
+}
+#fxgjqzzveo .gt_row_group_first th {
+border-top-width: 2px;
+}
+#fxgjqzzveo .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#fxgjqzzveo .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}
+#fxgjqzzveo .gt_first_summary_row.thick {
+border-top-width: 2px;
+}
+#fxgjqzzveo .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#fxgjqzzveo .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#fxgjqzzveo .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}
+#fxgjqzzveo .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}
+#fxgjqzzveo .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}
+#fxgjqzzveo .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#fxgjqzzveo .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#fxgjqzzveo .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#fxgjqzzveo .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#fxgjqzzveo .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#fxgjqzzveo .gt_left {
+text-align: left;
+}
+#fxgjqzzveo .gt_center {
+text-align: center;
+}
+#fxgjqzzveo .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+#fxgjqzzveo .gt_font_normal {
+font-weight: normal;
+}
+#fxgjqzzveo .gt_font_bold {
+font-weight: bold;
+}
+#fxgjqzzveo .gt_font_italic {
+font-style: italic;
+}
+#fxgjqzzveo .gt_super {
+font-size: 65%;
+}
+#fxgjqzzveo .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}
+#fxgjqzzveo .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}
+#fxgjqzzveo .gt_indent_1 {
+text-indent: 5px;
+}
+#fxgjqzzveo .gt_indent_2 {
+text-indent: 10px;
+}
+#fxgjqzzveo .gt_indent_3 {
+text-indent: 15px;
+}
+#fxgjqzzveo .gt_indent_4 {
+text-indent: 20px;
+}
+#fxgjqzzveo .gt_indent_5 {
+text-indent: 25px;
+}
+#fxgjqzzveo .katex-display {
+display: inline-flex !important;
+margin-bottom: 0.75em !important;
+}
+#fxgjqzzveo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Event Count by Population and Analysis</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="population">population</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="analysis">analysis</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="event">event</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="population" class="gt_row gt_left">A positive</td>
+<td headers="analysis" class="gt_row gt_right">1</td>
+<td headers="event" class="gt_row gt_right">100</td></tr>
+    <tr><td headers="population" class="gt_row gt_left">B positive</td>
+<td headers="analysis" class="gt_row gt_right">1</td>
+<td headers="event" class="gt_row gt_right">110</td></tr>
+    <tr><td headers="population" class="gt_row gt_left">AB positive</td>
+<td headers="analysis" class="gt_row gt_right">1</td>
+<td headers="event" class="gt_row gt_right">80</td></tr>
+    <tr><td headers="population" class="gt_row gt_left">overall</td>
+<td headers="analysis" class="gt_row gt_right">1</td>
+<td headers="event" class="gt_row gt_right">225</td></tr>
+    <tr><td headers="population" class="gt_row gt_left">A positive</td>
+<td headers="analysis" class="gt_row gt_right">2</td>
+<td headers="event" class="gt_row gt_right">200</td></tr>
+    <tr><td headers="population" class="gt_row gt_left">B positive</td>
+<td headers="analysis" class="gt_row gt_right">2</td>
+<td headers="event" class="gt_row gt_right">220</td></tr>
+    <tr><td headers="population" class="gt_row gt_left">AB positive</td>
+<td headers="analysis" class="gt_row gt_right">2</td>
+<td headers="event" class="gt_row gt_right">160</td></tr>
+    <tr><td headers="population" class="gt_row gt_left">overall</td>
+<td headers="analysis" class="gt_row gt_right">2</td>
+<td headers="event" class="gt_row gt_right">450</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<p>We assume the following unadjusted p-values at each analysis for each
+hypothesis.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Observed p-values</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>obs_tbl <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="sc">~</span>hypothesis, <span class="sc">~</span>analysis, <span class="sc">~</span>obs_p,</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="st">&quot;H1&quot;</span>, <span class="dv">1</span>, <span class="fl">0.02</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="st">&quot;H2&quot;</span>, <span class="dv">1</span>, <span class="fl">0.01</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="st">&quot;H3&quot;</span>, <span class="dv">1</span>, <span class="fl">0.012</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="st">&quot;H1&quot;</span>, <span class="dv">2</span>, <span class="fl">0.015</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  <span class="st">&quot;H2&quot;</span>, <span class="dv">2</span>, <span class="fl">0.012</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  <span class="st">&quot;H3&quot;</span>, <span class="dv">2</span>, <span class="fl">0.010</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">obs_Z =</span> <span class="sc">-</span><span class="fu">qnorm</span>(obs_p))</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>obs_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;Nominal p-values&quot;</span>)</span></code></pre></div>
+<div id="jerihgwcjl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jerihgwcjl table {
+font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+#jerihgwcjl thead, #jerihgwcjl tbody, #jerihgwcjl tfoot, #jerihgwcjl tr, #jerihgwcjl td, #jerihgwcjl th {
+border-style: none;
+}
+#jerihgwcjl p {
+margin: 0;
+padding: 0;
+}
+#jerihgwcjl .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}
+#jerihgwcjl .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+#jerihgwcjl .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}
+#jerihgwcjl .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}
+#jerihgwcjl .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#jerihgwcjl .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#jerihgwcjl .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#jerihgwcjl .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}
+#jerihgwcjl .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}
+#jerihgwcjl .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}
+#jerihgwcjl .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}
+#jerihgwcjl .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}
+#jerihgwcjl .gt_spanner_row {
+border-bottom-style: hidden;
+}
+#jerihgwcjl .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}
+#jerihgwcjl .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}
+#jerihgwcjl .gt_from_md > :first-child {
+margin-top: 0;
+}
+#jerihgwcjl .gt_from_md > :last-child {
+margin-bottom: 0;
+}
+#jerihgwcjl .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}
+#jerihgwcjl .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}
+#jerihgwcjl .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}
+#jerihgwcjl .gt_row_group_first td {
+border-top-width: 2px;
+}
+#jerihgwcjl .gt_row_group_first th {
+border-top-width: 2px;
+}
+#jerihgwcjl .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#jerihgwcjl .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}
+#jerihgwcjl .gt_first_summary_row.thick {
+border-top-width: 2px;
+}
+#jerihgwcjl .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#jerihgwcjl .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#jerihgwcjl .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}
+#jerihgwcjl .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}
+#jerihgwcjl .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}
+#jerihgwcjl .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#jerihgwcjl .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#jerihgwcjl .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#jerihgwcjl .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#jerihgwcjl .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#jerihgwcjl .gt_left {
+text-align: left;
+}
+#jerihgwcjl .gt_center {
+text-align: center;
+}
+#jerihgwcjl .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+#jerihgwcjl .gt_font_normal {
+font-weight: normal;
+}
+#jerihgwcjl .gt_font_bold {
+font-weight: bold;
+}
+#jerihgwcjl .gt_font_italic {
+font-style: italic;
+}
+#jerihgwcjl .gt_super {
+font-size: 65%;
+}
+#jerihgwcjl .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}
+#jerihgwcjl .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}
+#jerihgwcjl .gt_indent_1 {
+text-indent: 5px;
+}
+#jerihgwcjl .gt_indent_2 {
+text-indent: 10px;
+}
+#jerihgwcjl .gt_indent_3 {
+text-indent: 15px;
+}
+#jerihgwcjl .gt_indent_4 {
+text-indent: 20px;
+}
+#jerihgwcjl .gt_indent_5 {
+text-indent: 25px;
+}
+#jerihgwcjl .katex-display {
+display: inline-flex !important;
+margin-bottom: 0.75em !important;
+}
+#jerihgwcjl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Nominal p-values</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="hypothesis">hypothesis</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="analysis">analysis</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="obs_p">obs_p</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="obs_Z">obs_Z</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="hypothesis" class="gt_row gt_left">H1</td>
+<td headers="analysis" class="gt_row gt_right">1</td>
+<td headers="obs_p" class="gt_row gt_right">0.020</td>
+<td headers="obs_Z" class="gt_row gt_right">2.053749</td></tr>
+    <tr><td headers="hypothesis" class="gt_row gt_left">H2</td>
+<td headers="analysis" class="gt_row gt_right">1</td>
+<td headers="obs_p" class="gt_row gt_right">0.010</td>
+<td headers="obs_Z" class="gt_row gt_right">2.326348</td></tr>
+    <tr><td headers="hypothesis" class="gt_row gt_left">H3</td>
+<td headers="analysis" class="gt_row gt_right">1</td>
+<td headers="obs_p" class="gt_row gt_right">0.012</td>
+<td headers="obs_Z" class="gt_row gt_right">2.257129</td></tr>
+    <tr><td headers="hypothesis" class="gt_row gt_left">H1</td>
+<td headers="analysis" class="gt_row gt_right">2</td>
+<td headers="obs_p" class="gt_row gt_right">0.015</td>
+<td headers="obs_Z" class="gt_row gt_right">2.170090</td></tr>
+    <tr><td headers="hypothesis" class="gt_row gt_left">H2</td>
+<td headers="analysis" class="gt_row gt_right">2</td>
+<td headers="obs_p" class="gt_row gt_right">0.012</td>
+<td headers="obs_Z" class="gt_row gt_right">2.257129</td></tr>
+    <tr><td headers="hypothesis" class="gt_row gt_left">H3</td>
+<td headers="analysis" class="gt_row gt_right">2</td>
+<td headers="obs_p" class="gt_row gt_right">0.010</td>
+<td headers="obs_Z" class="gt_row gt_right">2.326348</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>p_obs_IA <span class="ot">&lt;-</span> (obs_tbl <span class="sc">%&gt;%</span> <span class="fu">filter</span>(analysis <span class="sc">==</span> <span class="dv">1</span>))<span class="sc">$</span>obs_p</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>p_obs_FA <span class="ot">&lt;-</span> (obs_tbl <span class="sc">%&gt;%</span> <span class="fu">filter</span>(analysis <span class="sc">==</span> <span class="dv">2</span>))<span class="sc">$</span>obs_p</span></code></pre></div>
+<p>We now have all the information we need to perform testing and
+adjusting p-values.</p>
+</div>
+<div id="information-fractions" class="section level2">
+<h2>Information Fractions</h2>
+<p>Next we calculate information fractions at interim and final
+analyses. The final event count at each analysis is assumed to be the
+planned count for each population.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Helper function to extract events</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>get_events <span class="ot">&lt;-</span> <span class="cf">function</span>(analysis_num, population_name) {</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  event_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>    <span class="fu">filter</span>(analysis <span class="sc">==</span> analysis_num, population <span class="sc">==</span> population_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>    <span class="fu">pull</span>(event)</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>}</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co"># Extract event counts</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>events_IA <span class="ot">&lt;-</span> event_tbl <span class="sc">%&gt;%</span> <span class="fu">filter</span>(analysis <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>events_FA <span class="ot">&lt;-</span> event_tbl <span class="sc">%&gt;%</span> <span class="fu">filter</span>(analysis <span class="sc">==</span> <span class="dv">2</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>a_pos_IA <span class="ot">&lt;-</span> <span class="fu">get_events</span>(<span class="dv">1</span>, <span class="st">&quot;A positive&quot;</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>b_pos_IA <span class="ot">&lt;-</span> <span class="fu">get_events</span>(<span class="dv">1</span>, <span class="st">&quot;B positive&quot;</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>ab_pos_IA <span class="ot">&lt;-</span> <span class="fu">get_events</span>(<span class="dv">1</span>, <span class="st">&quot;AB positive&quot;</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>overall_IA <span class="ot">&lt;-</span> <span class="fu">get_events</span>(<span class="dv">1</span>, <span class="st">&quot;overall&quot;</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>a_pos_FA <span class="ot">&lt;-</span> <span class="fu">get_events</span>(<span class="dv">2</span>, <span class="st">&quot;A positive&quot;</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>b_pos_FA <span class="ot">&lt;-</span> <span class="fu">get_events</span>(<span class="dv">2</span>, <span class="st">&quot;B positive&quot;</span>)</span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a>ab_pos_FA <span class="ot">&lt;-</span> <span class="fu">get_events</span>(<span class="dv">2</span>, <span class="st">&quot;AB positive&quot;</span>)</span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a>overall_FA <span class="ot">&lt;-</span> <span class="fu">get_events</span>(<span class="dv">2</span>, <span class="st">&quot;overall&quot;</span>)</span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="co"># Calculate information fractions</span></span>
+<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a>IF_IA <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a>  (a_pos_IA <span class="sc">+</span> overall_IA) <span class="sc">/</span> (a_pos_FA <span class="sc">+</span> overall_FA),    <span class="co"># H1</span></span>
+<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a>  (b_pos_IA <span class="sc">+</span> overall_IA) <span class="sc">/</span> (b_pos_FA <span class="sc">+</span> overall_FA),    <span class="co"># H2  </span></span>
+<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a>  (ab_pos_IA <span class="sc">+</span> overall_IA) <span class="sc">/</span> (ab_pos_FA <span class="sc">+</span> overall_FA)   <span class="co"># H3</span></span>
+<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a>)</span>
+<span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a></span>
+<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb6-30"><a href="#cb6-30" tabindex="-1"></a>  <span class="at">Hypothesis =</span> <span class="fu">c</span>(<span class="st">&quot;H1&quot;</span>, <span class="st">&quot;H2&quot;</span>, <span class="st">&quot;H3&quot;</span>),</span>
+<span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a>  <span class="at">Information_Fraction =</span> IF_IA</span>
+<span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;Information Fractions at Interim Analysis&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="dv">2</span>, <span class="at">decimals =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div id="ybmpidpeot" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ybmpidpeot table {
+font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+#ybmpidpeot thead, #ybmpidpeot tbody, #ybmpidpeot tfoot, #ybmpidpeot tr, #ybmpidpeot td, #ybmpidpeot th {
+border-style: none;
+}
+#ybmpidpeot p {
+margin: 0;
+padding: 0;
+}
+#ybmpidpeot .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}
+#ybmpidpeot .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+#ybmpidpeot .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}
+#ybmpidpeot .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}
+#ybmpidpeot .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#ybmpidpeot .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#ybmpidpeot .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#ybmpidpeot .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}
+#ybmpidpeot .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}
+#ybmpidpeot .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}
+#ybmpidpeot .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}
+#ybmpidpeot .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}
+#ybmpidpeot .gt_spanner_row {
+border-bottom-style: hidden;
+}
+#ybmpidpeot .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}
+#ybmpidpeot .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}
+#ybmpidpeot .gt_from_md > :first-child {
+margin-top: 0;
+}
+#ybmpidpeot .gt_from_md > :last-child {
+margin-bottom: 0;
+}
+#ybmpidpeot .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}
+#ybmpidpeot .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}
+#ybmpidpeot .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}
+#ybmpidpeot .gt_row_group_first td {
+border-top-width: 2px;
+}
+#ybmpidpeot .gt_row_group_first th {
+border-top-width: 2px;
+}
+#ybmpidpeot .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#ybmpidpeot .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}
+#ybmpidpeot .gt_first_summary_row.thick {
+border-top-width: 2px;
+}
+#ybmpidpeot .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#ybmpidpeot .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#ybmpidpeot .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}
+#ybmpidpeot .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}
+#ybmpidpeot .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}
+#ybmpidpeot .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#ybmpidpeot .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#ybmpidpeot .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#ybmpidpeot .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#ybmpidpeot .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#ybmpidpeot .gt_left {
+text-align: left;
+}
+#ybmpidpeot .gt_center {
+text-align: center;
+}
+#ybmpidpeot .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+#ybmpidpeot .gt_font_normal {
+font-weight: normal;
+}
+#ybmpidpeot .gt_font_bold {
+font-weight: bold;
+}
+#ybmpidpeot .gt_font_italic {
+font-style: italic;
+}
+#ybmpidpeot .gt_super {
+font-size: 65%;
+}
+#ybmpidpeot .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}
+#ybmpidpeot .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}
+#ybmpidpeot .gt_indent_1 {
+text-indent: 5px;
+}
+#ybmpidpeot .gt_indent_2 {
+text-indent: 10px;
+}
+#ybmpidpeot .gt_indent_3 {
+text-indent: 15px;
+}
+#ybmpidpeot .gt_indent_4 {
+text-indent: 20px;
+}
+#ybmpidpeot .gt_indent_5 {
+text-indent: 25px;
+}
+#ybmpidpeot .katex-display {
+display: inline-flex !important;
+margin-bottom: 0.75em !important;
+}
+#ybmpidpeot div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Information Fractions at Interim Analysis</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Hypothesis">Hypothesis</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Information_Fraction">Information_Fraction</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Hypothesis" class="gt_row gt_left">H1</td>
+<td headers="Information_Fraction" class="gt_row gt_right">0.500</td></tr>
+    <tr><td headers="Hypothesis" class="gt_row gt_left">H2</td>
+<td headers="Information_Fraction" class="gt_row gt_right">0.500</td></tr>
+    <tr><td headers="Hypothesis" class="gt_row gt_left">H3</td>
+<td headers="Information_Fraction" class="gt_row gt_right">0.500</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+<div id="correlation-matrix" class="section level2">
+<h2>Correlation Matrix</h2>
+<p>Now we can create a correlation matrix for all tests performed based
+on the methods of <span class="citation">Anderson et al. (2022)</span>
+(or <span class="citation">Chen et al. (2021)</span>).</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Create correlation matrix using event intersections</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>event_intersections <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="sc">~</span>H1, <span class="sc">~</span>H2, <span class="sc">~</span>Analysis, <span class="sc">~</span>Event,</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="co"># Analysis 1 - Interim</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, a_pos_IA,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, b_pos_IA, </span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>, overall_IA,</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, ab_pos_IA,</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, a_pos_IA,</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, b_pos_IA,</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>  <span class="co"># Analysis 2 - Final</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, a_pos_FA,</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, b_pos_FA,</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>  <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>, overall_FA, </span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, ab_pos_FA,</span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, a_pos_FA,</span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, b_pos_FA</span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>)</span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co"># Generate correlation from events</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>correlation_matrix <span class="ot">&lt;-</span> <span class="fu">generate_corr</span>(event_intersections)</span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a>correlation_matrix <span class="sc">%&gt;%</span> </span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Correlation Matrix (6x6)&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Correlation Matrix (6x6)</caption>
+<thead>
+<tr class="header">
+<th align="right">H1_A1</th>
+<th align="right">H2_A1</th>
+<th align="right">H3_A1</th>
+<th align="right">H1_A2</th>
+<th align="right">H2_A2</th>
+<th align="right">H3_A2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.000</td>
+<td align="right">0.763</td>
+<td align="right">0.667</td>
+<td align="right">0.707</td>
+<td align="right">0.539</td>
+<td align="right">0.471</td>
+</tr>
+<tr class="even">
+<td align="right">0.763</td>
+<td align="right">1.000</td>
+<td align="right">0.699</td>
+<td align="right">0.539</td>
+<td align="right">0.707</td>
+<td align="right">0.494</td>
+</tr>
+<tr class="odd">
+<td align="right">0.667</td>
+<td align="right">0.699</td>
+<td align="right">1.000</td>
+<td align="right">0.471</td>
+<td align="right">0.494</td>
+<td align="right">0.707</td>
+</tr>
+<tr class="even">
+<td align="right">0.707</td>
+<td align="right">0.539</td>
+<td align="right">0.471</td>
+<td align="right">1.000</td>
+<td align="right">0.763</td>
+<td align="right">0.667</td>
+</tr>
+<tr class="odd">
+<td align="right">0.539</td>
+<td align="right">0.707</td>
+<td align="right">0.494</td>
+<td align="right">0.763</td>
+<td align="right">1.000</td>
+<td align="right">0.699</td>
+</tr>
+<tr class="even">
+<td align="right">0.471</td>
+<td align="right">0.494</td>
+<td align="right">0.707</td>
+<td align="right">0.667</td>
+<td align="right">0.699</td>
+<td align="right">1.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="sequential-p-value-calculations" class="section level2">
+<h2>Sequential P-value Calculations</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Helper function for systematic calculations</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>calculate_seq_p_systematic <span class="ot">&lt;-</span> <span class="cf">function</span>(test_analysis, p_obs_IA, p_obs_FA, w, m, correlation_matrix, IF_IA) {</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  </span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  combinations <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;H1, H2, H3&quot;</span>, <span class="st">&quot;H1, H2&quot;</span>, <span class="st">&quot;H1, H3&quot;</span>, <span class="st">&quot;H2, H3&quot;</span>, <span class="st">&quot;H1&quot;</span>, <span class="st">&quot;H2&quot;</span>, <span class="st">&quot;H3&quot;</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  </span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(combinations, <span class="sc">~</span> {</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>    seq_p <span class="ot">&lt;-</span> <span class="fu">calc_seq_p</span>(</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>      <span class="at">test_analysis =</span> test_analysis,</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>      <span class="at">test_hypothesis =</span> .x,</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>      <span class="at">p_obs =</span> <span class="fu">tibble</span>(</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>        <span class="at">analysis =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>        <span class="at">H1 =</span> <span class="fu">c</span>(p_obs_IA[<span class="dv">1</span>], p_obs_FA[<span class="dv">1</span>]),</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>        <span class="at">H2 =</span> <span class="fu">c</span>(p_obs_IA[<span class="dv">2</span>], p_obs_FA[<span class="dv">2</span>]),</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>        <span class="at">H3 =</span> <span class="fu">c</span>(p_obs_IA[<span class="dv">3</span>], p_obs_FA[<span class="dv">3</span>])</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>      ),</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>      <span class="at">alpha_spending_type =</span> <span class="dv">2</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>      <span class="at">n_analysis =</span> <span class="dv">2</span>,</span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>      <span class="at">initial_weight =</span> w,</span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a>      <span class="at">transition_mat =</span> m,</span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a>      <span class="at">z_corr =</span> correlation_matrix,</span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a>      <span class="at">spending_fun =</span> gsDesign<span class="sc">::</span>sfHSD,</span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a>      <span class="at">spending_fun_par =</span> <span class="sc">-</span><span class="dv">4</span>,</span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a>      <span class="at">info_frac =</span> <span class="fu">c</span>(<span class="fu">min</span>(IF_IA), <span class="dv">1</span>),</span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a>      <span class="at">interval =</span> <span class="fu">c</span>(<span class="fl">1e-4</span>, <span class="fl">0.2</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a>    )</span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a>    </span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a>      <span class="at">combination =</span> .x,</span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a>      <span class="at">sequential_p =</span> seq_p</span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a>    )</span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a>  })</span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a>  </span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a>  <span class="fu">return</span>(results)</span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a>}</span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a></span>
+<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="co"># Calculate for both interim and final analyses</span></span>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a>ia_results <span class="ot">&lt;-</span> <span class="fu">calculate_seq_p_systematic</span>(<span class="dv">1</span>, p_obs_IA, p_obs_FA, w, m, correlation_matrix, IF_IA) <span class="sc">%&gt;%</span></span>
+<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">analysis =</span> <span class="st">&quot;Interim&quot;</span>)</span>
+<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a></span>
+<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a>fa_results <span class="ot">&lt;-</span> <span class="fu">calculate_seq_p_systematic</span>(<span class="dv">2</span>, p_obs_IA, p_obs_FA, w, m, correlation_matrix, IF_IA) <span class="sc">%&gt;%</span></span>
+<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">analysis =</span> <span class="st">&quot;Final&quot;</span>)</span></code></pre></div>
+</div>
+<div id="results-summary" class="section level2">
+<h2>Results Summary</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Combined results table</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>combined_results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(ia_results, fa_results)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>combined_results <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;Sequential p-values - Comprehensive Results&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="st">&quot;sequential_p&quot;</span>, <span class="at">decimals =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">&quot;lightblue&quot;</span>),</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">rows =</span> analysis <span class="sc">==</span> <span class="st">&quot;Interim&quot;</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">&quot;lightgreen&quot;</span>), </span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">rows =</span> analysis <span class="sc">==</span> <span class="st">&quot;Final&quot;</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>  )</span></code></pre></div>
+<div id="ilodbsinqm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ilodbsinqm table {
+font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+#ilodbsinqm thead, #ilodbsinqm tbody, #ilodbsinqm tfoot, #ilodbsinqm tr, #ilodbsinqm td, #ilodbsinqm th {
+border-style: none;
+}
+#ilodbsinqm p {
+margin: 0;
+padding: 0;
+}
+#ilodbsinqm .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}
+#ilodbsinqm .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+#ilodbsinqm .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}
+#ilodbsinqm .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}
+#ilodbsinqm .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#ilodbsinqm .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#ilodbsinqm .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#ilodbsinqm .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}
+#ilodbsinqm .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}
+#ilodbsinqm .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}
+#ilodbsinqm .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}
+#ilodbsinqm .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}
+#ilodbsinqm .gt_spanner_row {
+border-bottom-style: hidden;
+}
+#ilodbsinqm .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}
+#ilodbsinqm .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}
+#ilodbsinqm .gt_from_md > :first-child {
+margin-top: 0;
+}
+#ilodbsinqm .gt_from_md > :last-child {
+margin-bottom: 0;
+}
+#ilodbsinqm .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}
+#ilodbsinqm .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}
+#ilodbsinqm .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}
+#ilodbsinqm .gt_row_group_first td {
+border-top-width: 2px;
+}
+#ilodbsinqm .gt_row_group_first th {
+border-top-width: 2px;
+}
+#ilodbsinqm .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#ilodbsinqm .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}
+#ilodbsinqm .gt_first_summary_row.thick {
+border-top-width: 2px;
+}
+#ilodbsinqm .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#ilodbsinqm .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#ilodbsinqm .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}
+#ilodbsinqm .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}
+#ilodbsinqm .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}
+#ilodbsinqm .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#ilodbsinqm .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#ilodbsinqm .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#ilodbsinqm .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#ilodbsinqm .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#ilodbsinqm .gt_left {
+text-align: left;
+}
+#ilodbsinqm .gt_center {
+text-align: center;
+}
+#ilodbsinqm .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+#ilodbsinqm .gt_font_normal {
+font-weight: normal;
+}
+#ilodbsinqm .gt_font_bold {
+font-weight: bold;
+}
+#ilodbsinqm .gt_font_italic {
+font-style: italic;
+}
+#ilodbsinqm .gt_super {
+font-size: 65%;
+}
+#ilodbsinqm .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}
+#ilodbsinqm .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}
+#ilodbsinqm .gt_indent_1 {
+text-indent: 5px;
+}
+#ilodbsinqm .gt_indent_2 {
+text-indent: 10px;
+}
+#ilodbsinqm .gt_indent_3 {
+text-indent: 15px;
+}
+#ilodbsinqm .gt_indent_4 {
+text-indent: 20px;
+}
+#ilodbsinqm .gt_indent_5 {
+text-indent: 25px;
+}
+#ilodbsinqm .katex-display {
+display: inline-flex !important;
+margin-bottom: 0.75em !important;
+}
+#ilodbsinqm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Sequential p-values - Comprehensive Results</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="combination">combination</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="sequential_p">sequential_p</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="analysis">analysis</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="combination" class="gt_row gt_left" style="background-color: #ADD8E6;">H1, H2, H3</td>
+<td headers="sequential_p" class="gt_row gt_right" style="background-color: #ADD8E6;">0.1943</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #ADD8E6;">Interim</td></tr>
+    <tr><td headers="combination" class="gt_row gt_left" style="background-color: #ADD8E6;">H1, H2</td>
+<td headers="sequential_p" class="gt_row gt_right" style="background-color: #ADD8E6;">0.1400</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #ADD8E6;">Interim</td></tr>
+    <tr><td headers="combination" class="gt_row gt_left" style="background-color: #ADD8E6;">H1, H3</td>
+<td headers="sequential_p" class="gt_row gt_right" style="background-color: #ADD8E6;">0.1553</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #ADD8E6;">Interim</td></tr>
+    <tr><td headers="combination" class="gt_row gt_left" style="background-color: #ADD8E6;">H2, H3</td>
+<td headers="sequential_p" class="gt_row gt_right" style="background-color: #ADD8E6;">0.1529</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #ADD8E6;">Interim</td></tr>
+    <tr><td headers="combination" class="gt_row gt_left" style="background-color: #ADD8E6;">H1</td>
+<td headers="sequential_p" class="gt_row gt_right" style="background-color: #ADD8E6;">0.1678</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #ADD8E6;">Interim</td></tr>
+    <tr><td headers="combination" class="gt_row gt_left" style="background-color: #ADD8E6;">H2</td>
+<td headers="sequential_p" class="gt_row gt_right" style="background-color: #ADD8E6;">0.0839</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #ADD8E6;">Interim</td></tr>
+    <tr><td headers="combination" class="gt_row gt_left" style="background-color: #ADD8E6;">H3</td>
+<td headers="sequential_p" class="gt_row gt_right" style="background-color: #ADD8E6;">0.1007</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #ADD8E6;">Interim</td></tr>
+    <tr><td headers="combination" class="gt_row gt_left" style="background-color: #90EE90;">H1, H2, H3</td>
+<td headers="sequential_p" class="gt_row gt_right" style="background-color: #90EE90;">0.0206</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #90EE90;">Final</td></tr>
+    <tr><td headers="combination" class="gt_row gt_left" style="background-color: #90EE90;">H1, H2</td>
+<td headers="sequential_p" class="gt_row gt_right" style="background-color: #90EE90;">0.0210</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #90EE90;">Final</td></tr>
+    <tr><td headers="combination" class="gt_row gt_left" style="background-color: #90EE90;">H1, H3</td>
+<td headers="sequential_p" class="gt_row gt_right" style="background-color: #90EE90;">0.0165</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #90EE90;">Final</td></tr>
+    <tr><td headers="combination" class="gt_row gt_left" style="background-color: #90EE90;">H2, H3</td>
+<td headers="sequential_p" class="gt_row gt_right" style="background-color: #90EE90;">0.0162</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #90EE90;">Final</td></tr>
+    <tr><td headers="combination" class="gt_row gt_left" style="background-color: #90EE90;">H1</td>
+<td headers="sequential_p" class="gt_row gt_right" style="background-color: #90EE90;">0.0159</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #90EE90;">Final</td></tr>
+    <tr><td headers="combination" class="gt_row gt_left" style="background-color: #90EE90;">H2</td>
+<td headers="sequential_p" class="gt_row gt_right" style="background-color: #90EE90;">0.0127</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #90EE90;">Final</td></tr>
+    <tr><td headers="combination" class="gt_row gt_left" style="background-color: #90EE90;">H3</td>
+<td headers="sequential_p" class="gt_row gt_right" style="background-color: #90EE90;">0.0106</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #90EE90;">Final</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+<div id="adjusted-sequential-p-values" class="section level2">
+<h2>Adjusted Sequential P-values</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Calculate adjusted sequential p-values (max over relevant combinations)</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>calculate_adjusted <span class="ot">&lt;-</span> <span class="cf">function</span>(results_df) {</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  h1_adj <span class="ot">&lt;-</span> <span class="fu">max</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>    results_df<span class="sc">$</span>sequential_p[results_df<span class="sc">$</span>combination <span class="sc">==</span> <span class="st">&quot;H1, H2, H3&quot;</span>],</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>    results_df<span class="sc">$</span>sequential_p[results_df<span class="sc">$</span>combination <span class="sc">==</span> <span class="st">&quot;H1, H2&quot;</span>],</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>    results_df<span class="sc">$</span>sequential_p[results_df<span class="sc">$</span>combination <span class="sc">==</span> <span class="st">&quot;H1, H3&quot;</span>],</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>    results_df<span class="sc">$</span>sequential_p[results_df<span class="sc">$</span>combination <span class="sc">==</span> <span class="st">&quot;H1&quot;</span>]</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>  )</span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>  </span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>  h2_adj <span class="ot">&lt;-</span> <span class="fu">max</span>(</span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>    results_df<span class="sc">$</span>sequential_p[results_df<span class="sc">$</span>combination <span class="sc">==</span> <span class="st">&quot;H1, H2, H3&quot;</span>],</span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>    results_df<span class="sc">$</span>sequential_p[results_df<span class="sc">$</span>combination <span class="sc">==</span> <span class="st">&quot;H1, H2&quot;</span>],</span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a>    results_df<span class="sc">$</span>sequential_p[results_df<span class="sc">$</span>combination <span class="sc">==</span> <span class="st">&quot;H2, H3&quot;</span>],</span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>    results_df<span class="sc">$</span>sequential_p[results_df<span class="sc">$</span>combination <span class="sc">==</span> <span class="st">&quot;H2&quot;</span>]</span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>  )</span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>  </span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>  h3_adj <span class="ot">&lt;-</span> <span class="fu">max</span>(</span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>    results_df<span class="sc">$</span>sequential_p[results_df<span class="sc">$</span>combination <span class="sc">==</span> <span class="st">&quot;H1, H2, H3&quot;</span>],</span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a>    results_df<span class="sc">$</span>sequential_p[results_df<span class="sc">$</span>combination <span class="sc">==</span> <span class="st">&quot;H1, H3&quot;</span>],</span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a>    results_df<span class="sc">$</span>sequential_p[results_df<span class="sc">$</span>combination <span class="sc">==</span> <span class="st">&quot;H2, H3&quot;</span>],</span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a>    results_df<span class="sc">$</span>sequential_p[results_df<span class="sc">$</span>combination <span class="sc">==</span> <span class="st">&quot;H3&quot;</span>]</span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a>  )</span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a>  </span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a>    <span class="at">hypothesis =</span> <span class="fu">c</span>(<span class="st">&quot;H1&quot;</span>, <span class="st">&quot;H2&quot;</span>, <span class="st">&quot;H3&quot;</span>),</span>
+<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a>    <span class="at">adjusted_sequential_p =</span> <span class="fu">c</span>(h1_adj, h2_adj, h3_adj)</span>
+<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a>  )</span>
+<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a>}</span>
+<span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a></span>
+<span id="cb10-30"><a href="#cb10-30" tabindex="-1"></a><span class="co"># Calculate for both analyses</span></span>
+<span id="cb10-31"><a href="#cb10-31" tabindex="-1"></a>ia_adjusted <span class="ot">&lt;-</span> <span class="fu">calculate_adjusted</span>(ia_results) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">analysis =</span> <span class="st">&quot;Interim&quot;</span>)</span>
+<span id="cb10-32"><a href="#cb10-32" tabindex="-1"></a>fa_adjusted <span class="ot">&lt;-</span> <span class="fu">calculate_adjusted</span>(fa_results) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">analysis =</span> <span class="st">&quot;Final&quot;</span>)</span>
+<span id="cb10-33"><a href="#cb10-33" tabindex="-1"></a></span>
+<span id="cb10-34"><a href="#cb10-34" tabindex="-1"></a>adjusted_results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(ia_adjusted, fa_adjusted)</span>
+<span id="cb10-35"><a href="#cb10-35" tabindex="-1"></a></span>
+<span id="cb10-36"><a href="#cb10-36" tabindex="-1"></a>adjusted_results <span class="sc">%&gt;%</span></span>
+<span id="cb10-37"><a href="#cb10-37" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-38"><a href="#cb10-38" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;Adjusted Sequential p-values&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-39"><a href="#cb10-39" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="st">&quot;adjusted_sequential_p&quot;</span>, <span class="at">decimals =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-40"><a href="#cb10-40" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb10-41"><a href="#cb10-41" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">&quot;pink&quot;</span>),</span>
+<span id="cb10-42"><a href="#cb10-42" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">rows =</span> adjusted_sequential_p <span class="sc">&lt;=</span> <span class="fl">0.025</span>)</span>
+<span id="cb10-43"><a href="#cb10-43" tabindex="-1"></a>  )</span></code></pre></div>
+<div id="bbnpadshpn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bbnpadshpn table {
+font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+#bbnpadshpn thead, #bbnpadshpn tbody, #bbnpadshpn tfoot, #bbnpadshpn tr, #bbnpadshpn td, #bbnpadshpn th {
+border-style: none;
+}
+#bbnpadshpn p {
+margin: 0;
+padding: 0;
+}
+#bbnpadshpn .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}
+#bbnpadshpn .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+#bbnpadshpn .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}
+#bbnpadshpn .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}
+#bbnpadshpn .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#bbnpadshpn .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#bbnpadshpn .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#bbnpadshpn .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}
+#bbnpadshpn .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}
+#bbnpadshpn .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}
+#bbnpadshpn .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}
+#bbnpadshpn .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}
+#bbnpadshpn .gt_spanner_row {
+border-bottom-style: hidden;
+}
+#bbnpadshpn .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}
+#bbnpadshpn .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}
+#bbnpadshpn .gt_from_md > :first-child {
+margin-top: 0;
+}
+#bbnpadshpn .gt_from_md > :last-child {
+margin-bottom: 0;
+}
+#bbnpadshpn .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}
+#bbnpadshpn .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}
+#bbnpadshpn .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}
+#bbnpadshpn .gt_row_group_first td {
+border-top-width: 2px;
+}
+#bbnpadshpn .gt_row_group_first th {
+border-top-width: 2px;
+}
+#bbnpadshpn .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#bbnpadshpn .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}
+#bbnpadshpn .gt_first_summary_row.thick {
+border-top-width: 2px;
+}
+#bbnpadshpn .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#bbnpadshpn .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#bbnpadshpn .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}
+#bbnpadshpn .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}
+#bbnpadshpn .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}
+#bbnpadshpn .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#bbnpadshpn .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#bbnpadshpn .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#bbnpadshpn .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#bbnpadshpn .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#bbnpadshpn .gt_left {
+text-align: left;
+}
+#bbnpadshpn .gt_center {
+text-align: center;
+}
+#bbnpadshpn .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+#bbnpadshpn .gt_font_normal {
+font-weight: normal;
+}
+#bbnpadshpn .gt_font_bold {
+font-weight: bold;
+}
+#bbnpadshpn .gt_font_italic {
+font-style: italic;
+}
+#bbnpadshpn .gt_super {
+font-size: 65%;
+}
+#bbnpadshpn .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}
+#bbnpadshpn .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}
+#bbnpadshpn .gt_indent_1 {
+text-indent: 5px;
+}
+#bbnpadshpn .gt_indent_2 {
+text-indent: 10px;
+}
+#bbnpadshpn .gt_indent_3 {
+text-indent: 15px;
+}
+#bbnpadshpn .gt_indent_4 {
+text-indent: 20px;
+}
+#bbnpadshpn .gt_indent_5 {
+text-indent: 25px;
+}
+#bbnpadshpn .katex-display {
+display: inline-flex !important;
+margin-bottom: 0.75em !important;
+}
+#bbnpadshpn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Adjusted Sequential p-values</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="hypothesis">hypothesis</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="adjusted_sequential_p">adjusted_sequential_p</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="analysis">analysis</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="hypothesis" class="gt_row gt_left">H1</td>
+<td headers="adjusted_sequential_p" class="gt_row gt_right">0.1943</td>
+<td headers="analysis" class="gt_row gt_left">Interim</td></tr>
+    <tr><td headers="hypothesis" class="gt_row gt_left">H2</td>
+<td headers="adjusted_sequential_p" class="gt_row gt_right">0.1943</td>
+<td headers="analysis" class="gt_row gt_left">Interim</td></tr>
+    <tr><td headers="hypothesis" class="gt_row gt_left">H3</td>
+<td headers="adjusted_sequential_p" class="gt_row gt_right">0.1943</td>
+<td headers="analysis" class="gt_row gt_left">Interim</td></tr>
+    <tr><td headers="hypothesis" class="gt_row gt_left" style="background-color: #FFC0CB;">H1</td>
+<td headers="adjusted_sequential_p" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0210</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #FFC0CB;">Final</td></tr>
+    <tr><td headers="hypothesis" class="gt_row gt_left" style="background-color: #FFC0CB;">H2</td>
+<td headers="adjusted_sequential_p" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0210</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #FFC0CB;">Final</td></tr>
+    <tr><td headers="hypothesis" class="gt_row gt_left" style="background-color: #FFC0CB;">H3</td>
+<td headers="adjusted_sequential_p" class="gt_row gt_right" style="background-color: #FFC0CB;">0.0206</td>
+<td headers="analysis" class="gt_row gt_left" style="background-color: #FFC0CB;">Final</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+<div id="interpretation-and-conclusions" class="section level1">
+<h1>Interpretation and Conclusions</h1>
+<p>The systematic approach demonstrates:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Interim Analysis</strong>: Shows proper adjustment for
+multiplicity and sequential testing</li>
+<li><strong>Final Analysis</strong>: Provides definitive conclusions
+with Type I error control</li>
+<li><strong>Efficiency</strong>: Helper functions reduce code repetition
+by ~80% while maintaining accuracy</li>
+<li><strong>Flexibility</strong>: Easy to modify for different
+hypothesis combinations or parameters</li>
+</ol>
+<p>The adjusted sequential p-values account for both: - <strong>Multiple
+comparisons</strong> (across populations)<br />
+- <strong>Sequential testing</strong> (interim and final analyses)</p>
+<p>Results highlighted in pink indicate rejection at α = 0.025
+level.</p>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-anderson2022unified" class="csl-entry">
+Anderson, Keaven M, Zifang Guo, Jing Zhao, and Linda Z Sun. 2022.
+<span>“A Unified Framework for Weighted Parametric Group Sequential
+Design.”</span> <em>Biometrical Journal</em> 64 (7): 1219–39.
+</div>
+<div id="ref-chen2021multiplicity" class="csl-entry">
+Chen, Ting-Yu, Jing Zhao, Linda Sun, and Keaven M Anderson. 2021.
+<span>“Multiplicity for a Group Sequential Trial with Biomarker
+Subpopulations.”</span> <em>Contemporary Clinical Trials</em> 101:
+106249.
+</div>
+<div id="ref-zhao2025adjusted" class="csl-entry">
+Zhao, Yujie, Qi Liu, Linda Z Sun, and Keaven M Anderson. 2025.
+<span>“Adjusted Inference for Multiple Testing Procedure in
+Group-Sequential Designs.”</span> <em>Biometrical Journal</em> 67 (1):
+e70020.
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

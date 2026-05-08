@@ -1,7 +1,7 @@
 #' This function creates a table summarizing event counts based on specified hypotheses and user input data.
 #' It can handle two types of analysis: one comparing experimental groups to a common control and another analyzing the overlap of populations.
 #'
-#' @param event` dataframe should have the following structure:
+#' @param event dataframe should have the following structure:
 #'   - `Population`: A character vector indicating the population groups. For example, "Population 1", "Population 2", "Overall population" in overlap population situation; or experimental arms and control in common control situation.
 #'   - `IA`: Numeric vector indicating the number of events observed in each group during interim analysis.
 #'   - `FA`: Numeric vector indicating the number of events observed in each group during final analysis.
