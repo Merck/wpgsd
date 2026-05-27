@@ -55,8 +55,10 @@ A dataframe with the following columns:
 ``` r
 #------------------------Example of IA and FA
 event <- data.frame(
-  Population = c("Population 1", "Population 2", "Population 1 Intersection 2", "Overall population"),
-  IA = c(100, 110, 80, 225), # Interim Analysis values indicating the number of events observed in each group
+  Population = c("Population 1", "Population 2", "Population 1 Intersection 2",
+                 "Overall population"),
+  # Interim Analysis values indicating the number of events observed in each group                
+  IA = c(100, 110, 80, 225),
   FA = c(200, 220, 160, 450)
 )
 
@@ -85,9 +87,12 @@ generate_event_table_ol(event, hypothesis)
 
 #----------------------Example of two IAs and FA
 event <- data.frame(
-  Population = c("Population 1", "Population 2", "Population 1 Intersection 2", "Overall population"),
-  IA1 = c(100, 110, 80, 225), # First Interim Analysis values indicating the number of events observed in each group
-  IA2 = c(120, 130, 90, 240), # Second Interim Analysis values indicating the number of events observed in each group
+  Population = c("Population 1", "Population 2", "Population 1 Intersection 2",
+                 "Overall population"),
+   # First Interim Analysis values indicating the number of events observed in each group
+  IA1 = c(100, 110, 80, 225),
+   # Second Interim Analysis values indicating the number of events observed in each group
+  IA2 = c(120, 130, 90, 240),
   FA = c(200, 220, 160, 450)
 )
 

@@ -54,7 +54,8 @@ A dataframe with columns:
 #------------------------Example of IA and FA
 event <- data.frame(
   Population = c("Experimental 1", "Experimental 2", "Experimental 3", "Control"),
-  IA = c(70, 75, 80, 85), # Interim Analysis values indicating the number of events observed in each group
+  # Interim Analysis values indicating the number of events observed in each group
+  IA = c(70, 75, 80, 85), 
   FA = c(135, 150, 165, 170)
 )
 
@@ -84,8 +85,10 @@ generate_event_table_cc(event, hypothesis)
 #----------------------Example of two IAs and FA
 event <- data.frame(
   Population = c("Experimental 1", "Experimental 2", "Experimental 3", "Control"),
-  IA1 = c(70, 75, 80, 85), # First Interim Analysis values indicating the number of events observed in each group
-  IA2 = c(90, 95, 100, 105), # Second Interim Analysis values indicating the number of events observed in each group
+  # First Interim Analysis values indicating the number of events observed in each group
+  IA1 = c(70, 75, 80, 85), 
+  # Second Interim Analysis values indicating the number of events observed in each group
+  IA2 = c(90, 95, 100, 105),
   FA = c(135, 150, 165, 170)
 )
 

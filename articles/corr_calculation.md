@@ -1,4 +1,4 @@
-# Correlated test statistics for
+# Correlated test statistics
 
 The weighted parametric group sequential design (WPGSD) (Anderson et al.
 (2022)) approach allows one to take advantage of the known correlation

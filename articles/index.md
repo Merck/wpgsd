@@ -8,8 +8,8 @@
   Demonstrates the calculation of adjusted sequential p-values for
   multiple populations in group sequential trials with interim analyses
 
-- [Correlated test statistics
-  for](https://merck.github.io/wpgsd/articles/corr_calculation.md) :
+- [Correlated test
+  statistics](https://merck.github.io/wpgsd/articles/corr_calculation.md):
 
 - [Dunnett-type dose-finding with group sequential
   design](https://merck.github.io/wpgsd/articles/dunnett_dose.md):
