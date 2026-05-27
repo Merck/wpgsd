@@ -44,29 +44,32 @@ It can handle two types of analysis: one comparing experimental groups to a comm
 # ----------------------- Example of common control
 event <- data.frame(
   Population = c("Experimental 1", "Experimental 2", "Experimental 3", "Control"),
-  IA = c(70, 75, 80, 85), # Interim analysis values indicating the number of events observed in each experimental group.
-  FA = c(135, 150, 165, 170) # Final analysis values indicating the cumulative number of events observed in each group.
+  # Interim analysis values indicating the number of events observed in each experimental group.
+  IA = c(70, 75, 80, 85),
+  # Final analysis values indicating the cumulative number of events observed in each group.
+  FA = c(135, 150, 165, 170)
 )
 
 hypothesis <- list(
-  H1 = "Experimental 1 vs. Control", # Hypothesis comparing Experimental 1 with Control.
-  H2 = "Experimental 2 vs. Control", # Hypothesis comparing Experimental 2 with Control.
-  H3 = "Experimental 1 vs. Experimental 2" # Hypothesis comparing Experimental 1 and Experimental 2.
+  H1 = "Experimental 1 vs. Control",
+  H2 = "Experimental 2 vs. Control",
+  H3 = "Experimental 1 vs. Experimental 2"
 )
 
 generate_event_table_(event, hypothesis, type = "common_control")
 
 # ------------------------ Example of overall population
 event <- data.frame(
-  Population = c("Population 1", "Population 2", "Population 1 Intersection 2", "Overall population"),
+  Population = c("Population 1", "Population 2", "Population 1 Intersection 2",
+                 "Overall population"),
   IA = c(100, 110, 80, 225), # Interim analysis values for the overall population.
   FA = c(200, 220, 160, 450) # Final analysis values for the overall population.
 )
 
 hypothesis <- list(
-  H1 = "Efficacy in Population 1", # Hypothesis assessing efficacy in Population 1.
-  H2 = "Efficacy in Population 2", # Hypothesis assessing efficacy in Population 2.
-  H3 = "Efficacy in Overall population" # Hypothesis assessing efficacy in the overall population.
+  H1 = "Efficacy in Population 1",
+  H2 = "Efficacy in Population 2",
+  H3 = "Efficacy in Overall population"
 )
 
 generate_event_table_(event, hypothesis, type = "overlap_population")

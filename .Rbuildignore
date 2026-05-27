@@ -10,3 +10,5 @@
 ^CITATION\.cff$
 ^doc$
 ^Meta$
+^examples$
+^inst/aiprompts$
